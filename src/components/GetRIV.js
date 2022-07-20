@@ -1,6 +1,6 @@
 // src/components/GetRIV.js
 
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 import styled from 'styled-components';
@@ -25,20 +25,46 @@ function clickMe(){
   alert('You clicked me!');
 }
 
+const ButtonToggle = styled(Button)`
+ opacity: 0.7;
+ ${({active}) => active &&`
+   opacity: 1
+`}
+`
+
+const types = ['Helsinki','Oulu','Rauma', 'Saimaa','Turku'];
+
+function ToggleGroup(){
+  const [active, setActive] = useState(types[0]);
+  return <div>
+    {types.map(type => (
+      <ButtonToggle
+        active = {active ===type}
+        onClick={() => setActive(type)}
+        >{type}
+        </ButtonToggle>
+    ))}
+  </div>
+}
+
 function ButtonClick() {
   return(
     <>
     <div>
       <Button onClick={clickMe}>
-        Button 
+        Helsinki 
       </Button>
      </div> 
 
      <div>
      <Button onClick={clickMe}>
-       Button 
+       Oulu 
      </Button>
     </div> 
+      <a href= "https://react.school" target ="_blank">
+        <Button>Link</Button>
+      </a>
+      <ToggleGroup/>
     </>
   );
 }
