@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+
+import GetRIV from "./components/GetRIV";
+import "./App.css";
+
+//import PostInput from "./components/PostInput";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src="/logo.svg" className="App-logo" alt="logo" />
+        <h1>RIV</h1>
       </header>
+      <GetRIV />
     </div>
   );
 }
