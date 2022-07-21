@@ -42,6 +42,7 @@ const fetchRiskValue = async (input_fairway) => {
   defaultInputValues.fairway = input_fairway;
   console.log('You clicked me!' + JSON.stringify(defaultInputValues));
   const response = await api.post(path, defaultInputValues);
+  console.log(response.data)
 
 }
 
