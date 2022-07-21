@@ -1,5 +1,6 @@
 // src/App.js
 
+import InputUser from "./components/InputUser";
 import GetRIV from "./components/GetRIV";
 import "./App.css";
 
@@ -12,6 +13,7 @@ function App() {
         <img src="/logo.svg" className="App-logo" alt="logo" />
         <h1>RIV</h1>
       </header>
+      <InputUser />
       <GetRIV />
     </div>
   );
