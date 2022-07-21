@@ -1,13 +1,13 @@
 // src/components/GetRIV.js
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 import styled from 'styled-components';
 
 const Button = styled.button`
    background-color: #ffe082;
-   color: white; 
+   color: white;
    padding: 5px 15px;
    border-radius: 5px;
    outline: 0;
@@ -19,9 +19,9 @@ const Button = styled.button`
    & hover {
     background-color: white;
    }
-   `  
+   `
 
-function clickMe(){
+const clickMe = () => {
   alert('You clicked me!');
 }
 
@@ -34,7 +34,7 @@ const ButtonToggle = styled(Button)`
 
 const types = ['Helsinki','Oulu','Rauma', 'Saimaa','Turku'];
 
-function ToggleGroup(){
+const ToggleGroup = () => {
   const [active, setActive] = useState(types[0]);
   return <div>
     {types.map(type => (
@@ -47,20 +47,20 @@ function ToggleGroup(){
   </div>
 }
 
-function ButtonClick() {
+const ButtonClick = () => {
   return(
     <>
     <div>
       <Button onClick={clickMe}>
-        Helsinki 
+        Helsinki
       </Button>
-     </div> 
+     </div>
 
      <div>
      <Button onClick={clickMe}>
-       Oulu 
+       Oulu
      </Button>
-    </div> 
+    </div>
       <a href= "https://react.school" target ="_blank">
         <Button>Link</Button>
       </a>
@@ -70,30 +70,30 @@ function ButtonClick() {
 }
 
 const client = axios.create({
-    //baseURL: "https://jsonplaceholder.typicode.com/posts" 
+    //baseURL: "https://jsonplaceholder.typicode.com/posts"
     baseURL: "http://127.0.0.1:8000/fairway/helsinki"
-  
+
   });
 
-  const App = () => {
-    const [posts, setPosts] = React.useState([]);
- 
+  const GetRIV = () => {
+    const [posts, setPosts] = useState([]);
+
     //React.useEffect(() => {
       // client.get().then((response) => {
          // setPosts(response.data);
        //});
     //}, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchPost = async () => {
            let response = await client.get();
            setPosts(response.data.helsinki_west.sites);
            console.log(response.data)
         };
         fetchPost();
-    }, []);   
-  
- 
+    }, []);
+
+
     return (
         <ul className="posts">
         <ButtonClick/>
@@ -108,6 +108,6 @@ const client = axios.create({
         </ul>
       );
  };
- 
- export default App;
+
+ export default GetRIV;
 
