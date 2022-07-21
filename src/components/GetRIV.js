@@ -21,8 +21,28 @@ const Button = styled.button`
    }
    `
 
-const clickMe = () => {
-  alert('You clicked me!');
+const defaultInputValues = {
+  "boat": {
+    "speed": 10,
+    "beam": 30,
+    "draft": 10,
+    "length": 210,
+    "manoeuvrability": 1
+  },
+  "fairway": ""
+}
+
+const api = axios.create({
+  baseURL: "http://127.0.0.1:8000/" //bäkkärin osote
+});
+
+//Kutsuu calculate_risk endpointtia parametreillä
+const fetchRiskValue = async (input_fairway) => {
+  const path = 'fairway/calculate_risk'
+  defaultInputValues.fairway = input_fairway;
+  console.log('You clicked me!' + JSON.stringify(defaultInputValues));
+  const response = await api.post(path, defaultInputValues);
+
 }
 
 const ButtonToggle = styled(Button)`
@@ -32,82 +52,39 @@ const ButtonToggle = styled(Button)`
 `}
 `
 
-const types = ['Helsinki','Oulu','Rauma', 'Saimaa','Turku'];
+const fairwayList = ['Helsinki','Oulu','Rauma', 'Saimaa','Turku'];
 
 const ToggleGroup = () => {
-  const [active, setActive] = useState(types[0]);
+  const [active, setActive] = useState(fairwayList[0]);
   return <div>
-    {types.map(type => (
+    {fairwayList.map(fairway => (
       <ButtonToggle
-        active = {active ===type}
-        onClick={() => setActive(type)}
-        >{type}
+        active = {active ===fairway}
+        onClick={() => fetchRiskValue(fairway)}
+        >{fairway}
         </ButtonToggle>
     ))}
   </div>
 }
 
-const ButtonClick = () => {
-  return(
-    <>
-    <div>
-      <Button onClick={clickMe}>
-        Helsinki
-      </Button>
-     </div>
+const GetRIV = () => {
 
-     <div>
-     <Button onClick={clickMe}>
-       Oulu
-     </Button>
-    </div>
-      <a href= "https://react.school" target ="_blank">
-        <Button>Link</Button>
-      </a>
+  const [posts, setPosts] = useState([]);
+
+  return (
+    <ul className="posts">
       <ToggleGroup/>
-    </>
-  );
-}
+        {posts.map((post) => (
+          <li className="post" key={post.id}>
+            <h4>{post.id}</h4>
+            <p>Number of lanes: {post.number_of_lanes}</p>
+            <p>Aids to navigation: {post.aids_to_navigation}</p>
+            <p>Bottom surface: {post.bottom_surface}</p>
+          </li>
+        ))}
+      </ul>
+    );
+};
 
-const client = axios.create({
-    //baseURL: "https://jsonplaceholder.typicode.com/posts"
-    baseURL: "http://127.0.0.1:8000/fairway/helsinki"
-
-  });
-
-  const GetRIV = () => {
-    const [posts, setPosts] = useState([]);
-
-    //React.useEffect(() => {
-      // client.get().then((response) => {
-         // setPosts(response.data);
-       //});
-    //}, []);
-
-    useEffect(() => {
-        const fetchPost = async () => {
-           let response = await client.get();
-           setPosts(response.data.helsinki_west.sites);
-           console.log(response.data)
-        };
-        fetchPost();
-    }, []);
-
-
-    return (
-        <ul className="posts">
-        <ButtonClick/>
-          {posts.map((post) => (
-            <li className="post" key={post.id}>
-              <h4>{post.id}</h4>
-              <p>Number of lanes: {post.number_of_lanes}</p>
-              <p>Aids to navigation: {post.aids_to_navigation}</p>
-              <p>Bottom surface: {post.bottom_surface}</p>
-            </li>
-          ))}
-        </ul>
-      );
- };
-
- export default GetRIV;
+export default GetRIV;
 
