@@ -4,7 +4,6 @@ import InputUser from "./components/InputUser";
 import GetRIV from "./components/GetRIV";
 import "./App.css";
 
-//import PostInput from "./components/PostInput";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <img src="/logo.svg" className="App-logo" alt="logo" />
         <h1>RIV</h1>
       </header>
-      <InputUser />
+      <InputUser/>
       <GetRIV />
     </div>
   );

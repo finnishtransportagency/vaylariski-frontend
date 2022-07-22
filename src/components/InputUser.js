@@ -15,32 +15,32 @@ return (
     </div>
     <div>
     <label>
-      Manoeuvrability:
-      <input {...register("Manoeuvrability")} />
-    </label>
-    </div>
-    <div>
-    <label>
       Speed:
-      <input {...register("Boat Speed")} />
-    </label>
-    </div>
-    <div>
-    <label>
-      Length:
-      <input {...register("Boat Length")} />
+      <input {...register("boat: speed")} />
     </label>
     </div>
     <div>
     <label>
       Beam:
-      <input {...register("Boat Beam")} />
+      <input {...register("boat: beam")} />
     </label>
     </div>
     <div>
     <label>
       Draft:
-      <input {...register("Boat Draft")} />
+      <input {...register("boat: draft")} />
+    </label>
+    </div>
+    <div>
+    <label>
+      Length:
+      <input {...register("boat: length")} />
+    </label>
+    </div>
+    <div>
+    <label>
+    Manoeuvrability:
+      <input {...register("boat: manoeuvrability")} />
     </label>
     </div>
     </>
@@ -52,3 +52,4 @@ return (
 }
 
 export default InputUser;
+
