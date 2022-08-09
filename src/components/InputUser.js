@@ -1,54 +1,66 @@
 import {useForm} from "react-hook-form";
 
 function InputUser() {
- const {register, handleSubmit} =useForm();
- const onSubmit = (d) =>
-  alert(JSON.stringify(d));
+  const {
+    register, 
+    handleSubmit,
+    formState: { isSubmitting, isDirty, isValid }
+  } =useForm();
+  const onSubmit = (data) => console.log(JSON.stringify(data));
 
-return (
- <form onSubmit={handleSubmit(onSubmit)}>
-      <>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <p>Enter boat parameters:</p>
       <div>
-    <label>
-     Enter boat parameters:
-    </label>
-    </div>
-    <div>
-    <label>
-      Speed:
-      <input {...register("boat: speed")} />
-    </label>
-    </div>
-    <div>
-    <label>
-      Beam:
-      <input {...register("boat: beam")} />
-    </label>
-    </div>
-    <div>
-    <label>
-      Draft:
-      <input {...register("boat: draft")} />
-    </label>
-    </div>
-    <div>
-    <label>
-      Length:
-      <input {...register("boat: length")} />
-    </label>
-    </div>
-    <div>
-    <label>
-    Manoeuvrability:
-      <input {...register("boat: manoeuvrability")} />
-    </label>
-    </div>
-    </>
+        <label>
+        Speed (knots): 
+          <input {...register("boat.speed")}
+          type="text"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+        Beam (m):
+          <input {...register("boat.beam")} 
+          type="text"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+        Draft (m):
+          <input {...register("boat.draft")} 
+          type="text"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Length (m):
+          <input {...register("boat.length")} 
+          type="text"
+          />
+        </label>
+      </div>
 
-    <input type="submit" value="submit" />
-  </form>
-
-);
+      <div>
+      Manoeuvrability:
+      <select{...register("boat.manoeuvrability")}>
+          <option defaultValue="good">good</option>
+          <option value="moderate">moderate</option>
+          <option value="poor">poor</option>
+      </select>
+      </div>
+    
+      <button 
+      type="submit"
+      disabled={!isDirty && !isValid}
+      onClick={handleSubmit}
+      >Submit
+      </button>
+    </form>
+  );
 }
 
 export default InputUser;
