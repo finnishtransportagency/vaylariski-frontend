@@ -4,7 +4,7 @@ import { getDefaultNormalizer } from "@testing-library/react";
 import { useState } from "react";
 
 
-function InputUser2() {
+function CalculateRIV() {
   
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/" 
@@ -93,5 +93,5 @@ function InputUser2() {
   );
 }
 
-export default InputUser2;
+export default CalculateRIV;
 

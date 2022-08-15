@@ -2,7 +2,7 @@
 
 import InputUser from "./components/InputUser";
 import GetRIV from "./components/GetRIV";
-import InputUser2 from "./components/CalculateRIV";
+import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
 
 
@@ -14,7 +14,7 @@ function App() {
         <img src="/vayla_logo.png" className="App-logo" alt="logo" />
         <h1>RIV</h1>
       </header>
-      <InputUser2/>
+      <CalculateRIV/>
     </div>
   );
 }
