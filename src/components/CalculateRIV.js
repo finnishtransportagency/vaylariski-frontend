@@ -24,6 +24,7 @@ function CalculateRIV() {
     setRIVResults(response.data.RIV)
   }
 
+  // For debugging, print state to console
   useEffect(() => {
     console.log(RIVResults);
   }, [RIVResults]);
