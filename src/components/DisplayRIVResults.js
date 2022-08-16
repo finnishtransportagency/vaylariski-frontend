@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
+  { field: 'id', headerName: 'id', width: 90},
   { field: 'Site', headerName: 'Site', width: 90 },
   {
     field: 'RIV_1',
@@ -54,6 +55,13 @@ const columns = [
     width: 90,
     editable: false,
   },
+  {
+    field: 'Speed',
+    headerName: 'Speed',
+    type: 'number',
+    width: 90,
+    editable: true
+  }
 ];
 
 
@@ -67,7 +75,6 @@ function DisplayRIVResults(props) {
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
-        getRowId={(row) => row.Site}
       />
     </Box>
   );

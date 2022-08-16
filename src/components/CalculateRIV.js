@@ -7,7 +7,7 @@ import DisplayRIVResults from "./DisplayRIVResults";
 
 function CalculateRIV() {
   //Kysyy input arvot käyttäjältä
-  const {register,handleSubmit,formState:{errors}} =useForm();
+  const {register,handleSubmit,formState:{errors}} = useForm();
   const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
   const [RIVResults, setRIVResults] = useState([]);
 
