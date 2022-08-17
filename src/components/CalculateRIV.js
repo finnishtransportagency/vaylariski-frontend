@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import axios from "axios";
+import apiClient from "../http-common";
 import { getDefaultNormalizer } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import DisplayRIVResults from "./DisplayRIVResults";
@@ -11,15 +11,12 @@ function CalculateRIV() {
   const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
   const [RIVResults, setRIVResults] = useState([]);
 
-  const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/"
-  });
 
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async (data) => {
     const path = 'fairway/calculate_risk'
     console.log('You clicked me!' + JSON.stringify(data));
-    const response = await api.post(path, data);
+    const response = await apiClient.post(path, data);
     console.log(response.data);
     setRIVResults(response.data.RIV)
   }
