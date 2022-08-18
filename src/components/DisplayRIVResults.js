@@ -22,16 +22,22 @@ function DisplayRIVResults() {
   const preProcessEditCellProps = async (params) => {
     const path = 'fairway/calculate_risk'
     const hasError = params.props.value < 0 ? true : false;
-    const site_parameters = {'site_speed': params.props.value, 'site_id': params.id }
+    const site_parameters = [{'site_speed': params.props.value, 'site_id': params.id }]
     const request = {
       'boat': boat,
       'site_parameters': site_parameters,
       'fairway': fairway
     }
     console.log(params, request);
-    const response = await apiClient.post(path, data);
-    console.log(response.data);
-    setRIVResults([...RIVResults, response.data])
+    const response = await apiClient.post(path, request);
+    const newIds = response.data.RIV.map(item => item.id);
+    console.log(newIds);
+    let newRIVResults = [...RIVResults];
+    const arr = RIVResults.filter(item => newIds.indexOf(item.id) !== -1 );
+    newRIVResults[newIds] = arr;
+
+    console.log(arr);
+    setRIVResults(newRIVResults);
     return { ...params.props, error: hasError };
   };
 
