@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 
 import DisplayRIVResults from "./DisplayRIVResults";
 import BoatContext from "./Boat";
+import RIVResultContext from './RIVResult';
 import UserInputForm from "./UserInputForm";
 
 const boatDefault = {
@@ -23,8 +24,10 @@ function CalculateRIV() {
 
   return (
     <BoatContext.Provider value={{ boat, setBoat }}>
-      <UserInputForm />
-      <DisplayRIVResults rows={RIVResults}  />
+      <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
+        <UserInputForm />
+        <DisplayRIVResults />
+      </RIVResultContext.Provider>
     </BoatContext.Provider>
     );
   }

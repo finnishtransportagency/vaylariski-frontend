@@ -1,8 +1,12 @@
 
 import * as React from 'react';
+import { useContext } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import apiClient from "../http-common";
+
+import RIVResultContext from "./RIVResult";
+
 
 const columns = [
   { field: 'id', headerName: 'id', width: 90},
@@ -82,11 +86,14 @@ const handleEvent = (
   console.log(params, event);
 }
 
-function DisplayRIVResults(props) {
+function DisplayRIVResults() {
+  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={props.rows}
+        rows={RIVResults}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

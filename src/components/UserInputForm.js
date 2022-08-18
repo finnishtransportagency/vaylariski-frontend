@@ -3,13 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import apiClient from "../http-common";
 
 import BoatContext from "./Boat";
+import RIVResultContext from "./RIVResult";
 
 
 function UserInputForm() {
   const {register, handleSubmit, formState:{errors}} = useForm();
   const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
   const { boat, setBoat } = useContext(BoatContext)
-  const [RIVResults, setRIVResults] = useState([]);
+  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
 
 
   //Kutsuu calculate_risk endpointtia parametreillä
