@@ -4,6 +4,7 @@ import apiClient from "../http-common";
 
 import BoatContext from "./Boat";
 import RIVResultContext from "./RIVResult";
+import FairwayContext from "./Fairway";
 
 
 function UserInputForm() {
@@ -11,6 +12,7 @@ function UserInputForm() {
   const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
   const { boat, setBoat } = useContext(BoatContext)
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const { fairway, setFairway } = useContext(FairwayContext);
 
 
   //Kutsuu calculate_risk endpointtia parametreillä
@@ -31,12 +33,20 @@ function UserInputForm() {
     console.log(boat);
   }, [boat]);
 
+  const handleManoeuvrabilityChange = (event) => {
+    setBoat({...boat, manoeuvrability: event.target.value})
+  };
+
+  const handleFairwayChange = (ev) => {
+    setFairway(ev.target.value);
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <p>Enter fairway</p>
       <div>
         <label>Fairway: </label>
-        <select{...register("fairway")}>
+        <select{...register("fairway")} onChange={handleFairwayChange}>
           <option defaultValue="Helsinki">Helsinki</option>
           <option value="Oulu">Oulu</option>
           <option value="Rauma">Rauma</option>
@@ -88,7 +98,7 @@ function UserInputForm() {
 
       <div>
       <label>Manoeuvrability: </label>
-      <select{...register("boat.manoeuvrability")}>
+      <select{...register("boat.manoeuvrability")} onChange={handleManoeuvrabilityChange}>
           <option defaultValue="good">good</option>
           <option value="moderate">moderate</option>
           <option value="poor">poor</option>
