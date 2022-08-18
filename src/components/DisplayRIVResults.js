@@ -1,7 +1,8 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import apiClient from "../http-common";
 
 const columns = [
   { field: 'id', headerName: 'id', width: 90},
@@ -60,10 +61,26 @@ const columns = [
     headerName: 'Speed',
     type: 'number',
     width: 90,
-    editable: true
+    editable: true,
+    preProcessEditCellProps : async (params) => {
+      const path = 'fairway/calculate_risk'
+      const hasError = params.props.value < 0 ? true : false;
+      console.log(params);
+      const data = params.row
+
+//      const response = await apiClient.post(path, data)
+      return { ...params.props, error: hasError };
+    }
   }
 ];
 
+const handleEvent = (
+  params,  // GridCellEditStopParams
+  event,   // MuiEvent<MuiBaseEvent>
+  details, // GridCallbackDetails
+) => {
+  console.log(params, event);
+}
 
 function DisplayRIVResults(props) {
   return (
@@ -75,6 +92,7 @@ function DisplayRIVResults(props) {
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
+        onCellEditCommit={handleEvent}
       />
     </Box>
   );
