@@ -30,13 +30,16 @@ function DisplayRIVResults() {
     }
     console.log(params, request);
     const response = await apiClient.post(path, request);
-    const newIds = response.data.RIV.map(item => item.id);
-    console.log(newIds);
-    let newRIVResults = [...RIVResults];
-    const arr = RIVResults.filter(item => newIds.indexOf(item.id) !== -1 );
-    newRIVResults[newIds] = arr;
+    const newRIVResultResponse = response.data.RIV;
+    console.log("newRIVResultResponse",newRIVResultResponse);
+    let oldRIVResults = [...RIVResults];
 
-    console.log(arr);
+    const newRIVResults = oldRIVResults.map(x => {
+      const item = newRIVResultResponse.find(({ id }) => id === x.id);
+      return item ? item : x;
+    });
+
+    console.log(newRIVResults);
     setRIVResults(newRIVResults);
     return { ...params.props, error: hasError };
   };
