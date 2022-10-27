@@ -2,9 +2,9 @@ import {useForm} from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "../http-common";
 
-import BoatContext from "./Boat";
-import RIVResultContext from "./RIVResult";
-import FairwayContext from "./Fairway";
+import BoatContext from "../contexts/Boat";
+import RIVResultContext from "../contexts/RIVResult";
+import FairwayContext from "../contexts/Fairway";
 
 
 function UserInputForm() {
@@ -17,9 +17,60 @@ function UserInputForm() {
 
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async (data) => {
+    const data1 = {
+        "boat": {
+          "length": 210,
+          "speed": 10,
+          "beam": 30,
+          "draft": 10,
+          "manoeuvrability": "good"
+        },
+        "navilinja": {
+          "VAYLAT": 100,
+          "navilinja": [
+            {
+              "coordinates": [
+                "string"
+              ],
+              "width": 10
+            }
+          ],
+          "calculation_params": {
+            "operating_conditions": {
+              "wind_speed": 17,
+              "cross_current_speed": "negligible",
+              "longitudinal_current_speed": "negligible",
+              "wave_height": "low"
+            },
+            "other": {
+              "traffic_volume": "low",
+              "traffic_complexity": "low",
+              "visibility": 1852,
+              "light_pollution": "negligible"
+            },
+            "type": "inner",
+            "number_of_lanes": 1,
+            "bottom_surface": "rough_and_hard",
+            "channel_edge": "gentle_slope",
+            "aids_to_navigation": "excellent",
+            "bend_radius": "inf",
+            "bend_angle": 0,
+            "distance_between_bends": "inf"
+          }
+        },
+        "weightfactors": {
+          "WF_channel": 4,
+          "WF_bend": 4,
+          "WF_s_bend": 4,
+          "WF_traffic_complexity": 4,
+          "WF_reduced_visibility": 3,
+          "WF_light_pollution": 2
+        }
+      }
+
     const path = 'fairway/calculate_risk'
     console.log('You clicked me!' + JSON.stringify(data));
-    const response = await apiClient.post(path, data);
+    const response = await apiClient.post(path, data1);
     console.log(response.data);
     setRIVResults(response.data.RIV)
   }

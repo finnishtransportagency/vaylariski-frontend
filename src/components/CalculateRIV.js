@@ -3,10 +3,10 @@ import { getDefaultNormalizer } from "@testing-library/react";
 import { useEffect, useState, useContext } from "react";
 
 import DisplayRIVResults from "./DisplayRIVResults";
-import BoatContext from "./Boat";
-import RIVResultContext from './RIVResult';
+import BoatContext from "../contexts/Boat";
+import RIVResultContext from '../contexts/RIVResult';
 import UserInputForm from "./UserInputForm";
-import FairwayContext from './Fairway';
+import FairwayContext from '../contexts/Fairway';
 
 const boatDefault = {
     speed: '',

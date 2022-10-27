@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import apiClient from "../http-common";
 
-import RIVResultContext from "./RIVResult";
-import BoatContext from './Boat';
-import FairwayContext from './Fairway';
+import RIVResultContext from "../contexts/RIVResult";
+import BoatContext from '../contexts/Boat';
+import FairwayContext from '../contexts/Fairway';
 
 
 function reducer(state, item) {
