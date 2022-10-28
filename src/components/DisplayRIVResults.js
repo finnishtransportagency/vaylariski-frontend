@@ -48,6 +48,13 @@ function DisplayRIVResults() {
     { field: 'id', headerName: 'id', width: 70},
     { field: 'Site', headerName: 'Site', width: 70 },
     {
+      field: 'RIV_SUM',
+      headerName: 'RIV Sum',
+      type: 'number',
+      width: 150,
+      editable: false,
+    },
+    {
       field: 'RIV_1',
       headerName: 'RIV Channel',
       type: 'number',
@@ -89,13 +96,7 @@ function DisplayRIVResults() {
       width: 150,
       editable: false,
     },
-    {
-      field: 'RIV_SUM',
-      headerName: 'RIV Sum',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
+    
     {
       field: 'Speed',
       headerName: 'Speed',
