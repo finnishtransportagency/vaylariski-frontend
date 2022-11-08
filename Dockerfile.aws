@@ -1,15 +1,14 @@
 FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:12-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/app/
+WORKDIR /usr/src/app/
 
-COPY package.json /usr/src/app
-COPY package-lock.json /usr/src/app
+COPY package*.json ./
 
-RUN npm install --silent
-RUN npm install react-scripts --silent
+RUN npm install
 
-COPY . /usr/src/app
+# Bundle app source
+COPY . .
 
-CMD ["npm", "run", "start"]
 EXPOSE 3000
+CMD [ "npm", "start" ]
