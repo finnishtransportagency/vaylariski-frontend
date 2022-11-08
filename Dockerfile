@@ -1,14 +1,14 @@
-FROM node:16-alpine as BUILD_FRONTEND
+FROM node:16-alpine
 
-RUN mkdir -p /usr/app/
-WORKDIR /usr/src/app/
+WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
-
-# Bundle app source
 COPY . .
+ENV GENERATE_SOURCEMAP=false
+#install packages
+RUN npm ci
+#build the app
+RUN npm run build
+
 
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "serve", "-s", "build" ]
