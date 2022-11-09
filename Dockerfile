@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 ENV GENERATE_SOURCEMAP=false
 #install packages
-RUN npm ci
+RUN npm i
 #build the app
 RUN npm run build
 
