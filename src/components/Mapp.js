@@ -7,11 +7,11 @@ function Mapp(){
     return (
         <Plot
           data={[{
-                      lat: 38, 
-                      lon: -90,
+                      lat: [38], 
+                      lon: [-90],
                       type: 'scattermapbox',
                       mode: 'markers',
-                      marker: {color: 'red', size:10}
+                      marker: {color: 'red', size:5}
                     }
                   ]}
           layout={{ 
@@ -22,7 +22,7 @@ function Mapp(){
                   mapbox: { 
                     style: "stamen-terrain",
                     center: { lat: 38, lon: -90 }, 
-                    zoom: 10 }
+                    zoom: 7 }
               } }
         />
       );
