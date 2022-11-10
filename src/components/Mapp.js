@@ -32,7 +32,7 @@ export default Mapp;
 
 
 
-// function Mapp(){
+// // function Mapp(){
 
 //     var data=[{
 //           lat: 38,
@@ -57,8 +57,10 @@ export default Mapp;
 //       Plotly.newPlot(data,layout)
 //     );
 
-// }
+// //     Plotly.newPlot("myMapp",data,layout);
 
-// export default Mapp;
+// // }
+
+// // export default Mapp;
 
 
