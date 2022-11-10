@@ -10,7 +10,7 @@ function Mapp(){
                       lon: [-90],
                       type: 'scattermapbox',
                       mode: 'markers',
-                      marker: {color: 'red', size:10}
+                      marker: {color: 'red', size:5}
                     }
                   ]}
           layout={{

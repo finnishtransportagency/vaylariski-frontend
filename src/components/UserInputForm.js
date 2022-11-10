@@ -5,6 +5,7 @@ import apiClient from "../http-common";
 import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
+import UserInputContext from "../contexts/UserInput";
 
 
 function UserInputForm() {
@@ -13,7 +14,7 @@ function UserInputForm() {
   const { boat, setBoat } = useContext(BoatContext)
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const { fairway, setFairway } = useContext(FairwayContext);
-
+  const { userInput, setUserInput } = useContext(UserInputContext);
 
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async (data) => {
@@ -34,6 +35,10 @@ function UserInputForm() {
   //   console.log(boat);
   // }, [boat]);
 
+  useEffect(() => {
+    console.log(userInput);
+  }, [userInput]);
+
   const handleManoeuvrabilityChange = (event) => {
     // setUserInput({...userInput, [manoeuvrability: event.target.value})
   };
@@ -47,18 +52,12 @@ function UserInputForm() {
       <p>Enter boat parameters</p>
       <div>
         <label>Speed (knots):
-          <input {...register("boat.speed", {valueAsNumber: true})}
+          <input {...register("userInput.boat.speed", {valueAsNumber: true})}
           type="number"
           required
           // value={boat.speed} onChange={(ev) => setBoat({...boat, speed: ev.target.value})}
           value={userInput.boat.speed}
-          onChange={(ev) => setUserInput({...userInput,
-                                            boat: {
-                                              ...userInput.boat,
-                                              speed: ev.target.value
-                                            }
-                                        }
-                                        )}
+          onChange={(ev) => setUserInput({...userInput.boat.speed, speed: ev.target.value})}
           />
         </label>
       </div>
@@ -67,7 +66,6 @@ function UserInputForm() {
           <input {...register("userInput.boat.length", {valueAsNumber: true})}
           type="number"
           required
-          value={userInput.boat.length}
           // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, length: ev.target.value})}
           />
         </label>
@@ -77,7 +75,6 @@ function UserInputForm() {
           <input {...register("userInput.boat.beam", {valueAsNumber: true})}
           type="number"
           required
-          value={userInput.boat.beam}
           // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, beam: ev.target.value})}
           />
         </label>
@@ -87,7 +84,6 @@ function UserInputForm() {
           <input {...register("userInput.boat.draft", {valueAsNumber: true})}
           type="number"
           required
-          value={userInput.boat.draft}
           // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, draft: ev.target.value})}
           />
         </label>
@@ -112,7 +108,7 @@ function UserInputForm() {
           placeholder="VAYLAT"
           type="number"
           required
-          // value={navilinja.VAYLAT} onChange={(ev) => setFairway({...fairway.navilinja, VAYLAT: ev.target.value})}
+          // value={navilinja.VAYLAT} onChange={(ev) => setUserInput({...navilinja, VAYLAT: ev.target.value})}
           />
         </label>
       </div>
@@ -152,24 +148,6 @@ function UserInputForm() {
             <option defaultValue="excellent">excellent</option>
             <option value="good">good</option>
             <option value="moderate">moderate</option>
-        </select>
-      </div>
-      <div>
-        <label>Bend radius: </label>
-        <select{...register("calculation_params.bend_radius")}>
-            <option defaultValue="inf">inf</option>
-        </select>
-      </div>
-      <div>
-        <label>Bend angle: </label>
-        <select{...register("calculation_params.bend_angle")}>
-            <option defaultValue={0}>0</option>
-        </select>
-      </div>
-      <div>
-        <label>Distance between bends: </label>
-        <select{...register("calculation_params.distance_between_bends")}>
-            <option defaultValue="inf">inf</option>
         </select>
       </div>
 
@@ -293,7 +271,7 @@ function UserInputForm() {
       <div>
         <label>
           WF reduced visibility:
-          <input {...register("wight_factors.WF_reduced_visibility", {valueAsNumber: true})}
+          <input {...register("weightfactors.WF_reduced_visibility", {valueAsNumber: true})}
           type="number"
           defaultValue={3}
           required
