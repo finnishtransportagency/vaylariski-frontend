@@ -1,8 +1,6 @@
-// src/App.js
-
 import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
-// import Mapp from "./components/Mapp"
+import Mapp from "./components/Mapp"
 
 function App() {
   return (
@@ -12,7 +10,7 @@ function App() {
           <h1>RIV</h1>
         </header>
         <CalculateRIV/>
-        {/* <Mapp /> */}
+        <Mapp />
         <div id='myMapp'></div>
       </div>
   );
