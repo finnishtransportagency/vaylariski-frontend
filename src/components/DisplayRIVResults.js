@@ -1,17 +1,9 @@
 
-import { useContext, createContext, useReducer } from 'react';
+import { useContext } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import apiClient from "../http-common";
 
 import RIVResultContext from "../contexts/RIVResult";
-import BoatContext from '../contexts/Boat';
-import FairwayContext from '../contexts/Fairway';
-
-
-function reducer(state, item) {
-  return [...state, item]
-};
 
 function DisplayRIVResults() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
