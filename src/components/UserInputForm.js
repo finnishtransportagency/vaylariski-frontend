@@ -19,35 +19,18 @@ function UserInputForm() {
   const { userInput, setUserInput } = useContext(UserInputContext);
 
   //Kutsuu calculate_risk endpointtia parametreillä
-  const fetchRiskValue = async (data) => {
-
+  const fetchRiskValue = async () => {
     const path = 'fairway/calculate_risk'
-    console.log('You clicked me!' + JSON.stringify(data));
-    const response = await apiClient.post(path, data);
+    console.log('You clicked me!' + JSON.stringify(userInput));
+    const response = await apiClient.post(path, userInput);
     console.log(response.data);
-    setRIVResults(response.data.RIV)
+    setRIVResults(response.data)
   }
-
-  // For debugging, print state to console
-  // useEffect(() => {
-  //   console.log(RIVResults);
-  // }, [RIVResults]);
-
-  // useEffect(() => {
-  //   console.log(boat);
-  // }, [boat]);
 
   useEffect(() => {
     console.log(userInput);
   }, [userInput]);
 
-  const handleManoeuvrabilityChange = (event) => {
-    // setUserInput({...userInput, [manoeuvrability: event.target.value})
-  };
-
-  const handleFairwayChange = (ev) => {
-    setFairway(ev.target.value);
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
