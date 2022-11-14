@@ -1,7 +1,7 @@
 
 import { useContext, createContext, useReducer } from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import apiClient from "../http-common";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -65,7 +65,7 @@ function DisplayRIVResults() {
     {field: 'linestring_index'},
     {field: 'longitudinal_current_category'},
     {field: 'number_of_lanes'},
-    {field: 'point_index', index: true},
+    {field: 'point_index'},
     {field: 'vessel_speed_category'},
     {field: 'visibility'},
     {field: 'wave_height_category'},
@@ -79,11 +79,12 @@ function DisplayRIVResults() {
       <DataGrid
         rows={RIVResults}
         columns={columns}
-        pageSize={5}
+        pageSize={10}
         getRowId={(row) => row.point_index}
-        rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[10]}
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
+        components={{Toolbar: GridToolbar}}
       />
     </Box>
   );
