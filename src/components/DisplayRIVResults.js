@@ -1,130 +1,79 @@
 
-import { useContext, createContext, useReducer } from 'react';
+import { useContext } from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import apiClient from "../http-common";
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import RIVResultContext from "../contexts/RIVResult";
-import BoatContext from '../contexts/Boat';
-import FairwayContext from '../contexts/Fairway';
-
-
-function reducer(state, item) {
-  return [...state, item]
-};
 
 function DisplayRIVResults() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
-  const { boat } = useContext(BoatContext);
-  const [ siteParameters, setSiteParameters ] = useReducer(reducer, []);
-  const { fairway } = useContext(FairwayContext);
-
-  const preProcessEditCellProps = async (params) => {
-    const path = 'fairway/calculate_risk'
-    const hasError = params.props.value < 0 ? true : false;
-    const site_parameters = [{'site_speed': params.props.value, 'site_id': params.id }]
-    const request = {
-      'boat': boat,
-      'site_parameters': site_parameters,
-      'fairway': fairway
-    }
-    console.log(params, request);
-    const response = await apiClient.post(path, request);
-    const newRIVResultResponse = response.data.RIV;
-    console.log("newRIVResultResponse",newRIVResultResponse);
-    let oldRIVResults = [...RIVResults];
-
-    const newRIVResults = oldRIVResults.map(x => {
-      const item = newRIVResultResponse.find(({ id }) => id === x.id);
-      return item ? item : x;
-    });
-
-    console.log(newRIVResults);
-    setRIVResults(newRIVResults);
-    return { ...params.props, error: hasError };
-  };
 
   const columns = [
-    { field: 'id', headerName: 'id', width: 70},
-    { field: 'Site', headerName: 'Site', width: 70 },
-    {
-      field: 'RIV_SUM',
-      headerName: 'RIV Sum',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_1',
-      headerName: 'RIV Channel',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_2',
-      headerName: 'RIV Bend',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_3',
-      headerName: 'RIV S-bend',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_4',
-      headerName: 'RIV Traffic',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_5',
-      headerName: 'RIV Reduced visibility',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'RIV_6',
-      headerName: 'RIV Light pollution',
-      type: 'number',
-      width: 150,
-      editable: false,
-    },
-    
-    {
-      field: 'Speed',
-      headerName: 'Speed',
-      type: 'number',
-      width: 150,
-      editable: true,
-      preProcessEditCellProps
-    }
+    {field: 'GDO_GID', width:150},
+    {field: 'VAYLAT'},
+    {field: 'MID_POINT'},
+    {field: 'PF_1_channel'},
+    {field: 'PF_2_bend'},
+    {field: 'PF_3_s_bend'},
+    {field: 'PF_4_traffic_complexity', width:200},
+    {field: 'PF_5_reduced_visibility', width:200},
+    {field: 'PF_6_light_pollution', width:200},
+    {field: 'PF_6_light_pollution_value', width:200},
+    {field: 'PF_traffic_complexity', width:200},
+    {field: 'PF_traffic_value', width:200},
+    {field: 'PF_traffic_volume', width:200},
+    {field: 'RIV_1_channel', width:200},
+    {field: 'RIV_2_bend', width:200},
+    {field: 'RIV_3_s_bend', width:200},
+    {field: 'RIV_4_traffic_complexity', width:200},
+    {field: 'RIV_5_reduced_visibility', width:200},
+    {field: 'RIV_6_light_pollution', width:200},
+    {field: 'RISK_INDEX_SUM', width:200},
+    {field: 'W_atn', width:200},
+    {field: 'W_bank_clearance', width:200},
+    {field: 'W_bottom_surface', width:200},
+    {field: 'W_channel', width:200},
+    {field: 'W_channel_depth', width:200},
+    {field: 'W_cross_current', width:200},
+    {field: 'W_longitudinal_current', width:200},
+    {field: 'W_manoeuvrability', width:200},
+    {field: 'W_speed', width:200},
+    {field: 'W_wave_height', width:200},
+    {field: 'W_wind', width:200},
+    {field: 'aids_to_navigation_category', width:200},
+    {field: 'bend_S_length', width:200},
+    {field: 'bend_angle', width:200},
+    {field: 'bend_radius', width:200},
+    {field: 'bottom_surface_category', width:200},
+    {field: 'channel_depth_value', width:200},
+    {field: 'channel_edge_type', width:200},
+    {field: 'channel_type', width:200},
+    {field: 'cross_current_category', width:200},
+    {field: 'linestring_index', width:200},
+    {field: 'longitudinal_current_category', width:200},
+    {field: 'number_of_lanes', width:200},
+    {field: 'point_index', width:200},
+    {field: 'vessel_speed_category', width:200},
+    {field: 'visibility', width:200},
+    {field: 'wave_height_category', width:200},
+    {field: 'wind_speed', width:200},
+    {field: 'wind_speed_category', width:200},
+    {field: 'COORD_X', width:200},
+    {field: 'COORD_Y', width:200},
   ];
 
-  const handleEvent = (
-    params,  // GridCellEditStopParams
-    event,   // MuiEvent<MuiBaseEvent>
-    details, // GridCallbackDetails
-  ) => {
-    console.log(params, event, boat);
-  }
 
-  return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    return (
+    <Box sx={{ height: 700, width: '100%' }}>
       <DataGrid
         rows={RIVResults}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        getRowId={(row) => row.point_index}
+        rowsPerPageOptions={[10]}
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
-        onCellEditCommit={handleEvent}
+        components={{Toolbar: GridToolbar}}
       />
     </Box>
   );

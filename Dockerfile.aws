@@ -1,11 +1,14 @@
-FROM node:16-alpine
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine
+
+ARG REACT_APP_BASE_REST_URL
+ENV REACT_APP_BASE_REST_URL="/"
 
 WORKDIR /app
 
 COPY . .
 ENV GENERATE_SOURCEMAP=false
 #install packages
-RUN npm i
+RUN npm ci
 #build the app
 RUN npm run build
 

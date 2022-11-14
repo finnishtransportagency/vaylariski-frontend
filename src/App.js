@@ -1,5 +1,3 @@
-// src/App.js
-
 import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
 import Mapp from "./components/Mapp"
