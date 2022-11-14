@@ -77,13 +77,13 @@ function UserInputForm() {
   }
 
   // For debugging, print state to console
-  useEffect(() => {
-    console.log(RIVResults);
-  }, [RIVResults]);
+  // useEffect(() => {
+  //   console.log(RIVResults);
+  // }, [RIVResults]);
 
-  useEffect(() => {
-    console.log(boat);
-  }, [boat]);
+  // useEffect(() => {
+  //   console.log(boat);
+  // }, [boat]);
 
   useEffect(() => {
     console.log(userInput);
@@ -105,45 +105,48 @@ function UserInputForm() {
           <input {...register("userInput.boat.speed", {valueAsNumber: true})}
           type="number"
           required
-          // value={boat.speed} onChange={(ev) => setBoat({...boat, speed: ev.target.value})}
           value={userInput.boat.speed} 
-          onChange={(ev) => setUserInput({...userInput.boat.speed, speed: ev.target.value})}
+          onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>Length (m):
-          <input {...register("boat.length", {valueAsNumber: true})}
+          <input {...register("userInput.boat.length", {valueAsNumber: true})}
           type="number"
           required
-          // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, length: ev.target.value})}
+          value={userInput.boat.length} 
+          onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>Beam (m):
-          <input {...register("boat.beam", {valueAsNumber: true})}
+          <input {...register("userInput.boat.beam", {valueAsNumber: true})}
           type="number"
           required
-          // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, beam: ev.target.value})}
+          value={userInput.boat.beam} 
+          onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,beam: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>Draft (m):
-          <input {...register("boat.draft", {valueAsNumber: true})}
+          <input {...register("userInput.boat.draft", {valueAsNumber: true})}
           type="number"
           required
-          // value={boat.speed} onChange={(ev) => setUserInput({...userInput.boat, draft: ev.target.value})}
+          value={userInput.boat.draft} 
+          onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
           />
         </label>
       </div>
       <div>
       <label>Manoeuvrability: </label>
-        <select{...register("boat.manoeuvrability")} onChange={handleManoeuvrabilityChange}>
-            <option defaultValue="good">good</option>
-            <option value="moderate">moderate</option>
-            <option value="poor">poor</option>
+        <select{...register("userInput.boat.manoeuvrability")} 
+          onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}>
+          <option defaultValue="good">good</option>
+          <option value="moderate">moderate</option>
+          <option value="poor">poor</option>
         </select>
         Turn rate: 
         <input {...( {valueAsNumber: true}, {placeholder:"C_tr"})}/>
@@ -158,43 +161,60 @@ function UserInputForm() {
           placeholder="VAYLAT" 
           type="number"
           required
-          // value={navilinja.VAYLAT} onChange={(ev) => setUserInput({...navilinja, VAYLAT: ev.target.value})}
+          value={userInput.navilinja.VAYLAT} 
+          onChange={(ev) => setUserInput({...userInput,navilinja: {...userInput.navilinja,VAYLAT: ev.target.value}})}
           />
         </label>
       </div> 
       
       <div>
         <label>Type: </label>
-        <select{...register("calculation_params.type")}>
-            <option defaultValue="inner">inner</option>
-            <option value="outer">outer</option>
+        <select{...register("userInput.navilinja.calculation_params.type")} 
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,type: ev.target.value}}})} >
+          <option defaultValue="inner">inner</option>
+          <option value="outer">outer</option>
         </select>
       </div>
       <div>
         <label>Number of lanes: </label>
-        <select{...register("calculation_params.number_of_lanes")}>
+        <select{...register("userInput.navilinja.calculation_params.number_of_lanes")}
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,number_of_lanes: ev.target.value}}})} >
             <option defaultValue={1}>One-way channel</option>
             <option value={2}>Two-way channel</option>
         </select>
       </div>
       <div>
         <label>Bottom surface: </label>
-        <select{...register("calculation_params.bottom_surface")}>
-            <option defaultValue="smooth_and_soft">smooth_and_soft</option>
-            <option value="rough_and_hard">rough_and_hard</option>
+        <select{...register("userInput.navilinja.calculation_params.bottom_surface")}
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,bottom_surface: ev.target.value}}})} >
+            <option defaultValue="rough_and_hard">rough_and_hard</option>
+            <option value="smooth_and_soft">smooth_and_soft</option>
+            
         </select>
       </div>
       <div>
         <label>Channel edge: </label>
-          <select{...register("calculation_params.channel_edge")}>
-              <option defaultValue="gentle_slope">gentle_slope</option>
-              <option value="sloping_edges">sloping_edges</option>
-              <option value="steep_and_hard">steep_and_hard</option>
+          <select{...register("userInput.navilinja.calculation_params.channel_edge")}
+            onChange={(ev) => setUserInput({...userInput,navilinja:
+              {...userInput.navilinja,calculation_params:
+                {...userInput.navilinja.calculation_params,channel_edge: ev.target.value}}})} >
+            <option defaultValue="gentle_slope">gentle_slope</option>
+            <option value="sloping_edges">sloping_edges</option>
+            <option value="steep_and_hard">steep_and_hard</option>
           </select>
       </div>
       <div>
         <label>Aids to navigation: </label>
-        <select{...register("calculation_params.aids_to_navigation")}>
+          <select{...register("userInput.navilinja.calculation_params.aids_to_navigation")}
+            onChange={(ev) => setUserInput({...userInput,navilinja:
+              {...userInput.navilinja,calculation_params:
+                {...userInput.navilinja.calculation_params,aids_to_navigation: ev.target.value}}})} >
             <option defaultValue="excellent">excellent</option>
             <option value="good">good</option>
             <option value="moderate">moderate</option>
@@ -203,7 +223,11 @@ function UserInputForm() {
 
       <div>
         <label>Traffic volume: </label>
-          <select{...register("other.traffic_volume")}>
+          <select{...register("userInput.navilinja.calculation_params.other.traffic_volume")}
+            onChange={(ev) => setUserInput({...userInput,navilinja:
+                {...userInput.navilinja,calculation_params:
+                  {...userInput.navilinja.calculation_params,other:
+                    {...userInput.navilinja.calculation_params.other,traffic_volume:ev.target.value}}}})} >
               <option defaultValue="negligible">negligible</option>
               <option defaultValue="low">low</option>
               <option value="moderate">moderate</option>
@@ -213,7 +237,11 @@ function UserInputForm() {
       </div>
       <div>
         <label>Traffic complexity: </label>
-          <select{...register("other.traffic_complexity")}>
+          <select{...register("userInput.navilinja.calculation_params.other.traffic_complexity")}
+            onChange={(ev) => setUserInput({...userInput,navilinja:
+              {...userInput.navilinja,calculation_params:
+                {...userInput.navilinja.calculation_params,other:
+                  {...userInput.navilinja.calculation_params.other,traffic_complexity:ev.target.value}}}})} >
               <option defaultValue="negligible">negligible</option>
               <option defaultValue="low">low</option>
               <option value="moderate">moderate</option>
@@ -223,17 +251,24 @@ function UserInputForm() {
       </div>
       <div>
         <label>Visibility (m):
-          <input {...register("other.visibility", {valueAsNumber: true})}
+          <input {...register("userInput.navilinja.calculation_params.other.visibility", {valueAsNumber: true})}
           type="number"
-          defaultValue={1852}
           required
-          // value={boat.length} onChange={(ev) => setBoat({...boat, length: ev.target.value})}
+          value={userInput.navilinja.calculation_params.other.visibility} 
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,other:
+                {...userInput.navilinja.calculation_params.other,visibility:ev.target.value}}}})} 
           />
         </label>
       </div>
       <div>
         <label>Light pollution: </label>
-          <select{...register("other.light_pollution")}>
+          <select{...register("userInput.navilinja.calculation_params.other.light_pollution")}
+            onChange={(ev) => setUserInput({...userInput,navilinja:
+                {...userInput.navilinja,calculation_params:
+                  {...userInput.navilinja.calculation_params,other:
+                    {...userInput.navilinja.calculation_params.other,light_pollution:ev.target.value}}}})}>
               <option defaultValue="negligible">negligible</option>
               <option defaultValue="low">low</option>
               <option value="moderate">moderate</option>
@@ -245,24 +280,35 @@ function UserInputForm() {
       <p>Operating conditions</p>
       <div>
         <label>Wind speed (m/s):
-          <input {...register("calculation_params.operating_conditions.wind_speed", {valueAsNumber: true})}
+          <input {...register("userInput.navilinja.calculation_params.operating_conditions.wind_speed", {valueAsNumber: true})}
           type="number"
-          defaultValue={17}
           required
-          // value={boat.length} onChange={(ev) => setBoat({...boat, length: ev.target.value})}
+          value={userInput.navilinja.calculation_params.operating_conditions.wind_speed} 
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,operating_conditions:
+                {...userInput.navilinja.calculation_params.operating_conditions,wind_speed:ev.target.value}}}})} 
           />
         </label>
       </div>
       <div>
         <label>Cross current speed: </label>
-        <select{...register("calculation_params.operating_conditions.cross_current_speed")}>
+        <select{...register("userInput.navilinja.calculation_params.operating_conditions.cross_current_speed")}
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,operating_conditions:
+                {...userInput.navilinja.calculation_params.operating_conditions,cross_current_speed:ev.target.value}}}})} >
             <option defaultValue="negligible">negligible</option>
             <option value="low">low</option>
         </select>
       </div>
       <div>
         <label>Longitudinal current speed: </label>
-        <select{...register("calculation_params.operating_conditions.longitudinal_current_speed")}>
+        <select{...register("userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_speed")}
+          onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,operating_conditions:
+                {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_speed:ev.target.value}}}})}>
             <option defaultValue="negligible">low</option>
             <option value="moderate">moderate</option>
             <option value="strong">strong</option>
@@ -270,7 +316,11 @@ function UserInputForm() {
       </div>
       <div>
         <label>Wave height: </label>
-        <select{...register("calculation_params.operating_conditions.wave_height")}>
+        <select{...register("userInput.navilinja.calculation_params.operating_conditions.wave_height")}
+        onChange={(ev) => setUserInput({...userInput,navilinja:
+            {...userInput.navilinja,calculation_params:
+              {...userInput.navilinja.calculation_params,operating_conditions:
+                {...userInput.navilinja.calculation_params.operating_conditions,wave_height:ev.target.value}}}})}>
             <option defaultValue="low">low</option>
             <option value="moderate">moderate</option>
             <option value="high">high</option>
@@ -281,60 +331,66 @@ function UserInputForm() {
       <div>
         <label>
           WF channel:
-          <input {...register("weightfactors.WF_channel", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_channel", {valueAsNumber: true})}
           type="number"
-          defaultValue={4}
           required
+          value={userInput.weightfactors.WF_channel} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_channel: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>
           WF bend:
-          <input {...register("weightfactors.WF_bend", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_bend", {valueAsNumber: true})}
           type="number"
-          defaultValue={4}
           required
+          value={userInput.weightfactors.WF_bend} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_bend: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>
           WF S-bend:
-          <input {...register("weightfactors.WF_s_bend", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_s_bend", {valueAsNumber: true})}
           type="number"
-          defaultValue={4}
           required
+          value={userInput.weightfactors.WF_s_bend} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_s_bend: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>
           WF traffic complexity:
-          <input {...register("weightfactors.WF_traffic_complexity", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_traffic_complexity", {valueAsNumber: true})}
           type="number"
-          defaultValue={4}
           required
+          value={userInput.weightfactors.WF_traffic_complexity} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_traffic_complexity: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>
           WF reduced visibility:
-          <input {...register("weightfactors.WF_reduced_visibility", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_reduced_visibility", {valueAsNumber: true})}
           type="number"
-          defaultValue={3}
           required
+          value={userInput.weightfactors.WF_reduced_visibility} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_reduced_visibility: ev.target.value}})}
           />
         </label>
       </div>
       <div>
         <label>
           WF light pollution:
-          <input {...register("weightfactors.WF_light_pollution", {valueAsNumber: true})}
+          <input {...register("userInput.weightfactors.WF_light_pollution", {valueAsNumber: true})}
           type="number"
-          defaultValue={2}
           required
+          value={userInput.weightfactors.WF_light_pollution} 
+          onChange={(ev) => setUserInput({...userInput,weightfactors: {...userInput.weightfactors,WF_light_pollution: ev.target.value}})}
           />
         </label>
       </div>
