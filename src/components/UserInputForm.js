@@ -6,6 +6,8 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
+import { Grid } from "@mui/material";
+import Typography from '@mui/material/Typography';
 
 
 function UserInputForm() {
@@ -153,7 +155,7 @@ function UserInputForm() {
         Manoeuvrability coefficient: 
         <input {...( {valueAsNumber: true}, {placeholder:"C_m"})}/>
       </div>
-
+    
       <p>Enter fairway</p>
       <div>
         <label>VAYLAT id:
