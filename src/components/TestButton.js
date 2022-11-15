@@ -7,8 +7,10 @@ import apiClient from "../http-common";
 function TestButton() {
   const [response, setResponse ] = useState({});
 
+  console.log(process.env.REACT_APP_BASE_REST_URL);
+
   async function clickHander(data) {
-    const res = await apiClient.get("/");
+    const res = await apiClient.get("app");
     setResponse(res.data);
   };
 
