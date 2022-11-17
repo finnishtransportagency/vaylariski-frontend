@@ -1,6 +1,6 @@
 import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
-import Mapp from "./components/Mapp";
+// import Mapp from "./components/Mapp";
 import TestButton from "./components/TestButton";
 
 function App() {
