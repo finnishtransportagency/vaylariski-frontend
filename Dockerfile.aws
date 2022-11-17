@@ -1,13 +1,13 @@
 FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine
 
-ARG REACT_APP_BASE_REST_URL
-ENV REACT_APP_BASE_REST_URL="/"
+ARG PROXY_URL
 
 WORKDIR /app
 
 COPY . .
 ENV GENERATE_SOURCEMAP=false
-ENV REACT_APP_BASE_REST_URL="http://vaylariski:8080/"
+ENV REACT_APP_BASE_REST_URL=${PROXY_URL}
+
 #install packages
 RUN npm ci
 #build the app
@@ -15,4 +15,4 @@ RUN npm run build
 
 
 EXPOSE 3000
-CMD ["npx", "serve", "-s", "build" ]
+CMD ["npx", "serve","-l", "3000", "-s", "build" ]
