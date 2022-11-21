@@ -13,9 +13,9 @@ ENV WDS_SOCKET_PORT=0
 #install packages
 RUN npm i
 #build the app
-RUN npm run build
+# RUN npm run build
 
 
 # EXPOSE 3000
-CMD ["npx", "serve","-l", "3000", "-s", "build" ]
-# CMD ["npm", "start"]
+# CMD ["npx", "serve","-l", "3000", "-s", "build" ]
+CMD ["npm", "start"]
