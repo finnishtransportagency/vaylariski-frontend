@@ -12,7 +12,7 @@ ENV REACT_APP_BASE_REST_URL=${REACT_APP_BASE_REST_URL}
 #install packages
 RUN npm i
 #build the app
-RUN npm run build
+# RUN npm run build
 
 
 EXPOSE 3000

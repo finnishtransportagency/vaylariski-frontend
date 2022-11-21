@@ -9,9 +9,9 @@ ENV GENERATE_SOURCEMAP=false
 ENV PROXY_URL=${PROXY_URL}
 
 #install packages
-RUN npm ci
+RUN npm i
 #build the app
-RUN npm run build
+# RUN npm run build
 
 
 EXPOSE 3000
