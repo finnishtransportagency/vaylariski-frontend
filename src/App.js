@@ -12,8 +12,8 @@ function App() {
         </header>
         <CalculateRIV/>
         {/* <Mapp /> */}
-        {/* <TestButton />
-        <div id='myMapp'></div> */}
+        <TestButton />
+        {/* <div id='myMapp'></div>  */}
       </div>
   );
 }
