@@ -1,21 +1,24 @@
-FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine
-
-ARG PROXY_URL
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine as builder
 
 WORKDIR /app
 
 COPY . .
+
+#install packages
+RUN npm i
+#build the app
+RUN npm run build
+
+# production environment
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/nginx:1.23.2-alpine
+
+ARG PROXY_URL
 ENV GENERATE_SOURCEMAP=false
 ENV PROXY_URL=${PROXY_URL}
 ENV REACT_APP_BASE_REST_URL="api"
 ENV WDS_SOCKET_PORT=0
 
-#install packages
-RUN npm i
-#build the app
-# RUN npm run build
-
-
-# EXPOSE 3000
-# CMD ["npx", "serve","-l", "3000", "-s", "build" ]
-CMD ["npm", "start"]
+COPY --from=builder /app/build /var/www
+COPY ./nginx/riski.conf.template /nginx.conf.template
+# envsubst to substitute ENV variables in config
+CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
