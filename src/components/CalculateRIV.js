@@ -19,11 +19,11 @@ const boatDefault = {
 
 const userInputDefault = {
     boat: {
-    length: 210,
-    speed: 10,
-    beam: 30,
-    draft: 10,
-    manoeuvrability: 'good'
+      length: 210,
+      speed: 10,
+      beam: 30,
+      draft: 10,
+      manoeuvrability: 'good'
   },
   navilinja: {
     VAYLAT: 100,

@@ -10,6 +10,8 @@ import { Grid } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 
 
@@ -49,6 +51,38 @@ function UserInputForm() {
     color: theme.palette.text.secondary,
   }));
 
+  const boat1 = {'Length':210, 'Beam':30, 'Draft':10
+  };
+  const boat2 = {'Length':255, 'Beam':32, 'Draft':12
+  };
+  const boat3 = {'Length':200, 'Beam':32, 'Draft':10
+  };
+  const boat4 = {'Length':210, 'Beam':30, 'Draft':11
+  };
+  const boat5 = {'Length':83, 'Beam':13, 'Draft':4
+  };
+
+  const boatData = [
+    boat1,
+    boat2,
+    boat3,
+    boat4,
+    boat5
+  ]
+
+  function TableBoat() {
+    return (
+    <Select
+    >
+      {boatData.map((val, key) => {
+             return (
+    <MenuItem key= {key} value={val}>Length: {val.Length}, Beam: {val.Beam}, Draft: {val.Draft}</MenuItem>
+      )
+  })}
+  </Select>
+    );
+  }
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -62,10 +96,18 @@ function UserInputForm() {
                     type="number"
                     required
                     value={userInput.boat.speed}
-                    onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}
+                    onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, speed: ev.target.value}})}
                     />
                 </label>
+                </div>
+
+              <div>
+                <label>Boat dimensions: </label>
+                <TableBoat />
+                <select{...register("userInput.boat.boatdimensions")}
+                onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,boatdimensions: ev.target.value}})}></select>
               </div>
+             
               <div>
                 <label>Length (m):
                   <input {...register("userInput.boat.length", {valueAsNumber: true})}
