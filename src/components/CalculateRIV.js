@@ -8,6 +8,7 @@ import RIVResultContext from '../contexts/RIVResult';
 import UserInputForm from "./UserInputForm";
 import FairwayContext from '../contexts/Fairway';
 import UserInputContext from "../contexts/UserInput";
+import Mapp from "./Mapp";
 
 const boatDefault = {
     speed: '',
@@ -80,6 +81,7 @@ function CalculateRIV() {
           <UserInputContext.Provider value= {{userInput, setUserInput}}>
             <UserInputForm />
             <DisplayRIVResults />
+            <Mapp />
           </UserInputContext.Provider>
         </FairwayContext.Provider>
       </RIVResultContext.Provider>

@@ -26,7 +26,7 @@ function UserInputForm() {
     const path = 'fairway/calculate_risk'
     console.log('You clicked me!' + JSON.stringify(userInput));
     const response = await apiClient.post(path, userInput);
-    console.log(response.data);
+    // console.log(response.data);
     setRIVResults(response.data)
   }
 
@@ -62,7 +62,7 @@ function UserInputForm() {
                     type="number"
                     required
                     value={userInput.boat.speed}
-                    onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}
+                    onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, speed: ev.target.value}})}
                     />
                 </label>
               </div>
