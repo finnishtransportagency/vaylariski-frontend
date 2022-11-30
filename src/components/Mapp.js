@@ -56,10 +56,10 @@ function Mapp() {
   return (
     <MapContainer
       ref={mapRef}
-      center={[51.505, -0.09]}
-      zoom={4}
+      center={[62, 23.5]}
+      zoom={5}
       scrollWheelZoom={false}
-      style={{ height:"400px",backgroundColor:"red",marginTop:"80px", marginBottom:'90px'
+      style={{ height:"800px",backgroundColor:"red",marginTop:"80px", marginBottom:'90px'
         }}
     >
       <TileLayer
