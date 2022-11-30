@@ -4,38 +4,53 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import L from 'leaflet'
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
+const geojsonMarkerOptions = {
+  radius: 8,
+  fillColor: "#ff7800",
+  color: "#ff7800",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.8
+};
+const geojsonMarkerOptionsRed = {
+  radius: 8,
+  fillColor: "#ff0000",
+  color: "#ff0000",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.8
+};
 
 function Mapp() {
   const mapRef = useRef();
   // console.log(mapRef);
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
 
-  useEffect(() => {
-    const map = mapRef.current;
-    console.log(map);
-  }, []);
+  function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties) {
+      // layer.bindPopup(`<p>${feature.properties.GDO_GID}</p>`)
+      layer.bindPopup('<pre>'+JSON.stringify(feature.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+    }
+  };
 
   useEffect(() => {
     const { current = {} } = mapRef;
     if (!current) return;
 
-    // console.log('currr', current)
-    // const { leafletElement: map } = current;
     const map = mapRef.current;
-
-    console.log('map', map)
     if ( !map ) return;
-    const parksGeoJson = new L.GeoJSON(RIVResults, {
-      onEachFeature: (feature = {}, layer) => {
-        const { properties = {} } = feature;
-        const { Name } = properties;
 
-        if ( !Name ) return;
+    L.geoJSON(RIVResults, {
+      onEachFeature: onEachFeature,
+      pointToLayer: function (feature, latlng) {
+        if (feature.properties.RISK_INDEX_SUM > 20 ) {
+          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+        }
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+   }).addTo(map);
 
-        layer.bindPopup(`<p>${Name}</p>`);
-      }
-    });
-    parksGeoJson.addTo(map);
   }, [RIVResults]);
 
   return (
