@@ -1,12 +1,23 @@
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import RIVResultContext from "../contexts/RIVResult";
 
 function DisplayRIVResults() {
+
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const [ displayRowResults, setDisplayRowResults ] = useState([]);
+
+  useEffect(() => {
+    if (RIVResults.length === 0 ) return;
+    let rowResults = [];
+    RIVResults.features.map(el => {
+      rowResults.push(el.properties)
+    })
+    setDisplayRowResults(rowResults);
+  }, [RIVResults]);
 
   const columns = [
     {field: 'GDO_GID', width:150},
@@ -66,7 +77,7 @@ function DisplayRIVResults() {
     return (
     <Box sx={{ height: 700, width: '100%' }}>
       <DataGrid
-        rows={RIVResults}
+        rows={displayRowResults}
         columns={columns}
         pageSize={10}
         getRowId={(row) => row.point_index}
