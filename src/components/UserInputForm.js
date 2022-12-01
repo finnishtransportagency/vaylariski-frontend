@@ -6,13 +6,12 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
-import { Grid } from "@mui/material";
+import { Grid, Menu, popoverClasses } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
 
 
 function UserInputForm() {
@@ -51,15 +50,15 @@ function UserInputForm() {
     color: theme.palette.text.secondary,
   }));
 
-  const boat1 = {'Length':210, 'Beam':30, 'Draft':10
+  const boat1 = {'Speed':10, 'Length':210, 'Beam':30, 'Draft':10, 'Manoeuvrability':'good'
   };
-  const boat2 = {'Length':255, 'Beam':32, 'Draft':12
+  const boat2 = {'Speed':10, 'Length':255, 'Beam':32, 'Draft':12, 'Manoeuvrability':'good'
   };
-  const boat3 = {'Length':200, 'Beam':32, 'Draft':10
+  const boat3 = {'Speed':10, 'Length':200, 'Beam':32, 'Draft':10, 'Manoeuvrability':'good'
   };
-  const boat4 = {'Length':210, 'Beam':30, 'Draft':11
+  const boat4 = {'Speed':10, 'Length':210, 'Beam':30, 'Draft':11, 'Manoeuvrability':'good'
   };
-  const boat5 = {'Length':83, 'Beam':13, 'Draft':4
+  const boat5 = {'Speed':10, 'Length':83, 'Beam':13, 'Draft':4, 'Manoeuvrability':'good'
   };
 
   const boatData = [
@@ -70,18 +69,55 @@ function UserInputForm() {
     boat5
   ]
 
+  const handleMenuItemClick = (event, index) => {
+    console.log(event.target.value); 
+    setSelectedIndex(index);
+    const newBoat = boatData[event.target.value];
+    console.log('newboot', newBoat);
+    setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
+    setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
+    setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
+    setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
+    setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
+    setAnchorEl(null);
+  }
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+
+  const handleClickListItem = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   function TableBoat() {
     return (
-    <Select
-    >
-      {boatData.map((val, key) => {
-             return (
-    <MenuItem key= {key} value={val}>Length: {val.Length}, Beam: {val.Beam}, Draft: {val.Draft}</MenuItem>
-      )
-  })}
-  </Select>
-    );
-  }
+      <div>
+        <Select>
+          {boatData.map((boat,index) => {
+            return(
+
+            <MenuItem
+              key={index}
+              selected={index === selectedIndex}
+              onClick={(event, index) => handleMenuItemClick(event, index)}
+              >
+                Speed: {boat.Speed},
+                Length: {boat.Length},
+                Beam: {boat.Beam},
+                Draft: {boat.Draft},
+                Manoeuvrability: {boat.Manoeuvrability}
+            </MenuItem>
+            )
+          })};
+        </Select>
+          </div>
+          );
+    }
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,8 +126,12 @@ function UserInputForm() {
         <Grid container spacing={1}>
             <Grid item xs={4}>
               <p>Enter boat parameters</p>
-              <div>
-                <label>Speed (knots):
+              <p>Choose predefined boat parameters:</p>
+              <TableBoat
+              />
+
+              {/* <div>
+                 <label>Speed (knots):
                   <input {...register("userInput.boat.speed", {valueAsNumber: true})}
                     type="number"
                     required
@@ -99,26 +139,18 @@ function UserInputForm() {
                     onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, speed: ev.target.value}})}
                     />
                 </label>
-                </div>
-
-              <div>
-                <label>Boat dimensions: </label>
-                <TableBoat />
-                <select{...register("userInput.boat.boatdimensions")}
-                onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,boatdimensions: ev.target.value}})}></select>
-              </div>
-             
-              <div>
+              </div>      */}
+              {/* <div>
                 <label>Length (m):
                   <input {...register("userInput.boat.length", {valueAsNumber: true})}
-                    type="number"
-                    required
-                    value={userInput.boat.length}
-                    onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
+                  type="number"
+                  required
+                  value={userInput.boat.length}
+                  onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
                   />
                 </label>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label>Beam (m):
                   <input {...register("userInput.boat.beam", {valueAsNumber: true})}
                   type="number"
@@ -127,30 +159,30 @@ function UserInputForm() {
                   onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,beam: ev.target.value}})}
                   />
                 </label>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label>Draft (m):
                   <input {...register("userInput.boat.draft", {valueAsNumber: true})}
-                    type="number"
-                    required
-                    value={userInput.boat.draft}
-                    onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
-                    />
+                  type="number"
+                  required
+                  value={userInput.boat.draft}
+                  onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
+                  />
                 </label>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label>Manoeuvrability: </label>
-                  <select{...register("userInput.boat.manoeuvrability")}
-                    onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}>
-                    <option defaultValue="good">good</option>
-                    <option value="moderate">moderate</option>
-                    <option value="poor">poor</option>
-                  </select>
-                  Turn rate:
-                  <input {...( {valueAsNumber: true}, {placeholder:"C_tr"})}/>
-                  Manoeuvrability coefficient:
-                  <input {...( {valueAsNumber: true}, {placeholder:"C_m"})}/>
-              </div>
+                <select{...register("userInput.boat.manoeuvrability")}
+                onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}>
+                <option defaultValue="good">good</option>
+                <option value="moderate">moderate</option>
+                <option value="poor">poor</option>
+                </select>
+                Turn rate:
+                <input {...( {valueAsNumber: true}, {placeholder:"C_tr"})}/>
+                Manoeuvrability coefficient:
+              <input {...( {valueAsNumber: true}, {placeholder:"C_m"})}/> 
+              </div> */}
             </Grid>
             <Grid item xs={4}>
             <p>Enter fairway parameters</p>
@@ -273,7 +305,7 @@ function UserInputForm() {
                     <option value="very_heavy">very_heavy</option>
                 </select>
               </div>
-            </Grid>
+           </Grid>
             <Grid item xs={4}>
               <p>Operating conditions</p>
               <div>
