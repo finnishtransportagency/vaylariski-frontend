@@ -23,7 +23,7 @@ const userInputDefault = {
     speed: 10,
     beam: 30,
     draft: 10,
-    manoeuvrability: 'good'
+    manoeuvrability: 'moderate'
   },
   navilinja: {
     VAYLAT: 100,
@@ -62,7 +62,9 @@ const userInputDefault = {
     WF_s_bend: 4,
     WF_traffic_complexity: 4,
     WF_reduced_visibility: 3,
-    WF_light_pollution: 2
+    WF_light_pollution: 2,
+    C_manoeuvrability: 1.5,
+    C_turning_radius: 5
   }
 }
 
