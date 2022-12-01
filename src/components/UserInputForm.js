@@ -70,44 +70,34 @@ function UserInputForm() {
   ]
 
 
-
-  // const [anchorEl, setAnchorEl] = useState(null);
-  // const [selectedIndex, setSelectedIndex] = useState(1);
-
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-  // const open = Boolean(anchorEl);
-
-  // const handleClickListItem = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
   function TableBoat() {
-    const handleMenuItemClick = (event) => {
-      console.log(event.target.value);
-      // setSelectedIndex(index);
-      const newBoat = boatData[event.target.value];
+    const [selectedIndex, setSelectedIndex ] = useState(0);
+
+    function handleMenuItemClick(event) {
+      const newIndexVal = event.target.value;
+      console.log(newIndexVal);
+      const newBoat = boatData[newIndexVal];
       console.log('newboot', newBoat);
+      setSelectedIndex(newIndexVal);
+      // Alla olevat ei vielä toimi
       setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
       setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
       setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
       setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
       setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
-      // setAnchorEl(null);
-    }
+    };
 
     return (
       <FormControl>
         <Select
-          onChange={handleMenuItemClick}>
+          onChange={handleMenuItemClick}
+          value={selectedIndex}
+          >
           {boatData.map((boat, index) => (
-            // return(
-
             <MenuItem
               key={index}
-              // selected={index === selectedIndex}
-              // onClick={(event, index) => handleMenuItemClick(event, index)}
+              value={index}
+              selected={index === selectedIndex}
               >
                 Speed: {boat.Speed},
                 Length: {boat.Length},
@@ -115,12 +105,11 @@ function UserInputForm() {
                 Draft: {boat.Draft},
                 Manoeuvrability: {boat.Manoeuvrability}
             </MenuItem>
-            // )
           ))}
-        </Select>
-          </FormControl>
-          );
-    }
+          </Select>
+        </FormControl>
+      );
+    };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
