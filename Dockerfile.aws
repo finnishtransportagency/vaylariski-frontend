@@ -15,10 +15,10 @@ FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/nginx:1.23.2-alpine
 ARG PROXY_URL
 ENV GENERATE_SOURCEMAP=false
 ENV PROXY_URL=${PROXY_URL}
-ENV REACT_APP_BASE_REST_URL="api"
+ENV REACT_APP_BASE_REST_URL="vaylariski/rest"
 ENV WDS_SOCKET_PORT=0
 
 COPY --from=builder /app/build /var/www
 COPY ./nginx/riski.conf.template /nginx.conf.template
-# envsubst to substitute ENV variables in config
+# envsubst to substitute ENV variables (PROXY_URL, REACT_APP_BASE_REST_URL) in config
 CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
