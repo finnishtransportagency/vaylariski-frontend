@@ -6,7 +6,7 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
-import { Grid, Menu, popoverClasses } from "@mui/material";
+import { FormControl, Grid, Menu, popoverClasses } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -69,42 +69,45 @@ function UserInputForm() {
     boat5
   ]
 
-  const handleMenuItemClick = (event, index) => {
-    console.log(event.target.value); 
-    setSelectedIndex(index);
-    const newBoat = boatData[event.target.value];
-    console.log('newboot', newBoat);
-    setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
-    setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
-    setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
-    setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
-    setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
-    setAnchorEl(null);
-  }
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+  // const open = Boolean(anchorEl);
+
+  // const handleClickListItem = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   function TableBoat() {
+    const handleMenuItemClick = (event) => {
+      console.log(event.target.value);
+      // setSelectedIndex(index);
+      const newBoat = boatData[event.target.value];
+      console.log('newboot', newBoat);
+      setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
+      setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
+      setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
+      setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
+      setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
+      // setAnchorEl(null);
+    }
+
     return (
-      <div>
-        <Select>
-          {boatData.map((boat,index) => {
-            return(
+      <FormControl>
+        <Select
+          onChange={handleMenuItemClick}>
+          {boatData.map((boat, index) => (
+            // return(
 
             <MenuItem
               key={index}
-              selected={index === selectedIndex}
-              onClick={(event, index) => handleMenuItemClick(event, index)}
+              // selected={index === selectedIndex}
+              // onClick={(event, index) => handleMenuItemClick(event, index)}
               >
                 Speed: {boat.Speed},
                 Length: {boat.Length},
@@ -112,13 +115,13 @@ function UserInputForm() {
                 Draft: {boat.Draft},
                 Manoeuvrability: {boat.Manoeuvrability}
             </MenuItem>
-            )
-          })};
+            // )
+          ))}
         </Select>
-          </div>
+          </FormControl>
           );
     }
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -181,7 +184,7 @@ function UserInputForm() {
                 Turn rate:
                 <input {...( {valueAsNumber: true}, {placeholder:"C_tr"})}/>
                 Manoeuvrability coefficient:
-              <input {...( {valueAsNumber: true}, {placeholder:"C_m"})}/> 
+              <input {...( {valueAsNumber: true}, {placeholder:"C_m"})}/>
               </div> */}
             </Grid>
             <Grid item xs={4}>
