@@ -15,7 +15,7 @@ http {
       index index.html;
     }
 
-    location /api {
+    location /${REACT_APP_BASE_REST_URL} {
       proxy_pass ${PROXY_URL};
       proxy_connect_timeout 300s;
       proxy_send_timeout 300;
