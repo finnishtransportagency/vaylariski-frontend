@@ -1,6 +1,6 @@
 import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
-// import Mapp from "./components/Mapp";
+import Mapp from "./components/Mapp";
 import TestButton from "./components/TestButton";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
           {/* <h2>RIV</h2> */}
         </header>
         <CalculateRIV/>
-        {/* <Mapp /> */}
+        <Mapp />
         <TestButton />
-        <div id='myMapp'></div>
+        {/* <div id='myMapp'></div>  */}
       </div>
   );
 }

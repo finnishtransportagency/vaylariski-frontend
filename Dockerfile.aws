@@ -1,19 +1,36 @@
-FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine
-
+# "Global variables"
 ARG PROXY_URL
+ARG REACT_APP_BASE_REST_URL
+
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/node:16.18.1-alpine as builder
+
+# Used by react on build time
+ARG PROXY_URL
+ARG REACT_APP_BASE_REST_URL
+
+ENV PROXY_URL=${PROXY_URL}
+ENV REACT_APP_BASE_REST_URL=${REACT_APP_BASE_REST_URL}
 
 WORKDIR /app
 
 COPY . .
-ENV GENERATE_SOURCEMAP=false
-ENV PROXY_URL=${PROXY_URL}
 
 #install packages
-RUN npm ci
+RUN npm i
 #build the app
 RUN npm run build
 
+# production environment
+FROM 894932018761.dkr.ecr.eu-west-1.amazonaws.com/nginx:1.23.2-alpine
 
-EXPOSE 3000
-# CMD ["npx", "serve","-l", "3000", "-s", "build" ]
-CMD ["npm", "start"]
+# Used by nginx
+ARG PROXY_URL
+ARG REACT_APP_BASE_REST_URL
+
+ENV PROXY_URL=${PROXY_URL}
+ENV REACT_APP_BASE_REST_URL=${REACT_APP_BASE_REST_URL}
+
+COPY --from=builder /app/build /var/www
+COPY ./nginx/riski.conf.template /nginx.conf.template
+# envsubst to substitute ENV variables (PROXY_URL, REACT_APP_BASE_REST_URL) in config
+CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
