@@ -31,6 +31,7 @@ function UserInputForm() {
   const { fairway, setFairway } = useContext(FairwayContext);
   const { userInput, setUserInput } = useContext(UserInputContext);
   const [style, setStyle] = useState({display: 'none'});
+
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
     const path = 'fairway/calculate_risk'
@@ -55,14 +56,9 @@ function UserInputForm() {
   }, [userInput]);
 
 
+  // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    console.log('parent boat', newBoat);
-      // Alla olevat ei vielä toimi
-    setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
-    setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
-    setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
-    setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
-    setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
+    setUserInput({...userInput, boat: newBoat});
   }
 
 
@@ -198,7 +194,7 @@ function UserInputForm() {
                             name="manoeuvrability_radio"
                             value="good"
                             id="good"
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}/>
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: ev.target.value}})}/>
                           <label>Hyvä</label>
                         </Grid>
                         <Grid item xs={4}>

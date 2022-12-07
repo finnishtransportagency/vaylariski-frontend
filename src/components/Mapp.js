@@ -26,7 +26,6 @@ function GeoJSONMarkers() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   let geoJSONLayers = new L.LayerGroup();
 
-  console.log('lapsi', map);
   useEffect(() => {
     map.removeLayer(geoJSONLayers);
     geoJSONLayers.clearLayers();
