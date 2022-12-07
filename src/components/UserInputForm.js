@@ -19,6 +19,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
+import BoatMenuComponent from "./BoatMenuComponent";
 
 
 
@@ -50,77 +51,21 @@ function UserInputForm() {
   const handleMouseOutWind = () => {setIsHoveringWind(false);};
 
   useEffect(() => {
-    console.log(userInput);
+    console.log('userInput muuttui',userInput);
   }, [userInput]);
 
-  const handleManoeuvrabilityChange = (event) => {
-    setBoat({...boat, manoeuvrability: event.target.value})
-  };
 
-  const handleFairwayChange = (ev) => {
-    setFairway(ev.target.value);
+  function setDefaultBoatValues(newBoat) {
+    console.log('parent boat', newBoat);
+      // Alla olevat ei vielä toimi
+    setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
+    setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
+    setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
+    setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
+    setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
   }
 
-  const boat1 = {'Speed':10, 'Length':210, 'Beam':30, 'Draft':10, 'Manoeuvrability':'good'
-  };
-  const boat2 = {'Speed':10, 'Length':255, 'Beam':32, 'Draft':12, 'Manoeuvrability':'good'
-  };
-  const boat3 = {'Speed':10, 'Length':200, 'Beam':32, 'Draft':10, 'Manoeuvrability':'good'
-  };
-  const boat4 = {'Speed':10, 'Length':210, 'Beam':30, 'Draft':11, 'Manoeuvrability':'good'
-  };
-  const boat5 = {'Speed':10, 'Length':83, 'Beam':13, 'Draft':4, 'Manoeuvrability':'good'
-  };
 
-  const boatData = [
-    boat1,
-    boat2,
-    boat3,
-    boat4,
-    boat5
-  ]
-
-
-  function TableBoat() {
-    const [selectedIndex, setSelectedIndex ] = useState(0);
-
-    function handleMenuItemClick(event) {
-      const newIndexVal = event.target.value;
-      console.log(newIndexVal);
-      const newBoat = boatData[newIndexVal];
-      console.log('newboot', newBoat);
-      setSelectedIndex(newIndexVal);
-      // Alla olevat ei vielä toimi
-      setUserInput({...userInput, boat: {...userInput.boat, length: newBoat.Length}})
-      setUserInput({...userInput, boat: {...userInput.boat, beam: newBoat.Beam}})
-      setUserInput({...userInput, boat: {...userInput.boat, draft: newBoat.Draft}})
-      setUserInput({...userInput, boat: {...userInput.boat, speed: newBoat.Speed}})
-      setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: newBoat.Manoeuvrability}})
-    };
-
-    return (
-      <FormControl>
-        <Select
-          onChange={handleMenuItemClick}
-          value={selectedIndex}
-          >
-          {boatData.map((boat, index) => (
-            <MenuItem
-              key={index}
-              value={index}
-              selected={index === selectedIndex}
-              >
-                Speed: {boat.Speed},
-                Length: {boat.Length},
-                Beam: {boat.Beam},
-                Draft: {boat.Draft},
-                Manoeuvrability: {boat.Manoeuvrability}
-            </MenuItem>
-          ))}
-          </Select>
-        </FormControl>
-      );
-    };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -129,6 +74,7 @@ function UserInputForm() {
           <Box sx={{ flexGrow: 100 }}>
             <Grid container spacing={0}>
               <Grid item xs={4}>
+
                 {/* Laivan koko */}
                 <Card
                   style={{
@@ -149,6 +95,7 @@ function UserInputForm() {
                               gutterBottom>
                               <label>Aluksen parametrit:</label>
                             </Typography>
+                            <BoatMenuComponent setDefaultBoatValues={setDefaultBoatValues}/>
                           </Grid>
                         </Grid>
                         <Grid container spacing={1}>
@@ -163,7 +110,7 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.length}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, length: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -179,7 +126,7 @@ function UserInputForm() {
                               width: 100
                               }}
                             value={userInput.boat.beam}
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,beam: ev.target.value}})}
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, beam: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -195,7 +142,7 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.draft}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, draft: ev.target.value}})}
                               />
                           </Grid>
                         </Grid>
