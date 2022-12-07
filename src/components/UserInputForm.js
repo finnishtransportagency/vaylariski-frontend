@@ -91,6 +91,7 @@ function UserInputForm() {
                               gutterBottom>
                               <label>Aluksen parametrit:</label>
                             </Typography>
+                            {/* Menu selector for default boat values */}
                             <BoatMenuComponent setDefaultBoatValues={setDefaultBoatValues}/>
                           </Grid>
                         </Grid>
