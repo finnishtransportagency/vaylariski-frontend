@@ -73,7 +73,7 @@ export default function BoatMenuComponent(props) {
                 Manoeuvrability: {boat.Manoeuvrability}
             </MenuItem>
           ))}
-        </Menu>
-      </>
-    );
-  };
+      </Menu>
+    </>
+  );
+};
