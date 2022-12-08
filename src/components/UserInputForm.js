@@ -6,9 +6,12 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
-import { Grid, Radio, RadioGroup, TextField } from "@mui/material";
+import { FormControl, Grid, Menu, popoverClasses } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import {AiOutlineInfoCircle} from "react-icons/ai"
 import Card from "@mui/material/Card";
@@ -16,6 +19,8 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
+import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
+import BoatMenuComponent from "./BoatMenuComponent";
 
 
 function UserInputForm() {
@@ -25,13 +30,15 @@ function UserInputForm() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const { fairway, setFairway } = useContext(FairwayContext);
   const { userInput, setUserInput } = useContext(UserInputContext);
+  const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
   const [style, setStyle] = useState({display: 'none'});
+
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
     const path = 'fairway/calculate_risk'
     console.log('You clicked me!' + JSON.stringify(userInput));
     const response = await apiClient.post(path, userInput);
-    console.log(response.data);
+    // console.log(response.data);
     setRIVResults(response.data)
   }
 
@@ -46,16 +53,16 @@ function UserInputForm() {
   const handleMouseOutWind = () => {setIsHoveringWind(false);};
 
   useEffect(() => {
-    console.log(userInput);
+    console.log('userInput muuttui',userInput);
   }, [userInput]);
 
-  const handleManoeuvrabilityChange = (event) => {
-    setBoat({...boat, manoeuvrability: event.target.value})
-  };
 
-  const handleFairwayChange = (ev) => {
-    setFairway(ev.target.value);
+  // This is passed to BoatMenuComponent, which then calls it
+  function setDefaultBoatValues(newBoat) {
+    setUserInput({...userInput, boat: newBoat});
   }
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -64,12 +71,13 @@ function UserInputForm() {
           <Box sx={{ flexGrow: 100 }}>
             <Grid container spacing={0}>
               <Grid item xs={4}>
+
                 {/* Laivan koko */}
                 <Card
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -84,8 +92,10 @@ function UserInputForm() {
                               gutterBottom>
                               <label>Aluksen parametrit:</label>
                             </Typography>
+                            {/* Menu selector for default boat values */}
+                            <BoatMenuComponent setDefaultBoatValues={setDefaultBoatValues}/>
                           </Grid>
-                        </Grid>                    
+                        </Grid>
                         <Grid container spacing={1}>
                           <Grid item xs={3}>
                             <label>Pituus (m):</label>
@@ -98,7 +108,7 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.length}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, length: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -114,7 +124,7 @@ function UserInputForm() {
                               width: 100
                               }}
                             value={userInput.boat.beam}
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,beam: ev.target.value}})}
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, beam: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -130,20 +140,20 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.draft}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, draft: ev.target.value}})}
                               />
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
-                  </CardContent>   
+                  </CardContent>
                 </Card>
                 {/* Liikehdintäkyky */}
                 <Card
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -181,12 +191,12 @@ function UserInputForm() {
                       </Grid>
                       <Grid container spacing={1}>
                         <Grid item xs={3}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="manoeuvrability_radio"
-                            value="good" 
+                            value="good"
                             id="good"
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}/>
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: ev.target.value}})}/>
                           <label>Hyvä</label>
                         </Grid>
                         <Grid item xs={4}>
@@ -214,10 +224,10 @@ function UserInputForm() {
                           />
                         </Grid>
                         <Grid item xs={3}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="manoeuvrability_radio"
-                            value="moderate" 
+                            value="moderate"
                             id="moderate"
                             onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}/>
                           <label>Keskiverto</label>
@@ -247,11 +257,11 @@ function UserInputForm() {
                           />
                         </Grid>
                         <Grid item xs={3}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="manoeuvrability_radio"
-                            value="poor" 
-                            id="poor"                        
+                            value="poor"
+                            id="poor"
                             onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}/>
                           <label>Heikko</label>
                         </Grid>
@@ -279,7 +289,7 @@ function UserInputForm() {
                             onChange={(ev) => setUserInput({...userInput,manoeuvrability_params: {...userInput.manoeuvrability_params,C_manoeuvrability_poor: ev.target.value}})}
                           />
                         </Grid>
-                      </Grid>              
+                      </Grid>
                     </Grid>
                   </CardContent>
                 </Card>
@@ -288,7 +298,7 @@ function UserInputForm() {
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -312,17 +322,17 @@ function UserInputForm() {
                       </Grid>
                       <Grid container spacing={1}>
                         <Grid item xs={4}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="vessel_speed_radio"
-                            value="fast" 
-                            id="fast"                        
+                            value="fast"
+                            id="fast"
                             onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}/>
                           <label>Nopea</label>
                         </Grid>
                         <Grid item xs={8}>
                           <label>{'v ≥ '}</label>
-                          <input type="number" 
+                          <input type="number"
                             required
                             style={{
                               width: 100
@@ -331,24 +341,24 @@ function UserInputForm() {
                             defaultValue={12}/>
                         </Grid>
                         <Grid item xs={4}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="vessel_speed_radio"
-                            value="moderate" 
+                            value="moderate"
                             id="moderate"
                             onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}/>
                           <label>Keskiverto</label>
                         </Grid>
                         <Grid item xs={8}>
-                          <input type="number" 
+                          <input type="number"
                             required
                             style={{
                               width: 100
                               }}
                             placeholder="nopeus"
-                            defaultValue={8}/> 
+                            defaultValue={8}/>
                           <label>{'≤ v <'}</label>
-                          <input type="number" 
+                          <input type="number"
                             required
                             style={{
                               width: 100
@@ -357,16 +367,16 @@ function UserInputForm() {
                             defaultValue={12}/>
                         </Grid>
                         <Grid item xs={4}>
-                          <input 
-                            type="radio" 
+                          <input
+                            type="radio"
                             name="vessel_speed_radio"
-                            value="slow" 
-                            id="slow"                        
+                            value="slow"
+                            id="slow"
                             onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,speed: ev.target.value}})}/>
                           <label>Hidas</label>
                         </Grid>
                         <Grid item xs={8}>
-                          <input type="number" 
+                          <input type="number"
                             required
                             style={{
                               width: 100
@@ -374,7 +384,7 @@ function UserInputForm() {
                             placeholder="nopeus"
                             defaultValue={5}/>
                             <label>{'≤ v <'}</label>
-                          <input type="number" 
+                          <input type="number"
                             required
                             style={{
                               width: 100
@@ -382,7 +392,7 @@ function UserInputForm() {
                             placeholder="nopeus"
                             defaultValue={8}/>
                         </Grid>
-                      </Grid>              
+                      </Grid>
                     </Grid>
                   </CardContent>
                 </Card>
@@ -391,7 +401,7 @@ function UserInputForm() {
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -505,7 +515,7 @@ function UserInputForm() {
                   style={{
                       width: 500,
                       backgroundColor: 'rgb(181, 220, 255)',
-                      marginTop: 5, 
+                      marginTop: 5,
                       marginBottom: 5,
                       marginLeft: 5,
                       marginRight:5
@@ -536,7 +546,8 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={2}
+                        value={RIVTrafficLight.green}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, green: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -551,16 +562,18 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={2}
+                        value={RIVTrafficLight.green}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, green: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
                         />
-                      <label>{'≤ RIV <'}</label>                      
+                      <label>{'≤ RIV <'}</label>
                       <input
                         type="float"
                         required
-                        defaultValue={4}
+                        value={RIVTrafficLight.yellow}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, yellow: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -572,11 +585,12 @@ function UserInputForm() {
                         </Box>
                       </Grid>
                       <Grid item xs={9.5}>
-                      <label>{'RIV ≥ '}</label>     
+                      <label>{'RIV ≥ '}</label>
                       <input
                         type="float"
                         required
-                        defaultValue={10}
+                        value={RIVTrafficLight.yellow}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, yellow: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -586,13 +600,13 @@ function UserInputForm() {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={4}>    
+              <Grid item xs={4}>
                 {/* Väylän parametrit */}
                 <Card
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -675,14 +689,14 @@ function UserInputForm() {
                                     {...userInput.navilinja.calculation_params,other:
                                       {...userInput.navilinja.calculation_params.other,visibility:ev.target.value}}}})}/>
                             </Grid>
-                          </Grid>              
+                          </Grid>
                         </Grid>
                       </CardContent>
                       <Card
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -698,18 +712,18 @@ function UserInputForm() {
                               <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                                 <AiOutlineInfoCircle/>
                               </div>
-                              {isHovering && 
+                              {isHovering &&
                               <Typography
                                   style={{ fontSize: 14 }}
                                   color="textSecondary"
                                   gutterBottom>
-                                    <label> Syvyyden painokerroin kerrotaan aluksen leveydellä alla näkyvien 
-                                    määritysten perusteella, joihin vaikuttaa väylän syvyys ja aluksen syväys. 
+                                    <label> Syvyyden painokerroin kerrotaan aluksen leveydellä alla näkyvien
+                                    määritysten perusteella, joihin vaikuttaa väylän syvyys ja aluksen syväys.
                                     Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
                                   </label>
                                 </Typography>}
                             </div>
-                          </div>     
+                          </div>
                           <Grid container spacing={1}>
                             <Grid item xs={5}>
                               <label> Sisävesiväylä </label>
@@ -754,7 +768,7 @@ function UserInputForm() {
                                 placeholder="painokerroin"
                                 value={userInput.channel_depth_wf.shallow_inner_channel}
                                 onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,shallow_inner_channel: ev.target.value}})}/>
-                            </Grid>                         
+                            </Grid>
                             <Grid item xs={6}>
                               <div>
                                 <label style={{fontSize:10}}>syvyys ≥ 1.5 * syväys</label>
@@ -793,14 +807,14 @@ function UserInputForm() {
                                 value={userInput.channel_depth_wf.shallow_outer_channel}
                                 onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,shallow_outer_channel: ev.target.value}})}/>
                             </Grid>
-                          </Grid> 
+                          </Grid>
                         </CardContent>
                       </Card>
                       <Card
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -816,25 +830,25 @@ function UserInputForm() {
                               <div onMouseOver={handleMouseOverDepth} onMouseOut={handleMouseOutDepth}>
                                 <AiOutlineInfoCircle/>
                               </div>
-                              {isHoveringDepth && 
+                              {isHoveringDepth &&
                               <Typography
                                   style={{ fontSize: 14 }}
                                   color="textSecondary"
                                   gutterBottom>
-                                    <label> Riskiarvon laskentaan valitaan väylän reunan tyyppi. 
-                                    Alla on esitetty myös reunan painokertoimet joihin vaikuttaa reunan tyyppi 
-                                    sekä aluksen nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa. 
+                                    <label> Riskiarvon laskentaan valitaan väylän reunan tyyppi.
+                                    Alla on esitetty myös reunan painokertoimet joihin vaikuttaa reunan tyyppi
+                                    sekä aluksen nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa.
                                     Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
                                   </label>
                                 </Typography>}
                             </div>
-                          </div> 
+                          </div>
                           <Grid container spacing={2}>
                             <Grid item xs={4}>
-                              <input 
-                                type="radio" 
+                              <input
+                                type="radio"
                                 name="channel_edge_radio"
-                                value="gentle_slope" 
+                                value="gentle_slope"
                                 id="gentle_slope"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -878,10 +892,10 @@ function UserInputForm() {
                                 onChange={(ev) => setUserInput({...userInput,bank_clearance_wf: {...userInput.bank_clearance_wf,edge_category_gentle_slow: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
-                              <input 
-                                type="radio" 
+                              <input
+                                type="radio"
                                 name="channel_edge_radio"
-                                value="sloping_edges" 
+                                value="sloping_edges"
                                 id="sloping_edges"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -925,10 +939,10 @@ function UserInputForm() {
                                 onChange={(ev) => setUserInput({...userInput,bank_clearance_wf: {...userInput.bank_clearance_wf,edge_category_sloping_slow: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
-                              <input 
+                              <input
                                 type="radio"
-                                name="channel_edge_radio" 
-                                value="steep_and_hard" 
+                                name="channel_edge_radio"
+                                value="steep_and_hard"
                                 id="steep_and_hard"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -956,7 +970,7 @@ function UserInputForm() {
                                   width: 100
                                   }}
                                 placeholder="painokerroin"
-                                
+
                                 value={userInput.bank_clearance_wf.edge_category_steep_moderate}
                                 onChange={(ev) => setUserInput({...userInput,bank_clearance_wf: {...userInput.bank_clearance_wf,edge_category_steep_moderate: ev.target.value}})}/>
                               <div>
@@ -969,11 +983,11 @@ function UserInputForm() {
                                   width: 100
                                   }}
                                 placeholder="painokerroin"
-                              
+
                                 value={userInput.bank_clearance_wf.edge_category_steep_slow}
                                 onChange={(ev) => setUserInput({...userInput,bank_clearance_wf: {...userInput.bank_clearance_wf,edge_category_steep_slow: ev.target.value}})}/>
                             </Grid>
-                          </Grid> 
+                          </Grid>
                         </CardContent>
                       </Card>
                       <CardContent>
@@ -1038,9 +1052,9 @@ function UserInputForm() {
                                 <option value="negligible">Olematon</option>
                               </select>
                             </Grid>
-                          </Grid>              
+                          </Grid>
                         </Grid>
-                      </CardContent>   
+                      </CardContent>
                     </Grid>
                   </CardContent>
                 </Card>
@@ -1051,7 +1065,7 @@ function UserInputForm() {
                   style={{
                     width: 500,
                     backgroundColor: 'rgb(181, 220, 255)',
-                    marginTop: 5, 
+                    marginTop: 5,
                     marginBottom: 5,
                     marginLeft: 5,
                     marginRight:5 }}>
@@ -1068,7 +1082,7 @@ function UserInputForm() {
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -1084,14 +1098,14 @@ function UserInputForm() {
                               <div onMouseOver={handleMouseOverWind} onMouseOut={handleMouseOutWind}>
                                 <AiOutlineInfoCircle/>
                               </div>
-                              {isHoveringWind && 
+                              {isHoveringWind &&
                               <Typography
                                   style={{ fontSize: 14 }}
                                   color="textSecondary"
                                   gutterBottom>
-                                    <label> Riskiarvon laskentaan valitaan tuulen nopeusluokka. 
+                                    <label> Riskiarvon laskentaan valitaan tuulen nopeusluokka.
                                       Alla on esitetty myös tuulen painokertoimet joihin vaikuttaa tuulen nopeusluokka
-                                      sekä aluksen nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa. 
+                                      sekä aluksen nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa.
                                       Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
                                   </label>
                                 </Typography>}
@@ -1099,10 +1113,10 @@ function UserInputForm() {
                           </div>
                           <Grid container spacing={1}>
                             <Grid item xs={4}>
-                              <input 
-                                type="radio" 
+                              <input
+                                type="radio"
                                 name="wind_radio"
-                                value="mild" 
+                                value="mild"
                                 id="mild"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -1153,10 +1167,10 @@ function UserInputForm() {
                                 onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,mild_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
-                              <input 
-                                type="radio" 
+                              <input
+                                type="radio"
                                 name="wind_radio"
-                                value="sloping_edges" 
+                                value="sloping_edges"
                                 id="sloping_edges"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -1172,7 +1186,7 @@ function UserInputForm() {
                               <div>
                                 <label style={{fontSize:10}}>nopea</label>
                               </div>
-                              <input {...register("userInput.wind_wf.moderate_wind_fast_vessel", {valueAsNumber: true})}
+                              <input
                                 type="float"
                                 required
                                 style={{
@@ -1207,10 +1221,10 @@ function UserInputForm() {
                                 onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,moderate_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
-                              <input 
-                                type="radio" 
+                              <input
+                                type="radio"
                                 name="wind_radio"
-                                value="steep_and_hard" 
+                                value="steep_and_hard"
                                 id="steep_and_hard"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
@@ -1260,7 +1274,7 @@ function UserInputForm() {
                                 value={userInput.wind_wf.strong_wind_slow_vessel}
                                 onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,strong_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
-                          </Grid> 
+                          </Grid>
                         </CardContent>
                       </Card>
                       {/* Poikkivirtaus */}
@@ -1268,7 +1282,7 @@ function UserInputForm() {
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -1292,10 +1306,10 @@ function UserInputForm() {
                             </Grid>
                             <Grid container spacing={1}>
                               <Grid item xs={3}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="cross_current_radio"
-                                  value="negligible" 
+                                  value="negligible"
                                   id="negligible"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
@@ -1317,7 +1331,7 @@ function UserInputForm() {
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_neg_lower:ev.target.value}}}})}/>
-                                <label>{'≤ v <'}</label>  
+                                <label>{'≤ v <'}</label>
                                 <input {...register("userInput.navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper", {valueAsfloat: true})}
                                   type="float"
                                   required
@@ -1333,11 +1347,11 @@ function UserInputForm() {
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wneg_upper:ev.target.value}}}})}/>
                               </Grid>
                               <Grid item xs={3}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="cross_current_radio"
-                                  value="low" 
-                                  id="low"                        
+                                  value="low"
+                                  id="low"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1358,7 +1372,7 @@ function UserInputForm() {
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wneg_upper:ev.target.value}}}})}/>
-                                <label>{'≤ v <'}</label> 
+                                <label>{'≤ v <'}</label>
                                 <input {...register("userInput.navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper", {valueAsfloat: true})}
                                   type="float"
                                   required
@@ -1374,10 +1388,10 @@ function UserInputForm() {
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wlow_upper:ev.target.value}}}})}/>
                               </Grid>
                               <Grid item xs={3}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="cross_current_radio"
-                                  value="moderate" 
+                                  value="moderate"
                                   id="moderate"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
@@ -1399,7 +1413,7 @@ function UserInputForm() {
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wlow_upper:ev.target.value}}}})}/>
-                                <label>{'≤ v <'}</label>  
+                                <label>{'≤ v <'}</label>
                                 <input {...register("userInput.navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper", {valueAsfloat: true})}
                                   type="float"
                                   required
@@ -1415,11 +1429,11 @@ function UserInputForm() {
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wmod_upper:ev.target.value}}}})}/>
                               </Grid>
                               <Grid item xs={3}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="cross_current_radio"
-                                  value="strong" 
-                                  id="strong"                        
+                                  value="strong"
+                                  id="strong"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1440,7 +1454,7 @@ function UserInputForm() {
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wmod_upper:ev.target.value}}}})}/>
-                                <label>{'≤ v <'}</label> 
+                                <label>{'≤ v <'}</label>
                                 <input {...register("userInput.navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper", {valueAsfloat: true})}
                                   type="float"
                                   required
@@ -1455,7 +1469,7 @@ function UserInputForm() {
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,cross_current_Wstrong_upper:ev.target.value}}}})}/>
                               </Grid>
-                            </Grid>              
+                            </Grid>
                           </Grid>
                         </CardContent>
                       </Card>
@@ -1464,7 +1478,7 @@ function UserInputForm() {
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -1488,10 +1502,10 @@ function UserInputForm() {
                             </Grid>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="longitudinal_current_radio"
-                                  value="negligible" 
+                                  value="negligible"
                                   id="negligible"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
@@ -1513,7 +1527,7 @@ function UserInputForm() {
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_Wneg_lower:ev.target.value}}}})}/>
-                                <label>{'≤ v <'}</label> 
+                                <label>{'≤ v <'}</label>
                                 <input {...register("userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper", {valueAsfloat: true})}
                                   type="float"
                                   required
@@ -1529,15 +1543,15 @@ function UserInputForm() {
                                         {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_Wneg_upper:ev.target.value}}}})}/>
                               </Grid>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="longitudinal_current_radio"
-                                  value="moderate" 
+                                  value="moderate"
                                   id="moderate"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
-                                        {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_speed:ev.target.value}}}})}/>                                
+                                        {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_speed:ev.target.value}}}})}/>
                                   <label>Keskiverto</label>
                               </Grid>
                               <Grid item xs={8}>
@@ -1570,11 +1584,11 @@ function UserInputForm() {
                                         {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_Wmod_upper:ev.target.value}}}})}/>
                               </Grid>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="longitudinal_current_radio"
-                                  value="strong" 
-                                  id="strong"                        
+                                  value="strong"
+                                  id="strong"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1597,7 +1611,7 @@ function UserInputForm() {
                                       {...userInput.navilinja.calculation_params,operating_conditions:
                                         {...userInput.navilinja.calculation_params.operating_conditions,longitudinal_current_Wmod_upper:ev.target.value}}}})}/>
                               </Grid>
-                            </Grid>              
+                            </Grid>
                           </Grid>
                         </CardContent>
                       </Card>
@@ -1606,7 +1620,7 @@ function UserInputForm() {
                         style={{
                           width: 500,
                           backgroundColor: 'rgb(181, 220, 255)',
-                          marginTop: 5, 
+                          marginTop: 5,
                           marginBottom: 5,
                           marginLeft: 5,
                           marginRight:5 }}>
@@ -1630,10 +1644,10 @@ function UserInputForm() {
                             </Grid>
                             <Grid container spacing={1}>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="wave_height_radio"
-                                  value="negligible" 
+                                  value="negligible"
                                   id="negligible"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
@@ -1642,15 +1656,15 @@ function UserInputForm() {
                                 <label>Matala</label>
                               </Grid>
                               <Grid item xs={8}>
-                                <input type="number" 
+                                <input type="number"
                                   required
                                   style={{
                                     width: 100
                                     }}
                                   placeholder="aallon korkeus"
-                                  defaultValue={0.0}/> 
-                                <label>{'≤ h <'}</label> 
-                                <input type="number" 
+                                  defaultValue={0.0}/>
+                                <label>{'≤ h <'}</label>
+                                <input type="number"
                                   required
                                   style={{
                                     width: 100
@@ -1659,10 +1673,10 @@ function UserInputForm() {
                                   defaultValue={1.0}/>
                               </Grid>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="wave_height_radio"
-                                  value="moderate" 
+                                  value="moderate"
                                   id="moderate"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
@@ -1671,7 +1685,7 @@ function UserInputForm() {
                                 <label>Keskiverto</label>
                               </Grid>
                               <Grid item xs={8}>
-                                <input type="number" 
+                                <input type="number"
                                   required
                                   style={{
                                     width: 100
@@ -1679,7 +1693,7 @@ function UserInputForm() {
                                   placeholder="aallon korkeus"
                                   defaultValue={1.0}/>
                                 <label>{'≤ h ≤'}</label>
-                                <input type="number" 
+                                <input type="number"
                                   required
                                   style={{
                                     width: 100
@@ -1688,11 +1702,11 @@ function UserInputForm() {
                                   defaultValue={3.0}/>
                               </Grid>
                               <Grid item xs={4}>
-                                <input 
-                                  type="radio" 
+                                <input
+                                  type="radio"
                                   name="wave_height_radio"
-                                  value="strong" 
-                                  id="strong"                        
+                                  value="strong"
+                                  id="strong"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1701,15 +1715,15 @@ function UserInputForm() {
                               </Grid>
                               <Grid item xs={8}>
                                 <label>{'h > '}</label>
-                                <input type="number" 
+                                <input type="number"
                                   required
                                   style={{
                                     width: 100
                                     }}
                                   placeholder="aallon korkeus"
-                                  defaultValue={3.0}/> 
+                                  defaultValue={3.0}/>
                               </Grid>
-                            </Grid>              
+                            </Grid>
                           </Grid>
                         </CardContent>
                       </Card>

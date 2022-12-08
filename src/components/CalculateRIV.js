@@ -8,6 +8,8 @@ import RIVResultContext from '../contexts/RIVResult';
 import UserInputForm from "./UserInputForm";
 import FairwayContext from '../contexts/Fairway';
 import UserInputContext from "../contexts/UserInput";
+import Mapp from "./Mapp";
+import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 
 const boatDefault = {
     speed: '',
@@ -109,15 +111,25 @@ function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [fairway, setFairway ] = useState('Helsinki');
   const [userInput, setUserInput] = useState(userInputDefault)
+  const [RIVTrafficLight, setRIVTraffiLight] = useState({
+    green: 10,
+    yellow: 30,
+  });
 
+  useEffect(() =>{
+    console.log(RIVTrafficLight)
+  }, [RIVTrafficLight])
 
   return (
     <BoatContext.Provider value={{ boat, setBoat }}>
       <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
         <FairwayContext.Provider value= {{ fairway, setFairway }} >
           <UserInputContext.Provider value= {{userInput, setUserInput}}>
-            <UserInputForm />
-            <DisplayRIVResults />
+            <RIVTrafficLightContext.Provider value={{ RIVTrafficLight, setRIVTraffiLight }} >
+              <UserInputForm />
+              <DisplayRIVResults />
+              <Mapp />
+            </RIVTrafficLightContext.Provider>
           </UserInputContext.Provider>
         </FairwayContext.Provider>
       </RIVResultContext.Provider>
