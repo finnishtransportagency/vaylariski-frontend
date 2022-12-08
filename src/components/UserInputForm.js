@@ -23,7 +23,6 @@ import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
 
 
-
 function UserInputForm() {
   const {register, handleSubmit, formState:{errors}} = useForm();
   const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
@@ -736,65 +735,77 @@ function UserInputForm() {
                               <div>
                                 <label style={{fontSize:10}}>syvyys ≥ 1.5 * syväys</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.deep_inner_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.0}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.deep_inner_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,deep_inner_channel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>1.15*syväys ≤ syvyys  1.5*syväys</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.medium_deep_inner_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.2}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.medium_deep_inner_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,medium_deep_inner_channel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>{"syvyys < 1.15*syväys"}</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.shallow_inner_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.4}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.shallow_inner_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,shallow_inner_channel: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={6}>
                               <div>
                                 <label style={{fontSize:10}}>syvyys ≥ 1.5 * syväys</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.deep_outer_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.0}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.deep_outer_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,deep_outer_channel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>1.25*syväys ≤ syvyys  1.5*syväys</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.medium_deep_outer_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.1}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.medium_deep_outer_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,medium_deep_outer_channel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>{"syvyys < 1.25*syväys"}</label>
                               </div>
-                              <input
+                              <input {...register("userInput.channel_depth_wf.shallow_outer_channel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.2}/>
+                                placeholder="painokerroin"
+                                value={userInput.channel_depth_wf.shallow_outer_channel}
+                                onChange={(ev) => setUserInput({...userInput,channel_depth_wf: {...userInput.channel_depth_wf,shallow_outer_channel: ev.target.value}})}/>
                             </Grid>
                           </Grid>
                         </CardContent>
@@ -1121,33 +1132,39 @@ function UserInputForm() {
                               <div>
                                 <label style={{fontSize:10}}>nopea</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.mild_wind_fast_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.1}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.mild_wind_fast_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,mild_wind_fast_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>keskiverto</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.mild_wind_moderate_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.2}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.mild_wind_moderate_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,mild_wind_moderate_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>hidas</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.mild_wind_slow_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.3}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.mild_wind_slow_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,mild_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
                               <input
@@ -1175,27 +1192,33 @@ function UserInputForm() {
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.3}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.moderate_wind_fast_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,moderate_wind_fast_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>keskiverto</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.moderate_wind_moderate_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.4}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.moderate_wind_moderate_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,moderate_wind_moderate_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>hidas</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.moderate_wind_slow_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.6}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.moderate_wind_slow_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,moderate_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
                             <Grid item xs={4}>
                               <input
@@ -1217,33 +1240,39 @@ function UserInputForm() {
                               <div>
                                 <label style={{fontSize:10}}>nopea</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.strong_wind_fast_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.5}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.strong_wind_fast_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,strong_wind_fast_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>keskiverto</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.strong_wind_moderate_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={0.7}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.strong_wind_moderate_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,strong_wind_moderate_vessel: ev.target.value}})}/>
                               <div>
                                 <label style={{fontSize:10}}>hidas</label>
                               </div>
-                              <input
+                              <input {...register("userInput.wind_wf.strong_wind_slow_vessel", {valueAsNumber: true})}
                                 type="float"
                                 required
                                 style={{
                                   width: 100
                                   }}
-                                defaultValue={1.1}/>
+                                placeholder="painokerroin"
+                                value={userInput.wind_wf.strong_wind_slow_vessel}
+                                onChange={(ev) => setUserInput({...userInput,wind_wf: {...userInput.wind_wf,strong_wind_slow_vessel: ev.target.value}})}/>
                             </Grid>
                           </Grid>
                         </CardContent>

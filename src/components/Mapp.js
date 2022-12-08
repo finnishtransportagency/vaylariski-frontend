@@ -37,9 +37,8 @@ function GeoJSONMarkers() {
   const [geojsonFeatGroup, setGeojsonFeatGroup ] = useState(new L.FeatureGroup());
 
   function onEachFeature(feature, layer) {
-    // does this feature have a property named popupContent?
+    // If feature have have properties parse all of them and bind to layer
     if (feature.properties) {
-      // layer.bindPopup(`<p>${feature.properties.GDO_GID}</p>`)
       layer.bindPopup('<pre>'+JSON.stringify(feature.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
     }
   };
