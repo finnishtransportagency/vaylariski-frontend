@@ -66,11 +66,11 @@ export default function BoatMenuComponent(props) {
               selected={index === selectedIndex}
               onClick={handleMenuItemClick}
               >
-                Speed: {boat.Speed},
-                Length: {boat.Length},
-                Beam: {boat.Beam},
-                Draft: {boat.Draft},
-                Manoeuvrability: {boat.Manoeuvrability}
+                Speed: {boat.speed},
+                Length: {boat.length},
+                Beam: {boat.beam},
+                Draft: {boat.draft},
+                Manoeuvrability: {boat.manoeuvrability}
             </MenuItem>
           ))}
       </Menu>
