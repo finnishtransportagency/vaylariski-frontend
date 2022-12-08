@@ -16,6 +16,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
+import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 
 
 
@@ -26,6 +27,7 @@ function UserInputForm() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const { fairway, setFairway } = useContext(FairwayContext);
   const { userInput, setUserInput } = useContext(UserInputContext);
+  const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
   const [style, setStyle] = useState({display: 'none'});
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
@@ -537,7 +539,8 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={2}
+                        value={RIVTrafficLight.green}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, green: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -552,7 +555,8 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={2}
+                        value={RIVTrafficLight.green}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, green: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -561,7 +565,8 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={4}
+                        value={RIVTrafficLight.yellow}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, yellow: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}
@@ -577,7 +582,8 @@ function UserInputForm() {
                       <input
                         type="float"
                         required
-                        defaultValue={10}
+                        value={RIVTrafficLight.yellow}
+                        onChange={ev => setRIVTraffiLight({...RIVTrafficLight, yellow: Number(ev.target.value)})}
                         style={{
                           width: 100
                           }}

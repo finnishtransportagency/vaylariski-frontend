@@ -2,8 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 import RIVResultContext from '../contexts/RIVResult';
 import L, { FeatureGroup } from 'leaflet'
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import RIVTrafficLightContext from 'contexts/RIVTrafficLightContext';
 
-const geojsonMarkerOptions = {
+const geojsonMarkerOptionsGreen = {
+  radius: 8,
+  fillColor: "#00FF00",
+  color: "#00FF00",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.8
+};
+const geojsonMarkerOptionsYellow = {
   radius: 8,
   fillColor: "#ff7800",
   color: "#ff7800",
@@ -23,6 +32,7 @@ const geojsonMarkerOptionsRed = {
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
   const [geojsonFeatGroup, setGeojsonFeatGroup ] = useState(new L.FeatureGroup());
 
   function onEachFeature(feature, layer) {
@@ -41,16 +51,19 @@ function GeoJSONMarkers() {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
-        if (feature.properties.RISK_INDEX_SUM > 20 ) {
-          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+        if (feature.properties.RISK_INDEX_SUM <= RIVTrafficLight.green ) {
+          return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+        } else if (feature.properties.RISK_INDEX_SUM > RIVTrafficLight.green &&
+          feature.properties.RISK_INDEX_SUM <= RIVTrafficLight.yellow ) {
+          return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
         }
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+        return L.circleMarker(latlng, geojsonMarkerOptionsRed);
       }
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 
     geojsonFeatGroup.addTo(map);
-  }, [RIVResults]);
+  }, [RIVResults, RIVTrafficLight]);
   return null;
 }
 
