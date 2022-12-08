@@ -51,10 +51,10 @@ function GeoJSONMarkers() {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
-        if (feature.properties.RISK_INDEX_SUM <= RIVTrafficLight.green ) {
+        if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green ) {
           return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
-        } else if (feature.properties.RISK_INDEX_SUM > RIVTrafficLight.green &&
-          feature.properties.RISK_INDEX_SUM <= RIVTrafficLight.yellow ) {
+        } else if (feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+          feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow ) {
           return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
         }
         return L.circleMarker(latlng, geojsonMarkerOptionsRed);
