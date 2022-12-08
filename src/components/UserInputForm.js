@@ -6,6 +6,7 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import { FormControl, Grid, Menu, popoverClasses } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -19,7 +20,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
-import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import BoatMenuComponent from "./BoatMenuComponent";
 
 

@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import RIVResultContext from '../contexts/RIVResult';
 import L, { FeatureGroup } from 'leaflet'
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
-import RIVTrafficLightContext from 'contexts/RIVTrafficLightContext';
+
+import RIVResultContext from '../contexts/RIVResult';
+import RIVTrafficLightContext from '../contexts/RIVTrafficLightContext';
 
 const geojsonMarkerOptionsGreen = {
   radius: 8,

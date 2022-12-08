@@ -8,8 +8,8 @@ import RIVResultContext from '../contexts/RIVResult';
 import UserInputForm from "./UserInputForm";
 import FairwayContext from '../contexts/Fairway';
 import UserInputContext from "../contexts/UserInput";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import Mapp from "./Mapp";
-import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 
 const boatDefault = {
     speed: '',
