@@ -6,9 +6,12 @@ import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
-import { Grid, Radio, RadioGroup, TextField } from "@mui/material";
+import { FormControl, Grid, Menu, popoverClasses } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import {AiOutlineInfoCircle} from "react-icons/ai"
 import Card from "@mui/material/Card";
@@ -17,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
+import BoatMenuComponent from "./BoatMenuComponent";
 
 
 
@@ -29,6 +33,7 @@ function UserInputForm() {
   const { userInput, setUserInput } = useContext(UserInputContext);
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
   const [style, setStyle] = useState({display: 'none'});
+
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
     const path = 'fairway/calculate_risk'
@@ -49,16 +54,16 @@ function UserInputForm() {
   const handleMouseOutWind = () => {setIsHoveringWind(false);};
 
   useEffect(() => {
-    console.log(userInput);
+    console.log('userInput muuttui',userInput);
   }, [userInput]);
 
-  const handleManoeuvrabilityChange = (event) => {
-    setBoat({...boat, manoeuvrability: event.target.value})
-  };
 
-  const handleFairwayChange = (ev) => {
-    setFairway(ev.target.value);
+  // This is passed to BoatMenuComponent, which then calls it
+  function setDefaultBoatValues(newBoat) {
+    setUserInput({...userInput, boat: newBoat});
   }
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,6 +72,7 @@ function UserInputForm() {
           <Box sx={{ flexGrow: 100 }}>
             <Grid container spacing={0}>
               <Grid item xs={4}>
+
                 {/* Laivan koko */}
                 <Card
                   style={{
@@ -87,6 +93,8 @@ function UserInputForm() {
                               gutterBottom>
                               <label>Aluksen parametrit:</label>
                             </Typography>
+                            {/* Menu selector for default boat values */}
+                            <BoatMenuComponent setDefaultBoatValues={setDefaultBoatValues}/>
                           </Grid>
                         </Grid>
                         <Grid container spacing={1}>
@@ -101,7 +109,7 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.length}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,length: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, length: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -117,7 +125,7 @@ function UserInputForm() {
                               width: 100
                               }}
                             value={userInput.boat.beam}
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,beam: ev.target.value}})}
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, beam: ev.target.value}})}
                             />
                           </Grid>
                         </Grid>
@@ -133,7 +141,7 @@ function UserInputForm() {
                                 width: 100
                                 }}
                               value={userInput.boat.draft}
-                              onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,draft: ev.target.value}})}
+                              onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, draft: ev.target.value}})}
                               />
                           </Grid>
                         </Grid>
@@ -189,7 +197,7 @@ function UserInputForm() {
                             name="manoeuvrability_radio"
                             value="good"
                             id="good"
-                            onChange={(ev) => setUserInput({...userInput,boat: {...userInput.boat,manoeuvrability: ev.target.value}})}/>
+                            onChange={(ev) => setUserInput({...userInput, boat: {...userInput.boat, manoeuvrability: ev.target.value}})}/>
                           <label>Hyvä</label>
                         </Grid>
                         <Grid item xs={4}>

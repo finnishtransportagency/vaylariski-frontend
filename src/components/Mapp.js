@@ -43,7 +43,6 @@ function GeoJSONMarkers() {
     }
   };
 
-  console.log('lapsi', map);
   useEffect(() => {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
 
