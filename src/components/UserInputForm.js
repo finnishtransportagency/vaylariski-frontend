@@ -193,7 +193,6 @@ function UserInputForm() {
                         <Grid item xs={3}>
                           <input
                             type="radio"
-                            required
                             name="manoeuvrability_radio"
                             value="good"
                             id="good"
@@ -325,7 +324,6 @@ function UserInputForm() {
                         <Grid item xs={4}>
                           <input
                             type="radio"
-                            required
                             name="vessel_speed_radio"
                             value="fast"
                             id="fast"
@@ -849,7 +847,6 @@ function UserInputForm() {
                             <Grid item xs={4}>
                               <input
                                 type="radio"
-                                required
                                 name="channel_edge_radio"
                                 value="gentle_slope"
                                 id="gentle_slope"
@@ -944,7 +941,6 @@ function UserInputForm() {
                             <Grid item xs={4}>
                               <input
                                 type="radio"
-                                required
                                 name="channel_edge_radio"
                                 value="steep_and_hard"
                                 id="steep_and_hard"
@@ -1122,7 +1118,6 @@ function UserInputForm() {
                                 name="wind_radio"
                                 value="mild"
                                 id="mild"
-                                required
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
                                     {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1175,8 +1170,8 @@ function UserInputForm() {
                               <input
                                 type="radio"
                                 name="wind_radio"
-                                value="moderate"
-                                id="moderate"
+                                value="sloping_edges"
+                                id="sloping_edges"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
                                     {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1229,8 +1224,8 @@ function UserInputForm() {
                               <input
                                 type="radio"
                                 name="wind_radio"
-                                value="strong"
-                                id="strong"
+                                value="steep_and_hard"
+                                id="steep_and_hard"
                                 onChange={(ev) => setUserInput({...userInput,navilinja:
                                   {...userInput.navilinja,calculation_params:
                                     {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1313,7 +1308,6 @@ function UserInputForm() {
                               <Grid item xs={3}>
                                 <input
                                   type="radio"
-                                  required
                                   name="cross_current_radio"
                                   value="negligible"
                                   id="negligible"
@@ -1510,7 +1504,6 @@ function UserInputForm() {
                               <Grid item xs={4}>
                                 <input
                                   type="radio"
-                                  required
                                   name="longitudinal_current_radio"
                                   value="negligible"
                                   id="negligible"
@@ -1653,10 +1646,9 @@ function UserInputForm() {
                               <Grid item xs={4}>
                                 <input
                                   type="radio"
-                                  required
                                   name="wave_height_radio"
-                                  value="low"
-                                  id="low"
+                                  value="negligible"
+                                  id="negligible"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
@@ -1713,8 +1705,8 @@ function UserInputForm() {
                                 <input
                                   type="radio"
                                   name="wave_height_radio"
-                                  value="high"
-                                  id="high"
+                                  value="strong"
+                                  id="strong"
                                   onChange={(ev) => setUserInput({...userInput,navilinja:
                                     {...userInput.navilinja,calculation_params:
                                       {...userInput.navilinja.calculation_params,operating_conditions:
