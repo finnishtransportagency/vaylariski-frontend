@@ -11,7 +11,9 @@ function DisplayRIVResults() {
   const [ displayRowResults, setDisplayRowResults ] = useState([]);
 
   useEffect(() => {
+    setDisplayRowResults([]);
     if (RIVResults.length === 0 ) return;
+
     let rowResults = [];
     RIVResults.features.map(el => {
       rowResults.push(el.properties)
@@ -23,7 +25,7 @@ function DisplayRIVResults() {
     {field: 'GDO_GID', width:100},
     {field: 'VAYLAT'},
     {field: 'MID_POINT'},
-    {field: 'RISK_INDEX_SUM', width:100}, 
+    {field: 'RISK_INDEX_SUM', width:100},
     {field: 'RIV_1_channel', width:100},
     {field: 'RIV_2_bend', width:100},
     {field: 'RIV_3_s_bend', width:100},

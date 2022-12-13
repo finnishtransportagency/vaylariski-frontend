@@ -21,6 +21,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
+import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 
 
 function UserInputForm() {
@@ -31,15 +32,22 @@ function UserInputForm() {
   const { fairway, setFairway } = useContext(FairwayContext);
   const { userInput, setUserInput } = useContext(UserInputContext);
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
+  const { spinnerVisible, setSpinnerVisible } = useContext(SpinnerVisibilityContext);
+
   const [style, setStyle] = useState({display: 'none'});
 
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
     const path = 'fairway/calculate_risk'
     console.log('You clicked me!' + JSON.stringify(userInput));
+    // Empty previous results
+    setRIVResults([]);
+    // Set spinner
+    setSpinnerVisible(true);
     const response = await apiClient.post(path, userInput);
     // console.log(response.data);
     setRIVResults(response.data)
+    setSpinnerVisible(false)
   }
 
   const [isHovering, setIsHovering] = useState(false);
@@ -63,7 +71,7 @@ function UserInputForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>    
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={1}>
         <Grid item xs={4}>
           {/* Laivan koko */}
