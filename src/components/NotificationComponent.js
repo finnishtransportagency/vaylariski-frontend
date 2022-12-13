@@ -1,4 +1,4 @@
-import { Button, Snackbar } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import NotificationContext from "contexts/NotificationContext";
 import { useContext } from "react";
