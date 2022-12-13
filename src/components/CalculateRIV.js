@@ -12,6 +12,8 @@ import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import Mapp from "./Mapp";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import LoadingSpinner from "./LoadingSpinner";
+import NotificationComponent from "./NotificationComponent";
+import NotificationContext from "contexts/NotificationContext";
 
 const boatDefault = {
   speed: "",
@@ -118,6 +120,11 @@ function CalculateRIV() {
     yellow: 30,
   });
   const [spinnerVisible, setSpinnerVisible] = useState(false);
+  const [notificationStatus, setNotificationStatus] = useState({
+    severity: "success",
+    message: "This is a success message!",
+    visible: false,
+  });
 
   useEffect(() => {
     console.log(RIVTrafficLight);
@@ -134,10 +141,15 @@ function CalculateRIV() {
               <SpinnerVisibilityContext.Provider
                 value={{ spinnerVisible, setSpinnerVisible }}
               >
-                <LoadingSpinner />
-                <UserInputForm />
-                <DisplayRIVResults />
-                <Mapp />
+                <NotificationContext.Provider
+                  value={{ notificationStatus, setNotificationStatus }}
+                >
+                  <NotificationComponent />
+                  <LoadingSpinner />
+                  <UserInputForm />
+                  <DisplayRIVResults />
+                  <Mapp />
+                </NotificationContext.Provider>
               </SpinnerVisibilityContext.Provider>
             </RIVTrafficLightContext.Provider>
           </UserInputContext.Provider>

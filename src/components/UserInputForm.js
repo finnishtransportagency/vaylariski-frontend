@@ -22,6 +22,7 @@ import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
+import NotificationContext from "contexts/NotificationContext";
 
 
 function UserInputForm() {
@@ -33,7 +34,7 @@ function UserInputForm() {
   const { userInput, setUserInput } = useContext(UserInputContext);
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
   const { spinnerVisible, setSpinnerVisible } = useContext(SpinnerVisibilityContext);
-
+  const { notificationStatus, setNotificationStatus } = useContext(NotificationContext);
   const [style, setStyle] = useState({display: 'none'});
 
   //Kutsuu calculate_risk endpointtia parametreillä
@@ -44,10 +45,19 @@ function UserInputForm() {
     setRIVResults([]);
     // Set spinner
     setSpinnerVisible(true);
-    const response = await apiClient.post(path, userInput);
-    // console.log(response.data);
-    setRIVResults(response.data)
-    setSpinnerVisible(false)
+    try {
+      const response = await apiClient.post(path, userInput);
+      setRIVResults(response.data)
+    } catch (err) {
+      console.log(err);
+      setNotificationStatus({
+        severity: "error",
+        message: err.message,
+        visible: true,
+      })
+    } finally {
+      setSpinnerVisible(false)
+    };
   }
 
   const [isHovering, setIsHovering] = useState(false);
