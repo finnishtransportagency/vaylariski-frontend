@@ -32,7 +32,7 @@ const userInputDefault = {
     manoeuvrability: "moderate",
   },
   navilinja: {
-    VAYLAT: 100,
+    VAYLAT: '100',
     navilinja: [
       {
         coordinates: [],
