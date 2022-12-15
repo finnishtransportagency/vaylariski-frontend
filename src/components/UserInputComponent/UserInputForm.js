@@ -31,6 +31,7 @@ import BoatMenuComponent from "./BoatMenuComponent";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import NotificationContext from "contexts/NotificationContext";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
+import UserDefinedAngleParamsComponent from "./UserDefinedAngleParamsComponent";
 
 function UserInputForm() {
   const {
@@ -877,6 +878,7 @@ function UserInputForm() {
             </CardContent>
             <CardContent>
               <Grid container spacing={1}>
+                {/* Väylän parametrit */}
                 <CardContent>
                   <Grid container spacing={1}>
                     <Grid item xs={6.5}>
@@ -1017,6 +1019,7 @@ function UserInputForm() {
                     marginRight: 5,
                   }}
                 >
+                  {/* Väylän syvyyden painokerroin */}
                   <CardContent>
                     <Typography
                       style={{ fontSize: 16 }}
@@ -1245,6 +1248,7 @@ function UserInputForm() {
                     marginRight: 5,
                   }}
                 >
+                  {/* Väylän reuna ja reunan painokerroin */}
                   <CardContent>
                     <Typography
                       style={{ fontSize: 16 }}
@@ -1598,6 +1602,7 @@ function UserInputForm() {
                     </Grid>
                   </CardContent>
                 </Card>
+                {/* ATN */}
                 <CardContent>
                   <Grid container spacing={0}>
                     <Grid container spacing={1}>
@@ -1723,6 +1728,8 @@ function UserInputForm() {
                     </Grid>
                   </Grid>
                 </CardContent>
+                {/* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */}
+                <UserDefinedAngleParamsComponent />
               </Grid>
             </CardContent>
           </Card>
