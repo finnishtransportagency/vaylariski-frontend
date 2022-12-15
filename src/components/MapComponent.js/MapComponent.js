@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import L, { FeatureGroup } from 'leaflet'
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 
-import RIVResultContext from '../contexts/RIVResult';
-import RIVTrafficLightContext from '../contexts/RIVTrafficLightContext';
+import RIVResultContext from '../../contexts/RIVResult';
+import RIVTrafficLightContext from '../../contexts/RIVTrafficLightContext';
+import RIVTrafficLightsComponent from './RIVTrafficLightsComponent';
 
 const geojsonMarkerOptionsGreen = {
   radius: 8,
@@ -15,8 +16,8 @@ const geojsonMarkerOptionsGreen = {
 };
 const geojsonMarkerOptionsYellow = {
   radius: 8,
-  fillColor: "#ff7800",
-  color: "#ff7800",
+  fillColor: "#ffff00",
+  color: "#ffff00",
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8
@@ -66,15 +67,17 @@ function GeoJSONMarkers() {
   return null;
 }
 
-function Mapp() {
+function MapComponent() {
   return (
+    <>
+
     <MapContainer
       // whenReady={ instance => {mapRef.current = instance} }
       // ref={mapRef}
       center={[62, 23.5]}
       zoom={5}
       scrollWheelZoom={false}
-      style={{ height:"800px",backgroundColor:"white",marginTop:"80px", marginBottom:'90px'
+      style={{ height:"800px",backgroundColor:"white",marginTop:"80px", marginBottom:'5px'
         }}
     >
       <GeoJSONMarkers
@@ -84,7 +87,9 @@ function Mapp() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
     </MapContainer>
+    <RIVTrafficLightsComponent />
+    </>
     );
 };
 
-export default Mapp;
+export default MapComponent;

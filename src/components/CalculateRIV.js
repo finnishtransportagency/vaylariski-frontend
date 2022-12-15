@@ -1,6 +1,4 @@
-import { useForm } from "react-hook-form";
-import { getDefaultNormalizer } from "@testing-library/react";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 import DisplayRIVResults from "./DisplayRIVResults";
 import BoatContext from "../contexts/Boat";
@@ -9,11 +7,11 @@ import UserInputForm from "./UserInputForm";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
-import Mapp from "./Mapp";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import LoadingSpinner from "./LoadingSpinner";
 import NotificationComponent from "./NotificationComponent";
 import NotificationContext from "contexts/NotificationContext";
+import MapComponent from "./MapComponent.js/MapComponent";
 
 const boatDefault = {
   speed: "",
@@ -148,7 +146,7 @@ function CalculateRIV() {
                   <LoadingSpinner />
                   <UserInputForm />
                   <DisplayRIVResults />
-                  <Mapp />
+                  <MapComponent />
                 </NotificationContext.Provider>
               </SpinnerVisibilityContext.Provider>
             </RIVTrafficLightContext.Provider>

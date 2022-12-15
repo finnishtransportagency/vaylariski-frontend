@@ -54,6 +54,9 @@ function UserInputForm() {
     useContext(NotificationContext);
   const [style, setStyle] = useState({ display: "none" });
   const [vaylatInputValue, setVaylatInputValue ] = useState('');
+  const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringDepth, setIsHoveringDepth] = useState(false);
+  const [isHoveringWind, setIsHoveringWind] = useState(false);
 
   //Kutsuu calculate_risk endpointtia parametreillä
   const fetchRiskValue = async () => {
@@ -78,21 +81,18 @@ function UserInputForm() {
     }
   };
 
-  const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver = () => {
     setIsHovering(true);
   };
   const handleMouseOut = () => {
     setIsHovering(false);
   };
-  const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const handleMouseOverDepth = () => {
     setIsHoveringDepth(true);
   };
   const handleMouseOutDepth = () => {
     setIsHoveringDepth(false);
   };
-  const [isHoveringWind, setIsHoveringWind] = useState(false);
   const handleMouseOverWind = () => {
     setIsHoveringWind(true);
   };
@@ -116,7 +116,7 @@ function UserInputForm() {
           {/* Laivan koko */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -224,7 +224,7 @@ function UserInputForm() {
           {/* Liikehdintäkyky */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -488,7 +488,7 @@ function UserInputForm() {
           {/* Nopeusluokat */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -623,7 +623,7 @@ function UserInputForm() {
           {/* Riskiarvojen painokerttoimet */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -810,7 +810,7 @@ function UserInputForm() {
           {/* Esitysvärit */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -818,118 +818,13 @@ function UserInputForm() {
               marginRight: 5,
             }}
           >
-            <CardContent>
-              <Typography
-                style={{ fontSize: 16 }}
-                color="textSecondary"
-                gutterBottom
-              >
-                Riskiarvojen esitysvärien raja-arvot:
-              </Typography>
-              <Grid container spacing={1}>
-                <Grid item xs={2.5}>
-                  <Box
-                    sx={{
-                      bgcolor: "green",
-                      color: "success.contrastText",
-                      p: 1,
-                    }}
-                  >
-                    Vihreä
-                  </Box>
-                </Grid>
-                <Grid item xs={9.5}>
-                  <input
-                    type="float"
-                    required
-                    defaultValue={0}
-                    style={{
-                      width: 100,
-                    }}
-                  />
-                  <label>{"≤ RIV <"}</label>
-                  <input
-                    type="float"
-                    required
-                    value={RIVTrafficLight.green}
-                    onChange={(ev) =>
-                      setRIVTraffiLight({
-                        ...RIVTrafficLight,
-                        green: Number(ev.target.value),
-                      })
-                    }
-                    style={{
-                      width: 100,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={2.5}>
-                  <Box sx={{ bgcolor: "yellow", color: "black", p: 1 }}>
-                    Keltainen
-                  </Box>
-                </Grid>
-                <Grid item xs={9.5}>
-                  <input
-                    type="float"
-                    required
-                    value={RIVTrafficLight.green}
-                    onChange={(ev) =>
-                      setRIVTraffiLight({
-                        ...RIVTrafficLight,
-                        green: Number(ev.target.value),
-                      })
-                    }
-                    style={{
-                      width: 100,
-                    }}
-                  />
-                  <label>{"≤ RIV <"}</label>
-                  <input
-                    type="float"
-                    required
-                    value={RIVTrafficLight.yellow}
-                    onChange={(ev) =>
-                      setRIVTraffiLight({
-                        ...RIVTrafficLight,
-                        yellow: Number(ev.target.value),
-                      })
-                    }
-                    style={{
-                      width: 100,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={2.5}>
-                  <Box sx={{ bgcolor: "red", color: "white", p: 1 }}>
-                    Punainen
-                  </Box>
-                </Grid>
-                <Grid item xs={9.5}>
-                  <label>{"RIV ≥ "}</label>
-                  <input
-                    type="float"
-                    required
-                    value={RIVTrafficLight.yellow}
-                    onChange={(ev) =>
-                      setRIVTraffiLight({
-                        ...RIVTrafficLight,
-                        yellow: Number(ev.target.value),
-                      })
-                    }
-                    style={{
-                      width: 100,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
           </Card>
         </Grid>
         <Grid item xs={4}>
           {/* Väylän parametrit */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -1114,7 +1009,7 @@ function UserInputForm() {
                 </CardContent>
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
@@ -1342,7 +1237,7 @@ function UserInputForm() {
                 </Card>
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
@@ -1836,7 +1731,7 @@ function UserInputForm() {
           {/* Vesiliikenteen olosuhteet */}
           <Card
             style={{
-              width: 500,
+              // width: 500,
               backgroundColor: "rgb(181, 220, 255)",
               marginTop: 5,
               marginBottom: 5,
@@ -1856,7 +1751,7 @@ function UserInputForm() {
                 {/* Tuuli */}
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
@@ -2228,7 +2123,7 @@ function UserInputForm() {
                 {/* Poikkivirtaus */}
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
@@ -2644,7 +2539,7 @@ function UserInputForm() {
                 {/* Pitkittäisvirtaus */}
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
@@ -2944,7 +2839,7 @@ function UserInputForm() {
                 {/* Aallon korkeus */}
                 <Card
                   style={{
-                    width: 500,
+                    // width: 500,
                     backgroundColor: "rgb(181, 220, 255)",
                     marginTop: 5,
                     marginBottom: 5,
