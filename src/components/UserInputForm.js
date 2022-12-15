@@ -59,10 +59,10 @@ function UserInputForm() {
   const fetchRiskValue = async () => {
     const path = "fairway/calculate_risk";
     console.log("You clicked me!" + JSON.stringify(userInput));
-    // Empty previous results
-    setRIVResults([]);
     // Set spinner
     setSpinnerVisible(true);
+    // Empty previous results
+    setRIVResults([]);
     try {
       const response = await apiClient.post(path, userInput);
       setRIVResults(response.data);
