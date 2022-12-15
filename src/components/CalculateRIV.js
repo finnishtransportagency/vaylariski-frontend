@@ -10,10 +10,10 @@ import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import Mapp from "./Mapp";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
+import SpinnerVisibilityContext from "../contexts/SpinnerVisibilityContext";
 import LoadingSpinner from "./LoadingSpinner";
 import NotificationComponent from "./NotificationComponent";
-import NotificationContext from "contexts/NotificationContext";
+import NotificationContext from "../contexts/NotificationContext";
 
 const boatDefault = {
   speed: "",
