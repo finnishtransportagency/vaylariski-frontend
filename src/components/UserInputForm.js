@@ -28,8 +28,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
-import NotificationContext from "contexts/NotificationContext";
+import SpinnerVisibilityContext from "../contexts/SpinnerVisibilityContext";
+import NotificationContext from "../contexts/NotificationContext";
 import { VAYLATids } from "../constants/VAYLAT_ids.js";
 
 function UserInputForm() {
