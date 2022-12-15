@@ -12,6 +12,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import NotificationComponent from "./NotificationComponent";
 import NotificationContext from "contexts/NotificationContext";
 import MapComponent from "./MapComponent.js/MapComponent";
+import ParameterTabsComponent from "./ParameterTabsComponent";
 
 const boatDefault = {
   speed: "",
@@ -144,7 +145,7 @@ function CalculateRIV() {
                 >
                   <NotificationComponent />
                   <LoadingSpinner />
-                  <UserInputForm />
+                  <ParameterTabsComponent />
                   <DisplayRIVResults />
                   <MapComponent />
                 </NotificationContext.Provider>
