@@ -1,12 +1,12 @@
 import { Controller, useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
-import apiClient from "../http-common";
+import apiClient from "../../http-common";
 
-import BoatContext from "../contexts/Boat";
-import RIVResultContext from "../contexts/RIVResult";
-import FairwayContext from "../contexts/Fairway";
-import UserInputContext from "../contexts/UserInput";
-import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
+import BoatContext from "../../contexts/Boat";
+import RIVResultContext from "../../contexts/RIVResult";
+import FairwayContext from "../../contexts/Fairway";
+import UserInputContext from "../../contexts/UserInput";
+import RIVTrafficLightContext from "../../contexts/RIVTrafficLightContext";
 import {
   Autocomplete,
   FormControl,
@@ -30,7 +30,7 @@ import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import NotificationContext from "contexts/NotificationContext";
-import { VAYLATids } from "../constants/VAYLAT_ids.js";
+import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 
 function UserInputForm() {
   const {
