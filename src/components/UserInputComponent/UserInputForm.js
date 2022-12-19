@@ -106,7 +106,6 @@ function UserInputForm(props) {
             {/* Laivan koko */}
             <Card
               style={{
-                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
                 marginTop: 5,
                 marginBottom: 5,
@@ -159,7 +158,6 @@ function UserInputForm(props) {
             {/* Liikehdintäkyky */}
             <Card
               style={{
-                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
                 marginTop: 5,
                 marginBottom: 5,
@@ -206,15 +204,6 @@ function UserInputForm(props) {
                         name="boat.manoeuvrability"
                         value="good"
                         id="good"
-                        // onChange={(ev) =>
-                        //   setUserInput({
-                        //     ...userInput,
-                        //     boat: {
-                        //       ...userInput.boat,
-                        //       manoeuvrability: ev.target.value,
-                        //     },
-                        //   })
-                        // }
                       />
                       Hyvä
                     </label>
@@ -304,7 +293,6 @@ function UserInputForm(props) {
             {/* Nopeusluokat */}
             <Card
               style={{
-                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
                 marginTop: 5,
                 marginBottom: 5,
@@ -320,7 +308,7 @@ function UserInputForm(props) {
                       color="textSecondary"
                       gutterBottom
                     >
-                      <label>Aluksen nopeusluokka:</label>
+                      Aluksen nopeusluokka:
                     </Typography>
                   </Grid>
                   <Grid item xs={8}>
@@ -329,24 +317,20 @@ function UserInputForm(props) {
                       color="textSecondary"
                       gutterBottom
                     >
-                      <label>Arvovälit nopeusluokille v [knots]:</label>
+                      Arvovälit nopeusluokille v [knots]:
                     </Typography>
                   </Grid>
                   <Grid container spacing={1}>
                     <Grid item xs={4}>
-                      <input
-                        type="radio"
-                        name="vessel_speed_radio"
-                        value="fast"
-                        id="fast"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: { ...userInput.boat, speed: ev.target.value },
-                          })
-                        }
-                      />
-                      <label>Nopea</label>
+                      <label>
+                        <Field
+                          type="radio"
+                          name="boat.speed"
+                          value="fast"
+                          id="fast"
+                        />
+                        Nopea
+                      </label>
                     </Grid>
                     <Grid item xs={8}>
                       <label>{"v ≥ "}</label>
@@ -361,19 +345,15 @@ function UserInputForm(props) {
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <input
-                        type="radio"
-                        name="vessel_speed_radio"
-                        value="moderate"
-                        id="moderate"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: { ...userInput.boat, speed: ev.target.value },
-                          })
-                        }
-                      />
-                      <label>Keskiverto</label>
+                      <label>
+                        <Field
+                          type="radio"
+                          name="boat.speed"
+                          value="moderate"
+                          id="moderate"
+                        />
+                        Keskiverto
+                      </label>
                     </Grid>
                     <Grid item xs={8}>
                       <input
@@ -397,19 +377,15 @@ function UserInputForm(props) {
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <input
-                        type="radio"
-                        name="vessel_speed_radio"
-                        value="slow"
-                        id="slow"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: { ...userInput.boat, speed: ev.target.value },
-                          })
-                        }
-                      />
-                      <label>Hidas</label>
+                      <label>
+                        <Field
+                          type="radio"
+                          name="boat.speed"
+                          value="slow"
+                          id="slow"
+                        />
+                        Hidas
+                      </label>
                     </Grid>
                     <Grid item xs={8}>
                       <input
