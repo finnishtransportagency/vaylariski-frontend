@@ -1,23 +1,28 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
+import ParameterTabsComponent from "components/ParameterTabsComponent";
+import UserInputContext from "contexts/UserInput";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useFieldArray } from "react-hook-form";
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
   const { children, tabValue, tabIndex, ...other } = props;
-  const [ elementId, setElementId ] = useState(1);
+  const [elementId, setElementId] = useState(1);
   const [elements, setElements] = useState([
     {
       GDO_GID: "",
       SADE: "",
       S_BEND: "",
       BEND_ANGLE: "",
-      id: 0
+      id: 0,
     },
   ]);
+  const { userInput, setUserInput } = useContext(UserInputContext);
+
 
   const handleAddFieldButtonClick = () => {
     const elid = elementId;
@@ -28,20 +33,27 @@ export default function UserDefinedAngleParamsComponent(props) {
         SADE: "",
         S_BEND: "",
         BEND_ANGLE: "",
-        id: elid
+        id: elid,
       },
     ]);
     setElementId(elementId + 1);
   };
   const removeElement = (id) => {
-    console.log('poista', id);
+    console.log("poista", id);
     const newList = elements.filter((el) => el.id !== id);
     setElements(newList);
   };
 
   const handleElementChange = (ev, newidx) => {
     const newValue = ev.target.value;
-    console.log("changed id:", ev.target.name, "idx", newidx, 'Value', newValue);
+    console.log(
+      "changed id:",
+      ev.target.name,
+      "idx",
+      newidx,
+      "Value",
+      newValue
+    );
     const newList = elements.map((item, id) => {
       if (id === newidx) {
         const updatedItem = {
@@ -69,51 +81,61 @@ export default function UserDefinedAngleParamsComponent(props) {
       {...other}
     >
       {tabValue === tabIndex && (
-        <Box component="form" noValidate autoComplete="off">
-          <Button variant="contained" onClick={handleAddFieldButtonClick}>
+        <Grid>
+          <Button
+            variant="contained"
+            onClick={handleAddFieldButtonClick}
+          >
             Lisää navigointilinja
           </Button>
           {elements.map((el, idx) => (
-            <Stack direction="row" spacing={1} key={el.id}>
+            <Stack
+              direction="row"
+              spacing={1}
+              key={el.id}
+              // {...register("userInput.navilinja_angle_params")}
+            >
               <TextField
                 required
                 name="GDO_GID"
                 label="GDO_GID"
                 type="number"
-                value={el.GDO_GID}
-                onChange={(ev) => handleElementChange(ev, idx)}
+                // value={userInput.navilinja_angle_params.index.GDO_GID}
+                // onChange={(ev) => handleElementChange(ev, idx)}
+
               />
               <TextField
                 name="SADE"
                 label="Säde"
                 type="number"
-                value={el.SADE}
+                // value={userInput.navilinja_angle_params.index.SADE}
                 onChange={(ev) => handleElementChange(ev, idx)}
               />
               <TextField
                 name="BEND_ANGLE"
                 label="Kaarteen kulma"
                 type="number"
-                value={el.BEND_ANGLE}
+                // value={userInput.navilinja_angle_params.index.BEND_ANGLE}
                 onChange={(ev) => handleElementChange(ev, idx)}
               />
               <TextField
                 name="S_BEND"
                 label="S-mutkan pituus"
                 type="number"
-                value={el.S_BEND}
+                // value={userInput.navilinja_angle_params.index.S_BEND}
                 onChange={(ev) => handleElementChange(ev, idx)}
               />
-              <button onClick={() => removeElement(el.id)}>Poista</button>
+              <Button onClick={() => removeElement(idx)}>Poista</Button>
             </Stack>
           ))}
-        </Box>
+        </Grid>
       )}
     </div>
   );
 }
 
 UserDefinedAngleParamsComponent.propTypes = {
+  register: PropTypes.func,
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,

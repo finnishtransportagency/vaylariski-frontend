@@ -24,7 +24,6 @@ function DisplayRIVResults() {
   const columns = [
     {field: 'GDO_GID', width:100},
     {field: 'VAYLAT'},
-    {field: 'MID_POINT'},
     {field: 'RISK_INDEX_SUM', width:100},
     {field: 'RIV_1_channel', width:100},
     {field: 'RIV_2_bend', width:100},
@@ -73,6 +72,7 @@ function DisplayRIVResults() {
     {field: 'wind_speed_category', width:100},
     {field: 'COORD_X', width:100},
     {field: 'COORD_Y', width:100},
+    {field: 'MID_POINT'},
   ];
 
 

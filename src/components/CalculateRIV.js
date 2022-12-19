@@ -107,6 +107,14 @@ const userInputDefault = {
     C_turning_radius_moderate: 5,
     C_turning_radius_poor: 6,
   },
+  navilinja_angle_params: [
+    {
+      GDO_GID: "",
+      SADE: "",
+      S_BEND: "",
+      BEND_ANGLE: "",
+    }
+  ]
 };
 
 function CalculateRIV() {

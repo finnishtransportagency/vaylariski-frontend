@@ -42,47 +42,24 @@ function UserInputForm(props) {
     formState: { errors },
     control,
   } = useForm();
-  const onSubmit = (data) => fetchRiskValue(data); //Input arvot laskennalle
-  const { boat, setBoat } = useContext(BoatContext);
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
-  const { fairway, setFairway } = useContext(FairwayContext);
+  // const { boat, setBoat } = useContext(BoatContext);
+  // const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  // const { fairway, setFairway } = useContext(FairwayContext);
   const { userInput, setUserInput } = useContext(UserInputContext);
-  const { RIVTrafficLight, setRIVTraffiLight } = useContext(
-    RIVTrafficLightContext
-  );
-  const { spinnerVisible, setSpinnerVisible } = useContext(
-    SpinnerVisibilityContext
-  );
-  const { notificationStatus, setNotificationStatus } =
-    useContext(NotificationContext);
+  // const { RIVTrafficLight, setRIVTraffiLight } = useContext(
+  //   RIVTrafficLightContext
+  // );
+  // const { spinnerVisible, setSpinnerVisible } = useContext(
+  //   SpinnerVisibilityContext
+  // );
+  // const { notificationStatus, setNotificationStatus } =
+  //   useContext(NotificationContext);
   const [style, setStyle] = useState({ display: "none" });
   const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
 
-  //Kutsuu calculate_risk endpointtia parametreillä
-  const fetchRiskValue = async () => {
-    const path = "fairway/calculate_risk";
-    console.log("You clicked me!" + JSON.stringify(userInput));
-    // Set spinner
-    setSpinnerVisible(true);
-    // Empty previous results
-    setRIVResults([]);
-    try {
-      const response = await apiClient.post(path, userInput);
-      setRIVResults(response.data);
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.message,
-        visible: true,
-      });
-    } finally {
-      setSpinnerVisible(false);
-    }
-  };
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -121,7 +98,6 @@ function UserInputForm(props) {
       {...other}
     >
     {tabValue === tabIndex && (
-      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={1}>
           <Grid item xs={4}>
             {/* Laivan koko */}
@@ -3083,10 +3059,6 @@ function UserInputForm(props) {
             </Card>
           </Grid>
         </Grid>
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
       )}
     </div>
   );
@@ -3095,6 +3067,7 @@ function UserInputForm(props) {
 export default UserInputForm;
 
 UserInputForm.propTypes = {
+  userInput: PropTypes.object,
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
