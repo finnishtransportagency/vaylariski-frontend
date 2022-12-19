@@ -33,6 +33,7 @@ import NotificationContext from "contexts/NotificationContext";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 import UserDefinedAngleParamsComponent from "./UserDefinedAngleParamsComponent";
 import PropTypes from "prop-types";
+import CustomInputField from "./CustomInputField";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, ...other } = props;
@@ -59,7 +60,6 @@ function UserInputForm(props) {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
-
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -97,7 +97,7 @@ function UserInputForm(props) {
       aria-labelledby={`simple-tab-${tabIndex}`}
       {...other}
     >
-    {tabValue === tabIndex && (
+      {tabValue === tabIndex && (
         <Grid container spacing={1}>
           <Grid item xs={4}>
             {/* Laivan koko */}
@@ -130,31 +130,28 @@ function UserInputForm(props) {
                       </Grid>
                     </Grid>
                     <Grid container spacing={1}>
-                      <Grid item xs={3}>
-                        <label>Pituus (m):</label>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <input
-                          {...register("userInput.boat.length", {
-                            valueAsNumber: true,
-                          })}
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                          value={userInput.boat.length}
-                          onChange={(ev) =>
-                            setUserInput({
-                              ...userInput,
-                              boat: {
-                                ...userInput.boat,
-                                length: ev.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </Grid>
+                      <CustomInputField
+                        // {...register("userInput.boat.length", {
+                        //   valueAsNumber: true,
+                        // })}
+                        label="pituus (m)"
+                        name="boat.length"
+                        type="number"
+                        required={true}
+                        style={{
+                          width: 100,
+                        }}
+                        // value={userInput.boat.length}
+                        // onChange={(ev) =>
+                        //   setUserInput({
+                        //     ...userInput,
+                        //     boat: {
+                        //       ...userInput.boat,
+                        //       length: ev.target.value,
+                        //     },
+                        //   })
+                        // }
+                      />
                     </Grid>
                     <Grid container spacing={1}>
                       <Grid item xs={3}>

@@ -43,15 +43,15 @@ export default function ParameterTabsComponent() {
     setValue(newValue);
   };
 
-  const fetchRiskValue = async () => {
+  const fetchRiskValue = async (values) => {
     const path = "fairway/calculate_risk";
-    console.log("You clicked me!" + JSON.stringify(userInput));
+    console.log("You clicked me!" + JSON.stringify(values));
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
     setRIVResults([]);
     try {
-      const response = await apiClient.post(path, userInput);
+      const response = await apiClient.post(path, values);
       setRIVResults(response.data);
     } catch (err) {
       console.log(err);
@@ -80,16 +80,15 @@ export default function ParameterTabsComponent() {
           />
         </Tabs>
       </Box>
-      <Formik onSubmit={handleSubmit(fetchRiskValue)} initialValues={userInput}>
+      <Formik onSubmit={(values) => {fetchRiskValue(values)}} initialValues={userInput}>
         {(formik) => (
           <FForm onSubmit={formik.handleSubmit}>
             <UserInputForm tabValue={value} tabIndex={0} />
             <UserDefinedAngleParamsComponent
               tabValue={value}
               tabIndex={1}
-              register={register}
-              control={control}
             />
+            <Button type="submit" variant="contained">Lähetä</Button>
           </FForm>
         )}
       </Formik>
