@@ -21,6 +21,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { Field } from "formik";
 
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Card from "@mui/material/Card";
@@ -114,50 +115,45 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-
-                    <Stack spacing={2}>
-                      <Typography
-                        style={{ fontSize: 16 }}
-                        color="textSecondary"
-                        gutterBottom
-                      >
-                        Aluksen parametrit:
-                      </Typography>
-                      <BoatMenuComponent
-                        setDefaultBoatValues={setDefaultBoatValues}
-                      />
-                      <CustomInputField
-                        label="Pituus (m)"
-                        name="boat.length"
-                        type="number"
-                        required={true}
-                        style={{
-                          backgroundColor: "#fff",
-                        }}
-                      />
-                      <CustomInputField
-                        label="Leveys (m)"
-                        name="boat.beam"
-                        type="number"
-                        required={true}
-                        style={{
-                          backgroundColor: "#fff",
-                        }}
-                      />
-                      <CustomInputField
-                        label="Syväys (m)"
-                        name="boat.draft"
-                        type="number"
-                        required={true}
-                        style={{
-                          backgroundColor: "#fff",
-                        }}
-                      />
-                    </Stack>
-                  </Grid>
-                </Grid>
+                <Stack spacing={2}>
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    Aluksen parametrit:
+                  </Typography>
+                  <BoatMenuComponent
+                    setDefaultBoatValues={setDefaultBoatValues}
+                  />
+                  <CustomInputField
+                    label="Pituus (m)"
+                    name="boat.length"
+                    type="number"
+                    required={true}
+                    style={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+                  <CustomInputField
+                    label="Leveys (m)"
+                    name="boat.beam"
+                    type="number"
+                    required={true}
+                    style={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+                  <CustomInputField
+                    label="Syväys (m)"
+                    name="boat.draft"
+                    type="number"
+                    required={true}
+                    style={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+                </Stack>
               </CardContent>
             </Card>
             {/* Liikehdintäkyky */}
@@ -177,110 +173,74 @@ function UserInputForm(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  <label>Aluksen liikehdintäkyky:</label>
+                  Aluksen liikehdintäkyky:
                 </Typography>
+                <Stack direction="row">
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    Luokka:
+                  </Typography>
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    Kääntönopeus (C_tr):
+                  </Typography>
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    Manoeuvrability (C_m):
+                  </Typography>
+                </Stack>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
-                    <Typography
-                      style={{ fontSize: 16 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      <label>Luokka:</label>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography
-                      style={{ fontSize: 16 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      <label>Kääntönopeus (C_tr):</label>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography
-                      style={{ fontSize: 16 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      <label>Manoeuvrability (C_m):</label>
-                    </Typography>
-                  </Grid>
-                  <Grid container spacing={1}>
-                    <Grid item xs={3}>
-                      <input
+                  <Stack direction="row" spacing={1}>
+                    <label>
+                      <Field
                         type="radio"
                         name="manoeuvrability_radio"
                         value="good"
                         id="good"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: {
-                              ...userInput.boat,
-                              manoeuvrability: ev.target.value,
-                            },
-                          })
-                        }
+                        // onChange={(ev) =>
+                        //   setUserInput({
+                        //     ...userInput,
+                        //     boat: {
+                        //       ...userInput.boat,
+                        //       manoeuvrability: ev.target.value,
+                        //     },
+                        //   })
+                        // }
                       />
-                      <label>Hyvä</label>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_turning_radius_good",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_tr"
-                        value={
-                          userInput.manoeuvrability_params.C_turning_radius_good
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_turning_radius_good: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_manoeuvrability_good",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_m"
-                        value={
-                          userInput.manoeuvrability_params
-                            .C_manoeuvrability_good
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_manoeuvrability_good: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <input
+                      Hyvä
+                    </label>
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_turning_radius_good"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_manoeuvrability_good"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                  </Stack>
+
+                  <Stack direction="row" spacing={1}>
+                    <label>
+                      <Field
                         type="radio"
                         name="manoeuvrability_radio"
                         value="moderate"
@@ -295,64 +255,32 @@ function UserInputForm(props) {
                           })
                         }
                       />
-                      <label>Keskiverto</label>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_turning_radius_moderate",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_tr"
-                        value={
-                          userInput.manoeuvrability_params
-                            .C_turning_radius_moderate
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_turning_radius_moderate: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_manoeuvrability_moderate",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_m"
-                        value={
-                          userInput.manoeuvrability_params
-                            .C_manoeuvrability_moderate
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_manoeuvrability_moderate: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <input
+                      Keskiverto
+                    </label>
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_turning_radius_moderate"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_manoeuvrability_moderate"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                  </Stack>
+
+                  <Stack direction="row" spacing={1}>
+                    <label>
+                      <Field
                         type="radio"
                         name="manoeuvrability_radio"
                         value="poor"
@@ -367,62 +295,28 @@ function UserInputForm(props) {
                           })
                         }
                       />
-                      <label>Heikko</label>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_turning_radius_poor",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_tr"
-                        value={
-                          userInput.manoeuvrability_params.C_turning_radius_poor
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_turning_radius_poor: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <input
-                        {...register(
-                          "userInput.manoeuvrability_params.C_manoeuvrability_poor",
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                        required
-                        style={{
-                          width: 100,
-                        }}
-                        placeholder="C_m"
-                        value={
-                          userInput.manoeuvrability_params
-                            .C_manoeuvrability_poor
-                        }
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            manoeuvrability_params: {
-                              ...userInput.manoeuvrability_params,
-                              C_manoeuvrability_poor: ev.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </Grid>
-                  </Grid>
+                      Heikko
+                    </label>
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_turning_radius_poor"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                    <CustomInputField
+                      label=""
+                      name="manoeuvrability_params.C_manoeuvrability_poor"
+                      type="number"
+                      required={true}
+                      style={{
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                  </Stack>
+
                 </Grid>
               </CardContent>
             </Card>
