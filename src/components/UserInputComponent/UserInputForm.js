@@ -9,6 +9,7 @@ import UserInputContext from "../../contexts/UserInput";
 import RIVTrafficLightContext from "../../contexts/RIVTrafficLightContext";
 import {
   Autocomplete,
+  Divider,
   FormControl,
   Grid,
   Menu,
@@ -34,6 +35,7 @@ import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 import UserDefinedAngleParamsComponent from "./UserDefinedAngleParamsComponent";
 import PropTypes from "prop-types";
 import CustomInputField from "./CustomInputField";
+import { Stack } from "@mui/system";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, ...other } = props;
@@ -114,99 +116,46 @@ function UserInputForm(props) {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography
-                          style={{ fontSize: 16 }}
-                          color="textSecondary"
-                          gutterBottom
-                        >
-                          <label>Aluksen parametrit:</label>
-                        </Typography>
-                        {/* Menu selector for default boat values */}
-                        <BoatMenuComponent
-                          setDefaultBoatValues={setDefaultBoatValues}
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={1}>
+
+                    <Stack spacing={2}>
+                      <Typography
+                        style={{ fontSize: 16 }}
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        Aluksen parametrit:
+                      </Typography>
+                      <BoatMenuComponent
+                        setDefaultBoatValues={setDefaultBoatValues}
+                      />
                       <CustomInputField
-                        // {...register("userInput.boat.length", {
-                        //   valueAsNumber: true,
-                        // })}
-                        label="pituus (m)"
+                        label="Pituus (m)"
                         name="boat.length"
                         type="number"
                         required={true}
                         style={{
-                          width: 100,
+                          backgroundColor: "#fff",
                         }}
-                        // value={userInput.boat.length}
-                        // onChange={(ev) =>
-                        //   setUserInput({
-                        //     ...userInput,
-                        //     boat: {
-                        //       ...userInput.boat,
-                        //       length: ev.target.value,
-                        //     },
-                        //   })
-                        // }
                       />
-                    </Grid>
-                    <Grid container spacing={1}>
-                      <Grid item xs={3}>
-                        <label>Leveys (m):</label>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <input
-                          {...register("userInput.boat.beam", {
-                            valueAsNumber: true,
-                          })}
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                          value={userInput.boat.beam}
-                          onChange={(ev) =>
-                            setUserInput({
-                              ...userInput,
-                              boat: {
-                                ...userInput.boat,
-                                beam: ev.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={1}>
-                      <Grid item xs={3}>
-                        <label>Syväys (m):</label>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <input
-                          {...register("userInput.boat.draft", {
-                            valueAsNumber: true,
-                          })}
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                          value={userInput.boat.draft}
-                          onChange={(ev) =>
-                            setUserInput({
-                              ...userInput,
-                              boat: {
-                                ...userInput.boat,
-                                draft: ev.target.value,
-                              },
-                            })
-                          }
-                        />
-                      </Grid>
-                    </Grid>
+                      <CustomInputField
+                        label="Leveys (m)"
+                        name="boat.beam"
+                        type="number"
+                        required={true}
+                        style={{
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                      <CustomInputField
+                        label="Syväys (m)"
+                        name="boat.draft"
+                        type="number"
+                        required={true}
+                        style={{
+                          backgroundColor: "#fff",
+                        }}
+                      />
+                    </Stack>
                   </Grid>
                 </Grid>
               </CardContent>

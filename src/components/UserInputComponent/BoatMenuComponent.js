@@ -50,6 +50,7 @@ export default function BoatMenuComponent(props) {
       <Button
         id="select-boat-button"
         onClick={handleClick}
+        variant="contained"
       >
       Valitse oletuslaiva
       </Button>
