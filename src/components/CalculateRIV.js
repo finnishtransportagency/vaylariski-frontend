@@ -6,7 +6,7 @@ import RIVResultContext from "../contexts/RIVResult";
 import UserInputForm from "./UserInputComponent/UserInputForm";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
-import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
+import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import LoadingSpinner from "./LoadingSpinner";
 import NotificationComponent from "./NotificationComponent";
