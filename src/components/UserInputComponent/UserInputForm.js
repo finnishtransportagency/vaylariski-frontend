@@ -203,7 +203,7 @@ function UserInputForm(props) {
                     <label>
                       <Field
                         type="radio"
-                        name="manoeuvrability_radio"
+                        name="boat.manoeuvrability"
                         value="good"
                         id="good"
                         // onChange={(ev) =>
@@ -242,18 +242,9 @@ function UserInputForm(props) {
                     <label>
                       <Field
                         type="radio"
-                        name="manoeuvrability_radio"
+                        name="boat.manoeuvrability"
                         value="moderate"
                         id="moderate"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: {
-                              ...userInput.boat,
-                              manoeuvrability: ev.target.value,
-                            },
-                          })
-                        }
                       />
                       Keskiverto
                     </label>
@@ -282,18 +273,9 @@ function UserInputForm(props) {
                     <label>
                       <Field
                         type="radio"
-                        name="manoeuvrability_radio"
+                        name="boat.manoeuvrability"
                         value="poor"
                         id="poor"
-                        onChange={(ev) =>
-                          setUserInput({
-                            ...userInput,
-                            boat: {
-                              ...userInput.boat,
-                              manoeuvrability: ev.target.value,
-                            },
-                          })
-                        }
                       />
                       Heikko
                     </label>
@@ -316,7 +298,6 @@ function UserInputForm(props) {
                       }}
                     />
                   </Stack>
-
                 </Grid>
               </CardContent>
             </Card>
