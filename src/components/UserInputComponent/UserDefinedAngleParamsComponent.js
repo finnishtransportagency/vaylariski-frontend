@@ -12,7 +12,6 @@ import { useFieldArray } from "react-hook-form";
 }
 export default function UserDefinedAngleParamsComponent(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
-  const [elementId, setElementId] = useState(1);
   const newAngle = {
     GDO_GID: "",
     SADE: "",

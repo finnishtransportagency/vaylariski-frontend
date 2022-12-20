@@ -88,7 +88,7 @@ export default function ParameterTabsComponent() {
       >
         {(formik) => (
           <FForm>
-            <UserInputForm tabValue={value} tabIndex={0} />
+            <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
             <UserDefinedAngleParamsComponent
               tabValue={value}
               tabIndex={1}

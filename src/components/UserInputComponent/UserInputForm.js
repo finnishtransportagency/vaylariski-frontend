@@ -1,4 +1,3 @@
-import { Controller, useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "../../http-common";
 
@@ -39,25 +38,9 @@ import CustomInputField, { CustomInputFieldNoFormik } from "./CustomInputField";
 import { Stack } from "@mui/system";
 
 function UserInputForm(props) {
-  const { children, tabValue, tabIndex, ...other } = props;
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm();
-  // const { boat, setBoat } = useContext(BoatContext);
-  // const { RIVResults, setRIVResults } = useContext(RIVResultContext);
-  // const { fairway, setFairway } = useContext(FairwayContext);
+  const { children, tabValue, tabIndex, formik, ...other } = props;
+
   const { userInput, setUserInput } = useContext(UserInputContext);
-  // const { RIVTrafficLight, setRIVTraffiLight } = useContext(
-  //   RIVTrafficLightContext
-  // );
-  // const { spinnerVisible, setSpinnerVisible } = useContext(
-  //   SpinnerVisibilityContext
-  // );
-  // const { notificationStatus, setNotificationStatus } =
-  //   useContext(NotificationContext);
   const [style, setStyle] = useState({ display: "none" });
   const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
@@ -83,6 +66,7 @@ function UserInputForm(props) {
     setIsHoveringWind(false);
   };
 
+  console.log('formk', formik);
   useEffect(() => {
     console.log("userInput muuttui", userInput);
   }, [userInput]);
@@ -156,24 +140,12 @@ function UserInputForm(props) {
                         <Field
                           component="input"
                           name="boat.beam"
-                          // {...register("userInput.boat.beam", {
-                          //   valueAsNumber: true,
-                          // })}
                           type="number"
                           required
                           style={{
                             width: 100,
                           }}
                           value={userInput.boat.beam}
-                          // onChange={(ev) =>
-                          //   setUserInput({
-                          //     ...userInput,
-                          //     boat: {
-                          //       ...userInput.boat,
-                          //       beam: ev.target.value,
-                          //     },
-                          //   })
-                          // }
                         />
                       </Grid>
                     </Grid>
@@ -419,7 +391,7 @@ function UserInputForm(props) {
                           name="boat.speed"
                           value="moderate"
                           id="moderate"
-                         />
+                        />
                         Keskiverto
                       </label>
                     </Grid>
@@ -509,24 +481,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_channel"
-                      // {...register("userInput.weightfactors.WF_channel", {
-                      //   valueAsNumber: true,
-                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_channel}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_channel: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -540,24 +499,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_bend"
-                      // {...register("userInput.weightfactors.WF_bend", {
-                      //   valueAsNumber: true,
-                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_bend}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_bend: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -571,24 +517,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_s_bend"
-                      // {...register("userInput.weightfactors.WF_s_bend", {
-                      //   valueAsNumber: true,
-                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_s_bend}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_s_bend: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -602,25 +535,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_traffic_complexity"
-                      // {...register(
-                      //   "userInput.weightfactors.WF_traffic_complexity",
-                      //   { valueAsNumber: true }
-                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_traffic_complexity}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_traffic_complexity: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -634,25 +553,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_reduced_visibility"
-                      // {...register(
-                      //   "userInput.weightfactors.WF_reduced_visibility",
-                      //   { valueAsNumber: true }
-                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_reduced_visibility}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_reduced_visibility: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -666,27 +571,11 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="weightfactors.WF_light_pollution"
-                      // {...register(
-                      //   "userInput.weightfactors.WF_light_pollution",
-                      //   {
-                      //     valueAsNumber: true,
-                      //   }
-                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      // value={userInput.weightfactors.WF_light_pollution}
-                      // onChange={(ev) =>
-                      //   setUserInput({
-                      //     ...userInput,
-                      //     weightfactors: {
-                      //       ...userInput.weightfactors,
-                      //       WF_light_pollution: ev.target.value,
-                      //     },
-                      //   })
-                      // }
                     />
                   </Grid>
                 </Grid>
@@ -706,37 +595,24 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
-                <Controller
-                  control={control}
-                  name={"VAYLAT_id"}
-                  render={({ field: { onChange, value } }) => (
-                    <Autocomplete
-                      freeSolo
-                      disablePortal
-                      id="combo-box-demo"
-                      options={VAYLATids}
-                      value={userInput.navilinja.VAYLAT}
-                      onChange={(ev, newValue) =>
-                        setUserInput({
-                          ...userInput,
-                          navilinja: {
-                            ...userInput.navilinja,
-                            VAYLAT: newValue,
-                          },
-                        })
-                      }
-                      inputValue={vaylatInputValue}
-                      onInputChange={(ev, newInputValue) =>
-                        setVaylatInputValue(newInputValue)
-                      }
-                      sx={{ width: 200 }}
-                      renderInput={(params) => (
-                        <TextField
-                          style={{ backgroundColor: "white" }}
-                          {...params}
-                          label="VAYLAT id"
-                        />
-                      )}
+                <Autocomplete
+                  freeSolo
+                  disablePortal
+                  name="navilinja.VAYLAT"
+                  options={VAYLATids}
+                  onChange={(ev, newValue) =>
+                    formik.setFieldValue("navilinja.VAYLAT", newValue)
+                  }
+                  inputValue={vaylatInputValue}
+                  onInputChange={(ev, newInputValue) =>
+                    setVaylatInputValue(newInputValue)
+                  }
+                  sx={{ width: 200 }}
+                  renderInput={(params) => (
+                    <TextField
+                      style={{ backgroundColor: "white" }}
+                      {...params}
+                      label="VAYLAT id"
                     />
                   )}
                 />
@@ -1895,7 +1771,6 @@ function UserInputForm(props) {
                           </Grid>
                           <Grid item xs={8}>
                             <input
-
                               type="number"
                               required
                               style={{
@@ -1997,4 +1872,5 @@ UserInputForm.propTypes = {
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
+  formik: PropTypes.object
 };
