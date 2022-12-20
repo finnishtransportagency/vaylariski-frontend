@@ -35,7 +35,7 @@ import NotificationContext from "contexts/NotificationContext";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 import UserDefinedAngleParamsComponent from "./UserDefinedAngleParamsComponent";
 import PropTypes from "prop-types";
-import CustomInputField from "./CustomInputField";
+import CustomInputField, { CustomInputFieldNoFormik } from "./CustomInputField";
 import { Stack } from "@mui/system";
 
 function UserInputForm(props) {
@@ -106,63 +106,119 @@ function UserInputForm(props) {
             {/* Laivan koko */}
             <Card
               style={{
+                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
+                // marginTop: 5,
+                // marginBottom: 5,
+                // marginLeft: 5,
+                // marginRight: 5,
               }}
             >
               <CardContent>
-                <Stack spacing={2}>
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Aluksen parametrit:
-                  </Typography>
-                  <BoatMenuComponent
-                    setDefaultBoatValues={setDefaultBoatValues}
-                  />
-                  <CustomInputField
-                    label="Pituus (m)"
-                    name="boat.length"
-                    type="number"
-                    required={true}
-                    style={{
-                      backgroundColor: "#fff",
-                    }}
-                  />
-                  <CustomInputField
-                    label="Leveys (m)"
-                    name="boat.beam"
-                    type="number"
-                    required={true}
-                    style={{
-                      backgroundColor: "#fff",
-                    }}
-                  />
-                  <CustomInputField
-                    label="Syväys (m)"
-                    name="boat.draft"
-                    type="number"
-                    required={true}
-                    style={{
-                      backgroundColor: "#fff",
-                    }}
-                  />
-                </Stack>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography
+                          style={{ fontSize: 16 }}
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          Aluksen parametrit:
+                        </Typography>
+                        {/* Menu selector for default boat values */}
+                        <BoatMenuComponent
+                          setDefaultBoatValues={setDefaultBoatValues}
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={1}>
+                      <Grid item xs={3}>
+                        <label htmlFor="boat.length">Pituus (m):</label>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Field
+                          component="input"
+                          name="boat.length"
+                          // {...register("userInput.boat.length", {
+                          //   valueAsNumber: true,
+                          // })}
+                          type="number"
+                          required
+                          style={{
+                            width: 100,
+                          }}
+                          // value={userInput.boat.length}
+                          // onChange={(ev) =>
+                          //   setUserInput({
+                          //     ...userInput,
+                          //     boat: {
+                          //       ...userInput.boat,
+                          //       length: ev.target.value,
+                          //     },
+                          //   })
+                          // }
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={1}>
+                      <Grid item xs={3}>
+                        <label htmlFor="boat.beam">Leveys (m):</label>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Field
+                          component="input"
+                          name="boat.beam"
+                          // {...register("userInput.boat.beam", {
+                          //   valueAsNumber: true,
+                          // })}
+                          type="number"
+                          required
+                          style={{
+                            width: 100,
+                          }}
+                          value={userInput.boat.beam}
+                          // onChange={(ev) =>
+                          //   setUserInput({
+                          //     ...userInput,
+                          //     boat: {
+                          //       ...userInput.boat,
+                          //       beam: ev.target.value,
+                          //     },
+                          //   })
+                          // }
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={1}>
+                      <Grid item xs={3}>
+                        <label htmlFor="boat.draft">Syväys (m):</label>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Field
+                          component="input"
+                          name="boat.draft"
+                          type="number"
+                          required
+                          style={{
+                            width: 100,
+                          }}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
             {/* Liikehdintäkyky */}
             <Card
               style={{
+                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
+                // marginTop: 5,
+                // marginBottom: 5,
+                // marginLeft: 5,
+                // marginRight: 5,
               }}
             >
               <CardContent>
@@ -171,133 +227,158 @@ function UserInputForm(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Aluksen liikehdintäkyky:
+                  <label htmlFor="">Aluksen liikehdintäkyky:</label>
                 </Typography>
-                <Stack direction="row">
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Luokka:
-                  </Typography>
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Kääntönopeus (C_tr):
-                  </Typography>
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Manoeuvrability (C_m):
-                  </Typography>
-                </Stack>
                 <Grid container spacing={1}>
-                  <Stack direction="row" spacing={1}>
-                    <label>
+                  <Grid item xs={3}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Luokka:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      <label>Kääntönopeus (C_tr):</label>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Manoeuvrability (C_m):
+                    </Typography>
+                  </Grid>
+                  <Grid container spacing={1}>
+                    <Grid item xs={3}>
+                      <label htmlFor="boat.manoeuvrability">
+                        <Field
+                          component="input"
+                          name="boat.manoeuvrability"
+                          type="radio"
+                          value="good"
+                          id="good"
+                        />
+                        Hyvä
+                      </label>
+                    </Grid>
+                    <Grid item xs={4}>
                       <Field
-                        type="radio"
-                        name="boat.manoeuvrability"
-                        value="good"
-                        id="good"
+                        component="input"
+                        name="manoeuvrability_params.C_turning_radius_good"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_tr"
                       />
-                      Hyvä
-                    </label>
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_turning_radius_good"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_manoeuvrability_good"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-                  </Stack>
-
-                  <Stack direction="row" spacing={1}>
-                    <label>
+                    </Grid>
+                    <Grid item xs={4}>
                       <Field
-                        type="radio"
-                        name="boat.manoeuvrability"
-                        value="moderate"
-                        id="moderate"
+                        component="input"
+                        name="manoeuvrability_params.C_manoeuvrability_good"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_m"
                       />
-                      Keskiverto
-                    </label>
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_turning_radius_moderate"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_manoeuvrability_moderate"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-                  </Stack>
-
-                  <Stack direction="row" spacing={1}>
-                    <label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <label htmlFor="boat.manoeuvrability">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="boat.manoeuvrability"
+                          value="moderate"
+                          id="moderate"
+                        />
+                        Keskiverto
+                      </label>
+                    </Grid>
+                    <Grid item xs={4}>
                       <Field
-                        type="radio"
-                        name="boat.manoeuvrability"
-                        value="poor"
-                        id="poor"
+                        component="input"
+                        name="manoeuvrability_params.C_turning_radius_moderate"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_tr"
                       />
-                      Heikko
-                    </label>
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_turning_radius_poor"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-                    <CustomInputField
-                      label=""
-                      name="manoeuvrability_params.C_manoeuvrability_poor"
-                      type="number"
-                      required={true}
-                      style={{
-                        backgroundColor: "#fff",
-                      }}
-                    />
-                  </Stack>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        component="input"
+                        name="manoeuvrability_params.C_manoeuvrability_moderate"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_m"
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <label htmlFor="boat.manoeuvrability">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="boat.manoeuvrability"
+                          value="poor"
+                          id="poor"
+                        />
+                        Heikko
+                      </label>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        component="input"
+                        name="manoeuvrability_params.C_turning_radius_poor"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_tr"
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        component="input"
+                        name="manoeuvrability_params.C_manoeuvrability_poor"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="C_m"
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
               </CardContent>
             </Card>
             {/* Nopeusluokat */}
             <Card
               style={{
+                // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
+                // marginTop: 5,
+                // marginBottom: 5,
+                // marginLeft: 5,
+                // marginRight: 5,
               }}
             >
               <CardContent>
@@ -322,7 +403,7 @@ function UserInputForm(props) {
                   </Grid>
                   <Grid container spacing={1}>
                     <Grid item xs={4}>
-                      <label>
+                      <label htmlFor="boat.speed">
                         <Field
                           type="radio"
                           name="boat.speed"
@@ -345,13 +426,13 @@ function UserInputForm(props) {
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <label>
+                      <label htmlFor="boat.speed">
                         <Field
                           type="radio"
                           name="boat.speed"
                           value="moderate"
                           id="moderate"
-                        />
+                         />
                         Keskiverto
                       </label>
                     </Grid>
@@ -377,10 +458,10 @@ function UserInputForm(props) {
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <label>
+                      <label htmlFor="boat.speed">
                         <Field
-                          type="radio"
                           name="boat.speed"
+                          type="radio"
                           value="slow"
                           id="slow"
                         />
@@ -417,10 +498,10 @@ function UserInputForm(props) {
               style={{
                 // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
+                // marginTop: 5,
+                // marginBottom: 5,
+                // marginLeft: 5,
+                // marginRight: 5,
               }}
             >
               <CardContent>
@@ -433,186 +514,197 @@ function UserInputForm(props) {
                 </Typography>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>Väylä (WF channel):</label>
+                    <label htmlFor="weightfactors.WF_channel">
+                      Väylä (WF channel):
+                    </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register("userInput.weightfactors.WF_channel", {
-                        valueAsNumber: true,
-                      })}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_channel"
+                      // {...register("userInput.weightfactors.WF_channel", {
+                      //   valueAsNumber: true,
+                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_channel}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_channel: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_channel}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_channel: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>Mutka (WF bend):</label>
+                    <label htmlFor="weightfactors.WF_bend">
+                      Mutka (WF bend):
+                    </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register("userInput.weightfactors.WF_bend", {
-                        valueAsNumber: true,
-                      })}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_bend"
+                      // {...register("userInput.weightfactors.WF_bend", {
+                      //   valueAsNumber: true,
+                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_bend}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_bend: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_bend}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_bend: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>S-mutka (WF S-bend):</label>
+                    <label htmlFor="weightfactors.WF_s_bend">
+                      S-mutka (WF S-bend):
+                    </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register("userInput.weightfactors.WF_s_bend", {
-                        valueAsNumber: true,
-                      })}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_s_bend"
+                      // {...register("userInput.weightfactors.WF_s_bend", {
+                      //   valueAsNumber: true,
+                      // })}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_s_bend}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_s_bend: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_s_bend}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_s_bend: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>
+                    <label htmlFor="weightfactors.WF_traffic_complexity">
                       Liikenteen monimutkaisuus (WF traffic complexity):
                     </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register(
-                        "userInput.weightfactors.WF_traffic_complexity",
-                        { valueAsNumber: true }
-                      )}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_traffic_complexity"
+                      // {...register(
+                      //   "userInput.weightfactors.WF_traffic_complexity",
+                      //   { valueAsNumber: true }
+                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_traffic_complexity}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_traffic_complexity: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_traffic_complexity}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_traffic_complexity: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>WF reduced visibility:</label>
+                    <label htmlFor="weightfactors.WF_reduced_visibility">
+                      WF reduced visibility:
+                    </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register(
-                        "userInput.weightfactors.WF_reduced_visibility",
-                        { valueAsNumber: true }
-                      )}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_reduced_visibility"
+                      // {...register(
+                      //   "userInput.weightfactors.WF_reduced_visibility",
+                      //   { valueAsNumber: true }
+                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_reduced_visibility}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_reduced_visibility: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_reduced_visibility}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_reduced_visibility: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1}>
                   <Grid item xs={9.5}>
-                    <label>Keinovalon määrä (WF light pollution):</label>
+                    <label htmlFor="weightfactors.WF_light_pollution">
+                      Keinovalon määrä (WF light pollution):
+                    </label>
                   </Grid>
                   <Grid item xs={2}>
-                    <input
-                      {...register(
-                        "userInput.weightfactors.WF_light_pollution",
-                        {
-                          valueAsNumber: true,
-                        }
-                      )}
+                    <Field
+                      component="input"
+                      name="weightfactors.WF_light_pollution"
+                      // {...register(
+                      //   "userInput.weightfactors.WF_light_pollution",
+                      //   {
+                      //     valueAsNumber: true,
+                      //   }
+                      // )}
                       type="number"
                       required
                       style={{
                         width: 60,
                       }}
-                      value={userInput.weightfactors.WF_light_pollution}
-                      onChange={(ev) =>
-                        setUserInput({
-                          ...userInput,
-                          weightfactors: {
-                            ...userInput.weightfactors,
-                            WF_light_pollution: ev.target.value,
-                          },
-                        })
-                      }
+                      // value={userInput.weightfactors.WF_light_pollution}
+                      // onChange={(ev) =>
+                      //   setUserInput({
+                      //     ...userInput,
+                      //     weightfactors: {
+                      //       ...userInput.weightfactors,
+                      //       WF_light_pollution: ev.target.value,
+                      //     },
+                      //   })
+                      // }
                     />
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
-            {/* Esitysvärit */}
-            <Card
-              style={{
-                // width: 500,
-                backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
-              }}
-            ></Card>
           </Grid>
           <Grid item xs={4}>
             {/* Väylän parametrit */}
@@ -620,10 +712,10 @@ function UserInputForm(props) {
               style={{
                 // width: 500,
                 backgroundColor: "rgb(181, 220, 255)",
-                marginTop: 5,
-                marginBottom: 5,
-                marginLeft: 5,
-                marginRight: 5,
+                // marginTop: 5,
+                // marginBottom: 5,
+                // marginLeft: 5,
+                // marginRight: 5,
               }}
             >
               <CardContent>
@@ -661,17 +753,6 @@ function UserInputForm(props) {
                     />
                   )}
                 />
-                {/* <label>
-                Väylän id (VAYLAT):
-                <input
-                  placeholder="VAYLAT"
-                  type="number"
-                  required
-                  style={{
-                    width: 100,
-                  }}
-                />
-              </label> */}
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>
@@ -684,82 +765,52 @@ function UserInputForm(props) {
                           color="textSecondary"
                           gutterBottom
                         >
-                          <label>Väylän parametrit:</label>
+                          Väylän parametrit:
                         </Typography>
                       </Grid>
                       <Grid container spacing={1}>
                         <Grid item xs={3}>
-                          <label> Tyyppi: </label>
+                          <label htmlFor="navilinja.calculation_params.type">
+                            {" "}
+                            Tyyppi:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={9}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.type"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    type: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.type"
                           >
                             <option defaultValue="inner">Sisävesiväylä</option>
                             <option value="outer">Ulkovesiväylä</option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={3}>
-                          <label> Kaistat: </label>
+                          <label htmlFor="navilinja.calculation_params.number_of_lanes">
+                            {" "}
+                            Kaistat:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={9}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.number_of_lanes"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    number_of_lanes: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.number_of_lanes"
                           >
                             <option defaultValue={1}>
                               Yksisuuntainen väylä
                             </option>
                             <option value={2}>Kaksisuuntainen väylä</option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={3}>
-                          <label> Pohja: </label>
+                          <label htmlFor="navilinja.calculation_params.bottom_surface">
+                            {" "}
+                            Pohja:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={9}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.bottom_surface"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    bottom_surface: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            name="navilinja.calculation_params.bottom_surface"
+                            component="select"
                           >
                             <option defaultValue="rough_and_hard">
                               Rosoinen ja kova
@@ -767,738 +818,409 @@ function UserInputForm(props) {
                             <option value="smooth_and_soft">
                               Sileä ja pehmeä
                             </option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={3}>
-                          <label> Näkyvyys (m): </label>
+                          <label htmlFor="navilinja.calculation_params.other.visibility">
+                            {" "}
+                            Näkyvyys (m):{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={9}>
-                          <input
-                            {...register(
-                              "userInput.navilinja.calculation_params.other.visibility",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="navilinja.calculation_params.other.visibility"
                             type="number"
                             required
                             style={{
                               width: 100,
                             }}
-                            value={
-                              userInput.navilinja.calculation_params.other
-                                .visibility
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    other: {
-                                      ...userInput.navilinja.calculation_params
-                                        .other,
-                                      visibility: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
                           />
                         </Grid>
                       </Grid>
                     </Grid>
                   </CardContent>
-                  <Card
-                    style={{
-                      // width: 500,
-                      backgroundColor: "rgb(181, 220, 255)",
-                      marginTop: 5,
-                      marginBottom: 5,
-                      marginLeft: 5,
-                      marginRight: 5,
-                    }}
+
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
                   >
-                    {/* Väylän syvyyden painokerroin */}
-                    <CardContent>
+                    Väylän syvyyden painokerroin:
+                  </Typography>
+                  <div>
+                    <div
+                      onMouseOver={handleMouseOver}
+                      onMouseOut={handleMouseOut}
+                    >
+                      <AiOutlineInfoCircle />
+                    </div>
+                    {isHovering && (
                       <Typography
-                        style={{ fontSize: 16 }}
+                        style={{ fontSize: 14 }}
                         color="textSecondary"
                         gutterBottom
                       >
-                        <label>Väylän syvyyden painokerroin:</label>
+                        {" "}
+                        Syvyyden painokerroin kerrotaan aluksen leveydellä alla
+                        näkyvien määritysten perusteella, joihin vaikuttaa
+                        väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
+                        oletusarvoja tai määrittää uudet painokertoimet.
                       </Typography>
-                      <div>
-                        <div>
-                          <div
-                            onMouseOver={handleMouseOver}
-                            onMouseOut={handleMouseOut}
-                          >
-                            <AiOutlineInfoCircle />
-                          </div>
-                          {isHovering && (
-                            <Typography
-                              style={{ fontSize: 14 }}
-                              color="textSecondary"
-                              gutterBottom
-                            >
-                              <label>
-                                {" "}
-                                Syvyyden painokerroin kerrotaan aluksen
-                                leveydellä alla näkyvien määritysten
-                                perusteella, joihin vaikuttaa väylän syvyys ja
-                                aluksen syväys. Laskennassa voi käyttää
-                                oletusarvoja tai määrittää uudet painokertoimet.
-                              </label>
-                            </Typography>
-                          )}
-                        </div>
-                      </div>
-                      <Grid container spacing={1}>
-                        <Grid item xs={5}>
-                          <label> Sisävesiväylä </label>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <label> Ulkovesiväylä </label>
-                        </Grid>
-                        <Grid item xs={5}>
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              syvyys ≥ 1.5 * syväys
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.deep_inner_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf.deep_inner_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  deep_inner_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              1.15*syväys ≤ syvyys 1.5*syväys
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.medium_deep_inner_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf
-                                .medium_deep_inner_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  medium_deep_inner_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              {"syvyys < 1.15*syväys"}
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.shallow_inner_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf.shallow_inner_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  shallow_inner_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              syvyys ≥ 1.5 * syväys
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.deep_outer_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf.deep_outer_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  deep_outer_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              1.25*syväys ≤ syvyys 1.5*syväys
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.medium_deep_outer_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf
-                                .medium_deep_outer_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  medium_deep_outer_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>
-                              {"syvyys < 1.25*syväys"}
-                            </label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.channel_depth_wf.shallow_outer_channel",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.channel_depth_wf.shallow_outer_channel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                channel_depth_wf: {
-                                  ...userInput.channel_depth_wf,
-                                  shallow_outer_channel: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                  <Card
-                    style={{
-                      // width: 500,
-                      backgroundColor: "rgb(181, 220, 255)",
-                      marginTop: 5,
-                      marginBottom: 5,
-                      marginLeft: 5,
-                      marginRight: 5,
-                    }}
+                    )}
+                  </div>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <label> Sisävesiväylä </label>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label> Ulkovesiväylä </label>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label style={{ fontSize: 10 }}>
+                        syvyys ≥ 1.5 * syväys
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.deep_inner_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <label style={{ fontSize: 10 }}>
+                        1.15*syväys ≤ syvyys 1.5*syväys
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.medium_deep_inner_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <label style={{ fontSize: 10 }}>
+                        {"syvyys < 1.15*syväys"}
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.shallow_inner_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <label style={{ fontSize: 10 }}>
+                        syvyys ≥ 1.5 * syväys
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.deep_outer_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <label style={{ fontSize: 10 }}>
+                        1.25*syväys ≤ syvyys 1.5*syväys
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.medium_deep_outer_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <label style={{ fontSize: 10 }}>
+                        {"syvyys < 1.25*syväys"}
+                      </label>
+                      <Field
+                        component="input"
+                        name="channel_depth_wf.shallow_outer_channel"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Typography
+                    style={{ fontSize: 16 }}
+                    color="textSecondary"
+                    gutterBottom
                   >
-                    {/* Väylän reuna ja reunan painokerroin */}
-                    <CardContent>
+                    Väylän reuna ja reunan painokerroin:
+                  </Typography>
+                  <div>
+                    <div
+                      onMouseOver={handleMouseOverDepth}
+                      onMouseOut={handleMouseOutDepth}
+                    >
+                      <AiOutlineInfoCircle />
+                    </div>
+                    {isHoveringDepth && (
                       <Typography
-                        style={{ fontSize: 16 }}
+                        style={{ fontSize: 14 }}
                         color="textSecondary"
                         gutterBottom
                       >
-                        Väylän reuna ja reunan painokerroin:
+                        <label>
+                          {" "}
+                          Riskiarvon laskentaan valitaan väylän reunan tyyppi.
+                          Alla on esitetty myös reunan painokertoimet joihin
+                          vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
+                          Painokerroin ja aluksen leveys kerrotaan laskennassa.
+                          Laskennassa voi käyttää oletusarvoja tai määrittää
+                          uudet painokertoimet.
+                        </label>
                       </Typography>
+                    )}
+                  </div>
+                  <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                      <label htmlFor="navilinja.calculation_params.channel_edge">
+                        <Field
+                          type="radio"
+                          name="navilinja.calculation_params.channel_edge"
+                          value="gentle_slope"
+                          id="gentle_slope"
+                          // onChange={(ev) =>
+                          //   setUserInput({
+                          //     ...userInput,
+                          //     navilinja: {
+                          //       ...userInput.navilinja,
+                          //       calculation_params: {
+                          //         ...userInput.navilinja.calculation_params,
+                          //         channel_edge: ev.target.value,
+                          //       },
+                          //     },
+                          //   })
+                          // }
+                        />
+                        Loiva kaltevuus
+                      </label>
                       <div>
-                        <div>
-                          <div
-                            onMouseOver={handleMouseOverDepth}
-                            onMouseOut={handleMouseOutDepth}
-                          >
-                            <AiOutlineInfoCircle />
-                          </div>
-                          {isHoveringDepth && (
-                            <Typography
-                              style={{ fontSize: 14 }}
-                              color="textSecondary"
-                              gutterBottom
-                            >
-                              <label>
-                                {" "}
-                                Riskiarvon laskentaan valitaan väylän reunan
-                                tyyppi. Alla on esitetty myös reunan
-                                painokertoimet joihin vaikuttaa reunan tyyppi
-                                sekä aluksen nopeusluokka. Painokerroin ja
-                                aluksen leveys kerrotaan laskennassa.
-                                Laskennassa voi käyttää oletusarvoja tai
-                                määrittää uudet painokertoimet.
-                              </label>
-                            </Typography>
-                          )}
-                        </div>
+                        <label style={{ fontSize: 10 }}>nopea</label>
                       </div>
-                      <Grid container spacing={2}>
-                        <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="channel_edge_radio"
-                            value="gentle_slope"
-                            id="gentle_slope"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    channel_edge: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Loiva kaltevuus</label>
-                          <div>
-                            <label style={{ fontSize: 10 }}>nopea</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_gentle_fast",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_gentle_fast
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_gentle_fast: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_gentle_moderate",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_gentle_moderate
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_gentle_moderate:
-                                    ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_gentle_slow",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_gentle_slow
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_gentle_slow: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="channel_edge_radio"
-                            value="sloping_edges"
-                            id="sloping_edges"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    sloping_edges: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Viistot reunat</label>
-                          <div>
-                            <label style={{ fontSize: 10 }}>nopea</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_sloping_fast",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_sloping_fast
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_sloping_fast: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_sloping_moderate",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_sloping_moderate
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_sloping_moderate:
-                                    ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_sloping_slow",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_sloping_slow
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_sloping_slow: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="channel_edge_radio"
-                            value="steep_and_hard"
-                            id="steep_and_hard"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    steep_and_hard: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Jyrkkä ja kova</label>
-                          <div>
-                            <label style={{ fontSize: 10 }}>nopea</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_steep_fast",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_steep_fast
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_steep_fast: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_steep_moderate",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_steep_moderate
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_steep_moderate: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                          <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
-                          </div>
-                          <input
-                            {...register(
-                              "userInput.bank_clearance_wf.edge_category_steep_slow",
-                              { valueAsNumber: true }
-                            )}
-                            type="float"
-                            required
-                            style={{
-                              width: 100,
-                            }}
-                            placeholder="painokerroin"
-                            value={
-                              userInput.bank_clearance_wf
-                                .edge_category_steep_slow
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                bank_clearance_wf: {
-                                  ...userInput.bank_clearance_wf,
-                                  edge_category_steep_slow: ev.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_fast"
+                        // {...register(
+                        //   "userInput.bank_clearance_wf.edge_category_gentle_fast",
+                        //   { valueAsNumber: true }
+                        // )}
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>keskiverto</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_moderate"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>hidas</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_slow"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label>
+                        <Field
+                          type="radio"
+                          name="navilinja.calculation_params.channel_edge"
+                          value="sloping_edges"
+                          id="sloping_edges"
+                        />
+                        Viistot reunat
+                      </label>
+                      <div>
+                        <label
+                          htmlFor="bank_clearance_wf.edge_category_sloping_fast"
+                          style={{ fontSize: 10 }}
+                        >
+                          nopea
+                        </label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_fast"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>keskiverto</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_moderate"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>hidas</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_slow"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label>
+                        <Field
+                          type="radio"
+                          name="navilinja.calculation_params.channel_edge"
+                          value="steep_and_hard"
+                          id="steep_and_hard"
+                        />
+                        Jyrkkä ja kova
+                      </label>
+                      <div>
+                        <label
+                          htmlFor="bank_clearance_wf.edge_category_steep_fast"
+                          style={{ fontSize: 10 }}
+                        >
+                          nopea
+                        </label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_fast"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>keskiverto</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_moderate"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                      <div>
+                        <label style={{ fontSize: 10 }}>hidas</label>
+                      </div>
+                      <Field
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_slow"
+                        type="float"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </Grid>
+                  </Grid>
+
                   {/* ATN */}
                   <CardContent>
                     <Grid container spacing={0}>
                       <Grid container spacing={1}>
                         <Grid item xs={6}>
-                          <label> ATN: </label>
+                          <label htmlFor="navilinja.calculation_params.aids_to_navigation">
+                            {" "}
+                            ATN:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={5}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.aids_to_navigation"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    aids_to_navigation: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.aids_to_navigation"
                           >
                             <option defaultValue="excellent">
                               Erinomainen
                             </option>
                             <option value="good">Hyvä</option>
                             <option value="moderate">Keskiverto</option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={6}>
-                          <label> Liikenteen määrä: </label>
+                          <label htmlFor="navilinja.calculation_params.other.traffic_volume">
+                            {" "}
+                            Liikenteen määrä:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={4}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.other.traffic_volume"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    other: {
-                                      ...userInput.navilinja.calculation_params
-                                        .other,
-                                      traffic_volume: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.other.traffic_volume"
                           >
                             <option defaultValue="negligible">Olematon</option>
                             <option value="low">Matala</option>
                             <option value="moderate">Keskiverto</option>
                             <option value="heavy">Runsas</option>
                             <option value="very_heavy">Todella runsas</option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={6}>
-                          <label> Liikenteen monimutkaisuus: </label>
+                          <label htmlFor="navilinja.calculation_params.other.traffic_complexity">
+                            {" "}
+                            Liikenteen monimutkaisuus:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={4}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.other.traffic_complexity"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    other: {
-                                      ...userInput.navilinja.calculation_params
-                                        .other,
-                                      traffic_complexity: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.other.traffic_complexity"
                           >
                             <option defaultValue="negligible">Olematon</option>
                             <option value="low">Matala</option>
@@ -1507,34 +1229,24 @@ function UserInputForm(props) {
                             <option value="very_heavy">
                               Erittäin monimutkainen
                             </option>
-                          </select>
+                          </Field>
                         </Grid>
                         <Grid item xs={6}>
-                          <label> Keinovalon määrä: </label>
+                          <label htmlFor="navilinja.calculation_params.light_pollution">
+                            {" "}
+                            Keinovalon määrä:{" "}
+                          </label>
                         </Grid>
                         <Grid item xs={5}>
-                          <select
-                            {...register(
-                              "userInput.navilinja.calculation_params.light_pollution"
-                            )}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    light_pollution: ev.target.value,
-                                  },
-                                },
-                              })
-                            }
+                          <Field
+                            component="select"
+                            name="navilinja.calculation_params.light_pollution"
                           >
                             <option defaultValue="strong">Voimakas</option>
                             <option value="moderate">Keskiverto</option>
                             <option value="low">Heikko</option>
                             <option value="negligible">Olematon</option>
-                          </select>
+                          </Field>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -1586,98 +1298,79 @@ function UserInputForm(props) {
                         </label>
                       </Typography>
                       <div>
-                        <div>
-                          <div
-                            onMouseOver={handleMouseOverWind}
-                            onMouseOut={handleMouseOutWind}
-                          >
-                            <AiOutlineInfoCircle />
-                          </div>
-                          {isHoveringWind && (
-                            <Typography
-                              style={{ fontSize: 14 }}
-                              color="textSecondary"
-                              gutterBottom
-                            >
-                              <label>
-                                {" "}
-                                Riskiarvon laskentaan valitaan tuulen
-                                nopeusluokka. Alla on esitetty myös tuulen
-                                painokertoimet joihin vaikuttaa tuulen
-                                nopeusluokka sekä aluksen nopeusluokka.
-                                Painokerroin ja aluksen leveys kerrotaan
-                                laskennassa. Laskennassa voi käyttää
-                                oletusarvoja tai määrittää uudet painokertoimet.
-                              </label>
-                            </Typography>
-                          )}
+                        <div
+                          onMouseOver={handleMouseOverWind}
+                          onMouseOut={handleMouseOutWind}
+                        >
+                          <AiOutlineInfoCircle />
                         </div>
+                        {isHoveringWind && (
+                          <Typography
+                            style={{ fontSize: 14 }}
+                            color="textSecondary"
+                            gutterBottom
+                          >
+                            <label>
+                              {" "}
+                              Riskiarvon laskentaan valitaan tuulen
+                              nopeusluokka. Alla on esitetty myös tuulen
+                              painokertoimet joihin vaikuttaa tuulen
+                              nopeusluokka sekä aluksen nopeusluokka.
+                              Painokerroin ja aluksen leveys kerrotaan
+                              laskennassa. Laskennassa voi käyttää oletusarvoja
+                              tai määrittää uudet painokertoimet.
+                            </label>
+                          </Typography>
+                        )}
                       </div>
                       <Grid container spacing={1}>
                         <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="wind_radio"
-                            value="mild"
-                            id="mild"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    operating_conditions: {
-                                      ...userInput.navilinja.calculation_params
-                                        .operating_conditions,
-                                      wind_speed: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Heikko</label>
+                          <label htmlFor="navilinja.calculation_params.wind_speed">
+                            <Field
+                              component="input"
+                              type="radio"
+                              name="navilinja.calculation_params.wind_speed"
+                              value="mild"
+                              id="mild"
+                            />
+                            Heikko
+                          </label>
                           <Typography
                             style={{ fontSize: 12 }}
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>{"Tuulen nopeus < 7 m/s"}</label>
+                            {"Tuulen nopeus < 7 m/s"}
                           </Typography>
                           <div>
-                            <label style={{ fontSize: 10 }}>nopea</label>
+                            <label
+                              htmlFor="wind_wf.mild_wind_fast_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              nopea
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.mild_wind_fast_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.mild_wind_fast_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.mild_wind_fast_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  mild_wind_fast_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
+                            <label
+                              htmlFor="wind_wf.mild_wind_moderate_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              keskiverto
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.mild_wind_moderate_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.mild_wind_moderate_vessel"
                             type="float"
                             required
                             style={{
@@ -1685,255 +1378,165 @@ function UserInputForm(props) {
                             }}
                             placeholder="painokerroin"
                             value={userInput.wind_wf.mild_wind_moderate_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  mild_wind_moderate_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
+                            <label
+                              htmlFor="wind_wf.mild_wind_slow_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              hidas
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.mild_wind_slow_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.mild_wind_slow_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.mild_wind_slow_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  mild_wind_slow_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                         </Grid>
                         <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="wind_radio"
-                            value="moderate"
-                            id="moderate"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    operating_conditions: {
-                                      ...userInput.navilinja.calculation_params
-                                        .operating_conditions,
-                                      wind_speed: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Keskiverto</label>
+                          <label htmlFor="navilinja.calculation_params.wind_speed">
+                            <Field
+                              component="input"
+                              type="radio"
+                              name="navilinja.calculation_params.wind_speed"
+                              value="moderate"
+                              id="moderate"
+                            />
+                            Keskiverto
+                          </label>
                           <Typography
                             style={{ fontSize: 12 }}
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>{"Tuulen nopeus 7 -17 m/s"}</label>
+                            {"Tuulen nopeus 7 -17 m/s"}
                           </Typography>
                           <div>
                             <label style={{ fontSize: 10 }}>nopea</label>
                           </div>
-                          <input
+                          <Field
+                            component="input"
                             type="float"
+                            name="wind_wf.moderate_wind_fast_vessel"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.moderate_wind_fast_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  moderate_wind_fast_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
+                            <label
+                              htmlFor="wind_wf.moderate_wind_moderate_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              keskiverto
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.moderate_wind_moderate_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.moderate_wind_moderate_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={
-                              userInput.wind_wf.moderate_wind_moderate_vessel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  moderate_wind_moderate_vessel:
-                                    ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
+                            <label
+                              htmlFor="wind_wf.moderate_wind_slow_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              hidas
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.moderate_wind_slow_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.moderate_wind_slow_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.moderate_wind_slow_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  moderate_wind_slow_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                         </Grid>
                         <Grid item xs={4}>
-                          <input
-                            type="radio"
-                            name="wind_radio"
-                            value="strong"
-                            id="strong"
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                navilinja: {
-                                  ...userInput.navilinja,
-                                  calculation_params: {
-                                    ...userInput.navilinja.calculation_params,
-                                    operating_conditions: {
-                                      ...userInput.navilinja.calculation_params
-                                        .operating_conditions,
-                                      wind_speed: ev.target.value,
-                                    },
-                                  },
-                                },
-                              })
-                            }
-                          />
-                          <label>Voimakas</label>
+                          <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
+                            <Field
+                              component="input"
+                              type="radio"
+                              name="navilinja.calculation_params.operating_conditions.wind_speed"
+                              value="strong"
+                              id="strong"
+                            />
+                            Voimakas
+                          </label>
                           <Typography
                             style={{ fontSize: 12 }}
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>{"Tuulen nopeus > 17 m/s"}</label>
+                            {"Tuulen nopeus > 17 m/s"}
                           </Typography>
                           <div>
-                            <label style={{ fontSize: 10 }}>nopea</label>
+                            <label
+                              htmlFor="wind_wf.strong_wind_fast_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              nopea
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.strong_wind_fast_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.strong_wind_fast_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.strong_wind_fast_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  strong_wind_fast_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>keskiverto</label>
+                            <label
+                              htmlFor="wind_wf.strong_wind_moderate_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              keskiverto
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.strong_wind_moderate_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.strong_wind_moderate_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={
-                              userInput.wind_wf.strong_wind_moderate_vessel
-                            }
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  strong_wind_moderate_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                           <div>
-                            <label style={{ fontSize: 10 }}>hidas</label>
+                            <label
+                              htmlFor="wind_wf.strong_wind_slow_vessel"
+                              style={{ fontSize: 10 }}
+                            >
+                              hidas
+                            </label>
                           </div>
-                          <input
-                            {...register(
-                              "userInput.wind_wf.strong_wind_slow_vessel",
-                              { valueAsNumber: true }
-                            )}
+                          <Field
+                            component="input"
+                            name="wind_wf.strong_wind_slow_vessel"
                             type="float"
                             required
                             style={{
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.strong_wind_slow_vessel}
-                            onChange={(ev) =>
-                              setUserInput({
-                                ...userInput,
-                                wind_wf: {
-                                  ...userInput.wind_wf,
-                                  strong_wind_slow_vessel: ev.target.value,
-                                },
-                              })
-                            }
                           />
                         </Grid>
                       </Grid>
@@ -1958,7 +1561,7 @@ function UserInputForm(props) {
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>Poikkivirtaus:</label>
+                            Poikkivirtaus:
                           </Typography>
                         </Grid>
                         <Grid item xs={9}>
@@ -1967,44 +1570,26 @@ function UserInputForm(props) {
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>
-                              Arvovälit poikkivirtauksen nopeudelle v [knots]:
-                            </label>
+                            Arvovälit poikkivirtauksen nopeudelle v [knots]:
                           </Typography>
                         </Grid>
                         <Grid container spacing={1}>
                           <Grid item xs={3}>
-                            <input
-                              type="radio"
-                              name="cross_current_radio"
-                              value="negligible"
-                              id="negligible"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_speed: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Olematon</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                                value="negligible"
+                                id="negligible"
+                              />
+                              Olematon
+                            </label>
                           </Grid>
                           <Grid item xs={9}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower",
-                                { valueAsNumber: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2012,35 +1597,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_neg_lower
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_neg_lower:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2048,62 +1609,24 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wneg_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wneg_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <input
-                              type="radio"
-                              name="cross_current_radio"
-                              value="low"
-                              id="low"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_speed: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Heikko</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                                value="low"
+                                id="low"
+                              />
+                              Heikko
+                            </label>
                           </Grid>
                           <Grid item xs={9}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2111,35 +1634,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wneg_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wneg_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2147,62 +1646,24 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wlow_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wlow_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <input
-                              type="radio"
-                              name="cross_current_radio"
-                              value="moderate"
-                              id="moderate"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_speed: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Keskiverto</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                                value="moderate"
+                                id="moderate"
+                              />
+                              Keskiverto
+                            </label>
                           </Grid>
                           <Grid item xs={9}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2210,35 +1671,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wlow_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wlow_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2246,62 +1683,24 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wmod_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wmod_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                           <Grid item xs={3}>
-                            <input
-                              type="radio"
-                              name="cross_current_radio"
-                              value="strong"
-                              id="strong"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_speed: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Voimakas</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                                value="strong"
+                                id="strong"
+                              />
+                              Voimakas
+                            </label>
                           </Grid>
                           <Grid item xs={9}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2309,35 +1708,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions.cross_current_Wmod_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wmod_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2345,29 +1720,6 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .cross_current_Wstrong_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        cross_current_Wstrong_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                         </Grid>
@@ -2402,46 +1754,26 @@ function UserInputForm(props) {
                             color="textSecondary"
                             gutterBottom
                           >
-                            <label>
-                              Arvovälit pitkittäisvirtauksen nopeudelle v
-                              [knots]:
-                            </label>
+                            Arvovälit pitkittäisvirtauksen nopeudelle v [knots]:
                           </Typography>
                         </Grid>
                         <Grid container spacing={1}>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="longitudinal_current_radio"
-                              value="negligible"
-                              id="negligible"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_speed:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Olematon</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                                value="negligible"
+                                id="negligible"
+                              />
+                              Olematon
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2449,36 +1781,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .longitudinal_current_Wneg_lower
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_Wneg_lower:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2486,64 +1793,24 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .longitudinal_current_Wneg_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_Wneg_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="longitudinal_current_radio"
-                              value="moderate"
-                              id="moderate"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_speed:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Keskiverto</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                                value="moderate"
+                                id="moderate"
+                              />
+                              Keskiverto
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2551,36 +1818,11 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .longitudinal_current_Wneg_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_Wneg_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                             <label>{"≤ v <"}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2588,65 +1830,25 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .longitudinal_current_Wmod_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_Wmod_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="longitudinal_current_radio"
-                              value="strong"
-                              id="strong"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_speed:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Voimakas</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                                value="strong"
+                                id="strong"
+                              />
+                              Voimakas
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
                             <label>{"v ≥ "}</label>
-                            <input
-                              {...register(
-                                "userInput.navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper",
-                                { valueAsfloat: true }
-                              )}
+                            <Field
+                              component="input"
+                              name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                               type="float"
                               required
                               placeholder="nopeus"
@@ -2654,29 +1856,6 @@ function UserInputForm(props) {
                               style={{
                                 width: 100,
                               }}
-                              value={
-                                userInput.navilinja.calculation_params
-                                  .operating_conditions
-                                  .longitudinal_current_Wmod_upper
-                              }
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        longitudinal_current_Wmod_upper:
-                                          ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
                             />
                           </Grid>
                         </Grid>
@@ -2688,10 +1867,10 @@ function UserInputForm(props) {
                     style={{
                       // width: 500,
                       backgroundColor: "rgb(181, 220, 255)",
-                      marginTop: 5,
-                      marginBottom: 5,
-                      marginLeft: 5,
-                      marginRight: 5,
+                      // marginTop: 5,
+                      // marginBottom: 5,
+                      // marginLeft: 5,
+                      // marginRight: 5,
                     }}
                   >
                     <CardContent>
@@ -2716,33 +1895,20 @@ function UserInputForm(props) {
                         </Grid>
                         <Grid container spacing={1}>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="wave_height_radio"
-                              value="low"
-                              id="low"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        wave_height: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Matala</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.wave_height"
+                                value="low"
+                                id="low"
+                              />
+                              Matala
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
                             <input
+
                               type="number"
                               required
                               style={{
@@ -2753,6 +1919,7 @@ function UserInputForm(props) {
                             />
                             <label>{"≤ h <"}</label>
                             <input
+                              // component="input"
                               type="number"
                               required
                               style={{
@@ -2763,33 +1930,20 @@ function UserInputForm(props) {
                             />
                           </Grid>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="wave_height_radio"
-                              value="moderate"
-                              id="moderate"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        wave_height: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Keskiverto</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="wave_height_radio"
+                                value="moderate"
+                                id="moderate"
+                              />
+                              Keskiverto
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
                             <input
+                              // component="input"
                               type="number"
                               required
                               style={{
@@ -2800,6 +1954,7 @@ function UserInputForm(props) {
                             />
                             <label>{"≤ h ≤"}</label>
                             <input
+                              // component="input"
                               type="number"
                               required
                               style={{
@@ -2810,34 +1965,21 @@ function UserInputForm(props) {
                             />
                           </Grid>
                           <Grid item xs={4}>
-                            <input
-                              type="radio"
-                              name="wave_height_radio"
-                              value="high"
-                              id="high"
-                              onChange={(ev) =>
-                                setUserInput({
-                                  ...userInput,
-                                  navilinja: {
-                                    ...userInput.navilinja,
-                                    calculation_params: {
-                                      ...userInput.navilinja.calculation_params,
-                                      operating_conditions: {
-                                        ...userInput.navilinja
-                                          .calculation_params
-                                          .operating_conditions,
-                                        wave_height: ev.target.value,
-                                      },
-                                    },
-                                  },
-                                })
-                              }
-                            />
-                            <label>Korkea</label>
+                            <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                              <Field
+                                component="input"
+                                type="radio"
+                                name="navilinja.calculation_params.operating_conditions.wave_height"
+                                value="high"
+                                id="high"
+                              />
+                              Korkea
+                            </label>
                           </Grid>
                           <Grid item xs={8}>
                             <label>{"h > "}</label>
                             <input
+                              // component="input"
                               type="number"
                               required
                               style={{
