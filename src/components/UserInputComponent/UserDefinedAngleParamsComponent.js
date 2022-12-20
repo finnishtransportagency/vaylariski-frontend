@@ -40,22 +40,22 @@ export default function UserDefinedAngleParamsComponent(props) {
                       name={`navilinja_angle_params.${index}.GDO_GID`}
                       required
                       placeholder="GDO_GID"
-                      type="number"
+                      type="float"
                     />
                     <Field
-                      name={`navlinja_angle_params.${index}.SADE`}
+                      name={`navilinja_angle_params.${index}.SADE`}
                       placeholder="Säde"
-                      type="number"
+                      type="float"
                     />
                     <Field
-                      name={`navlinja_angle_params.${index}.BEND_ANGLE`}
+                      name={`navilinja_angle_params.${index}.BEND_ANGLE`}
                       placeholder="Kaarteen kulma"
-                      type="number"
+                      type="float"
                     />
                     <Field
-                      name={`navlinja_angle_params.${index}.S_BEND`}
+                      name={`navilinja_angle_params.${index}.S_BEND`}
                       placeholder="S-mutkan pituus"
-                      type="number"
+                      type="float"
                     />
                     <Button onClick={() => remove(index)}>Poista</Button>
                   </Stack>
