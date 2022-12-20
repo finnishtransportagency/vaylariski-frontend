@@ -80,15 +80,23 @@ export default function ParameterTabsComponent() {
           />
         </Tabs>
       </Box>
-      <Formik onSubmit={(values) => {fetchRiskValue(values)}} initialValues={userInput}>
+      <Formik
+        onSubmit={(values) => {
+          fetchRiskValue(values);
+        }}
+        initialValues={userInput}
+      >
         {(formik) => (
-          <FForm onSubmit={formik.handleSubmit}>
+          <FForm>
             <UserInputForm tabValue={value} tabIndex={0} />
             <UserDefinedAngleParamsComponent
               tabValue={value}
               tabIndex={1}
+              formik={formik}
             />
-            <Button type="submit" variant="contained">Lähetä</Button>
+            <Button type="submit" variant="contained">
+              Lähetä
+            </Button>
           </FForm>
         )}
       </Formik>

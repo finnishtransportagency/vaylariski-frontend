@@ -140,24 +140,11 @@ function UserInputForm(props) {
                         <Field
                           component="input"
                           name="boat.length"
-                          // {...register("userInput.boat.length", {
-                          //   valueAsNumber: true,
-                          // })}
                           type="number"
                           required
                           style={{
                             width: 100,
                           }}
-                          // value={userInput.boat.length}
-                          // onChange={(ev) =>
-                          //   setUserInput({
-                          //     ...userInput,
-                          //     boat: {
-                          //       ...userInput.boat,
-                          //       length: ev.target.value,
-                          //     },
-                          //   })
-                          // }
                         />
                       </Grid>
                     </Grid>
