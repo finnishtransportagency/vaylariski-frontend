@@ -1,11 +1,7 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
-import ParameterTabsComponent from "components/ParameterTabsComponent";
-import UserInputContext from "contexts/UserInput";
 import { Field, FieldArray } from "formik";
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
-import { useFieldArray } from "react-hook-form";
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
