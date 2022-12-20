@@ -1,11 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import apiClient from "../../http-common";
+import { useState } from "react";
 
-import BoatContext from "../../contexts/Boat";
-import RIVResultContext from "../../contexts/RIVResult";
-import FairwayContext from "../../contexts/Fairway";
-import UserInputContext from "../../contexts/UserInput";
-import RIVTrafficLightContext from "../../contexts/RIVTrafficLightContext";
 import {
   Autocomplete,
   Divider,
@@ -15,11 +9,6 @@ import {
   popoverClasses,
   TextField,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import { Field } from "formik";
 
 import { AiOutlineInfoCircle } from "react-icons/ai";
