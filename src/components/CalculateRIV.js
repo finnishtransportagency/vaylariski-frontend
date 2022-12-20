@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import DisplayRIVResults from "./DisplayRIVResults";
 import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
-import UserInputForm from "./UserInputComponent/UserInputForm";
 import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";

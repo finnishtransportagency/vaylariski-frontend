@@ -1,12 +1,9 @@
 import { useContext, useState } from "react";
-import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import UserInputForm from "./UserInputComponent/UserInputForm";
 import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent";
-import { useForm } from "react-hook-form";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import RIVResultContext from "contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
@@ -25,12 +22,6 @@ function a11yProps(index) {
 
 export default function ParameterTabsComponent() {
   const [value, setValue] = useState(0);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm();
   const { spinnerVisible, setSpinnerVisible } = useContext(
     SpinnerVisibilityContext
   );

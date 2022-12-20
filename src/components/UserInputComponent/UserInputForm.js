@@ -26,22 +26,14 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import CardActions from "@mui/material/CardActions";
 import BoatMenuComponent from "./BoatMenuComponent";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
-import NotificationContext from "contexts/NotificationContext";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
-import UserDefinedAngleParamsComponent from "./UserDefinedAngleParamsComponent";
 import PropTypes from "prop-types";
-import CustomInputField, { CustomInputFieldNoFormik } from "./CustomInputField";
-import { Stack } from "@mui/system";
+
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
 
-  const { userInput, setUserInput } = useContext(UserInputContext);
-  const [style, setStyle] = useState({ display: "none" });
   const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
@@ -66,14 +58,11 @@ function UserInputForm(props) {
     setIsHoveringWind(false);
   };
 
-  console.log('formk', formik);
-  useEffect(() => {
-    console.log("userInput muuttui", userInput);
-  }, [userInput]);
-
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    setUserInput({ ...userInput, boat: newBoat });
+    formik.setFieldValue('boat.draft', newBoat.draft);
+    formik.setFieldValue('boat.length', newBoat.length);
+    formik.setFieldValue('boat.beam', newBoat.beam);
   }
 
   return (
@@ -145,7 +134,6 @@ function UserInputForm(props) {
                           style={{
                             width: 100,
                           }}
-                          value={userInput.boat.beam}
                         />
                       </Grid>
                     </Grid>
@@ -863,18 +851,6 @@ function UserInputForm(props) {
                           name="navilinja.calculation_params.channel_edge"
                           value="gentle_slope"
                           id="gentle_slope"
-                          // onChange={(ev) =>
-                          //   setUserInput({
-                          //     ...userInput,
-                          //     navilinja: {
-                          //       ...userInput.navilinja,
-                          //       calculation_params: {
-                          //         ...userInput.navilinja.calculation_params,
-                          //         channel_edge: ev.target.value,
-                          //       },
-                          //     },
-                          //   })
-                          // }
                         />
                         Loiva kaltevuus
                       </label>
@@ -884,10 +860,6 @@ function UserInputForm(props) {
                       <Field
                         component="input"
                         name="bank_clearance_wf.edge_category_gentle_fast"
-                        // {...register(
-                        //   "userInput.bank_clearance_wf.edge_category_gentle_fast",
-                        //   { valueAsNumber: true }
-                        // )}
                         type="float"
                         required
                         style={{
@@ -1240,7 +1212,6 @@ function UserInputForm(props) {
                               width: 100,
                             }}
                             placeholder="painokerroin"
-                            value={userInput.wind_wf.mild_wind_moderate_vessel}
                           />
                           <div>
                             <label
