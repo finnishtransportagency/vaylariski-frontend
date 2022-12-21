@@ -10,7 +10,7 @@ function App() {
               src="/vaylariski.png"
               className="App-logo"
               alt="logo" />
-          {/* <h2>RIV</h2> */}
+          <h6>versio 0.5</h6>
         </header>
         <CalculateRIV/>
         {/* <TestButton /> */}

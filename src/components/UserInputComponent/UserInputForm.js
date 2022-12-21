@@ -590,6 +590,7 @@ function UserInputForm(props) {
                       style={{ backgroundColor: "white" }}
                       {...params}
                       label="VAYLAT id"
+                      required
                     />
                   )}
                 />
@@ -620,7 +621,7 @@ function UserInputForm(props) {
                             component="select"
                             name="navilinja.calculation_params.type"
                           >
-                            <option defaultValue="inner">Sisävesiväylä</option>
+                            <option value="inner">Sisävesiväylä</option>
                             <option value="outer">Ulkovesiväylä</option>
                           </Field>
                         </Grid>
@@ -635,10 +636,13 @@ function UserInputForm(props) {
                             component="select"
                             name="navilinja.calculation_params.number_of_lanes"
                           >
-                            <option defaultValue={1}>
-                              Yksisuuntainen väylä
-                            </option>
-                            <option value={2}>Kaksisuuntainen väylä</option>
+                          <option value={2}>
+                            Kaksisuuntainen väylä
+                          </option>
+                          <option value={1}>
+                            Yksisuuntainen väylä
+                          </option>
+                            
                           </Field>
                         </Grid>
                         <Grid item xs={3}>
@@ -652,12 +656,13 @@ function UserInputForm(props) {
                             name="navilinja.calculation_params.bottom_surface"
                             component="select"
                           >
-                            <option defaultValue="rough_and_hard">
-                              Rosoinen ja kova
-                            </option>
-                            <option value="smooth_and_soft">
+                            <option defaultValue="smooth_and_soft">
                               Sileä ja pehmeä
                             </option>
+                            <option value="rough_and_hard">
+                              Rosoinen ja kova
+                            </option>
+                            
                           </Field>
                         </Grid>
                         <Grid item xs={3}>
@@ -1066,10 +1071,11 @@ function UserInputForm(props) {
                             component="select"
                             name="navilinja.calculation_params.light_pollution"
                           >
-                            <option defaultValue="strong">Voimakas</option>
-                            <option value="moderate">Keskiverto</option>
+                            <option defaultValue="negligible">Olematon</option>
                             <option value="low">Heikko</option>
-                            <option value="negligible">Olematon</option>
+                            <option value="moderate">Keskiverto</option>
+                            <option value="strong">Voimakas</option>
+
                           </Field>
                         </Grid>
                       </Grid>
@@ -1149,11 +1155,11 @@ function UserInputForm(props) {
                       </div>
                       <Grid container spacing={1}>
                         <Grid item xs={4}>
-                          <label htmlFor="navilinja.calculation_params.wind_speed">
+                          <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
                             <Field
                               component="input"
                               type="radio"
-                              name="navilinja.calculation_params.wind_speed"
+                              name="navilinja.calculation_params.operating_conditions.wind_speed"
                               value="mild"
                               id="mild"
                             />
@@ -1222,13 +1228,13 @@ function UserInputForm(props) {
                           />
                         </Grid>
                         <Grid item xs={4}>
-                          <label htmlFor="navilinja.calculation_params.wind_speed">
+                          <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
                             <Field
                               component="input"
                               type="radio"
-                              name="navilinja.calculation_params.wind_speed"
+                              name="navilinja.calculation_params.operating_conditions.wind_speed"
                               value="moderate"
-                              id="moderate"
+                              id="moderate"                              
                             />
                             Keskiverto
                           </label>
