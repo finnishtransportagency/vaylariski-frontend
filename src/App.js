@@ -1,8 +1,25 @@
 import CalculateRIV from "./components/CalculateRIV";
 import "./App.css";
 import TestButton from "./components/TestButton";
+import { useEffect } from "react";
+import apiClient from 'http-common';
 
 function App() {
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        await apiClient.get("heartbeat");
+      } catch (err) {
+
+      } finally {
+
+      }
+    }, 4*3600*1000); //every 4h
+    return () => clearInterval(interval);
+  }, []);
+
+
   return (
       <div className="App">
         <header className="App-header">
