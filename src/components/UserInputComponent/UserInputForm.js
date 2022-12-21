@@ -1828,7 +1828,6 @@ function UserInputForm(props) {
 export default UserInputForm;
 
 UserInputForm.propTypes = {
-  userInput: PropTypes.object,
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,

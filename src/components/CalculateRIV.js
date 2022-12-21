@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
 import DisplayRIVResults from "./DisplayRIVResults";
-import BoatContext from "../contexts/Boat";
 import RIVResultContext from "../contexts/RIVResult";
-import FairwayContext from "../contexts/Fairway";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
@@ -12,14 +10,6 @@ import NotificationComponent from "./NotificationComponent";
 import NotificationContext from "contexts/NotificationContext";
 import MapComponent from "./MapComponent.js/MapComponent";
 import ParameterTabsComponent from "./ParameterTabsComponent";
-
-const boatDefault = {
-  speed: "",
-  draft: "",
-  beam: "",
-  length: "",
-  manoeuvrability: "good",
-};
 
 const userInputDefault = {
   boat: {
@@ -30,7 +20,7 @@ const userInputDefault = {
     manoeuvrability: "moderate",
   },
   navilinja: {
-    VAYLAT: '100',
+    VAYLAT: "100",
     navilinja: [
       {
         coordinates: [],
@@ -106,13 +96,11 @@ const userInputDefault = {
     C_turning_radius_moderate: 5,
     C_turning_radius_poor: 6,
   },
-  navilinja_angle_params: []
+  navilinja_angle_params: [],
 };
 
 function CalculateRIV() {
-  const [boat, setBoat] = useState(boatDefault);
   const [RIVResults, setRIVResults] = useState([]);
-  const [fairway, setFairway] = useState("Helsinki");
   const [userInput, setUserInput] = useState(userInputDefault);
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -130,31 +118,27 @@ function CalculateRIV() {
   }, [RIVTrafficLight]);
 
   return (
-    <BoatContext.Provider value={{ boat, setBoat }}>
-      <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
-        <FairwayContext.Provider value={{ fairway, setFairway }}>
-          <UserInputContext.Provider value={{ userInput, setUserInput }}>
-            <RIVTrafficLightContext.Provider
-              value={{ RIVTrafficLight, setRIVTraffiLight }}
+    <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
+      <UserInputContext.Provider value={{ userInput, setUserInput }}>
+        <RIVTrafficLightContext.Provider
+          value={{ RIVTrafficLight, setRIVTraffiLight }}
+        >
+          <SpinnerVisibilityContext.Provider
+            value={{ spinnerVisible, setSpinnerVisible }}
+          >
+            <NotificationContext.Provider
+              value={{ notificationStatus, setNotificationStatus }}
             >
-              <SpinnerVisibilityContext.Provider
-                value={{ spinnerVisible, setSpinnerVisible }}
-              >
-                <NotificationContext.Provider
-                  value={{ notificationStatus, setNotificationStatus }}
-                >
-                  <NotificationComponent />
-                  <LoadingSpinner />
-                  <ParameterTabsComponent />
-                  <DisplayRIVResults />
-                  <MapComponent />
-                </NotificationContext.Provider>
-              </SpinnerVisibilityContext.Provider>
-            </RIVTrafficLightContext.Provider>
-          </UserInputContext.Provider>
-        </FairwayContext.Provider>
-      </RIVResultContext.Provider>
-    </BoatContext.Provider>
+              <NotificationComponent />
+              <LoadingSpinner />
+              <ParameterTabsComponent />
+              <DisplayRIVResults />
+              <MapComponent />
+            </NotificationContext.Provider>
+          </SpinnerVisibilityContext.Provider>
+        </RIVTrafficLightContext.Provider>
+      </UserInputContext.Provider>
+    </RIVResultContext.Provider>
   );
 }
 
