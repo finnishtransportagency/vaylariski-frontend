@@ -31,7 +31,7 @@ export default function UserDefinedAngleParamsComponent(props) {
       {...other}
     >
         <Typography style={{ fontSize: 16, margin: 5}} color="textSecondary" gutterBottom>
-          Tee muutokset yhdelle navigointilinjalle (GDO_GID) per kenttä.
+        Tee yhdelle navigointilinjalle (GDO_GID) kaikki haluamasi muutokset samaan kenttään. Tällä hetkellä ohjelma ei hyväksy tyhjien kenttien lähettämistä, joten kaikki tyhjät kentät pitää olla poistettu ennen laskennan lähettämistä.
         </Typography>
       {tabValue === tabIndex && (
         <FieldArray name="navilinja_angle_params">
