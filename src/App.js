@@ -15,7 +15,7 @@ function App() {
       } finally {
 
       }
-    }, 4*3600*1000); //every 4h
+    }, 1*3600*1000); //every 1h
     return () => clearInterval(interval);
   }, []);
 
