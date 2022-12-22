@@ -181,7 +181,7 @@ function UserInputForm(props) {
                       color="textSecondary"
                       gutterBottom
                     >
-                      <label>Kääntönopeus (C_tr):</label>
+                      Kääntönopeus (C_tr):
                     </Typography>
                   </Grid>
                   <Grid item xs={4}>
