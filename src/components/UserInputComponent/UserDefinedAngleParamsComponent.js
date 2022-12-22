@@ -15,7 +15,6 @@ export default function UserDefinedAngleParamsComponent(props) {
     BEND_ANGLE: "",
   };
 
-  console.log("vlues", formik);
 
   return (
     <div
