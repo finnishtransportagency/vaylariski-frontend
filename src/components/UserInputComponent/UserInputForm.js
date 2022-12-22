@@ -19,7 +19,6 @@ import BoatMenuComponent from "./BoatMenuComponent";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 import PropTypes from "prop-types";
 
-
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
 
@@ -49,9 +48,9 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    formik.setFieldValue('boat.draft', newBoat.draft);
-    formik.setFieldValue('boat.length', newBoat.length);
-    formik.setFieldValue('boat.beam', newBoat.beam);
+    formik.setFieldValue("boat.draft", newBoat.draft);
+    formik.setFieldValue("boat.length", newBoat.length);
+    formik.setFieldValue("boat.beam", newBoat.beam);
   }
 
   return (
@@ -63,8 +62,7 @@ function UserInputForm(props) {
       {...other}
     >
       {tabValue === tabIndex && (
-        <Grid container spacing={1}style={{
-                width: 1210}}>
+        <Grid container spacing={1}>
           <Grid item xs={4}>
             {/* Laivan koko */}
             <Card
@@ -637,13 +635,8 @@ function UserInputForm(props) {
                             component="select"
                             name="navilinja.calculation_params.number_of_lanes"
                           >
-                          <option value={2}>
-                            Kaksisuuntainen väylä
-                          </option>
-                          <option value={1}>
-                            Yksisuuntainen väylä
-                          </option>
-                            
+                            <option value={2}>Kaksisuuntainen väylä</option>
+                            <option value={1}>Yksisuuntainen väylä</option>
                           </Field>
                         </Grid>
                         <Grid item xs={3}>
@@ -663,7 +656,6 @@ function UserInputForm(props) {
                             <option value="rough_and_hard">
                               Rosoinen ja kova
                             </option>
-                            
                           </Field>
                         </Grid>
                         <Grid item xs={3}>
@@ -708,10 +700,11 @@ function UserInputForm(props) {
                           gutterBottom
                         >
                           {" "}
-                          Syvyyden painokerroin kerrotaan aluksen leveydellä alla
-                          näkyvien määritysten perusteella, joihin vaikuttaa
-                          väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
-                          oletusarvoja tai määrittää uudet painokertoimet.
+                          Syvyyden painokerroin kerrotaan aluksen leveydellä
+                          alla näkyvien määritysten perusteella, joihin
+                          vaikuttaa väylän syvyys ja aluksen syväys. Laskennassa
+                          voi käyttää oletusarvoja tai määrittää uudet
+                          painokertoimet.
                         </Typography>
                       )}
                     </div>
@@ -844,9 +837,9 @@ function UserInputForm(props) {
                             Riskiarvon laskentaan valitaan väylän reunan tyyppi.
                             Alla on esitetty myös reunan painokertoimet joihin
                             vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
-                            Painokerroin ja aluksen leveys kerrotaan laskennassa.
-                            Laskennassa voi käyttää oletusarvoja tai määrittää
-                            uudet painokertoimet.
+                            Painokerroin ja aluksen leveys kerrotaan
+                            laskennassa. Laskennassa voi käyttää oletusarvoja
+                            tai määrittää uudet painokertoimet.
                           </label>
                         </Typography>
                       )}
@@ -1090,7 +1083,6 @@ function UserInputForm(props) {
                             <option value="low">Heikko</option>
                             <option value="moderate">Keskiverto</option>
                             <option value="strong">Voimakas</option>
-
                           </Field>
                         </Grid>
                       </Grid>
@@ -1249,7 +1241,7 @@ function UserInputForm(props) {
                               type="radio"
                               name="navilinja.calculation_params.operating_conditions.wind_speed"
                               value="moderate"
-                              id="moderate"                              
+                              id="moderate"
                             />
                             Keskiverto
                           </label>
@@ -1852,5 +1844,5 @@ UserInputForm.propTypes = {
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
-  formik: PropTypes.object
+  formik: PropTypes.object,
 };
