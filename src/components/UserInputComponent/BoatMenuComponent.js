@@ -2,11 +2,11 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 
 export default function BoatMenuComponent(props) {
-  const boat1 = { speed: 10, length: 210, beam: 30, draft: 10 };
-  const boat2 = { speed: 10, length: 255, beam: 32, draft: 12 };
-  const boat3 = { speed: 10, length: 200, beam: 32, draft: 10 };
-  const boat4 = { speed: 10, length: 210, beam: 30, draft: 11 };
-  const boat5 = { speed: 10, length: 83, beam: 13, draft: 4 };
+  const boat1 = {length: 210, beam: 30, draft: 10 };
+  const boat2 = {length: 255, beam: 32, draft: 12 };
+  const boat3 = {length: 200, beam: 32, draft: 10 };
+  const boat4 = {length: 210, beam: 30, draft: 11 };
+  const boat5 = {length: 83, beam: 13, draft: 4 };
 
   const boatData = [boat1, boat2, boat3, boat4, boat5];
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -49,8 +49,8 @@ export default function BoatMenuComponent(props) {
             selected={index === selectedIndex}
             onClick={handleMenuItemClick}
           >
-            Speed: {boat.speed}, Length: {boat.length}, Beam: {boat.beam},
-            Draft: {boat.draft}
+            Pituus: {boat.length}, Leveys: {boat.beam},
+            Syväys: {boat.draft}
           </MenuItem>
         ))}
       </Menu>
