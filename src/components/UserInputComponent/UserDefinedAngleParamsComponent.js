@@ -1,4 +1,11 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Stack } from "@mui/system";
 import { Field, FieldArray } from "formik";
 import PropTypes from "prop-types";
@@ -15,7 +22,6 @@ export default function UserDefinedAngleParamsComponent(props) {
     BEND_ANGLE: "",
   };
 
-
   return (
     <div
       role="TabPanelComponent"
@@ -24,6 +30,9 @@ export default function UserDefinedAngleParamsComponent(props) {
       aria-labelledby={`simple-tab-${tabIndex}`}
       {...other}
     >
+        <Typography style={{ fontSize: 16, margin: 5}} color="textSecondary" gutterBottom>
+          Tee muutokset yhdelle navigointilinjalle (GDO_GID) per kenttä.
+        </Typography>
       {tabValue === tabIndex && (
         <FieldArray name="navilinja_angle_params">
           {({ insert, remove, push }) => (
@@ -55,7 +64,9 @@ export default function UserDefinedAngleParamsComponent(props) {
                     <Button onClick={() => remove(index)}>Poista</Button>
                   </Stack>
                 ))}
-              <Button variant="contained" onClick={() => push(newAngle)}>Lisää uusi kulmaparametri</Button>
+              <Button variant="contained" onClick={() => push(newAngle)}>
+                Lisää uusi kulmaparametri
+              </Button>
             </div>
           )}
         </FieldArray>
