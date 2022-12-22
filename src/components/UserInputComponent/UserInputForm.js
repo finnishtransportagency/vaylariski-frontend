@@ -63,12 +63,13 @@ function UserInputForm(props) {
       {...other}
     >
       {tabValue === tabIndex && (
-        <Grid container spacing={1}>
+        <Grid container spacing={1}style={{
+                width: 1210}}>
           <Grid item xs={4}>
             {/* Laivan koko */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -149,7 +150,7 @@ function UserInputForm(props) {
             {/* Liikehdintäkyky */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -166,7 +167,7 @@ function UserInputForm(props) {
                   <label htmlFor="">Aluksen liikehdintäkyky:</label>
                 </Typography>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
+                  <Grid item xs={3.5}>
                     <Typography
                       style={{ fontSize: 16 }}
                       color="textSecondary"
@@ -194,7 +195,7 @@ function UserInputForm(props) {
                     </Typography>
                   </Grid>
                   <Grid container spacing={1}>
-                    <Grid item xs={3}>
+                    <Grid item xs={3.5}>
                       <label htmlFor="boat.manoeuvrability">
                         <Field
                           component="input"
@@ -230,7 +231,7 @@ function UserInputForm(props) {
                         placeholder="C_m"
                       />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={3.5}>
                       <label htmlFor="boat.manoeuvrability">
                         <Field
                           component="input"
@@ -266,7 +267,7 @@ function UserInputForm(props) {
                         placeholder="C_m"
                       />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={3.5}>
                       <label htmlFor="boat.manoeuvrability">
                         <Field
                           component="input"
@@ -309,7 +310,7 @@ function UserInputForm(props) {
             {/* Nopeusluokat */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -355,7 +356,7 @@ function UserInputForm(props) {
                         type="number"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -377,7 +378,7 @@ function UserInputForm(props) {
                         type="number"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -387,7 +388,7 @@ function UserInputForm(props) {
                         type="number"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -409,7 +410,7 @@ function UserInputForm(props) {
                         type="number"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="nopeus"
                         defaultValue={5}
@@ -419,7 +420,7 @@ function UserInputForm(props) {
                         type="number"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -432,7 +433,7 @@ function UserInputForm(props) {
             {/* Riskiarvojen painokerttoimet */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -563,7 +564,7 @@ function UserInputForm(props) {
             {/* Väylän parametrit */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -685,36 +686,37 @@ function UserInputForm(props) {
                       </Grid>
                     </Grid>
                   </CardContent>
-
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Väylän syvyyden painokerroin:
-                  </Typography>
-                  <div>
-                    <div
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
+                  <Grid item xs={12}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
                     >
-                      <AiOutlineInfoCircle />
-                    </div>
-                    {isHovering && (
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="textSecondary"
-                        gutterBottom
+                      Väylän syvyyden painokerroin:
+                    </Typography>
+                    <div>
+                      <div
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}
                       >
-                        {" "}
-                        Syvyyden painokerroin kerrotaan aluksen leveydellä alla
-                        näkyvien määritysten perusteella, joihin vaikuttaa
-                        väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
-                        oletusarvoja tai määrittää uudet painokertoimet.
-                      </Typography>
-                    )}
-                  </div>
-                  <Grid container>
+                        <AiOutlineInfoCircle />
+                      </div>
+                      {isHovering && (
+                        <Typography
+                          style={{ fontSize: 14 }}
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          {" "}
+                          Syvyyden painokerroin kerrotaan aluksen leveydellä alla
+                          näkyvien määritysten perusteella, joihin vaikuttaa
+                          väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
+                          oletusarvoja tai määrittää uudet painokertoimet.
+                        </Typography>
+                      )}
+                    </div>
+                  </Grid>
+                  <Grid container spacing={1}>
                     <Grid item xs={6}>
                       <label> Sisävesiväylä </label>
                     </Grid>
@@ -722,121 +724,134 @@ function UserInputForm(props) {
                       <label> Ulkovesiväylä </label>
                     </Grid>
                     <Grid item xs={6}>
-                      <label style={{ fontSize: 10 }}>
-                        syvyys ≥ 1.5 * syväys
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          syvyys ≥ 1.5 * syväys
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.deep_inner_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
-                      <label style={{ fontSize: 10 }}>
-                        1.15*syväys ≤ syvyys 1.5*syväys
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          1.15*syväys ≤ syvyys 1.5*syväys
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.medium_deep_inner_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
-                      <label style={{ fontSize: 10 }}>
-                        {"syvyys < 1.15*syväys"}
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          {"syvyys < 1.15*syväys"}
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.shallow_inner_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <label style={{ fontSize: 10 }}>
-                        syvyys ≥ 1.5 * syväys
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          syvyys ≥ 1.5 * syväys
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.deep_outer_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
-                      <label style={{ fontSize: 10 }}>
-                        1.25*syväys ≤ syvyys 1.5*syväys
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          1.25*syväys ≤ syvyys 1.5*syväys
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.medium_deep_outer_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
-                      <label style={{ fontSize: 10 }}>
-                        {"syvyys < 1.25*syväys"}
-                      </label>
+                      <div>
+                        <label style={{ fontSize: 10 }}>
+                          {"syvyys < 1.25*syväys"}
+                        </label>
+                      </div>
                       <Field
                         component="input"
                         name="channel_depth_wf.shallow_outer_channel"
                         type="float"
                         required
                         style={{
-                          width: 100,
+                          width: 80,
                         }}
                         placeholder="painokerroin"
                       />
                     </Grid>
                   </Grid>
-
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    Väylän reuna ja reunan painokerroin:
-                  </Typography>
-                  <div>
-                    <div
-                      onMouseOver={handleMouseOverDepth}
-                      onMouseOut={handleMouseOutDepth}
+                  <Grid item xs={12}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
                     >
-                      <AiOutlineInfoCircle />
-                    </div>
-                    {isHoveringDepth && (
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="textSecondary"
-                        gutterBottom
+                      Väylän reuna ja reunan painokerroin:
+                    </Typography>
+                    <div>
+                      <div
+                        onMouseOver={handleMouseOverDepth}
+                        onMouseOut={handleMouseOutDepth}
                       >
-                        <label>
-                          {" "}
-                          Riskiarvon laskentaan valitaan väylän reunan tyyppi.
-                          Alla on esitetty myös reunan painokertoimet joihin
-                          vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
-                          Painokerroin ja aluksen leveys kerrotaan laskennassa.
-                          Laskennassa voi käyttää oletusarvoja tai määrittää
-                          uudet painokertoimet.
-                        </label>
-                      </Typography>
-                    )}
-                  </div>
+                        <AiOutlineInfoCircle />
+                      </div>
+                      {isHoveringDepth && (
+                        <Typography
+                          style={{ fontSize: 14 }}
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          <label>
+                            {" "}
+                            Riskiarvon laskentaan valitaan väylän reunan tyyppi.
+                            Alla on esitetty myös reunan painokertoimet joihin
+                            vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
+                            Painokerroin ja aluksen leveys kerrotaan laskennassa.
+                            Laskennassa voi käyttää oletusarvoja tai määrittää
+                            uudet painokertoimet.
+                          </label>
+                        </Typography>
+                      )}
+                    </div>
+                  </Grid>
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
                       <label htmlFor="navilinja.calculation_params.channel_edge">
@@ -1054,8 +1069,8 @@ function UserInputForm(props) {
                             <option defaultValue="negligible">Olematon</option>
                             <option value="low">Matala</option>
                             <option value="moderate">Keskiverto</option>
-                            <option value="heavy">Monimutkainen</option>
-                            <option value="very_heavy">
+                            <option value="high">Monimutkainen</option>
+                            <option value="very_high">
                               Erittäin monimutkainen
                             </option>
                           </Field>
@@ -1089,7 +1104,7 @@ function UserInputForm(props) {
             {/* Vesiliikenteen olosuhteet */}
             <Card
               style={{
-                // width: 500,
+                // width: 400,
                 backgroundColor: "rgb(181, 220, 255)",
                 // marginTop: 5,
                 // marginBottom: 5,
@@ -1109,7 +1124,7 @@ function UserInputForm(props) {
                   {/* Tuuli */}
                   <Card
                     style={{
-                      // width: 500,
+                      // width: 400,
                       backgroundColor: "rgb(181, 220, 255)",
                       // marginTop: 5,
                       // marginBottom: 5,
@@ -1374,7 +1389,7 @@ function UserInputForm(props) {
                   {/* Poikkivirtaus */}
                   <Card
                     style={{
-                      // width: 500,
+                      // width: 400,
                       backgroundColor: "rgb(181, 220, 255)",
                       // marginTop: 5,
                       // marginBottom: 5,
@@ -1384,7 +1399,7 @@ function UserInputForm(props) {
                   >
                     <CardContent>
                       <Grid container spacing={1}>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                           <Typography
                             style={{ fontSize: 16 }}
                             color="textSecondary"
@@ -1393,7 +1408,7 @@ function UserInputForm(props) {
                             Poikkivirtaus:
                           </Typography>
                         </Grid>
-                        <Grid item xs={9}>
+                        <Grid item xs={8}>
                           <Typography
                             style={{ fontSize: 16 }}
                             color="textSecondary"
@@ -1403,7 +1418,7 @@ function UserInputForm(props) {
                           </Typography>
                         </Grid>
                         <Grid container spacing={1}>
-                          <Grid item xs={3}>
+                          <Grid item xs={4}>
                             <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
                               <Field
                                 component="input"
@@ -1415,7 +1430,7 @@ function UserInputForm(props) {
                               Olematon
                             </label>
                           </Grid>
-                          <Grid item xs={9}>
+                          <Grid item xs={8}>
                             <Field
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
@@ -1424,7 +1439,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0.0}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1436,11 +1451,11 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0.2}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
-                          <Grid item xs={3}>
+                          <Grid item xs={4}>
                             <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
                               <Field
                                 component="input"
@@ -1452,7 +1467,7 @@ function UserInputForm(props) {
                               Heikko
                             </label>
                           </Grid>
-                          <Grid item xs={9}>
+                          <Grid item xs={8}>
                             <Field
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
@@ -1461,7 +1476,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0.2}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1473,11 +1488,11 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
-                          <Grid item xs={3}>
+                          <Grid item xs={4}>
                             <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
                               <Field
                                 component="input"
@@ -1489,7 +1504,7 @@ function UserInputForm(props) {
                               Keskiverto
                             </label>
                           </Grid>
-                          <Grid item xs={9}>
+                          <Grid item xs={8}>
                             <Field
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
@@ -1498,7 +1513,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1510,11 +1525,11 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
-                          <Grid item xs={3}>
+                          <Grid item xs={4}>
                             <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
                               <Field
                                 component="input"
@@ -1526,7 +1541,7 @@ function UserInputForm(props) {
                               Voimakas
                             </label>
                           </Grid>
-                          <Grid item xs={9}>
+                          <Grid item xs={8}>
                             <Field
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
@@ -1535,7 +1550,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1547,7 +1562,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={2}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
@@ -1558,7 +1573,7 @@ function UserInputForm(props) {
                   {/* Pitkittäisvirtaus */}
                   <Card
                     style={{
-                      // width: 500,
+                      // width: 400,
                       backgroundColor: "rgb(181, 220, 255)",
                       // marginTop: 5,
                       // marginBottom: 5,
@@ -1608,7 +1623,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={0}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1620,7 +1635,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
@@ -1645,7 +1660,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1657,7 +1672,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={3}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
@@ -1683,7 +1698,7 @@ function UserInputForm(props) {
                               placeholder="nopeus"
                               defaultValue={3}
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                             />
                           </Grid>
@@ -1694,7 +1709,7 @@ function UserInputForm(props) {
                   {/* Aallon korkeus */}
                   <Card
                     style={{
-                      // width: 500,
+                      // width: 400,
                       backgroundColor: "rgb(181, 220, 255)",
                       // marginTop: 5,
                       // marginBottom: 5,
@@ -1713,7 +1728,7 @@ function UserInputForm(props) {
                             Aallon korkeus:
                           </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={8}>
                           <Typography
                             style={{ fontSize: 16 }}
                             color="textSecondary"
@@ -1740,7 +1755,7 @@ function UserInputForm(props) {
                               type="number"
                               required
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={0.0}
@@ -1751,7 +1766,7 @@ function UserInputForm(props) {
                               type="number"
                               required
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1775,7 +1790,7 @@ function UserInputForm(props) {
                               type="number"
                               required
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1786,7 +1801,7 @@ function UserInputForm(props) {
                               type="number"
                               required
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
@@ -1811,7 +1826,7 @@ function UserInputForm(props) {
                               type="number"
                               required
                               style={{
-                                width: 100,
+                                width: 80,
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
