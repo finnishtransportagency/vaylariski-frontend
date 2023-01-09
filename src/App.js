@@ -6,19 +6,6 @@ import apiClient from 'http-common';
 
 function App() {
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        await apiClient.get("heartbeat");
-      } catch (err) {
-
-      } finally {
-
-      }
-    }, 1*3600*1000); //every 1h
-    return () => clearInterval(interval);
-  }, []);
-
 
   return (
       <div className="App" style={{
