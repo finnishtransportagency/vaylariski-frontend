@@ -26,6 +26,7 @@ function UserInputForm(props) {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
+  const [selectedBoat, setSelectedBoat] = useState({});
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -49,6 +50,7 @@ function UserInputForm(props) {
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
     console.log(newBoat);
+    setSelectedBoat(newBoat);
     formik.setFieldValue("boat.draft", newBoat.SYVAYS);
     formik.setFieldValue("boat.length", newBoat.PITUUS);
     formik.setFieldValue("boat.beam", newBoat.LEVEYS);
@@ -142,6 +144,29 @@ function UserInputForm(props) {
                         />
                       </Grid>
                     </Grid>
+                    <Grid container spacing={1}>
+                      {/* laivan ylimääräiset parametrit*/}
+                      <Grid item>
+                        <Typography>JNRO: {selectedBoat.JNRO}</Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>
+                          VAY_NIMISU: {selectedBoat.VAY_NIMISU}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>KOKO: {selectedBoat.KOKO}</Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>
+                          RUNKO_TKERROIN: {selectedBoat.RUNKO_TKERROIN}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography>SELITE: {selectedBoat.SELITE}</Typography>
+                      </Grid>
+                    </Grid>
+                    {/* laivan ylimääräiset parametrit*/}
                   </Grid>
                 </Grid>
               </CardContent>
