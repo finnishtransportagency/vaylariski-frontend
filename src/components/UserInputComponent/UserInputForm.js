@@ -48,9 +48,10 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    formik.setFieldValue("boat.draft", newBoat.draft);
-    formik.setFieldValue("boat.length", newBoat.length);
-    formik.setFieldValue("boat.beam", newBoat.beam);
+    console.log(newBoat);
+    formik.setFieldValue("boat.draft", newBoat.SYVAYS);
+    formik.setFieldValue("boat.length", newBoat.PITUUS);
+    formik.setFieldValue("boat.beam", newBoat.LEVEYS);
   }
 
   return (
