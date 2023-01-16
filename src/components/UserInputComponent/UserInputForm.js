@@ -602,6 +602,7 @@ function UserInputForm(props) {
                     width: 100,
                   }}
                 ></Field>
+                <Typography color="textSecondary">Annettava jos halutaan laskea s-mutkan suora</Typography>
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>
