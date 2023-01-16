@@ -593,6 +593,15 @@ function UserInputForm(props) {
                     />
                   )}
                 />
+                <label htmlFor="navilinja.starting_gdo_gid">Reitin ensimmäinen GDO_GID</label>
+                <Field
+                  component="input"
+                  name="navilinja.starting_gdo_gid"
+                  type="number"
+                  style={{
+                    width: 100,
+                  }}
+                ></Field>
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>

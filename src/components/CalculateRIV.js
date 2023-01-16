@@ -21,6 +21,7 @@ const userInputDefault = {
   },
   navilinja: {
     VAYLAT: "100",
+    starting_gdo_gid: "",
     navilinja: [
       {
         coordinates: [],
