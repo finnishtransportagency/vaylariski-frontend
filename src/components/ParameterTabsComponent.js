@@ -12,6 +12,7 @@ import apiClient from "http-common";
 import { Button } from "@mui/material";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
+import InsertNewBulkBoatComponent from "../views/InsertNewBulkBoatComponent";
 
 function a11yProps(index) {
   return {
@@ -69,6 +70,7 @@ export default function ParameterTabsComponent() {
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
           />
+          <Tab label="Lisää uusi bulk-laiva" {...a11yProps(2)}/>
         </Tabs>
       </Box>
       <Formik
@@ -85,12 +87,10 @@ export default function ParameterTabsComponent() {
               tabIndex={1}
               formik={formik}
             />
-            <Button type="submit" variant="contained">
-              Lähetä
-            </Button>
           </FForm>
         )}
       </Formik>
+      <InsertNewBulkBoatComponent tabValue={value} tabIndex={2} />
     </Box>
   );
 }

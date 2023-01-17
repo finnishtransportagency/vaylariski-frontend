@@ -67,6 +67,9 @@ export default function UserDefinedAngleParamsComponent(props) {
               <Button variant="contained" onClick={() => push(newAngle)}>
                 Lisää uusi kulmaparametri
               </Button>
+              <Button type="submit" variant="contained">
+              Lähetä
+            </Button>
             </div>
           )}
         </FieldArray>

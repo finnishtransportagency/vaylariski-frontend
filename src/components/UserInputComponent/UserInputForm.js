@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import {
   Autocomplete,
+  Button,
   Divider,
   FormControl,
   Grid,
@@ -1858,6 +1859,9 @@ function UserInputForm(props) {
               </CardContent>
             </Card>
           </Grid>
+          <Button type="submit" variant="contained">
+            Lähetä
+          </Button>
         </Grid>
       )}
     </div>
