@@ -5,6 +5,10 @@ import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import { Button } from "react-bootstrap";
 import * as Yup from "yup";
+import apiClient from "http-common";
+import NotificationContext from "contexts/NotificationContext";
+import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
+import { useContext } from "react";
 
 const validationSchema = Yup.object().shape({
   PITUUS: Yup.number()
@@ -34,6 +38,12 @@ const validationSchema = Yup.object().shape({
 
 export default function InsertNewBulkBoatComponent(props) {
   const { children, tabValue, tabIndex, ...other } = props;
+  const { spinnerVisible, setSpinnerVisible } = useContext(
+    SpinnerVisibilityContext
+  );
+  const { notificationStatus, setNotificationStatus } =
+    useContext(NotificationContext);
+
   return (
     <div
       role="TabPanelComponent"
@@ -54,8 +64,31 @@ export default function InsertNewBulkBoatComponent(props) {
             SELITE: "",
             VAY_NIMISU: "",
           }}
-          onSubmit={(values) => {
-            throw new Error("Function not implemented.");
+          onSubmit={(values, { setSubmitting }) => {
+            const path = "insert_boat";
+            setSpinnerVisible(true);
+            apiClient
+              .post(path, values)
+              .then((res) => {
+                setSubmitting(false);
+                console.log("success", res);
+                setSpinnerVisible(false);
+                setNotificationStatus({
+                  severity: "success",
+                  message: res,
+                  visible: true,
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                setSpinnerVisible(false);
+                setNotificationStatus({
+                  severity: "error",
+                  message: err.message,
+                  visible: true,
+                });
+                setSubmitting(false);
+              });
           }}
           validationSchema={validationSchema}
           enableReinitialize
