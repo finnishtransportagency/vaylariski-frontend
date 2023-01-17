@@ -44,6 +44,32 @@ export default function InsertNewBulkBoatComponent(props) {
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
 
+  const PostShipData = async (values, setSubmitting) => {
+    console.log(values);
+    const path = "insert_boat";
+    setSpinnerVisible(true);
+    try {
+      const response = await apiClient.post(path, values);
+      console.log("success", response.data);
+      setNotificationStatus({
+        severity: "success",
+        message: response.data,
+        visible: true,
+      });
+    } catch (err) {
+      console.log(err);
+      setSpinnerVisible(false);
+      setNotificationStatus({
+        severity: "error",
+        message: err.message,
+        visible: true,
+      });
+    } finally {
+      setSubmitting(false);
+      setSpinnerVisible(false);
+    }
+  };
+
   return (
     <div
       role="TabPanelComponent"
@@ -65,30 +91,7 @@ export default function InsertNewBulkBoatComponent(props) {
             VAY_NIMISU: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
-            const path = "insert_boat";
-            setSpinnerVisible(true);
-            apiClient
-              .post(path, values)
-              .then((res) => {
-                setSubmitting(false);
-                console.log("success", res);
-                setSpinnerVisible(false);
-                setNotificationStatus({
-                  severity: "success",
-                  message: res,
-                  visible: true,
-                });
-              })
-              .catch((err) => {
-                console.log(err);
-                setSpinnerVisible(false);
-                setNotificationStatus({
-                  severity: "error",
-                  message: err.message,
-                  visible: true,
-                });
-                setSubmitting(false);
-              });
+            PostShipData(values, setSubmitting);
           }}
           validationSchema={validationSchema}
           enableReinitialize
@@ -113,7 +116,7 @@ export default function InsertNewBulkBoatComponent(props) {
               />
               <CustomNumber label="jnro" name="JNRO" readOnly={false} />
               <CustomNumber label="Laivan koko" name="KOKO" readOnly={false} />
-              <CustomText
+              <CustomNumber
                 label="RUNKO_TKERROIN"
                 name="RUNKO_TKERROIN"
                 readOnly={false}
