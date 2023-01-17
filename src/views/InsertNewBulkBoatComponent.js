@@ -1,6 +1,5 @@
 import { CustomNumber } from "components/CustomNumber";
 import { CustomText } from "components/CustomText";
-import { Field } from "formik";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import { Button } from "react-bootstrap";
@@ -12,22 +11,22 @@ import { useContext } from "react";
 
 const validationSchema = Yup.object().shape({
   PITUUS: Yup.number()
-    .min(0, "Pituus ei voi olla negatiivinen")
+    .min(1, "Pituus ei voi olla negatiivinen")
     .typeError("Pituus tulee olla numero")
     .required("Pituus vaaditaan"),
   LEVEYS: Yup.number()
-    .min(0, "Leveys ei voi olla negatiivinen")
+    .min(1, "Leveys ei voi olla negatiivinen")
     .typeError("Leveys tulee olla numero")
     .required("Leveys vaaditaan"),
   SYVAYS: Yup.number()
-    .min(0, "Syväys ei voi olla negatiivinen")
+    .min(1, "Syväys ei voi olla negatiivinen")
     .typeError("Syväys tulee olla numero")
     .required("Syväys vaaditaan"),
   JNRO: Yup.number()
     .min(0, "JNRO ei voi olla negatiivinen")
     .typeError("JNRO tulee olla numero"),
   KOKO: Yup.number()
-    .min(0, "Koko ei voi olla negatiivinen")
+    .min(1, "Koko ei voi olla negatiivinen")
     .typeError("Koko tulee olla numero"),
   RUNKO_TKERROIN: Yup.number()
     .min(0, "RUNKO_TKERROIN ei voi olla negatiivinen")
