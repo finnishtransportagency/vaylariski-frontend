@@ -593,7 +593,9 @@ function UserInputForm(props) {
                     />
                   )}
                 />
-                <label htmlFor="navilinja.starting_gdo_gid">Reitin ensimmäinen GDO_GID</label>
+                <label htmlFor="navilinja.starting_gdo_gid">
+                  Reitin ensimmäinen GDO_GID
+                </label>
                 <Field
                   component="input"
                   name="navilinja.starting_gdo_gid"
@@ -602,7 +604,11 @@ function UserInputForm(props) {
                     width: 100,
                   }}
                 ></Field>
-                <Typography color="textSecondary">Annettava jos halutaan laskea s-mutkan suora</Typography>
+                <Typography color="textSecondary">
+                  Annettava jos halutaan laskea s-mutkan suora, esim Oulun
+                  väylällä (100) se on GDO_GID = 227903 ja Turun väylällä (3255) se on
+                  GDO_GID = 204344
+                </Typography>
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>
