@@ -3,4 +3,4 @@ import { createContext } from "react";
 
 const SpinnerVisibilityContext = createContext();
 
- export default SpinnerVisibilityContext
+export default SpinnerVisibilityContext;

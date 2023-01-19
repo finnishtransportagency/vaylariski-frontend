@@ -10,6 +10,7 @@ import NotificationComponent from "./NotificationComponent";
 import NotificationContext from "contexts/NotificationContext";
 import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
+import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 
 const userInputDefault = {
   boat: {
@@ -113,6 +114,7 @@ function CalculateRIV() {
     message: "This is a success message!",
     visible: false,
   });
+  const [wayareaPolygons, setWayareaPolygons] = useState([]);
 
   useEffect(() => {
     console.log(RIVTrafficLight);
@@ -130,11 +132,15 @@ function CalculateRIV() {
             <NotificationContext.Provider
               value={{ notificationStatus, setNotificationStatus }}
             >
-              <NotificationComponent />
-              <LoadingSpinner />
-              <ParameterTabsComponent />
-              <DisplayRIVResults />
-              <MapView />
+              <WayareaPolygonContext.Provider
+                value={{ wayareaPolygons, setWayareaPolygons }}
+              >
+                <NotificationComponent />
+                <LoadingSpinner />
+                <ParameterTabsComponent />
+                <DisplayRIVResults />
+                <MapView />
+              </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
         </RIVTrafficLightContext.Provider>

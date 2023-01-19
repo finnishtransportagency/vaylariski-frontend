@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
+import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 
 function a11yProps(index) {
   return {
@@ -34,17 +35,23 @@ export default function ParameterTabsComponent() {
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
+  const {wayareaPolygons, setWayareaPolygons} = useContext(WayareaPolygonContext);
 
   const fetchRiskValue = async (values) => {
     const path = "fairway/calculate_risk";
+    const path_wayarea = "wayarea";
     console.log("You clicked me!" + JSON.stringify(values));
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
     setRIVResults([]);
     try {
-      const response = await apiClient.post(path, values);
+      const [response, response_wayarea] = await Promise.all([
+        apiClient.post(path, values),
+        apiClient.get(path_wayarea, {params: {VAYLAT: values.navilinja.VAYLAT}})
+      ]);
       setRIVResults(response.data);
+      setWayareaPolygons(response_wayarea.data);
     } catch (err) {
       console.log(err);
       setNotificationStatus({
