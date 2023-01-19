@@ -5,6 +5,10 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import RIVResultContext from "../contexts/RIVResult";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
+import apiClient from "http-common";
+import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
+import NotificationContext from "contexts/NotificationContext";
+import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 
 const geojsonMarkerOptionsGreen = {
   radius: 8,
@@ -30,6 +34,14 @@ const geojsonMarkerOptionsRed = {
   opacity: 1,
   fillOpacity: 0.8,
 };
+const geojsonMarkerOptionsGray = {
+  radius: 8,
+  fillColor: "#dcdcdc",
+  color: "#dcdcdc",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0.8,
+};
 
 function GeoJSONMarkers() {
   const map = useMap();
@@ -39,6 +51,12 @@ function GeoJSONMarkers() {
   );
   const [geojsonFeatGroup, setGeojsonFeatGroup] = useState(
     new L.FeatureGroup()
+  );
+  const [geojsonFeatGroupWay, setGeojsonFeatGroupWay] = useState(
+    new L.FeatureGroup()
+  );
+  const { wayareaPolygons, setWayareaPolygons } = useContext(
+    WayareaPolygonContext
   );
 
   function onEachFeature(feature, layer) {
@@ -54,6 +72,18 @@ function GeoJSONMarkers() {
       );
     }
   }
+
+  useEffect(() => {
+    console.log(wayareaPolygons);
+    setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
+    const w_layers = new L.GeoJSON(wayareaPolygons, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+      },
+    });
+    setGeojsonFeatGroupWay(w_layers.addTo(geojsonFeatGroupWay));
+    geojsonFeatGroupWay.addTo(map);
+  }, [wayareaPolygons]);
 
   useEffect(() => {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
