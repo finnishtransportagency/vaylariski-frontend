@@ -8,7 +8,7 @@ import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import LoadingSpinner from "./LoadingSpinner";
 import NotificationComponent from "./NotificationComponent";
 import NotificationContext from "contexts/NotificationContext";
-import MapComponent from "./MapComponent.js/MapComponent";
+import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 
 const userInputDefault = {
@@ -134,7 +134,7 @@ function CalculateRIV() {
               <LoadingSpinner />
               <ParameterTabsComponent />
               <DisplayRIVResults />
-              <MapComponent />
+              <MapView />
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
         </RIVTrafficLightContext.Provider>

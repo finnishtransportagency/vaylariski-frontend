@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import L, { FeatureGroup } from "leaflet";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
-import RIVResultContext from "../../contexts/RIVResult";
-import RIVTrafficLightContext from "../../contexts/RIVTrafficLightContext";
-import RIVTrafficLightsComponent from "./RIVTrafficLightsComponent";
+import RIVResultContext from "../contexts/RIVResult";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
+import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
 
 const geojsonMarkerOptionsGreen = {
   radius: 8,
@@ -80,7 +80,7 @@ function GeoJSONMarkers() {
   return null;
 }
 
-function MapComponent() {
+function MapView() {
   return (
     <>
       <RIVTrafficLightsComponent />
@@ -107,4 +107,4 @@ function MapComponent() {
   );
 }
 
-export default MapComponent;
+export default MapView;

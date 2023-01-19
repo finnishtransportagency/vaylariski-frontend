@@ -12,7 +12,7 @@ import apiClient from "http-common";
 import { Button } from "@mui/material";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
-import InsertNewBulkBoatComponent from "../views/InsertNewBulkBoatComponent";
+import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
 
 function a11yProps(index) {
   return {
@@ -90,7 +90,7 @@ export default function ParameterTabsComponent() {
           </FForm>
         )}
       </Formik>
-      <InsertNewBulkBoatComponent tabValue={value} tabIndex={2} />
+      <InsertNewBulkBoatView tabValue={value} tabIndex={2} />
     </Box>
   );
 }
