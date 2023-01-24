@@ -57,7 +57,7 @@ export default function ParameterTabsComponent() {
       console.log(err);
       setNotificationStatus({
         severity: "error",
-        message: err.message,
+        message: err.response.data.detail,
         visible: true,
       });
     } finally {
