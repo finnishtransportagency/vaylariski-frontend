@@ -148,23 +148,23 @@ function UserInputForm(props) {
                     <Grid container spacing={1}>
                       {/* laivan ylimääräiset parametrit*/}
                       <Grid item>
-                        <Typography>JNRO: {selectedBoat.JNRO}</Typography>
+                        <Typography style={{fontSize:14}}>JNRO: {selectedBoat.JNRO}</Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>
+                        <Typography style={{fontSize:14}}>
                           VAY_NIMISU: {selectedBoat.VAY_NIMISU}
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>KOKO: {selectedBoat.KOKO}</Typography>
+                        <Typography style={{fontSize:14}}>KOKO: {selectedBoat.KOKO}</Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>
+                        <Typography style={{fontSize:14}}>
                           RUNKO_TKERROIN: {selectedBoat.RUNKO_TKERROIN}
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography>SELITE: {selectedBoat.SELITE}</Typography>
+                        <Typography style={{fontSize:14}}>SELITE: {selectedBoat.SELITE}</Typography>
                       </Grid>
                     </Grid>
                     {/* laivan ylimääräiset parametrit*/}
@@ -598,6 +598,9 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
+                <Typography color="textSecondary">
+                  Väylän id:
+                </Typography>
                 <Autocomplete
                   freeSolo
                   disablePortal
@@ -620,6 +623,10 @@ function UserInputForm(props) {
                     />
                   )}
                 />
+                <Typography color="textSecondary" style={{fontSize: 14}}>
+                  Jos halutaan laskea s-mutkan suora, annetaan väylän ensimmäinen GDO_GID. Esim. Oulun
+                  väylällä (100) GDO_GID on 227903 ja Turun väylällä (3255) GDO_GID on 204344.
+                </Typography>
                 <label htmlFor="navilinja.starting_gdo_gid">
                   Reitin ensimmäinen GDO_GID
                 </label>
@@ -631,11 +638,6 @@ function UserInputForm(props) {
                     width: 100,
                   }}
                 ></Field>
-                <Typography color="textSecondary">
-                  Annettava jos halutaan laskea s-mutkan suora, esim Oulun
-                  väylällä (100) se on GDO_GID = 227903 ja Turun väylällä (3255) se on
-                  GDO_GID = 204344
-                </Typography>
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>
