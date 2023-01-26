@@ -11,7 +11,7 @@ import NotificationContext from "contexts/NotificationContext";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 
 const geojsonMarkerOptionsGreen = {
-  radius: 8,
+  radius: 4,
   fillColor: "#00FF00",
   color: "#00FF00",
   weight: 1,
@@ -19,7 +19,7 @@ const geojsonMarkerOptionsGreen = {
   fillOpacity: 0.8,
 };
 const geojsonMarkerOptionsYellow = {
-  radius: 8,
+  radius: 4,
   fillColor: "#ffff00",
   color: "#ffff00",
   weight: 1,
@@ -27,7 +27,7 @@ const geojsonMarkerOptionsYellow = {
   fillOpacity: 0.8,
 };
 const geojsonMarkerOptionsRed = {
-  radius: 8,
+  radius: 4,
   fillColor: "#ff0000",
   color: "#ff0000",
   weight: 1,
@@ -35,9 +35,9 @@ const geojsonMarkerOptionsRed = {
   fillOpacity: 0.8,
 };
 const geojsonMarkerOptionsGray = {
-  radius: 8,
-  fillColor: "#dcdcdc",
-  color: "#dcdcdc",
+  radius: 4,
+  fillColor: "#83888a",
+  color: "#83888a",
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8,
@@ -92,16 +92,21 @@ function GeoJSONMarkers() {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
-        if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-          return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
-        } else if (
-          feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
-          feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
-        ) {
-          return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+        if(feature.properties.W_channel == null || feature.properties.W_channel_depth == null) {
+          return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+        } else {
+          if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+            return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+          } else if (
+            feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+            feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+          ) {
+            return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+          }
+          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
         }
-        return L.circleMarker(latlng, geojsonMarkerOptionsRed);
-      },
+
+        }
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 

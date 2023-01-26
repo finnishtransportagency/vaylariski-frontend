@@ -84,6 +84,7 @@ export default function RIVTrafficLightsComponent(params) {
         <Grid item xs={2.5}>
           <Box sx={{ bgcolor: "red", color: "white", p: 1 }}>Punainen</Box>
         </Grid>
+
         <Grid item xs={9.5}>
           <label>{"RIV ≥ "}</label>
           <input
@@ -101,6 +102,14 @@ export default function RIVTrafficLightsComponent(params) {
             }}
           />
         </Grid>
+        <Grid item xs={2.5}>
+          <Box sx={{bgcolor: "gray", color: "black", p: 1}}>Harmaa</Box>
+        </Grid>
+        <Grid item xs={9.5}>
+          <label>Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä vaikuttaa lopulliseen riskiarvoon.</label>
+        </Grid>
+        {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
+        
       </Grid>
     </CardContent>
   );

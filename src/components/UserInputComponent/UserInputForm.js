@@ -598,9 +598,6 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
-                <Typography color="textSecondary">
-                  Väylän id:
-                </Typography>
                 <Autocomplete
                   freeSolo
                   disablePortal
