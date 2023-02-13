@@ -1,10 +1,25 @@
 import RIVResultContext from "contexts/RIVResult";
+import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
+import React from "react";
 import { useContext, useState, useEffect } from "react";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ReferenceLine,
+  ReferenceArea,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function DisplayRIVResultsDiagramView(params) {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const [displayRowResults, setDisplayRowResults] = useState([]);
+  const { RIVTrafficLight, setRIVTraffiLight } = useContext(
+    RIVTrafficLightContext
+  );
 
   useEffect(() => {
     setDisplayRowResults([]);
@@ -16,10 +31,6 @@ export default function DisplayRIVResultsDiagramView(params) {
     });
     setDisplayRowResults(rowResults);
   }, [RIVResults]);
-
-  useEffect(() => {
-    console.log(displayRowResults);
-  }, [displayRowResults]);
 
   // GDO_GID: 72990,
   // PF_1_channel: null,
@@ -68,22 +79,48 @@ export default function DisplayRIVResultsDiagramView(params) {
   // wave_height_category: "low"
   // wind_speed_category: "moderate"
 
-  const data = [
-    { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
-    { name: "Page B", uv: 500, pv: 2400, amt: 2400 },
-    { name: "Page C", uv: 50, pv: 2400, amt: 2400 },
-    { name: "Page D", uv: 67, pv: 2400, amt: 2400 },
-    { name: "Page A", uv: 900, pv: 2400, amt: 2400 },
-    { name: "Page A", uv: 48, pv: 2400, amt: 2400 },
-  ];
   return (
-    <>
-      <LineChart width={800} height={400} data={displayRowResults}>
+    <ResponsiveContainer width="100%" height={500}>
+      <LineChart
+        data={displayRowResults}
+        height={400}
+        margin={{
+          bottom: 40,
+        }}
+      >
         <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+        <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"}/>
         <YAxis />
+        <Tooltip />
+        <ReferenceArea
+          y1={0}
+          y2={RIVTrafficLight.green}
+          label="Green"
+          stroke="Green"
+          fill="green"
+          fillOpacity={0.1}
+        />
+        <ReferenceArea
+          y1={RIVTrafficLight.green}
+          y2={RIVTrafficLight.yellow}
+          label="Yellow"
+          stroke="yellow"
+          fill="yellow"
+          fillOpacity={0.1}
+        />
+        <ReferenceArea
+          y1={RIVTrafficLight.yellow}
+          y2={RIVTrafficLight.red}
+          label="Red"
+          stroke="red"
+          fill="red"
+          fillOpacity={0.1}
+        />
       </LineChart>
-    </>
+    </ResponsiveContainer>
   );
+}
+function createClass(arg0) {
+  throw new Error("Function not implemented.");
 }
