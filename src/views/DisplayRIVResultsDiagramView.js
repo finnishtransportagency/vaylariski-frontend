@@ -9,7 +9,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ReferenceLine,
   ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
@@ -90,7 +89,7 @@ export default function DisplayRIVResultsDiagramView(params) {
       >
         <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
         <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-        <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"}/>
+        <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"} />
         <YAxis />
         <Tooltip />
         <ReferenceArea
@@ -120,7 +119,4 @@ export default function DisplayRIVResultsDiagramView(params) {
       </LineChart>
     </ResponsiveContainer>
   );
-}
-function createClass(arg0) {
-  throw new Error("Function not implemented.");
-}
+};
