@@ -16,7 +16,12 @@ function DisplayRIVResults() {
 
     let rowResults = [];
     RIVResults.features.map(el => {
-      rowResults.push(el.properties)
+      let props = el.properties;
+      const lon = el.geometry.coordinates[0];
+      const lat = el.geometry.coordinates[1];
+      props = {...props, 'MID_POINT': `POINT (${lon} ${lat})`};
+
+      rowResults.push(props);
     })
     setDisplayRowResults(rowResults);
   }, [RIVResults]);
@@ -70,9 +75,7 @@ function DisplayRIVResults() {
     {field: 'wave_height_category', width:100},
     {field: 'wind_speed', width:100},
     {field: 'wind_speed_category', width:100},
-    {field: 'COORD_X', width:100},
-    {field: 'COORD_Y', width:100},
-    {field: 'MID_POINT'},
+    {field: 'MID_POINT', width:150},
   ];
 
 
