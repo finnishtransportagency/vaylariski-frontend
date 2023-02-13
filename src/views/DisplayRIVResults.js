@@ -75,7 +75,7 @@ function DisplayRIVResults() {
     {field: 'wave_height_category', width:100},
     {field: 'wind_speed', width:100},
     {field: 'wind_speed_category', width:100},
-    {field: 'MID_POINT', width:150},
+    {field: 'MID_POINT', headerName: 'Navline point', width:150},
   ];
 
 
