@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import DisplayRIVResults from "./DisplayRIVResults";
+import DisplayRIVResults from "../views/DisplayRIVResults";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
