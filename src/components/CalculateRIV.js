@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import DisplayRIVResults from "../views/DisplayRIVResults";
+import DisplayRIVResults from "./DisplayRIVResults";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -11,6 +11,7 @@ import NotificationContext from "contexts/NotificationContext";
 import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
+import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
 
 const userInputDefault = {
   boat: {
@@ -138,7 +139,8 @@ function CalculateRIV() {
                 <NotificationComponent />
                 <LoadingSpinner />
                 <ParameterTabsComponent />
-                <DisplayRIVResults />
+                <DisplayRIVResults/>
+                <DisplayRIVResultsDiagramView />
                 <MapView />
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
