@@ -625,10 +625,11 @@ function UserInputForm(props) {
                     />
                   )}
                 />
-                <Typography color="textSecondary" style={{fontSize: 14}}>
-                  Jos halutaan laskea s-mutkan suora, annetaan väylän ensimmäinen GDO_GID. Esim. Oulun
-                  väylällä (100) GDO_GID on 227903 ja Turun väylällä (3255) GDO_GID on 204344.
-                </Typography>
+                <Typography
+                  style={{ fontSize: 16 }}
+                  color="textSecondary"
+                  gutterBottom
+                >S-mutkan laskenta: </Typography>
                 <label htmlFor="navilinja.starting_gdo_gid">
                   Reitin ensimmäinen GDO_GID
                 </label>
@@ -640,6 +641,10 @@ function UserInputForm(props) {
                     width: 100,
                   }}
                 ></Field>
+                <Typography color="textSecondary" style={{fontSize: 14}}>
+                  Jos halutaan laskea s-mutkan suora, annetaan väylän ensimmäinen GDO_GID. Esim. Oulun
+                  väylällä (100) GDO_GID on 227903 ja Turun väylällä (3255) GDO_GID on 204344.
+                </Typography>
               </CardContent>
               <CardContent>
                 <Grid container spacing={1}>
