@@ -382,6 +382,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
+                          backgroundColor: '#a6a9aa' 
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -404,6 +405,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
+                          backgroundColor: '#a6a9aa'
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -414,6 +416,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
+                          backgroundColor: '#a6a9aa' 
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -436,6 +439,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
+                          backgroundColor: '#a6a9aa' 
                         }}
                         placeholder="nopeus"
                         defaultValue={5}
@@ -446,6 +450,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
+                          backgroundColor: '#a6a9aa' 
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -1474,6 +1479,7 @@ function UserInputForm(props) {
                               defaultValue={0.0}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1486,6 +1492,7 @@ function UserInputForm(props) {
                               defaultValue={0.2}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1511,6 +1518,7 @@ function UserInputForm(props) {
                               defaultValue={0.2}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1523,6 +1531,7 @@ function UserInputForm(props) {
                               defaultValue={0.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1548,6 +1557,7 @@ function UserInputForm(props) {
                               defaultValue={0.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1560,6 +1570,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1585,6 +1596,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1597,6 +1609,7 @@ function UserInputForm(props) {
                               defaultValue={2}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1658,6 +1671,7 @@ function UserInputForm(props) {
                               defaultValue={0}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1670,6 +1684,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1695,6 +1710,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1707,6 +1723,7 @@ function UserInputForm(props) {
                               defaultValue={3}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1733,6 +1750,7 @@ function UserInputForm(props) {
                               defaultValue={3}
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                             />
                           </Grid>
@@ -1790,6 +1808,7 @@ function UserInputForm(props) {
                               required
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={0.0}
@@ -1801,6 +1820,7 @@ function UserInputForm(props) {
                               required
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1825,6 +1845,7 @@ function UserInputForm(props) {
                               required
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1836,6 +1857,7 @@ function UserInputForm(props) {
                               required
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
@@ -1861,6 +1883,7 @@ function UserInputForm(props) {
                               required
                               style={{
                                 width: 80,
+                                backgroundColor: '#a6a9aa' 
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
