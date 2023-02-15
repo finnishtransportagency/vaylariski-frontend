@@ -77,13 +77,13 @@ function DisplayRIVResults() {
 
 
     return (
-    <Box sx={{ height: 700, width: '100%' }}>
+    <Box sx={{ height: 800, width: '100%' }}>
       <DataGrid
         rows={displayRowResults}
         columns={columns}
-        pageSize={10}
+        pageSize={100}
         getRowId={(row) => row.point_index}
-        rowsPerPageOptions={[10]}
+        rowsPerPageOptions={[100]}
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
         components={{Toolbar: GridToolbar}}
