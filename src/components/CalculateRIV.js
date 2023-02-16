@@ -12,6 +12,7 @@ import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
+import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
 
 const userInputDefault = {
   boat: {
@@ -140,8 +141,9 @@ function CalculateRIV() {
                 <LoadingSpinner />
                 <ParameterTabsComponent />
                 <MapView />
-                <DisplayRIVResultsTableView/>
-                <DisplayRIVResultsDiagramView />
+                <RIVResultsTabsComponent />
+                {/* <DisplayRIVResultsTableView/>
+                <DisplayRIVResultsDiagramView /> */}
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>

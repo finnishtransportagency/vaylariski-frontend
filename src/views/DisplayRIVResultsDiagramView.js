@@ -13,7 +13,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function DisplayRIVResultsDiagramView(params) {
+export default function DisplayRIVResultsDiagramView(props) {
+  const { children, tabValue, tabIndex, formik, ...other } = props;
+
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const [displayRowResults, setDisplayRowResults] = useState([]);
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(
@@ -79,44 +81,54 @@ export default function DisplayRIVResultsDiagramView(params) {
   // wind_speed_category: "moderate"
 
   return (
-    <ResponsiveContainer width="100%" height={500}>
-      <LineChart
-        data={displayRowResults}
-        height={400}
-        margin={{
-          bottom: 40,
-        }}
-      >
-        <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-        <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"} />
-        <YAxis />
-        <Tooltip />
-        <ReferenceArea
-          y1={0}
-          y2={RIVTrafficLight.green}
-          label="Green"
-          stroke="Green"
-          fill="green"
-          fillOpacity={0.1}
-        />
-        <ReferenceArea
-          y1={RIVTrafficLight.green}
-          y2={RIVTrafficLight.yellow}
-          label="Yellow"
-          stroke="yellow"
-          fill="yellow"
-          fillOpacity={0.1}
-        />
-        <ReferenceArea
-          y1={RIVTrafficLight.yellow}
-          y2={RIVTrafficLight.red}
-          label="Red"
-          stroke="red"
-          fill="red"
-          fillOpacity={0.1}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <div
+      role="TabPanelComponent"
+      hidden={tabValue !== tabIndex}
+      id={`simple-tabpanel-${tabIndex}`}
+      aria-labelledby={`simple-tab-${tabIndex}`}
+      {...other}
+    >
+      {tabValue === tabIndex && (
+        <ResponsiveContainer width="100%" height={500}>
+          <LineChart
+            data={displayRowResults}
+            height={400}
+            margin={{
+              bottom: 40,
+            }}
+          >
+            <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+            <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"} />
+            <YAxis />
+            <Tooltip />
+            <ReferenceArea
+              y1={0}
+              y2={RIVTrafficLight.green}
+              label="Green"
+              stroke="Green"
+              fill="green"
+              fillOpacity={0.1}
+            />
+            <ReferenceArea
+              y1={RIVTrafficLight.green}
+              y2={RIVTrafficLight.yellow}
+              label="Yellow"
+              stroke="yellow"
+              fill="yellow"
+              fillOpacity={0.1}
+            />
+            <ReferenceArea
+              y1={RIVTrafficLight.yellow}
+              y2={RIVTrafficLight.red}
+              label="Red"
+              stroke="red"
+              fill="red"
+              fillOpacity={0.1}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      )}
+    </div>
   );
-};
+}
