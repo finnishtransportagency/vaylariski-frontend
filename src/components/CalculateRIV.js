@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import DisplayRIVResults from "../views/DisplayRIVResults";
+import DisplayRIVResultsTableView from "../views/DisplayRIVResultsTableView";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -140,7 +140,7 @@ function CalculateRIV() {
                 <LoadingSpinner />
                 <ParameterTabsComponent />
                 <MapView />
-                <DisplayRIVResults/>
+                <DisplayRIVResultsTableView/>
                 <DisplayRIVResultsDiagramView />
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
