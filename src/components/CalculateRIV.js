@@ -139,9 +139,9 @@ function CalculateRIV() {
                 <NotificationComponent />
                 <LoadingSpinner />
                 <ParameterTabsComponent />
+                <MapView />
                 <DisplayRIVResults/>
                 <DisplayRIVResultsDiagramView />
-                <MapView />
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
