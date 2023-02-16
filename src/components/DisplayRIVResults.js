@@ -4,11 +4,14 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import RIVResultContext from "../contexts/RIVResult";
+import NotificationContext from 'contexts/NotificationContext';
 
 function DisplayRIVResults() {
 
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const [ displayRowResults, setDisplayRowResults ] = useState([]);
+  const { notificationStatus, setNotificationStatus } =
+  useContext(NotificationContext);
 
   useEffect(() => {
     setDisplayRowResults([]);
@@ -17,7 +20,14 @@ function DisplayRIVResults() {
     let rowResults = [];
     RIVResults.features.map(el => {
       rowResults.push(el.properties)
-    })
+    });
+    if (rowResults[0].draft_is_greater_than_depth) {
+      setNotificationStatus({
+        severity: "warning",
+        message: "Laivan syväys on suurempi kuin väylän syvyys!",
+        visible: true,
+      });
+    }
     setDisplayRowResults(rowResults);
   }, [RIVResults]);
 

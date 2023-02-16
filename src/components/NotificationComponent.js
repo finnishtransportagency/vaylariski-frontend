@@ -16,7 +16,7 @@ export default function NotificationComponent() {
 
   return (
     <>
-      <Snackbar open={notificationStatus.visible} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={notificationStatus.visible} autoHideDuration={60000} onClose={handleClose}>
         <MuiAlert
           elevation={6}
           variant="filled"
