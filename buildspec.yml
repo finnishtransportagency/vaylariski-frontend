@@ -1,7 +1,8 @@
 version: 0.2
 env:
+  parameter-store:
+    PROXY_URL: "elbUrl"
   secrets-manager:
-    PROXY_URL: "vaylariski_app_dev:proxy_url"
     REACT_APP_BASE_REST_URL: "vaylariski_app_dev:REACT_APP_BASE_REST_URL"
 phases:
   pre_build:
@@ -13,7 +14,7 @@ phases:
     commands:
       - echo Build started on `date`
       - docker build -f Dockerfile.aws
-        --build-arg PROXY_URL=${PROXY_URL}
+        --build-arg PROXY_URL=${PROXY_URL}:8080
         --build-arg REACT_APP_BASE_REST_URL=${REACT_APP_BASE_REST_URL}
         -t $ECR_REPOSITORY_NAME:latest .
   post_build:
