@@ -16,7 +16,7 @@ function App() {
               src="/vaylariski.png"
               className="App-logo"
               alt="logo" />
-          <h6>versio 0.1</h6>
+          <h6>versio 0.1.0</h6>
         </header>
         <CalculateRIV/>
         {/* <TestButton /> */}

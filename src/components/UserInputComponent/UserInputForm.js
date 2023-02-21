@@ -17,6 +17,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
+import WayareaComponent from "./WayareaComponent";
 import { VAYLATids } from "../../constants/VAYLAT_ids.js";
 import PropTypes from "prop-types";
 
@@ -28,6 +29,7 @@ function UserInputForm(props) {
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState({});
+  const [selectedWayarea, setSelectedWayarea] = useState({});
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -56,7 +58,11 @@ function UserInputForm(props) {
     formik.setFieldValue("boat.length", newBoat.PITUUS);
     formik.setFieldValue("boat.beam", newBoat.LEVEYS);
   }
-
+  function setDefaultWayareaName(wayarea) {
+    console.log(wayarea);
+    setSelectedWayarea(wayarea);
+  }
+  
   return (
     <div
       role="TabPanelComponent"
@@ -603,6 +609,9 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
+                <WayareaComponent
+                  setDefaultWayareaName={setDefaultWayareaName}
+                />
                 <Autocomplete
                   freeSolo
                   disablePortal
@@ -621,10 +630,18 @@ function UserInputForm(props) {
                       style={{ backgroundColor: "white" }}
                       {...params}
                       label="VAYLAT id"
-                      required
+                      // required
                     />
                   )}
                 />
+                <Grid item>
+                  <Typography style={{fontSize:14}}>VAYLAT: {selectedWayarea.VAYLAT}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography style={{fontSize:14}}>
+                    Nimi: {selectedWayarea.Nimi}
+                  </Typography>
+                </Grid>
                 <Typography
                   style={{ fontSize: 16 }}
                   color="textSecondary"
