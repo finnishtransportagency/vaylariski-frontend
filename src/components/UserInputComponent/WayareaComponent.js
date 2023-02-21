@@ -1,5 +1,5 @@
-import { Button, Menu, MenuItem, Autocomplete } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Button, Menu, MenuItem, Autocomplete, TextField } from "@mui/material";
+import { Fragment, useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 
@@ -9,7 +9,8 @@ export default function WayareaNameComponent(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const { notificationStatus, setNotificationStatus } =
-  useContext(NotificationContext);
+    useContext(NotificationContext);
+  const [vaylatInputValue, setVaylatInputValue] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,7 +20,11 @@ export default function WayareaNameComponent(props) {
   };
 
   useEffect(() => {
-    const path = 'wayarea_names';
+    console.log('vaylatInputValue',vaylatInputValue);
+  }, [vaylatInputValue]);
+
+  useEffect(() => {
+    const path = "wayarea_names";
     try {
       apiClient.get(path).then((response) => setDefaultWayarea(response.data));
     } catch (err) {
@@ -31,7 +36,6 @@ export default function WayareaNameComponent(props) {
       });
     } finally {
     }
-
   }, []);
 
   function handleMenuItemClick(event) {
@@ -45,10 +49,18 @@ export default function WayareaNameComponent(props) {
     props.setDefaultWayareaName(wayarea);
     handleClose();
   }
+  function lol(event, newValue) {
+    console.log( newValue);
+    props.setDefaultWayareaName(newValue);
+  };
 
   return (
     <>
-      <Button id="select-wayarea-button" onClick={handleClick} variant="contained">
+      <Button
+        id="select-wayarea-button"
+        onClick={handleClick}
+        variant="contained"
+      >
         Valitse väyläalue
       </Button>
       <Menu
@@ -64,10 +76,32 @@ export default function WayareaNameComponent(props) {
             selected={index === selectedIndex}
             onClick={handleMenuItemClick}
           >
-          VAYLAT: {wayarea.VAYLAT}, Nimi: {wayarea.Nimi}
+            VAYLAT: {wayarea.VAYLAT}, Nimi: {wayarea.Nimi}
           </MenuItem>
         ))}
       </Menu>
+      <Autocomplete
+        freeSolo
+        disablePortal
+        options={defaultWayarea}
+        getOptionLabel={(option) => option ? `VAYLAT ${option.VAYLAT}; Nimi: ${option.Nimi}` : "" }
+        onChange={(ev, newValue) =>
+          lol(ev, newValue)
+        }
+        inputValue={vaylatInputValue}
+        onInputChange={(ev, newInputValue) =>
+          setVaylatInputValue(newInputValue)
+        }
+        sx={{ width: 350 }}
+        renderInput={(params) => (
+          <TextField
+            style={{ backgroundColor: "white" }}
+            {...params}
+            label="Väylän nimi/id"
+            required
+          />
+        )}
+      />
     </>
   );
 }

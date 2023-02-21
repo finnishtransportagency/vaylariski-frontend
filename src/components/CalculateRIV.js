@@ -21,7 +21,7 @@ const userInputDefault = {
     manoeuvrability: "moderate",
   },
   navilinja: {
-    VAYLAT: "100",
+    VAYLAT: "",
     starting_gdo_gid: "",
     navilinja: [
       {
