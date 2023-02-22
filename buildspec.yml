@@ -14,7 +14,7 @@ phases:
     commands:
       - echo Build started on `date`
       - docker build -f Dockerfile.aws
-        --build-arg PROXY_URL=${PROXY_URL}:8080
+        --build-arg PROXY_URL="${PROXY_URL}:8080"
         --build-arg REACT_APP_BASE_REST_URL=${REACT_APP_BASE_REST_URL}
         -t $ECR_REPOSITORY_NAME:latest .
   post_build:
