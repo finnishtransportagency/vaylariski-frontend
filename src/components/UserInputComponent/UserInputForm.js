@@ -390,11 +390,12 @@ function UserInputForm(props) {
                     <Grid item xs={8}>
                       <label>{"v ≥ "}</label>
                       <input
+                        disabled
                         type="number"
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#a6a9aa'
+                          backgroundColor: '#ced6d8'
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -413,22 +414,24 @@ function UserInputForm(props) {
                     </Grid>
                     <Grid item xs={8}>
                       <input
+                        disabled
                         type="number"
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#a6a9aa'
+                          backgroundColor: '#ced6d8'
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
                       />
                       <label>{"≤ v <"}</label>
                       <input
+                        disabled
                         type="number"
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#a6a9aa'
+                          backgroundColor: '#ced6d8'
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -447,22 +450,24 @@ function UserInputForm(props) {
                     </Grid>
                     <Grid item xs={8}>
                       <input
+                        disabled
                         type="number"
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#a6a9aa'
+                          backgroundColor: '#ced6d8'
                         }}
                         placeholder="nopeus"
                         defaultValue={5}
                       />
                       <label>{"≤ v <"}</label>
                       <input
+                        disabled
                         type="number"
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#a6a9aa'
+                          backgroundColor: '#ced6d8'
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -1502,25 +1507,25 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={0.0}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
                             <Field
+                              disabled
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                               type="float"
-                              required
                               placeholder="nopeus"
                               defaultValue={0.2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1541,12 +1546,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={0.2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1554,12 +1559,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={0.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1580,12 +1585,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={0.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1593,12 +1598,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1619,12 +1624,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1632,12 +1637,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1694,12 +1699,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={0}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1707,12 +1712,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1733,12 +1738,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1746,12 +1751,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={3}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1773,12 +1778,12 @@ function UserInputForm(props) {
                               component="input"
                               name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                               type="float"
-                              required
+                              disabled
                               placeholder="nopeus"
                               defaultValue={3}
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                             />
                           </Grid>
@@ -1833,10 +1838,10 @@ function UserInputForm(props) {
                           <Grid item xs={8}>
                             <input
                               type="number"
-                              required
+                              disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={0.0}
@@ -1845,10 +1850,10 @@ function UserInputForm(props) {
                             <input
                               // component="input"
                               type="number"
-                              required
+                              disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1859,7 +1864,7 @@ function UserInputForm(props) {
                               <Field
                                 component="input"
                                 type="radio"
-                                name="wave_height_radio"
+                                name="navilinja.calculation_params.operating_conditions.wave_height"
                                 value="moderate"
                                 id="moderate"
                               />
@@ -1870,10 +1875,10 @@ function UserInputForm(props) {
                             <input
                               // component="input"
                               type="number"
-                              required
+                              disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1882,10 +1887,10 @@ function UserInputForm(props) {
                             <input
                               // component="input"
                               type="number"
-                              required
+                              disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
@@ -1908,10 +1913,10 @@ function UserInputForm(props) {
                             <input
                               // component="input"
                               type="number"
-                              required
+                              disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#a6a9aa'
+                                backgroundColor: '#ced6d8'
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
