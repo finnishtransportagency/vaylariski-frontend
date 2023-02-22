@@ -9,11 +9,19 @@ import RIVResultContext from "contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
 import UserInputContext from "contexts/UserInput";
 import apiClient from "http-common";
-import { Button } from "@mui/material";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  navilinja: Yup.object().shape({
+    VAYLAT: Yup.number()
+      .min(1, "VAYLAT id ei voi olla negatiivinen")
+      .required("VAYLAT id vaaditaan"),
+  }),
+});
 
 function a11yProps(index) {
   return {
@@ -35,7 +43,9 @@ export default function ParameterTabsComponent() {
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
-  const {wayareaPolygons, setWayareaPolygons} = useContext(WayareaPolygonContext);
+  const { wayareaPolygons, setWayareaPolygons } = useContext(
+    WayareaPolygonContext
+  );
 
   const fetchRiskValue = async (values) => {
     const path = "fairway/calculate_risk";
@@ -49,7 +59,9 @@ export default function ParameterTabsComponent() {
     try {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
-        apiClient.get(path_wayarea, {params: {VAYLAT: values.navilinja.VAYLAT}})
+        apiClient.get(path_wayarea, {
+          params: { VAYLAT: values.navilinja.VAYLAT },
+        }),
       ]);
       setRIVResults(response.data);
       setWayareaPolygons(response_wayarea.data);
@@ -66,7 +78,7 @@ export default function ParameterTabsComponent() {
   };
 
   return (
-    <Box sx={{ width: "100%" , margin: "5px"}}>
+    <Box sx={{ width: "100%", margin: "5px" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -78,7 +90,7 @@ export default function ParameterTabsComponent() {
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
           />
-          <Tab label="Lisää uusi mitoitusalus" {...a11yProps(2)}/>
+          <Tab label="Lisää uusi mitoitusalus" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <Formik
@@ -86,6 +98,7 @@ export default function ParameterTabsComponent() {
           fetchRiskValue(values);
         }}
         initialValues={userInput}
+        validationSchema={validationSchema}
       >
         {(formik) => (
           <FForm>

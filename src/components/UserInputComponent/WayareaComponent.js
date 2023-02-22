@@ -1,26 +1,27 @@
-import { Button, Menu, MenuItem, Autocomplete, TextField } from "@mui/material";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Autocomplete,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Fragment, useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
+import { useField } from "formik";
+import Form from 'react-bootstrap/Form';
 
 export default function WayareaNameComponent(props) {
+  const { name, ...other } = props;
+  const [field, meta] = useField(name);
   const [defaultWayarea, setDefaultWayarea] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
   const [vaylatInputValue, setVaylatInputValue] = useState("");
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   useEffect(() => {
-    console.log('vaylatInputValue',vaylatInputValue);
+    console.log("vaylatInputValue", vaylatInputValue);
   }, [vaylatInputValue]);
 
   useEffect(() => {
@@ -38,56 +39,26 @@ export default function WayareaNameComponent(props) {
     }
   }, []);
 
-  function handleMenuItemClick(event) {
-    // Select index from event
-    const newIndexVal = event.target.value;
-    // Select boat from list based on index
-    const wayarea = defaultWayarea[newIndexVal];
-    // Set it as selected
-    setSelectedIndex(newIndexVal);
-    // Calls parent component's (UserInputForm) function with new boat
-    props.setDefaultWayareaName(wayarea);
-    handleClose();
-  }
-  function lol(event, newValue) {
-    console.log( newValue);
+  function handleMenuItemClick(event, newValue) {
+    console.log(newValue);
     props.setDefaultWayareaName(newValue);
-  };
+  }
 
   return (
-    <>
-      <Button
-        id="select-wayarea-button"
-        onClick={handleClick}
-        variant="contained"
-      >
+    <Form.Group className={meta.error && "has-error"}>
+      <Typography style={{ fontSize: 16 }} color="textSecondary" gutterBottom>
         Valitse väyläalue
-      </Button>
-      <Menu
-        id="select-wayarea-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        {defaultWayarea.map((wayarea, index) => (
-          <MenuItem
-            key={index}
-            value={index}
-            selected={index === selectedIndex}
-            onClick={handleMenuItemClick}
-          >
-            VAYLAT: {wayarea.VAYLAT}, Nimi: {wayarea.Nimi}
-          </MenuItem>
-        ))}
-      </Menu>
+      </Typography>
+
       <Autocomplete
+        id="navilinja.VAYLAT"
         freeSolo
         disablePortal
         options={defaultWayarea}
-        getOptionLabel={(option) => option ? `VAYLAT ${option.VAYLAT}; Nimi: ${option.Nimi}` : "" }
-        onChange={(ev, newValue) =>
-          lol(ev, newValue)
+        getOptionLabel={(option) =>
+          option ? `VAYLAT ${option.VAYLAT}; Nimi: ${option.Nimi}` : ""
         }
+        onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
         inputValue={vaylatInputValue}
         onInputChange={(ev, newInputValue) =>
           setVaylatInputValue(newInputValue)
@@ -102,6 +73,11 @@ export default function WayareaNameComponent(props) {
           />
         )}
       />
-    </>
+      {meta.touched && meta.error && (
+        <small className="react-form-message react-form-message-error">
+          {meta.error}
+        </small>
+      )}
+    </Form.Group>
   );
 }
