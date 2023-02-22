@@ -4,13 +4,6 @@ import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 
 export default function BoatMenuComponent(props) {
-  const boat1 = {length: 210, beam: 30, draft: 10 };
-  const boat2 = {length: 255, beam: 32, draft: 12 };
-  const boat3 = {length: 200, beam: 32, draft: 10 };
-  const boat4 = {length: 210, beam: 30, draft: 11 };
-  const boat5 = {length: 83, beam: 13, draft: 4 };
-
-  const boatData = [boat1, boat2, boat3, boat4, boat5];
 
   const [defaultBoats, setDefaultBoats] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);

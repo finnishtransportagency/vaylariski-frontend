@@ -17,17 +17,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
-import { VAYLATids } from "../../constants/VAYLAT_ids.js";
+import WayareaComponent from "./WayareaComponent";
 import PropTypes from "prop-types";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
 
-  const [vaylatInputValue, setVaylatInputValue] = useState("");
+  // const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState({});
+  const [selectedWayarea, setSelectedWayarea] = useState({});
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -55,6 +56,16 @@ function UserInputForm(props) {
     formik.setFieldValue("boat.draft", newBoat.SYVAYS);
     formik.setFieldValue("boat.length", newBoat.PITUUS);
     formik.setFieldValue("boat.beam", newBoat.LEVEYS);
+  }
+  function setDefaultWayareaName(wayarea) {
+    console.log(wayarea);
+    if (wayarea) {
+      setSelectedWayarea(wayarea);
+      formik.setFieldValue("navilinja.VAYLAT", wayarea.VAYLAT);
+    } else {
+      setSelectedWayarea({});
+      formik.setFieldValue("navilinja.VAYLAT", "");
+    }
   }
 
   return (
@@ -148,23 +159,29 @@ function UserInputForm(props) {
                     <Grid container spacing={1}>
                       {/* laivan ylimääräiset parametrit*/}
                       <Grid item>
-                        <Typography style={{fontSize:14}}>JNRO: {selectedBoat.JNRO}</Typography>
+                        <Typography style={{ fontSize: 14 }}>
+                          JNRO: {selectedBoat.JNRO}
+                        </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography style={{fontSize:14}}>
+                        <Typography style={{ fontSize: 14 }}>
                           VAY_NIMISU: {selectedBoat.VAY_NIMISU}
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography style={{fontSize:14}}>KOKO: {selectedBoat.KOKO}</Typography>
+                        <Typography style={{ fontSize: 14 }}>
+                          KOKO: {selectedBoat.KOKO}
+                        </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography style={{fontSize:14}}>
+                        <Typography style={{ fontSize: 14 }}>
                           RUNKO_TKERROIN: {selectedBoat.RUNKO_TKERROIN}
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography style={{fontSize:14}}>SELITE: {selectedBoat.SELITE}</Typography>
+                        <Typography style={{ fontSize: 14 }}>
+                          SELITE: {selectedBoat.SELITE}
+                        </Typography>
                       </Grid>
                     </Grid>
                     {/* laivan ylimääräiset parametrit*/}
@@ -383,7 +400,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#ced6d8' 
+                          backgroundColor: "#ced6d8",
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -407,7 +424,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#ced6d8'
+                          backgroundColor: "#ced6d8",
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -419,7 +436,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#ced6d8' 
+                          backgroundColor: "#ced6d8",
                         }}
                         placeholder="nopeus"
                         defaultValue={12}
@@ -443,7 +460,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#ced6d8' 
+                          backgroundColor: "#ced6d8",
                         }}
                         placeholder="nopeus"
                         defaultValue={5}
@@ -455,7 +472,7 @@ function UserInputForm(props) {
                         required
                         style={{
                           width: 80,
-                          backgroundColor: '#ced6d8' 
+                          backgroundColor: "#ced6d8",
                         }}
                         placeholder="nopeus"
                         defaultValue={8}
@@ -608,7 +625,11 @@ function UserInputForm(props) {
               }}
             >
               <CardContent>
-                <Autocomplete
+                <WayareaComponent
+                  setDefaultWayareaName={setDefaultWayareaName}
+                  name="navilinja.VAYLAT"
+                />
+                {/* <Autocomplete
                   freeSolo
                   disablePortal
                   name="navilinja.VAYLAT"
@@ -626,15 +647,27 @@ function UserInputForm(props) {
                       style={{ backgroundColor: "white" }}
                       {...params}
                       label="VAYLAT id"
-                      required
+                      // required
                     />
-                  )}
-                />
+                  )} */}
+
+                <Grid item>
+                  <Typography style={{ fontSize: 14 }}>
+                    VAYLAT: {selectedWayarea.VAYLAT}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography style={{ fontSize: 14 }}>
+                    Nimi: {selectedWayarea.Nimi}
+                  </Typography>
+                </Grid>
                 <Typography
                   style={{ fontSize: 16 }}
                   color="textSecondary"
                   gutterBottom
-                >S-mutkan laskenta: </Typography>
+                >
+                  S-mutkan laskenta:{" "}
+                </Typography>
                 <label htmlFor="navilinja.starting_gdo_gid">
                   Reitin ensimmäinen GDO_GID
                 </label>
@@ -646,9 +679,10 @@ function UserInputForm(props) {
                     width: 100,
                   }}
                 ></Field>
-                <Typography color="textSecondary" style={{fontSize: 14}}>
-                  Jos halutaan laskea s-mutkan suora, annetaan väylän ensimmäinen GDO_GID. Esim. Oulun
-                  väylällä (100) GDO_GID on 227903 ja Turun väylällä (3255) GDO_GID on 204344.
+                <Typography color="textSecondary" style={{ fontSize: 14 }}>
+                  Jos halutaan laskea s-mutkan suora, annetaan väylän
+                  ensimmäinen GDO_GID. Esim. Oulun väylällä (100) GDO_GID on
+                  227903 ja Turun väylällä (3255) GDO_GID on 204344.
                 </Typography>
               </CardContent>
               <CardContent>
@@ -1489,7 +1523,7 @@ function UserInputForm(props) {
                               defaultValue={0.0}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1502,7 +1536,7 @@ function UserInputForm(props) {
                               defaultValue={0.2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1528,7 +1562,7 @@ function UserInputForm(props) {
                               defaultValue={0.2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1541,7 +1575,7 @@ function UserInputForm(props) {
                               defaultValue={0.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1567,7 +1601,7 @@ function UserInputForm(props) {
                               defaultValue={0.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1580,7 +1614,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1606,7 +1640,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1619,7 +1653,7 @@ function UserInputForm(props) {
                               defaultValue={2}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1681,7 +1715,7 @@ function UserInputForm(props) {
                               defaultValue={0}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1694,7 +1728,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1720,7 +1754,7 @@ function UserInputForm(props) {
                               defaultValue={1.5}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                             <label>{"≤ v <"}</label>
@@ -1733,7 +1767,7 @@ function UserInputForm(props) {
                               defaultValue={3}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1760,7 +1794,7 @@ function UserInputForm(props) {
                               defaultValue={3}
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                             />
                           </Grid>
@@ -1818,7 +1852,7 @@ function UserInputForm(props) {
                               disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={0.0}
@@ -1830,7 +1864,7 @@ function UserInputForm(props) {
                               disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1855,7 +1889,7 @@ function UserInputForm(props) {
                               disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={1.0}
@@ -1867,7 +1901,7 @@ function UserInputForm(props) {
                               disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
@@ -1893,7 +1927,7 @@ function UserInputForm(props) {
                               disabled
                               style={{
                                 width: 80,
-                                backgroundColor: '#ced6d8' 
+                                backgroundColor: "#ced6d8",
                               }}
                               placeholder="aallon korkeus"
                               defaultValue={3.0}
