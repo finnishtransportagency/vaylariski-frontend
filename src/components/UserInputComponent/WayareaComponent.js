@@ -46,17 +46,23 @@ export default function WayareaNameComponent(props) {
 
   return (
     <Form.Group className={meta.error && "has-error"}>
-      <Typography style={{ fontSize: 16 }} color="textSecondary" gutterBottom>
-        Valitse väyläalue
+      <Typography style={{ fontSize: 16, fontWeight:550}} color="textSecondary" gutterBottom>
+        Valitse väylä:
       </Typography>
-
+      <Typography
+        style={{ fontSize: 14 }}
+        color="textSecondary"
+        gutterBottom
+      >
+        VAYLAT id/nimi:{" "}
+      </Typography>
       <Autocomplete
         id="navilinja.VAYLAT"
         freeSolo
         disablePortal
         options={defaultWayarea}
         getOptionLabel={(option) =>
-          option ? `VAYLAT ${option.VAYLAT}; Nimi: ${option.Nimi}` : ""
+          option ? `${option.VAYLAT} - ${option.Nimi}` : ""
         }
         onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
         inputValue={vaylatInputValue}
@@ -68,7 +74,6 @@ export default function WayareaNameComponent(props) {
           <TextField
             style={{ backgroundColor: "white" }}
             {...params}
-            label="Väylän nimi/id"
             required
           />
         )}
