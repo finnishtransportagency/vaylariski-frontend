@@ -113,7 +113,7 @@ export default function InsertNewBulkBoatComponent(props) {
                 name="SYVAYS"
                 readOnly={false}
               />
-              <CustomNumber label="jnro" name="JNRO" readOnly={false} />
+              <CustomNumber label="Väylän tunnus" name="JNRO" readOnly={false} />
               <CustomNumber label="Laivan koko" name="KOKO" readOnly={false} />
               <CustomNumber
                 label="RUNKO_TKERROIN"
@@ -122,7 +122,7 @@ export default function InsertNewBulkBoatComponent(props) {
               />
               <CustomText label="Selite" name="SELITE" readOnly={false} />
               <CustomText
-                label="VAY_NIMISU"
+                label="Väylän nimi"
                 name="VAY_NIMISU"
                 readOnly={false}
               />
