@@ -65,10 +65,10 @@ export default function BoatMenuComponent(props) {
             selected={index === selectedIndex}
             onClick={handleMenuItemClick}
           >
-            JNRO: {boat.JNRO}, Leveys: {boat.LEVEYS},
+            Väylän tunnus: {boat.JNRO}, Leveys: {boat.LEVEYS},
             Syväys: {boat.SYVAYS}, Pituus: {boat.PITUUS},
-            VAY_NIMISU: {boat.VAY_NIMISU},
-            RUNKO_TKERROIN: {boat.RUNKO_TKERROIN},
+            Nimi: {boat.VAY_NIMISU},
+            {/* RUNKO_TKERROIN: {boat.RUNKO_TKERROIN}, */}
             Selite: {boat.SELITE}
           </MenuItem>
         ))}
