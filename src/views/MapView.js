@@ -123,8 +123,8 @@ function MapView() {
         // whenReady={ instance => {mapRef.current = instance} }
         // ref={mapRef}
         center={[62, 23.5]}
-        zoom={5}
-        scrollWheelZoom={true}
+        zoom={7}
+        scrollWheelZoom={false}
         style={{
           height: "800px",
           backgroundColor: "white",
