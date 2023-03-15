@@ -90,7 +90,7 @@ export default function ParameterTabsComponent() {
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
           />
-          <Tab label="Lisää uusi mitoitusalus" {...a11yProps(2)} />
+          <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <Formik
