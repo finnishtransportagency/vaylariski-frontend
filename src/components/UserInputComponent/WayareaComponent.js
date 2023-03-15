@@ -47,7 +47,7 @@ export default function WayareaNameComponent(props) {
   return (
     <Form.Group className={meta.error && "has-error"}>
       <Typography style={{ fontSize: 16, fontWeight:550}} color="textSecondary" gutterBottom>
-        Valitse väylä:
+        Valitse väylä
       </Typography>
       <Typography
         style={{ fontSize: 14 }}
