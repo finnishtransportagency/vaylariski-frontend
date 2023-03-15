@@ -36,5 +36,10 @@ RUN echo ${REACT_APP_BASE_REST_URL}
 
 COPY --from=builder /app/build /var/www
 COPY ./nginx/riski.conf.template /nginx.conf.template
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
 # envsubst to substitute ENV variables in config
 CMD ["/bin/sh" , "-c" , "envsubst < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
