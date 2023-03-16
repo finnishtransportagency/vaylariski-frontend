@@ -124,9 +124,10 @@ function MapView() {
         // ref={mapRef}
         center={[62, 23.5]}
         zoom={7}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         style={{
           height: "800px",
+          width:"95%",
           backgroundColor: "white",
           marginTop: "80px",
           marginBottom: "5px",
