@@ -435,7 +435,6 @@ function UserInputForm(props) {
                     }}
                   />
                 </Grid>
-
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
@@ -484,7 +483,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.deep_inner_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -499,7 +499,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.medium_deep_inner_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -514,7 +515,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.shallow_inner_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -531,7 +533,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.deep_outer_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -546,7 +549,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.medium_deep_outer_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -561,7 +565,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="channel_depth_wf.shallow_outer_channel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 130,
@@ -628,7 +633,7 @@ function UserInputForm(props) {
                   </label>
                 </Grid>
                 <Grid item xs={4}>
-                <label>
+                  <label>
                     <Field
                       type="radio"
                       name="navilinja.calculation_params.channel_edge"
@@ -637,7 +642,6 @@ function UserInputForm(props) {
                     />
                     Jyrkkä ja kova
                   </label>
-
                 </Grid>
                 <Grid item xs={4}>
                   <div>
@@ -646,7 +650,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_gentle_fast"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -659,7 +664,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_gentle_moderate"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -672,7 +678,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_gentle_slow"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -693,7 +700,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_sloping_fast"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -706,7 +714,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_sloping_moderate"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -719,7 +728,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_sloping_slow"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -740,7 +750,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_steep_fast"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -753,7 +764,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_steep_moderate"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -766,7 +778,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="bank_clearance_wf.edge_category_steep_slow"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -942,7 +955,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.mild_wind_fast_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -960,7 +974,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.mild_wind_moderate_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -978,7 +993,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.mild_wind_slow_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1009,7 +1025,8 @@ function UserInputForm(props) {
                   </div>
                   <Field
                     component="input"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     name="wind_wf.moderate_wind_fast_vessel"
                     required
                     style={{
@@ -1028,7 +1045,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.moderate_wind_moderate_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1046,7 +1064,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.moderate_wind_slow_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1083,7 +1102,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.strong_wind_fast_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1101,7 +1121,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.strong_wind_moderate_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1119,7 +1140,8 @@ function UserInputForm(props) {
                   <Field
                     component="input"
                     name="wind_wf.strong_wind_slow_vessel"
-                    type="float"
+                    type="number"
+                    step="0.01"
                     required
                     style={{
                       width: 100,
@@ -1165,7 +1187,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.0}
@@ -1179,7 +1202,8 @@ function UserInputForm(props) {
                       disabled
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       placeholder="nopeus"
                       defaultValue={0.2}
                       style={{
@@ -1204,7 +1228,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.2}
@@ -1217,7 +1242,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.5}
@@ -1243,7 +1269,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.5}
@@ -1256,7 +1283,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1282,7 +1310,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1295,7 +1324,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={2}
@@ -1344,7 +1374,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0}
@@ -1357,7 +1388,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1383,7 +1415,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1396,7 +1429,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={3}
@@ -1423,7 +1457,8 @@ function UserInputForm(props) {
                     <Field
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
-                      type="float"
+                      type="number"
+                    step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={3}
