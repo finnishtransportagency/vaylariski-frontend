@@ -90,7 +90,7 @@ export default function ParameterTabsComponent() {
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
           />
-          <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} />
+          {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
       <Formik
@@ -111,7 +111,7 @@ export default function ParameterTabsComponent() {
           </FForm>
         )}
       </Formik>
-      <InsertNewBulkBoatView tabValue={value} tabIndex={2} />
+      {/* <InsertNewBulkBoatView tabValue={value} tabIndex={2} /> */}
     </Box>
   );
 }
