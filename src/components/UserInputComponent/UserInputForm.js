@@ -406,21 +406,16 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navilinja.calculation_params.bottom_surface">
-                    {" "}
-                    Pohja:{" "}
+                    {" "}Pohja:{" "}
                   </label>
                 </Grid>
                 <Grid item xs={8}>
                   <Field
-                    name="navilinja.calculation_params.bottom_surface"
                     component="select"
+                    name="navilinja.calculation_params.bottom_surface"
                   >
-                    <option defaultValue="smooth_and_soft">
-                      Sileä ja pehmeä
-                    </option>
-                    <option value="rough_and_hard">
-                      Epätasainen ja kova
-                    </option>
+                    <option value="smooth_and_soft">Sileä ja pehmeä</option>
+                    <option value="rough_and_hard">Epätasainen ja kova</option>
                   </Field>
                 </Grid>
                 <Grid item xs={4}>
@@ -802,9 +797,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navilinja.calculation_params.aids_to_navigation"
                   >
-                    <option defaultValue="excellent">
-                      Erinomainen
-                    </option>
+                    <option value="excellent">Erinomainen</option>
                     <option value="good">Hyvä</option>
                     <option value="moderate">Keskiverto</option>
                   </Field>
@@ -820,7 +813,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navilinja.calculation_params.light_pollution"
                   >
-                    <option defaultValue="negligible">Olematon</option>
+                    <option value="negligible">Olematon</option>
                     <option value="low">Heikko</option>
                     <option value="moderate">Keskiverto</option>
                     <option value="strong">Voimakas</option>
@@ -837,7 +830,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navilinja.calculation_params.other.traffic_volume"
                   >
-                    <option defaultValue="negligible">Olematon</option>
+                    <option value="negligible">Olematon</option>
                     <option value="low">Matala</option>
                     <option value="moderate">Keskiverto</option>
                     <option value="heavy">Runsas</option>
@@ -855,7 +848,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navilinja.calculation_params.other.traffic_complexity"
                   >
-                    <option defaultValue="negligible">Olematon</option>
+                    <option value="negligible">Olematon</option>
                     <option value="low">Matala</option>
                     <option value="moderate">Keskiverto</option>
                     <option value="high">Monimutkainen</option>
