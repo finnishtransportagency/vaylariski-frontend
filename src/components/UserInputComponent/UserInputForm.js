@@ -52,11 +52,18 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    console.log(newBoat);
-    setSelectedBoat(newBoat);
-    formik.setFieldValue("boat.draft", newBoat.SYVAYS);
-    formik.setFieldValue("boat.length", newBoat.PITUUS);
-    formik.setFieldValue("boat.beam", newBoat.LEVEYS);
+    console.log('setDefaultBoatValues',newBoat);
+    if (newBoat) {
+      setSelectedBoat(newBoat);
+      formik.setFieldValue("boat.draft", newBoat.SYVAYS);
+      formik.setFieldValue("boat.length", newBoat.PITUUS);
+      formik.setFieldValue("boat.beam", newBoat.LEVEYS);
+    } else {
+      setSelectedBoat({});
+      formik.setFieldValue("boat.draft", "");
+      formik.setFieldValue("boat.length", "");
+      formik.setFieldValue("boat.beam", "");
+    }
   }
   function setDefaultWayareaName(wayarea) {
     console.log(wayarea);
@@ -99,7 +106,7 @@ function UserInputForm(props) {
                     S-mutkan laskenta{" "}
                   </Typography>
                   <label htmlFor="navilinja.starting_gdo_gid">
-                    Ensimmäinen navigointilinjan tunnus (GDO_GID): 
+                    Ensimmäinen navigointilinjan tunnus (GDO_GID):
                   </label>
                   <Field
                     component="input"
@@ -128,6 +135,7 @@ function UserInputForm(props) {
                   {/* Menu selector for default boat values */}
                   <BoatMenuComponent
                     setDefaultBoatValues={setDefaultBoatValues}
+                    name="boat"
                   />
                 </Grid>
               </Grid>
@@ -688,7 +696,7 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  
+
                   <div>
                     <label
                       htmlFor="bank_clearance_wf.edge_category_sloping_fast"
@@ -738,7 +746,7 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  
+
                   <div>
                     <label
                       htmlFor="bank_clearance_wf.edge_category_steep_fast"
@@ -870,7 +878,7 @@ function UserInputForm(props) {
                     </option>
                   </Field>
                 </Grid>
-                
+
               </Grid>
             </Grid>
           </Grid>
