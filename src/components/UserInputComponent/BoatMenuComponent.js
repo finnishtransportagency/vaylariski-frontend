@@ -62,7 +62,7 @@ export default function BoatMenuComponent(props) {
           disablePortal
           options={defaultBoats}
           getOptionLabel={(option) =>
-            option ? `JNRO: ${option.JNRO} - LEVEYS: ${option.LEVEYS} PITUUS: ${option.PITUUS} SYVÄYS: ${option.SYVAYS}`: ""
+            option ? `${option.JNRO} - ${option.VAY_NIMISU}, pituus: ${option.PITUUS}, leveys: ${option.LEVEYS},  syväys: ${option.SYVAYS}`: ""
           }
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
           inputValue={boatInputValue}
