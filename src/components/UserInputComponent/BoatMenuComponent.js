@@ -74,7 +74,6 @@ export default function BoatMenuComponent(props) {
             <TextField
               style={{ backgroundColor: "white" }}
               {...params}
-              required
             />
           )}
         />
