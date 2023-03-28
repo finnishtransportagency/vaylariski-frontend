@@ -101,6 +101,30 @@ const userInputDefault = {
     C_turning_radius_poor: 6,
   },
   navilinja_angle_params: [],
+
+  PF_bend_parameters: {
+    bend_ratio_lim_1: 0.6,
+    bend_ratio_lim_2: 1.0,
+    bend_ratio_lim_3: 1.6,
+    bend_ratio_lim_4: 2.0,
+    
+    PF_bend_radius_1: 4,
+    PF_bend_radius_2: 3,
+    PF_bend_radius_3: 2,
+    PF_bend_radius_4: 1,
+    PF_bend_radius_5: 0,
+    
+    bend_angle_lim_1: 30,
+    bend_angle_lim_2: 50,
+    bend_angle_lim_3: 60,
+    bend_angle_lim_4: 70,
+
+    PF_bend_angle_1: 0.0,
+    PF_bend_angle_2: 0.5,
+    PF_bend_angle_3: 1.0,
+    PF_bend_angle_4: 1.5,
+    PF_bend_angle_5: 2.0,
+  }
 };
 
 function CalculateRIV() {
