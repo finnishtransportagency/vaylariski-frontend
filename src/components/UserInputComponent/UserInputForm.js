@@ -52,7 +52,7 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    console.log('setDefaultBoatValues',newBoat);
+    console.log('setDefaultBoatValues', newBoat);
     if (newBoat) {
       setSelectedBoat(newBoat);
       formik.setFieldValue("boat.draft", newBoat.SYVAYS);
@@ -408,7 +408,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navilinja.calculation_params.number_of_lanes"
                   >
-                    <option value={2}>Kaksisuuntainen väylä</option>
+                    <option value={2}>Kaksinen väylä</option>
                     <option value={1}>Yksisuuntainen väylä</option>
                   </Field>
                 </Grid>
@@ -630,7 +630,7 @@ function UserInputForm(props) {
                   </label>
                 </Grid>
                 <Grid item xs={4}>
-                <label>
+                  <label>
                     <Field
                       type="radio"
                       name="navilinja.calculation_params.channel_edge"
@@ -806,7 +806,7 @@ function UserInputForm(props) {
                   >
                     Vesiliikenteeseen vaikuttavat tekijät
                   </Typography>
-                  </Grid>
+                </Grid>
                 <Grid item xs={6}>
                   <label htmlFor="navilinja.calculation_params.aids_to_navigation">
                     {" "}
@@ -873,13 +873,11 @@ function UserInputForm(props) {
                     <option value="low">Matala</option>
                     <option value="moderate">Keskiverto</option>
                     <option value="high">Monimutkainen</option>
-                    <option value="very_high">
-                      Erittäin monimutkainen
-                    </option>
+                    <option value="very_high">Erittäin monimutkainen</option>
                   </Field>
                 </Grid>
-
               </Grid>
+
             </Grid>
           </Grid>
           <Divider orientation="vertical" flexItem></Divider>
@@ -1196,12 +1194,12 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.0}
                       style={{
-                        width:80,
+                        width: 80,
                         backgroundColor: "#ced6d8",
                       }}
                     />
@@ -1211,7 +1209,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       placeholder="nopeus"
                       defaultValue={0.2}
                       style={{
@@ -1237,7 +1235,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.2}
@@ -1251,7 +1249,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.5}
@@ -1278,7 +1276,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0.5}
@@ -1292,7 +1290,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1319,7 +1317,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1333,7 +1331,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={2}
@@ -1383,7 +1381,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={0}
@@ -1397,7 +1395,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1424,7 +1422,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={1.5}
@@ -1438,7 +1436,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={3}
@@ -1466,7 +1464,7 @@ function UserInputForm(props) {
                       component="input"
                       name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                       type="number"
-                    step="0.01"
+                      step="0.01"
                       disabled
                       placeholder="nopeus"
                       defaultValue={3}
@@ -1598,6 +1596,408 @@ function UserInputForm(props) {
               </Grid>
             </Grid>
           </Grid>
+
+          <Grid item xs={3.99}>
+            <Grid container spacing={1} paddingBottom={2}>
+              <Grid item xs={12}>
+                <Typography
+                  style={{ fontSize: 16, fontWeight: 550 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Mutkan painokertoimet
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  style={{ fontSize: 14, fontWeight: 550 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> ja sen raja-arvot
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <label htmlFor="PF_bend_parameters">
+                  {" "}
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> on painokerroin mutkan jyrkkyydelle suhteessa säteeseen, aluksen kääntösäteeseen ja alukseen pituuteen.
+                  BSI = R<span style={{ verticalAlign: "sub", fontSize: 12 }}>b</span> /
+                  C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> * L, kun R on säde,
+                  C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> on kerroin, joka ilmaisee aluksen kääntösäteen ja
+                  L on aluksen pituus. {" "}
+                </label>
+              </Grid>
+
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_radius_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <label>{"BSI < "}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_radius_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ BSI <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_radius_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ BSI <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_radius_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ BSI <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_radius_5"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <label>{"BSI ≥ "}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_ratio_lim_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography
+                  style={{ fontSize: 14, fontWeight: 550 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span> ja sen raja-arvot
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <label htmlFor="PF_bend_parameters">
+                  {" "}
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span> on painokerroin mutkan jyrkkyydelle suhteessa suuntakulmaan (α){" "}
+                </label>
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_angle_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <label>{"α < "}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_angle_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_1"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ α <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_angle_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_2"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ α <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_angle_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_3"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+                <label>{"≤ α <"}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={5}>
+                <label>{"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                </label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.PF_bend_angle_5"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={7}>
+                <label>{" α ≥ "}</label>
+                <Field
+                  component="input"
+                  name="PF_bend_parameters.bend_angle_lim_4"
+                  type="number"
+                  step="0.1"
+                  required
+                  style={{
+                    width: 60,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <label>
+                  {" "}
+                  Kulman jyrkkyyden painokerroin lasketaan summasta
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> =
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+
+                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                  {" "}
+                </label>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Divider orientation="vertical" flexItem></Divider>
           {/* Riskiarvojen painokerttoimet */}
           <Grid item xs={5}>
             <Typography
