@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
   Autocomplete,
@@ -20,6 +20,8 @@ import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
 import PropTypes from "prop-types";
 import { padding } from "@mui/system";
+import NotificationContext from "contexts/NotificationContext";
+import apiClient from "http-common";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
@@ -30,6 +32,9 @@ function UserInputForm(props) {
   const [isHoveringWind, setIsHoveringWind] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState({});
   const [selectedWayarea, setSelectedWayarea] = useState({});
+  const { notificationStatus, setNotificationStatus } =
+    useContext(NotificationContext);
+  const [GDOList, setGDOList] = useState([]);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -75,6 +80,30 @@ function UserInputForm(props) {
       formik.setFieldValue("navline.VAYLAT", "");
     }
   }
+
+  useEffect(() => {
+    if (selectedWayarea.VAYLAT) {
+      console.log(selectedWayarea.VAYLAT);
+      const path = "gdo_gids_for_vaylat";
+        apiClient.get(path, {
+          params: {
+            VAYLAT: selectedWayarea.VAYLAT
+          }
+          }).then((response) => setGDOList(response.data.GDO_GID))
+          .catch(err => {
+            console.log(err);
+            setNotificationStatus({
+              severity: "error",
+              message: err.response.data.detail,
+              visible: true,
+            });
+          });
+    }
+  }, [selectedWayarea]);
+
+  useEffect(() => {
+    console.log(GDOList);
+  }, [GDOList]);
 
   return (
     <div
