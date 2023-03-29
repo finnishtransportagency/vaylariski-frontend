@@ -57,7 +57,7 @@ export default function WayareaNameComponent(props) {
         VAYLAT id/nimi:{" "}
       </Typography>
       <Autocomplete
-        id="navilinja.VAYLAT"
+        id="navline.VAYLAT"
         freeSolo
         disablePortal
         options={defaultWayarea}
