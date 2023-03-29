@@ -69,10 +69,10 @@ function UserInputForm(props) {
     console.log(wayarea);
     if (wayarea) {
       setSelectedWayarea(wayarea);
-      formik.setFieldValue("navilinja.VAYLAT", wayarea.VAYLAT);
+      formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
       setSelectedWayarea({});
-      formik.setFieldValue("navilinja.VAYLAT", "");
+      formik.setFieldValue("navline.VAYLAT", "");
     }
   }
 
@@ -92,7 +92,7 @@ function UserInputForm(props) {
                 <Grid item xs={12}>
                   <WayareaComponent
                     setDefaultWayareaName={setDefaultWayareaName}
-                    name="navilinja.VAYLAT"
+                    name="navline.VAYLAT"
                   />
                 </Grid>
               </Grid>
@@ -105,12 +105,12 @@ function UserInputForm(props) {
                   >
                     S-mutkan laskenta{" "}
                   </Typography>
-                  <label htmlFor="navilinja.starting_gdo_gid">
+                  <label htmlFor="navline.starting_gdo_gid">
                     Ensimmäinen navigointilinjan tunnus (GDO_GID):
                   </label>
                   <Field
                     component="input"
-                    name="navilinja.starting_gdo_gid"
+                    name="navline.starting_gdo_gid"
                     type="number"
                     style={{
                       width: 100,
@@ -383,7 +383,7 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.type">
+                  <label htmlFor="navline.calculation_params.type">
                     {" "}
                     Tyyppi:{" "}
                   </label>
@@ -391,14 +391,14 @@ function UserInputForm(props) {
                 <Grid item xs={8}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.type"
+                    name="navline.calculation_params.type"
                   >
                     <option value="inner">Väylän sisäosa</option>
                     <option value="outer">Väylän ulko-osa</option>
                   </Field>
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.number_of_lanes">
+                  <label htmlFor="navline.calculation_params.number_of_lanes">
                     {" "}
                     Kaistat:{" "}
                   </label>
@@ -406,28 +406,28 @@ function UserInputForm(props) {
                 <Grid item xs={8}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.number_of_lanes"
+                    name="navline.calculation_params.number_of_lanes"
                   >
                     <option value={2}>Kaksinen väylä</option>
                     <option value={1}>Yksisuuntainen väylä</option>
                   </Field>
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.bottom_surface">
+                  <label htmlFor="navline.calculation_params.bottom_surface">
                     {" "}Pohja:{" "}
                   </label>
                 </Grid>
                 <Grid item xs={8}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.bottom_surface"
+                    name="navline.calculation_params.bottom_surface"
                   >
                     <option value="smooth_and_soft">Sileä ja pehmeä</option>
                     <option value="rough_and_hard">Epätasainen ja kova</option>
                   </Field>
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.other.visibility">
+                  <label htmlFor="navline.calculation_params.other.visibility">
                     {" "}
                     Näkyvyys (m):{" "}
                   </label>
@@ -435,7 +435,7 @@ function UserInputForm(props) {
                 <Grid item xs={8}>
                   <Field
                     component="input"
-                    name="navilinja.calculation_params.other.visibility"
+                    name="navline.calculation_params.other.visibility"
                     type="number"
                     required
                     style={{
@@ -619,10 +619,10 @@ function UserInputForm(props) {
                   </div>
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.channel_edge">
+                  <label htmlFor="navline.calculation_params.channel_edge">
                     <Field
                       type="radio"
-                      name="navilinja.calculation_params.channel_edge"
+                      name="navline.calculation_params.channel_edge"
                       value="gentle_slope"
                       id="gentle_slope"
                     />
@@ -633,7 +633,7 @@ function UserInputForm(props) {
                   <label>
                     <Field
                       type="radio"
-                      name="navilinja.calculation_params.channel_edge"
+                      name="navline.calculation_params.channel_edge"
                       value="sloping_edges"
                       id="sloping_edges"
                     />
@@ -644,7 +644,7 @@ function UserInputForm(props) {
                   <label>
                     <Field
                       type="radio"
-                      name="navilinja.calculation_params.channel_edge"
+                      name="navline.calculation_params.channel_edge"
                       value="steep_and_hard"
                       id="steep_and_hard"
                     />
@@ -808,7 +808,7 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navilinja.calculation_params.aids_to_navigation">
+                  <label htmlFor="navline.calculation_params.aids_to_navigation">
                     {" "}
                     Turvalaitteet (ATN):{" "}
                   </label>
@@ -816,7 +816,7 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.aids_to_navigation"
+                    name="navline.calculation_params.aids_to_navigation"
                   >
                     <option value="excellent">Erinomainen</option>
                     <option value="good">Hyvä</option>
@@ -824,7 +824,7 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navilinja.calculation_params.light_pollution">
+                  <label htmlFor="navline.calculation_params.light_pollution">
                     {" "}
                     Taustavalon voimakkuus:{" "}
                   </label>
@@ -832,7 +832,7 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.light_pollution"
+                    name="navline.calculation_params.light_pollution"
                   >
                     <option value="negligible">Olematon</option>
                     <option value="low">Heikko</option>
@@ -841,7 +841,7 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navilinja.calculation_params.other.traffic_volume">
+                  <label htmlFor="navline.calculation_params.other.traffic_volume">
                     {" "}
                     Liikenteen määrä:{" "}
                   </label>
@@ -849,7 +849,7 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.other.traffic_volume"
+                    name="navline.calculation_params.other.traffic_volume"
                   >
                     <option value="negligible">Olematon</option>
                     <option value="low">Matala</option>
@@ -859,7 +859,7 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navilinja.calculation_params.other.traffic_complexity">
+                  <label htmlFor="navline.calculation_params.other.traffic_complexity">
                     {" "}
                     Liikenteen monimutkaisuus:{" "}
                   </label>
@@ -867,7 +867,7 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navilinja.calculation_params.other.traffic_complexity"
+                    name="navline.calculation_params.other.traffic_complexity"
                   >
                     <option value="negligible">Olematon</option>
                     <option value="low">Matala</option>
@@ -933,11 +933,11 @@ function UserInputForm(props) {
                   </div>
                 </Grid>
                 <Grid item xs={4} >
-                  <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
+                  <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
                     <Field
                       component="input"
                       type="radio"
-                      name="navilinja.calculation_params.operating_conditions.wind_speed"
+                      name="navline.calculation_params.operating_conditions.wind_speed"
                       value="mild"
                       id="mild"
                     />
@@ -1009,11 +1009,11 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
+                  <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
                     <Field
                       component="input"
                       type="radio"
-                      name="navilinja.calculation_params.operating_conditions.wind_speed"
+                      name="navline.calculation_params.operating_conditions.wind_speed"
                       value="moderate"
                       id="moderate"
                     />
@@ -1080,11 +1080,11 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="navilinja.calculation_params.operating_conditions.wind_speed">
+                  <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
                     <Field
                       component="input"
                       type="radio"
-                      name="navilinja.calculation_params.operating_conditions.wind_speed"
+                      name="navline.calculation_params.operating_conditions.wind_speed"
                       value="strong"
                       id="strong"
                     />
@@ -1178,11 +1178,11 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                        name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="negligible"
                         id="negligible"
                       />
@@ -1192,7 +1192,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_lower"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wneg_lower"
                       type="number"
                       step="0.01"
                       disabled
@@ -1207,7 +1207,7 @@ function UserInputForm(props) {
                     <Field
                       disabled
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wneg_upper"
                       type="number"
                       step="0.01"
                       placeholder="nopeus"
@@ -1219,11 +1219,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                        name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="low"
                         id="low"
                       />
@@ -1233,7 +1233,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wneg_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wneg_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1247,7 +1247,7 @@ function UserInputForm(props) {
                     <label>{"≤ v <"}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wlow_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1260,11 +1260,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                        name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="moderate"
                         id="moderate"
                       />
@@ -1274,7 +1274,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wlow_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wlow_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1288,7 +1288,7 @@ function UserInputForm(props) {
                     <label>{"≤ v <"}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wmod_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1301,11 +1301,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.cross_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.cross_current_speed"
+                        name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="strong"
                         id="strong"
                       />
@@ -1315,7 +1315,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wmod_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wmod_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1329,7 +1329,7 @@ function UserInputForm(props) {
                     <label>{"≤ v <"}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.cross_current_Wstrong_upper"
+                      name="navline.calculation_params.operating_conditions.cross_current_Wstrong_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1365,11 +1365,11 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="negligible"
                         id="negligible"
                       />
@@ -1379,7 +1379,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
+                      name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
                       type="number"
                       step="0.01"
                       disabled
@@ -1393,7 +1393,7 @@ function UserInputForm(props) {
                     <label>{"≤ v <"}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
+                      name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1406,11 +1406,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="moderate"
                         id="moderate"
                       />
@@ -1420,7 +1420,7 @@ function UserInputForm(props) {
                   <Grid item xs={8}>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
+                      name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1434,7 +1434,7 @@ function UserInputForm(props) {
                     <label>{"≤ v <"}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
+                      name="navline.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1447,11 +1447,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.longitudinal_current_speed">
+                    <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.longitudinal_current_speed"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="strong"
                         id="strong"
                       />
@@ -1462,7 +1462,7 @@ function UserInputForm(props) {
                     <label>{"v ≥ "}</label>
                     <Field
                       component="input"
-                      name="navilinja.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
+                      name="navline.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
                       type="number"
                       step="0.01"
                       disabled
@@ -1498,11 +1498,11 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                    <label htmlFor="navline.calculation_params.operating_conditions.wave_height">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.wave_height"
+                        name="navline.calculation_params.operating_conditions.wave_height"
                         value="low"
                         id="low"
                       />
@@ -1533,11 +1533,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                    <label htmlFor="navline.calculation_params.operating_conditions.wave_height">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.wave_height"
+                        name="navline.calculation_params.operating_conditions.wave_height"
                         value="moderate"
                         id="moderate"
                       />
@@ -1568,11 +1568,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <label htmlFor="navilinja.calculation_params.operating_conditions.wave_height">
+                    <label htmlFor="navline.calculation_params.operating_conditions.wave_height">
                       <Field
                         component="input"
                         type="radio"
-                        name="navilinja.calculation_params.operating_conditions.wave_height"
+                        name="navline.calculation_params.operating_conditions.wave_height"
                         value="high"
                         id="high"
                       />

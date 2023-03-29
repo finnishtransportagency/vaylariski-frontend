@@ -22,10 +22,10 @@ const userInputDefault = {
     draft: 10,
     manoeuvrability: "moderate",
   },
-  navilinja: {
+  navline: {
     VAYLAT: "",
     starting_gdo_gid: "",
-    navilinja: [
+    navline: [
       {
         coordinates: [],
         width: 10,
@@ -92,15 +92,7 @@ const userInputDefault = {
     strong_wind_moderate_vessel: 0.7,
     strong_wind_slow_vessel: 1.1,
   },
-  manoeuvrability_params: {
-    C_manoeuvrability_good: 1.3,
-    C_manoeuvrability_moderate: 1.5,
-    C_manoeuvrability_poor: 1.8,
-    C_turning_radius_good: 4,
-    C_turning_radius_moderate: 5,
-    C_turning_radius_poor: 6,
-  },
-  navilinja_angle_params: [],
+  navline_angle_params: [],
 
   PF_bend_parameters: {
     bend_ratio_lim_1: 0.6,
