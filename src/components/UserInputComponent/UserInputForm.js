@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { padding } from "@mui/system";
 import NotificationContext from "contexts/NotificationContext";
 import apiClient from "http-common";
+import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSelector";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
@@ -71,13 +72,23 @@ function UserInputForm(props) {
     }
   }
   function setDefaultWayareaName(wayarea) {
-    console.log(wayarea);
+    console.log('wayarea',wayarea);
     if (wayarea) {
       setSelectedWayarea(wayarea);
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
       setSelectedWayarea({});
       formik.setFieldValue("navline.VAYLAT", "");
+      setGDOList([]);
+    }
+  }
+
+  function setStartingNavline(ev, navline) {
+    console.log('setStartingNavline', ev, navline);
+    if(navline) {
+      formik.setFieldValue("navline.starting_gdo_gid", navline);
+    } else {
+      formik.setFieldValue("navline.starting_gdo_gid", "");
     }
   }
 
@@ -93,7 +104,7 @@ function UserInputForm(props) {
           .catch(err => {
             console.log(err);
             setNotificationStatus({
-              severity: "error",
+              severity: "warning",
               message: err.response.data.detail,
               visible: true,
             });
@@ -134,17 +145,12 @@ function UserInputForm(props) {
                   >
                     S-mutkan laskenta{" "}
                   </Typography>
-                  <label htmlFor="navline.starting_gdo_gid">
-                    Ensimmäinen navigointilinjan tunnus (GDO_GID):
-                  </label>
-                  <Field
-                    component="input"
+                  <CustomAutoCompleteSelectorComponent
+                    label="Ensimmäinen navigointilinjan tunnus (GDO_GID)"
                     name="navline.starting_gdo_gid"
-                    type="number"
-                    style={{
-                      width: 100,
-                    }}
-                  ></Field>
+                    handleMenuItemClick={setStartingNavline}
+                    optionsList={GDOList}
+                  />
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
                     Jos halutaan laskea s-mutkan suora, annetaan navigointilinjan
                     ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen GDO_GID on
