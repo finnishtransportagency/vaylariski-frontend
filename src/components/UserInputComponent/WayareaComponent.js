@@ -6,11 +6,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from 'react-bootstrap/Form';
+import VaylatInputValueContext from "contexts/VaylatInputValueContext";
 
 export default function WayareaNameComponent(props) {
   const { name, ...other } = props;
@@ -18,7 +19,7 @@ export default function WayareaNameComponent(props) {
   const [defaultWayarea, setDefaultWayarea] = useState([]);
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
-  const [vaylatInputValue, setVaylatInputValue] = useState("");
+  const {vaylatInputValue, setVaylatInputValue} = useContext(VaylatInputValueContext);
 
   useEffect(() => {
     console.log("vaylatInputValue", vaylatInputValue);
@@ -44,6 +45,11 @@ export default function WayareaNameComponent(props) {
     props.setDefaultWayareaName(newValue);
   }
 
+  function handleOnInputChange(ev, newInputValue) {
+    console.log('newinputti', newInputValue);
+    setVaylatInputValue(newInputValue);
+  }
+
   return (
     <Form.Group className={meta.error && "has-error"}>
       <Typography style={{ fontSize: 16, fontWeight:550}} color="textSecondary" gutterBottom>
@@ -65,8 +71,7 @@ export default function WayareaNameComponent(props) {
         }
         onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
         inputValue={vaylatInputValue}
-        onInputChange={(ev, newInputValue) =>
-          setVaylatInputValue(newInputValue)
+        onInputChange={(ev, newInputValue) => handleOnInputChange(ev, newInputValue)
         }
         sx={{ width: 350 }}
         renderInput={(params) => (

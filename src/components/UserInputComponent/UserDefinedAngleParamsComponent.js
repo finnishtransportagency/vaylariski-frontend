@@ -7,20 +7,33 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
+import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSelector";
+import GDOGIDListContext from "contexts/GDOListContext";
 import { Field, FieldArray } from "formik";
 import PropTypes from "prop-types";
+import { useContext } from "react";
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
+  const {GDOList, setGDOList} = useContext(GDOGIDListContext);
   const newAngle = {
     GDO_GID: "",
     SADE: "",
     S_BEND: "",
     BEND_ANGLE: "",
   };
+
+  function setStartingNavline(ev, navline, name) {
+    console.log('setStartingNavline', ev, navline ,name);
+    if(navline) {
+      formik.setFieldValue(name, navline);
+    } else {
+      formik.setFieldValue(name, "");
+    }
+  }
 
   return (
     <div
@@ -40,12 +53,18 @@ export default function UserDefinedAngleParamsComponent(props) {
               {formik.values.navline_angle_params.length > 0 &&
                 formik.values.navline_angle_params.map((el, index) => (
                   <Stack direction="row" spacing={1} key={index}>
-                    <Field
+                    <CustomAutoCompleteSelectorComponent
+                      label="Muutettavan navigointilinjan GDO_GID"
+                      name={`navline_angle_params.${index}.GDO_GID`}
+                      handleMenuItemClick={setStartingNavline}
+                      optionsList={GDOList}
+                    />
+                    {/* <Field
                       name={`navline_angle_params.${index}.GDO_GID`}
                       required
                       placeholder="GDO_GID"
                       type="float"
-                    />
+                    /> */}
                     <Field
                       name={`navline_angle_params.${index}.SADE`}
                       placeholder="Säde"

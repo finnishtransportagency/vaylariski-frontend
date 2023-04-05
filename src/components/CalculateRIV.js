@@ -13,6 +13,8 @@ import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
+import GDOGIDListContext from "contexts/GDOListContext";
+import VaylatInputValueContext from "contexts/VaylatInputValueContext";
 
 const userInputDefault = {
   boat: {
@@ -99,13 +101,13 @@ const userInputDefault = {
     bend_ratio_lim_2: 1.0,
     bend_ratio_lim_3: 1.6,
     bend_ratio_lim_4: 2.0,
-    
+
     PF_bend_radius_1: 4,
     PF_bend_radius_2: 3,
     PF_bend_radius_3: 2,
     PF_bend_radius_4: 1,
     PF_bend_radius_5: 0,
-    
+
     bend_angle_lim_1: 30,
     bend_angle_lim_2: 50,
     bend_angle_lim_3: 60,
@@ -116,7 +118,7 @@ const userInputDefault = {
     PF_bend_angle_3: 1.0,
     PF_bend_angle_4: 1.5,
     PF_bend_angle_5: 2.0,
-  }
+  },
 };
 
 function CalculateRIV() {
@@ -133,6 +135,8 @@ function CalculateRIV() {
     visible: false,
   });
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
+  const [GDOList, setGDOList] = useState([]);
+  const [vaylatInputValue, setVaylatInputValue] = useState("");
 
   useEffect(() => {
     console.log(RIVTrafficLight);
@@ -153,13 +157,19 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <NotificationComponent />
-                <LoadingSpinner />
-                <ParameterTabsComponent />
-                <MapView />
-                <RIVResultsTabsComponent />
-                {/* <DisplayRIVResultsTableView/>
+                <VaylatInputValueContext.Provider
+                  value={{ vaylatInputValue, setVaylatInputValue }}
+                >
+                  <GDOGIDListContext.Provider value={{ GDOList, setGDOList }}>
+                    <NotificationComponent />
+                    <LoadingSpinner />
+                    <ParameterTabsComponent />
+                    <MapView />
+                    <RIVResultsTabsComponent />
+                    {/* <DisplayRIVResultsTableView/>
                 <DisplayRIVResultsDiagramView /> */}
+                  </GDOGIDListContext.Provider>
+                </VaylatInputValueContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>

@@ -23,6 +23,7 @@ import { padding } from "@mui/system";
 import NotificationContext from "contexts/NotificationContext";
 import apiClient from "http-common";
 import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSelector";
+import GDOGIDListContext from "contexts/GDOListContext";
 
 function UserInputForm(props) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
@@ -35,7 +36,7 @@ function UserInputForm(props) {
   const [selectedWayarea, setSelectedWayarea] = useState({});
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
-  const [GDOList, setGDOList] = useState([]);
+  const {GDOList, setGDOList} = useContext(GDOGIDListContext);
 
   const handleMouseOver = () => {
     setIsHovering(true);

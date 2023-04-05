@@ -22,7 +22,7 @@ export default function CustomAutoCompleteSelectorComponent(props) {
   // }, [inputValue, value]);
 
   function handleOnChange(ev, newValue) {
-    props.handleMenuItemClick(ev, newValue);
+    props.handleMenuItemClick(ev, newValue, name);
     setValue(newValue);
   }
 
