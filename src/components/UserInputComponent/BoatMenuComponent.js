@@ -58,7 +58,6 @@ export default function BoatMenuComponent(props) {
         </Typography>
         <Autocomplete
           id="boat"
-          freeSolo
           disablePortal
           options={defaultBoats}
           getOptionLabel={(option) =>

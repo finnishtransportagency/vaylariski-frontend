@@ -58,7 +58,6 @@ export default function WayareaNameComponent(props) {
       </Typography>
       <Autocomplete
         id="navline.VAYLAT"
-        freeSolo
         disablePortal
         options={defaultWayarea}
         getOptionLabel={(option) =>
