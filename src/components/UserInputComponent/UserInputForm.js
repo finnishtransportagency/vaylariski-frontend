@@ -128,6 +128,10 @@ function UserInputForm(props) {
                     <option value="100">100</option>
                     <option value="1000">1000</option>
                   </Field>
+                  <Typography color="textSecondary" style={{ fontSize: 14 }}>
+                    Valitse navigointilinjan pisteiden välinen intervalli,
+                    joille laskenta suoritetaan. Oletusarvo on 10m.
+                  </Typography>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
