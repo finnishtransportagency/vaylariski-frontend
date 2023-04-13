@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
 import DisplayRIVResultsTableView from "views/DisplayRIVResultsTableView";
+import TableView from "views/TableView";
 
 function a11yProps(index) {
   return {
@@ -34,7 +35,7 @@ export default function RIVResultsTabsComponent(params) {
           />
         </Tabs>
       </Box>
-      <DisplayRIVResultsTableView tabValue={value} tabIndex={0} />
+      <TableView tabValue={value} tabIndex={0} />
       <DisplayRIVResultsDiagramView tabValue={value} tabIndex={1} />
     </Box>
   );
