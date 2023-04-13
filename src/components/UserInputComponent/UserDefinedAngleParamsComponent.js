@@ -53,6 +53,13 @@ export default function UserDefinedAngleParamsComponent(props) {
         lähettämistä, joten kaikki tyhjät kentät pitää olla poistettu ennen
         laskennan lähettämistä.
       </Typography>
+      <Typography
+        style={{ fontSize: 16, fontWeight: 550 }}
+        color="textSecondary"
+        gutterBottom
+      >
+        Muutettavan navigointilinjan GDO_GID
+      </Typography>
       {tabValue === tabIndex && (
         <FieldArray name="navline_angle_params">
           {({ insert, remove, push }) => (
@@ -60,34 +67,33 @@ export default function UserDefinedAngleParamsComponent(props) {
               {formik.values.navline_angle_params.length > 0 &&
                 formik.values.navline_angle_params.map((el, index) => (
                   <Stack direction="row" spacing={1} key={index} mt={1}>
-                      <CustomAutoCompleteSelectorComponent
-                        label="Muutettavan navigointilinjan GDO_GID"
-                        name={`navline_angle_params.${index}.GDO_GID`}
-                        handleMenuItemClick={setStartingNavline}
-                        optionsList={GDOList}
-                      />
-                        <Field
-                          name={`navline_angle_params.${index}.SADE`}
-                          placeholder="Säde"
-                          type="float"
-                        />
-                      <Field
-                        name={`navline_angle_params.${index}.BEND_ANGLE`}
-                        placeholder="Kaarteen kulma"
-                        type="float"
-                      />
-                      <Field
-                        name={`navline_angle_params.${index}.S_BEND`}
-                        placeholder="S-mutkan pituus"
-                        type="float"
-                      />
-                      <Button onClick={() => remove(index)}>Poista</Button>
+                    <CustomAutoCompleteSelectorComponent
+                      name={`navline_angle_params.${index}.GDO_GID`}
+                      handleMenuItemClick={setStartingNavline}
+                      optionsList={GDOList}
+                    />
+                    <Field
+                      name={`navline_angle_params.${index}.SADE`}
+                      placeholder="Säde"
+                      type="float"
+                    />
+                    <Field
+                      name={`navline_angle_params.${index}.BEND_ANGLE`}
+                      placeholder="Kaarteen kulma"
+                      type="float"
+                    />
+                    <Field
+                      name={`navline_angle_params.${index}.S_BEND`}
+                      placeholder="S-mutkan pituus"
+                      type="float"
+                    />
+                    <Button onClick={() => remove(index)}>Poista</Button>
                   </Stack>
                 ))}
-              <Button variant="contained" onClick={() => push(newAngle)}>
+              <Button variant="contained" onClick={() => push(newAngle)} style={{marginTop: 10, marginRight: 10}}>
                 Lisää uusi kulmaparametri
               </Button>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" style={{marginTop: 10}}>
                 Lähetä
               </Button>
             </div>
