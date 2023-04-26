@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import L, { FeatureGroup } from "leaflet";
+import { useContext, useEffect, useState, useRef } from "react";
+import L, { FeatureGroup, latLng } from "leaflet";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -116,14 +116,32 @@ function GeoJSONMarkers() {
 }
 
 function MapView() {
+  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
+  const mapRef = useRef(null);
+  
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.setView(coords, 9);
+    }
+  }, [coords]);
+
+  useEffect(() => {
+    if (typeof(RIVResults.features)!=="undefined") {
+      setCoords({ lat: RIVResults.features[0].geometry.coordinates[1], lng: RIVResults.features[0].geometry.coordinates[0]});
+    }
+  }, [RIVResults]);
+
+
+
   return (
     <>
       <RIVTrafficLightsComponent />
       <MapContainer
         // whenReady={ instance => {mapRef.current = instance} }
-        // ref={mapRef}
-        center={[62, 23.5]}
-        zoom={7}
+        ref={mapRef}
+        center={coords}
+        zoom={9}
         scrollWheelZoom={true}
         style={{
           height: "800px",
