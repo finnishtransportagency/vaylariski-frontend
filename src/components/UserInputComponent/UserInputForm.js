@@ -103,10 +103,10 @@ function UserInputForm(props) {
                     name="navline.VAYLAT"
                   />
                 </Grid>
-                <Grid item xs={3}>
-                  <label htmlFor="calculation_interval">Intervalli (m):</label>
+                <Grid item xs={4}>
+                  <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={8}>
                   <Field
                     component="select"
                     name="calculation_interval"
@@ -128,9 +128,10 @@ function UserInputForm(props) {
                     <option value="100">100</option>
                     <option value="1000">1000</option>
                   </Field>
+                  </Grid>
+                <Grid item xs={12}>
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                    Valitse navigointilinjan pisteiden välinen intervalli,
-                    joille laskenta suoritetaan. Oletusarvo on 10m.
+                    Valitse laskentapisteiden välinen etäisyys navigointilinjalla. Oletusarvo on 10 m.
                   </Typography>
                 </Grid>
               </Grid>
