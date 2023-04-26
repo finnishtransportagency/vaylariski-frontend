@@ -78,6 +78,7 @@ export default function WayareaNameComponent(props) {
           <TextField
             style={{ backgroundColor: "white" }}
             {...params}
+            size="small"
             required
           />
         )}

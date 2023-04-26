@@ -58,7 +58,9 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         renderInput={(params) => (
           <TextField
             style={{ backgroundColor: "white" }}
+            
             {...params}
+            size="small"
           />
         )}
       />

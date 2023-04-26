@@ -73,16 +73,19 @@ export default function UserDefinedAngleParamsComponent(props) {
                       optionsList={GDOList}
                     />
                     <Field
+                      style={{marginTop: 5}}
                       name={`navline_angle_params.${index}.SADE`}
                       placeholder="Säde"
                       type="float"
                     />
                     <Field
+                      style={{marginTop: 5}}
                       name={`navline_angle_params.${index}.BEND_ANGLE`}
                       placeholder="Kaarteen kulma"
                       type="float"
                     />
                     <Field
+                      style={{marginTop: 5}}
                       name={`navline_angle_params.${index}.S_BEND`}
                       placeholder="S-mutkan pituus"
                       type="float"
