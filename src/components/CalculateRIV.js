@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import DisplayRIVResultsTableView from "../views/DisplayRIVResultsTableView";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -117,7 +116,7 @@ const userInputDefault = {
     PF_bend_angle_4: 1.5,
     PF_bend_angle_5: 2.0,
   },
-  calculation_interval: 10
+  calculation_interval: 10,
 };
 
 function CalculateRIV() {
@@ -159,8 +158,6 @@ function CalculateRIV() {
                 <ParameterTabsComponent />
                 <MapView />
                 <RIVResultsTabsComponent />
-                {/* <DisplayRIVResultsTableView/>
-                <DisplayRIVResultsDiagramView /> */}
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
