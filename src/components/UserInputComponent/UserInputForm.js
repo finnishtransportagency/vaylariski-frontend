@@ -37,6 +37,12 @@ function UserInputForm(props) {
     setDefaultWayareaList,
     vaylatInputValue,
     setVaylatInputValue,
+    defaultBoats,
+    setDefaultBoats,
+    selectedIndex,
+    setSelectedIndex,
+    boatInputValue,
+    setBoatInputValue,
     ...other
   } = props;
 
@@ -239,6 +245,12 @@ function UserInputForm(props) {
                   <BoatMenuComponent
                     setDefaultBoatValues={setDefaultBoatValues}
                     name="boat"
+                    defaultBoats={defaultBoats}
+                    setDefaultBoats={setDefaultBoats}
+                    selectedIndex={selectedIndex}
+                    setSelectedIndex={setSelectedIndex}
+                    boatInputValue={boatInputValue}
+                    setBoatInputValue={setBoatInputValue}
                   />
                 </Grid>
               </Grid>
@@ -2302,4 +2314,10 @@ UserInputForm.propTypes = {
   setDefaultWayareaList: PropTypes.func,
   vaylatInputValue: PropTypes.string,
   setVaylatInputValue: PropTypes.func,
+  defaultBoats: PropTypes.array,
+  setDefaultBoats: PropTypes.func,
+  selectedIndex: PropTypes.number,
+  setSelectedIndex: PropTypes.func,
+  boatInputValue: PropTypes.string,
+  setBoatInputValue: PropTypes.func
 };

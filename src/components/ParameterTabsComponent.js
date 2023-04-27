@@ -45,6 +45,9 @@ export default function ParameterTabsComponent() {
   const { vaylatInputValue, setVaylatInputValue } = useContext(
     VaylatInputValueContext
   );
+  const [defaultBoats, setDefaultBoats] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [boatInputValue, setBoatInputValue] = useState("");
 
   useEffect(() => {
     console.log("param tabs: vaylatInputValue", vaylatInputValue);
@@ -106,9 +109,21 @@ export default function ParameterTabsComponent() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log('param tabs default ways',defaultWayareaList);
-  // }, [defaultWayareaList]);
+  useEffect(() => {
+    if (defaultBoats.length > 0) return;
+    const path = "get_all_default_ships";
+    try {
+      apiClient.get(path).then((response) => setDefaultBoats(response.data));
+    } catch (err) {
+      console.log(err);
+      setNotificationStatus({
+        severity: "error",
+        message: err.message,
+        visible: true,
+      });
+    } finally {
+    }
+  }, []);
 
   return (
     <Box sx={{ width: "100%", margin: "5px" }}>
@@ -145,6 +160,12 @@ export default function ParameterTabsComponent() {
               setDefaultWayareaList={setDefaultWayareaList}
               vaylatInputValue={vaylatInputValue}
               setVaylatInputValue={setVaylatInputValue}
+              defaultBoats={defaultBoats}
+              setDefaultBoats={setDefaultBoats}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+              boatInputValue={boatInputValue}
+              setBoatInputValue={setBoatInputValue}
 
             />
             <UserDefinedAngleParamsComponent
