@@ -14,7 +14,6 @@ export default function CustomAutoCompleteSelectorComponent(props) {
   const { name, label, optionsList, inputValue, setInputValue, ...other } =
     props;
   const [field, meta] = useField(name);
-  const [value, setValue] = useState("");
 
   // useEffect(() => {
   //   console.log("inputValue", inputValue);
@@ -23,14 +22,8 @@ export default function CustomAutoCompleteSelectorComponent(props) {
 
   function handleOnChange(ev, newValue) {
     props.handleMenuItemClick(ev, newValue, name);
-    setValue(newValue);
   }
 
-  useEffect(() => {
-    if (optionsList === undefined || optionsList.length == 0) {
-      setValue("");
-    }
-  }, [optionsList]);
 
   return (
     <Form.Group className={meta.error && "has-error"}>
@@ -38,7 +31,6 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         {label}
       </Typography>
       <Autocomplete
-        value={value}
         id={name}
         disablePortal
         options={optionsList}
