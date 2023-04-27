@@ -7,7 +7,7 @@ export default function RIVTrafficLightsComponent(params) {
 
   return (
     <CardContent>
-      <Typography style={{ fontSize: 16 }} color="textSecondary" gutterBottom>
+      <Typography style={{ fontSize: 16, fontWeight:550 }} color="textSecondary" gutterBottom>
         Riskiarvojen esitysvärien raja-arvot:
       </Typography>
       <Grid container spacing={1}>
