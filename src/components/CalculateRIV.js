@@ -10,7 +10,6 @@ import NotificationContext from "contexts/NotificationContext";
 import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
-import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
 
 const userInputDefault = {
