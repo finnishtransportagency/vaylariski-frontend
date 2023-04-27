@@ -122,8 +122,7 @@ const userInputDefault = {
     PF_bend_angle_5: 2.0,
   },
   calculation_interval: 10
-  },
-};
+  };
 
 
 
