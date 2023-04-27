@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useField } from "formik";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 export default function CustomAutoCompleteSelectorComponent(props) {
-  const { name, label, optionsList, ...other } = props;
+  const { name, label, optionsList, inputValue, setInputValue, ...other } =
+    props;
   const [field, meta] = useField(name);
-  const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState("");
 
   // useEffect(() => {
@@ -26,7 +26,7 @@ export default function CustomAutoCompleteSelectorComponent(props) {
     setValue(newValue);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     if (optionsList === undefined || optionsList.length == 0) {
       setValue("");
     }
@@ -34,11 +34,7 @@ export default function CustomAutoCompleteSelectorComponent(props) {
 
   return (
     <Form.Group className={meta.error && "has-error"}>
-      <Typography
-        style={{ fontSize: 14 }}
-        color="textSecondary"
-        gutterBottom
-      >
+      <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         {label}
       </Typography>
       <Autocomplete
@@ -47,19 +43,14 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         disablePortal
         options={optionsList}
         clearOnBlur={false}
-        getOptionLabel={(option) =>
-          option ? option.toString() : ""
-        }
+        getOptionLabel={(option) => (option ? option.toString() : "")}
         onChange={(ev, newValue) => handleOnChange(ev, newValue)}
         inputValue={inputValue}
-        onInputChange={(ev, newInputValue) =>
-          setInputValue(newInputValue)
-        }
+        onInputChange={(ev, newInputValue) => setInputValue(newInputValue)}
         sx={{ width: 350 }}
         renderInput={(params) => (
           <TextField
             style={{ backgroundColor: "white" }}
-
             {...params}
             size="small"
           />

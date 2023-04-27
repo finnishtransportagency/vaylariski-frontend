@@ -43,6 +43,10 @@ function UserInputForm(props) {
     setSelectedIndex,
     boatInputValue,
     setBoatInputValue,
+    GDOList,
+    setGDOList,
+    GDOInput,
+    setGDOInput,
     ...other
   } = props;
 
@@ -53,7 +57,7 @@ function UserInputForm(props) {
   const [selectedBoat, setSelectedBoat] = useState({});
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
-  const { GDOList, setGDOList } = useContext(GDOGIDListContext);
+
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -221,6 +225,8 @@ function UserInputForm(props) {
                     name="navline.starting_gdo_gid"
                     handleMenuItemClick={setStartingNavline}
                     optionsList={GDOList}
+                    inputValue={GDOInput}
+                    setInputValue={setGDOInput}
                   />
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
                     Jos halutaan laskea s-mutkan suora, annetaan
@@ -2319,5 +2325,9 @@ UserInputForm.propTypes = {
   selectedIndex: PropTypes.number,
   setSelectedIndex: PropTypes.func,
   boatInputValue: PropTypes.string,
-  setBoatInputValue: PropTypes.func
+  setBoatInputValue: PropTypes.func,
+  GDOList: PropTypes.array,
+  setGDOList: PropTypes.func,
+  GDOInput: PropTypes.string,
+  setGDOInput: PropTypes.func,
 };

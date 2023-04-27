@@ -15,6 +15,7 @@ import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import * as Yup from "yup";
 import VaylatInputValueContext from "contexts/VaylatInputValueContext";
+import GDOGIDListContext from "contexts/GDOListContext";
 
 const validationSchema = Yup.object().shape({
   navline: Yup.object().shape({
@@ -48,6 +49,9 @@ export default function ParameterTabsComponent() {
   const [defaultBoats, setDefaultBoats] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [boatInputValue, setBoatInputValue] = useState("");
+
+  const { GDOList, setGDOList } = useContext(GDOGIDListContext);
+  const [ GDOInput, setGDOInput ] = useState("");
 
   useEffect(() => {
     console.log("param tabs: vaylatInputValue", vaylatInputValue);
@@ -166,6 +170,10 @@ export default function ParameterTabsComponent() {
               setSelectedIndex={setSelectedIndex}
               boatInputValue={boatInputValue}
               setBoatInputValue={setBoatInputValue}
+              GDOList={GDOList}
+              setGDOList={setGDOList}
+              GDOInput={GDOInput}
+              setGDOInput={setGDOInput}
 
             />
             <UserDefinedAngleParamsComponent
