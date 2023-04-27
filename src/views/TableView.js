@@ -8,6 +8,7 @@ import {
   Modal,
   Button
 } from "@mui/material";
+import NotificationContext from "contexts/NotificationContext";
 
 
 const style = {
@@ -36,6 +37,8 @@ function TableView(props, { direction }) {
   const [sortColumns, setSortColumns] = useState([])
   const onSortColumnsChange = useCallback(sortColumns => { setSortColumns(sortColumns.slice(-1)) }, [])
   const [open, setOpen] = useState(false);
+  const { notificationStatus, setNotificationStatus } =
+  useContext(NotificationContext);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -387,6 +390,13 @@ function TableView(props, { direction }) {
 
       rowResults.push(props);
     });
+    if (rowResults[0].draft_is_greater_than_depth) {
+      setNotificationStatus({
+        severity: "warning",
+        message: "Laivan syväys on suurempi kuin väylän syvyys!",
+        visible: true,
+      });
+    }
     setDisplayRowResults(rowResults);
   }, [RIVResults]);
 
@@ -399,8 +409,8 @@ function TableView(props, { direction }) {
     let sortedRows = [...displayRowResults]
 
     switch (columnKey) {
-      // case "GDO_GID": 
-      // case "RISK_INDEX_SUM":"RISK_INDEX_SUM" 
+      // case "GDO_GID":
+      // case "RISK_INDEX_SUM":"RISK_INDEX_SUM"
       default:
         sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey])
         break
