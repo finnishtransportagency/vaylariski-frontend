@@ -26,17 +26,28 @@ import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSe
 import GDOGIDListContext from "contexts/GDOListContext";
 
 function UserInputForm(props) {
-  const { children, tabValue, tabIndex, formik, ...other } = props;
+  const {
+    children,
+    tabValue,
+    tabIndex,
+    formik,
+    setSelectedWayarea,
+    selectedWayarea,
+    defaultWayareaList,
+    setDefaultWayareaList,
+    vaylatInputValue,
+    setVaylatInputValue,
+    ...other
+  } = props;
 
   // const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState({});
-  const [selectedWayarea, setSelectedWayarea] = useState({});
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
-  const {GDOList, setGDOList} = useContext(GDOGIDListContext);
+  const { GDOList, setGDOList } = useContext(GDOGIDListContext);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -56,6 +67,9 @@ function UserInputForm(props) {
   const handleMouseOutWind = () => {
     setIsHoveringWind(false);
   };
+  // useEffect(() => {
+  //   console.log('userinputform default ways',defaultWayareaList);
+  // }, [defaultWayareaList]);
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
@@ -73,7 +87,7 @@ function UserInputForm(props) {
     }
   }
   function setDefaultWayareaName(wayarea) {
-    console.log('wayarea',wayarea);
+    console.log("setDefaultWayareaName", wayarea);
     if (wayarea) {
       setSelectedWayarea(wayarea);
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
@@ -85,8 +99,8 @@ function UserInputForm(props) {
   }
 
   function setStartingNavline(ev, navline) {
-    console.log('setStartingNavline', ev, navline);
-    if(navline) {
+    console.log("setStartingNavline", ev, navline);
+    if (navline) {
       formik.setFieldValue("navline.starting_gdo_gid", navline);
     } else {
       formik.setFieldValue("navline.starting_gdo_gid", "");
@@ -97,19 +111,21 @@ function UserInputForm(props) {
     if (selectedWayarea.VAYLAT) {
       console.log(selectedWayarea.VAYLAT);
       const path = "gdo_gids_for_vaylat";
-        apiClient.get(path, {
+      apiClient
+        .get(path, {
           params: {
-            VAYLAT: selectedWayarea.VAYLAT
-          }
-          }).then((response) => setGDOList(response.data.GDO_GID))
-          .catch(err => {
-            console.log(err);
-            setNotificationStatus({
-              severity: "warning",
-              message: err.response.data.detail,
-              visible: true,
-            });
+            VAYLAT: selectedWayarea.VAYLAT,
+          },
+        })
+        .then((response) => setGDOList(response.data.GDO_GID))
+        .catch((err) => {
+          console.log(err);
+          setNotificationStatus({
+            severity: "warning",
+            message: err.response.data.detail,
+            visible: true,
           });
+        });
     }
   }, [selectedWayarea]);
 
@@ -142,10 +158,18 @@ function UserInputForm(props) {
                   <WayareaComponent
                     setDefaultWayareaName={setDefaultWayareaName}
                     name="navline.VAYLAT"
+                    setSelectedWayarea={setSelectedWayarea}
+                    selectedWayarea={selectedWayarea}
+                    defaultWayareaList={defaultWayareaList}
+                    setDefaultWayareaList={setDefaultWayareaList}
+                    vaylatInputValue={vaylatInputValue}
+                    setVaylatInputValue={setVaylatInputValue}
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
+                  <label htmlFor="calculation_interval">
+                    Pisteiden väli (m):
+                  </label>
                 </Grid>
                 <Grid item xs={8}>
                   <Field
@@ -169,10 +193,11 @@ function UserInputForm(props) {
                     <option value="100">100</option>
                     <option value="1000">1000</option>
                   </Field>
-                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                    Valitse laskentapisteiden välinen etäisyys navigointilinjalla. Oletusarvo on 10 m.
+                    Valitse laskentapisteiden välinen etäisyys
+                    navigointilinjalla. Oletusarvo on 10 m.
                   </Typography>
                 </Grid>
               </Grid>
@@ -2271,4 +2296,10 @@ UserInputForm.propTypes = {
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
   formik: PropTypes.object,
+  setSelectedWayarea: PropTypes.func,
+  selectedWayarea: PropTypes.object,
+  defaultWayareaList: PropTypes.array,
+  setDefaultWayareaList: PropTypes.func,
+  vaylatInputValue: PropTypes.string,
+  setVaylatInputValue: PropTypes.func,
 };

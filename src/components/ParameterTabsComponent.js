@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -14,6 +14,7 @@ import { Form as FForm } from "formik";
 import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import * as Yup from "yup";
+import VaylatInputValueContext from "contexts/VaylatInputValueContext";
 
 const validationSchema = Yup.object().shape({
   navline: Yup.object().shape({
@@ -39,6 +40,16 @@ export default function ParameterTabsComponent() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
+  const [selectedWayarea, setSelectedWayarea] = useState({});
+  const [defaultWayareaList, setDefaultWayareaList] = useState([]);
+  const { vaylatInputValue, setVaylatInputValue } = useContext(
+    VaylatInputValueContext
+  );
+
+  useEffect(() => {
+    console.log("param tabs: vaylatInputValue", vaylatInputValue);
+  }, [vaylatInputValue]);
+
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -77,6 +88,28 @@ export default function ParameterTabsComponent() {
     }
   };
 
+  useEffect(() => {
+    // Only need to fetch once
+    if (defaultWayareaList.length > 0) return;
+    const path = "wayarea_names";
+    try {
+      console.log('hakee vaylat nimet lista')
+      apiClient.get(path).then((response) => setDefaultWayareaList(response.data));
+    } catch (err) {
+      console.log(err);
+      setNotificationStatus({
+        severity: "error",
+        message: err.message,
+        visible: true,
+      });
+    } finally {
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   console.log('param tabs default ways',defaultWayareaList);
+  // }, [defaultWayareaList]);
+
   return (
     <Box sx={{ width: "100%", margin: "5px" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -102,11 +135,28 @@ export default function ParameterTabsComponent() {
       >
         {(formik) => (
           <FForm>
-            <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
+            <UserInputForm
+              tabValue={value}
+              tabIndex={0}
+              formik={formik}
+              setSelectedWayarea={setSelectedWayarea}
+              selectedWayarea={selectedWayarea}
+              defaultWayareaList={defaultWayareaList}
+              setDefaultWayareaList={setDefaultWayareaList}
+              vaylatInputValue={vaylatInputValue}
+              setVaylatInputValue={setVaylatInputValue}
+
+            />
             <UserDefinedAngleParamsComponent
               tabValue={value}
               tabIndex={1}
               formik={formik}
+              setSelectedWayarea={setSelectedWayarea}
+              selectedWayarea={selectedWayarea}
+              defaultWayareaList={defaultWayareaList}
+              setDefaultWayareaList={setDefaultWayareaList}
+              vaylatInputValue={vaylatInputValue}
+              setVaylatInputValue={setVaylatInputValue}
             />
           </FForm>
         )}

@@ -6,7 +6,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Fragment, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
@@ -14,64 +21,56 @@ import Form from 'react-bootstrap/Form';
 import VaylatInputValueContext from "contexts/VaylatInputValueContext";
 
 export default function WayareaNameComponent(props) {
-  const { name, ...other } = props;
+  const {
+    name,
+    defaultWayareaList,
+    setDefaultWayareaList,
+    vaylatInputValue,
+    setVaylatInputValue,
+    ...other
+  } = props;
   const [field, meta] = useField(name);
-  const [defaultWayarea, setDefaultWayarea] = useState([]);
-  const { notificationStatus, setNotificationStatus } =
-    useContext(NotificationContext);
-  const {vaylatInputValue, setVaylatInputValue} = useContext(VaylatInputValueContext);
 
   useEffect(() => {
-    console.log("vaylatInputValue", vaylatInputValue);
+    console.log("wayareacomp : vaylatInputValue", vaylatInputValue);
   }, [vaylatInputValue]);
-
-  useEffect(() => {
-    const path = "wayarea_names";
-    try {
-      apiClient.get(path).then((response) => setDefaultWayarea(response.data));
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.message,
-        visible: true,
-      });
-    } finally {
-    }
-  }, []);
 
   function handleMenuItemClick(event, newValue) {
     console.log(newValue);
     props.setDefaultWayareaName(newValue);
   }
 
-  function handleOnInputChange(ev, newInputValue) {
-    console.log('newinputti', newInputValue);
+  function handleOnInputChange(event, newInputValue, reason) {
+    console.log("newinputti", newInputValue);
     setVaylatInputValue(newInputValue);
+
   }
+
 
   return (
     <Form.Group className={meta.error && "has-error"}>
-      <Typography style={{ fontSize: 16, fontWeight:550}} color="textSecondary" gutterBottom>
-        Valitse väylä
-      </Typography>
       <Typography
-        style={{ fontSize: 14 }}
+        style={{ fontSize: 16, fontWeight: 550 }}
         color="textSecondary"
         gutterBottom
       >
+        Valitse väylä
+      </Typography>
+      <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         VAYLAT id/nimi:{" "}
       </Typography>
       <Autocomplete
         id="navline.VAYLAT"
         disablePortal
-        options={defaultWayarea}
+        options={defaultWayareaList}
+        clearOnBlur={false}
         getOptionLabel={(option) =>
           option ? `${option.VAYLAT} - ${option.Nimi}` : ""
         }
         onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
         inputValue={vaylatInputValue}
-        onInputChange={(ev, newInputValue) => handleOnInputChange(ev, newInputValue)
+        onInputChange={(event, newInputValue, reason) =>
+          handleOnInputChange(event, newInputValue, reason)
         }
         sx={{ width: 350 }}
         renderInput={(params) => (

@@ -46,6 +46,7 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         id={name}
         disablePortal
         options={optionsList}
+        clearOnBlur={false}
         getOptionLabel={(option) =>
           option ? option.toString() : ""
         }
@@ -58,7 +59,7 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         renderInput={(params) => (
           <TextField
             style={{ backgroundColor: "white" }}
-            
+
             {...params}
             size="small"
           />

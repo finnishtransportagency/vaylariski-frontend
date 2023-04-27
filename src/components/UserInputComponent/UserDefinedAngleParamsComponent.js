@@ -17,7 +17,19 @@ import { useContext } from "react";
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
-  const { children, tabValue, tabIndex, formik, ...other } = props;
+  const {
+    children,
+    tabValue,
+    tabIndex,
+    formik,
+    setSelectedWayarea,
+    selectedWayarea,
+    defaultWayareaList,
+    setDefaultWayareaList,
+    vaylatInputValue,
+    setVaylatInputValue,
+    ...other
+  } = props;
   const { GDOList, setGDOList } = useContext(GDOGIDListContext);
   const newAngle = {
     GDO_GID: "",
@@ -73,19 +85,19 @@ export default function UserDefinedAngleParamsComponent(props) {
                       optionsList={GDOList}
                     />
                     <Field
-                      style={{marginTop: 5}}
+                      style={{ marginTop: 5 }}
                       name={`navline_angle_params.${index}.SADE`}
                       placeholder="Säde"
                       type="float"
                     />
                     <Field
-                      style={{marginTop: 5}}
+                      style={{ marginTop: 5 }}
                       name={`navline_angle_params.${index}.BEND_ANGLE`}
                       placeholder="Kaarteen kulma"
                       type="float"
                     />
                     <Field
-                      style={{marginTop: 5}}
+                      style={{ marginTop: 5 }}
                       name={`navline_angle_params.${index}.S_BEND`}
                       placeholder="S-mutkan pituus"
                       type="float"
@@ -93,10 +105,18 @@ export default function UserDefinedAngleParamsComponent(props) {
                     <Button onClick={() => remove(index)}>Poista</Button>
                   </Stack>
                 ))}
-              <Button variant="contained" onClick={() => push(newAngle)} style={{marginTop: 10, marginRight: 10}}>
+              <Button
+                variant="contained"
+                onClick={() => push(newAngle)}
+                style={{ marginTop: 10, marginRight: 10 }}
+              >
                 Lisää uusi kulmaparametri
               </Button>
-              <Button type="submit" variant="contained" style={{marginTop: 10}}>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ marginTop: 10 }}
+              >
                 Lähetä
               </Button>
             </div>
@@ -112,4 +132,11 @@ UserDefinedAngleParamsComponent.propTypes = {
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
+  setSelectedWayarea: PropTypes.func,
+  selectedWayarea: PropTypes.object,
+  defaultWayareaList: PropTypes.array,
+  setDefaultWayareaList: PropTypes.func,
+  vaylatInputValue: PropTypes.string,
+  setVaylatInputValue: PropTypes.func,
+
 };

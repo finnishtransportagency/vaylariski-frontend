@@ -39,9 +39,9 @@ export default function BoatMenuComponent(props) {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(defaultBoats);
-  }, [defaultBoats]);
+  // useEffect(() => {
+  //   console.log(defaultBoats);
+  // }, [defaultBoats]);
 
   function handleMenuItemClick(event, newValue) {
     console.log(event, newValue);
@@ -60,6 +60,7 @@ export default function BoatMenuComponent(props) {
           id="boat"
           disablePortal
           options={defaultBoats}
+          clearOnBlur={false}
           getOptionLabel={(option) =>
             option ? `${option.JNRO} - ${option.VAY_NIMISU}, pituus: ${option.PITUUS}, leveys: ${option.LEVEYS},  syväys: ${option.SYVAYS}`: ""
           }
