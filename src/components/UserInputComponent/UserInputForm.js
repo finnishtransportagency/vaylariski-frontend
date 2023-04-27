@@ -59,7 +59,7 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    console.log('setDefaultBoatValues', newBoat);
+    console.log("setDefaultBoatValues", newBoat);
     if (newBoat) {
       setSelectedBoat(newBoat);
       formik.setFieldValue("boat.draft", newBoat.SYVAYS);
@@ -128,13 +128,52 @@ function UserInputForm(props) {
       {tabValue === tabIndex && (
         <Grid container spacing={1} style={{ padding: 20 }}>
           <Grid item xs={3.99}>
-            <Grid container spacing={1} paddingBottom={2} paddingRight={1} paddingLeft={2}>
-              <Grid container spacing={1} paddingBottom={2}> {/*väylämenu*/}
+            <Grid
+              container
+              spacing={1}
+              paddingBottom={2}
+              paddingRight={1}
+              paddingLeft={2}
+            >
+              <Grid container spacing={1} paddingBottom={2}>
+                {" "}
+                {/*väylämenu*/}
                 <Grid item xs={12}>
                   <WayareaComponent
                     setDefaultWayareaName={setDefaultWayareaName}
                     name="navline.VAYLAT"
                   />
+                </Grid>
+                <Grid item xs={4}>
+                  <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
+                </Grid>
+                <Grid item xs={8}>
+                  <Field
+                    component="select"
+                    name="calculation_interval"
+                    type="number"
+                    required
+                    style={{
+                      width: 100,
+                    }}
+                  >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                  </Field>
+                  </Grid>
+                <Grid item xs={12}>
+                  <Typography color="textSecondary" style={{ fontSize: 14 }}>
+                    Valitse laskentapisteiden välinen etäisyys navigointilinjalla. Oletusarvo on 10 m.
+                  </Typography>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
@@ -153,13 +192,16 @@ function UserInputForm(props) {
                     optionsList={GDOList}
                   />
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                    Jos halutaan laskea s-mutkan suora, annetaan navigointilinjan
-                    ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen GDO_GID on
-                    227903 ja Turun väylällä (3255) ensimmäinen GDO_GID on 204344.
+                    Jos halutaan laskea s-mutkan suora, annetaan
+                    navigointilinjan ensimmäinen GDO_GID. Esim. Oulun väylällä
+                    (100) ensimmäinen GDO_GID on 227903 ja Turun väylällä (3255)
+                    ensimmäinen GDO_GID on 204344.
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid container spacing={1} paddingBottom={2}> {/*Laivamenu */}
+              <Grid container spacing={1} paddingBottom={2}>
+                {" "}
+                {/*Laivamenu */}
                 <Grid item xs={12}>
                   <Typography
                     style={{ fontSize: 16, fontWeight: 550 }}
@@ -175,7 +217,9 @@ function UserInputForm(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={1} paddingBottom={2}> {/* Laivan koko*/}
+              <Grid container spacing={1} paddingBottom={2}>
+                {" "}
+                {/* Laivan koko*/}
                 <Grid item xs={3}>
                   <label htmlFor="boat.length">Pituus (m):</label>
                 </Grid>
@@ -219,7 +263,9 @@ function UserInputForm(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={1} paddingBottom={2}> {/*Laivan tiedot*/}
+              <Grid container spacing={1} paddingBottom={2}>
+                {" "}
+                {/*Laivan tiedot*/}
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
                     Väylän tunnus: {selectedBoat.JNRO}
@@ -246,7 +292,8 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid container spacing={1} paddingBottom={2}>{/* Ohjailtavuus */}
+              <Grid container spacing={1} paddingBottom={2}>
+                {/* Ohjailtavuus */}
                 <Grid item xs={12}>
                   <Typography
                     style={{ fontSize: 16, fontWeight: 550 }}
@@ -291,10 +338,10 @@ function UserInputForm(props) {
                     />
                     Heikko
                   </label>
-
                 </Grid>
               </Grid>
-              <Grid container spacing={1} paddingBottom={2}>{/* Nopeusluokka */}
+              <Grid container spacing={1} paddingBottom={2}>
+                {/* Nopeusluokka */}
                 <Grid item xs={12}>
                   <Typography
                     style={{ fontSize: 16, fontWeight: 550 }}
@@ -407,7 +454,13 @@ function UserInputForm(props) {
           <Divider orientation="vertical" flexItem></Divider>
           <Grid item xs={3.99}>
             {/* Väylän parametrit */}
-            <Grid container spacing={1} paddingBottom={2} paddingRight={1} paddingLeft={2}>
+            <Grid
+              container
+              spacing={1}
+              paddingBottom={2}
+              paddingRight={1}
+              paddingLeft={2}
+            >
               {/* Tyyppi jne. */}
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
@@ -415,7 +468,8 @@ function UserInputForm(props) {
                     style={{ fontSize: 16, fontWeight: 550 }}
                     color="textSecondary"
                     gutterBottom
-                  >Väylän parametrit
+                  >
+                    Väylän parametrit
                   </Typography>
                 </Grid>
                 <Grid item xs={4}>
@@ -450,7 +504,8 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.bottom_surface">
-                    {" "}Pohja:{" "}
+                    {" "}
+                    Pohja:{" "}
                   </label>
                 </Grid>
                 <Grid item xs={8}>
@@ -503,11 +558,10 @@ function UserInputForm(props) {
                         gutterBottom
                       >
                         {" "}
-                        Syvyyden painokerroin kerrotaan aluksen leveydellä
-                        alla näkyvien määritysten perusteella, joihin
-                        vaikuttaa väylän syvyys ja aluksen syväys. Laskennassa
-                        voi käyttää oletusarvoja tai määrittää uudet
-                        painokertoimet.
+                        Syvyyden painokerroin kerrotaan aluksen leveydellä alla
+                        näkyvien määritysten perusteella, joihin vaikuttaa
+                        väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
+                        oletusarvoja tai määrittää uudet painokertoimet.
                       </Typography>
                     )}
                   </div>
@@ -646,9 +700,9 @@ function UserInputForm(props) {
                           Riskiarvon laskentaan valitaan väylän reunan tyyppi.
                           Alla on esitetty myös reunan painokertoimet joihin
                           vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
-                          Painokerroin ja aluksen leveys kerrotaan
-                          laskennassa. Laskennassa voi käyttää oletusarvoja
-                          tai määrittää uudet painokertoimet.
+                          Painokerroin ja aluksen leveys kerrotaan laskennassa.
+                          Laskennassa voi käyttää oletusarvoja tai määrittää
+                          uudet painokertoimet.
                         </label>
                       </Typography>
                     )}
@@ -732,7 +786,6 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-
                   <div>
                     <label
                       htmlFor="bank_clearance_wf.edge_category_sloping_fast"
@@ -782,7 +835,6 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={4}>
-
                   <div>
                     <label
                       htmlFor="bank_clearance_wf.edge_category_steep_fast"
@@ -913,13 +965,18 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
               </Grid>
-
             </Grid>
           </Grid>
           <Divider orientation="vertical" flexItem></Divider>
           <Grid item xs={3.99}>
             {/* Vesiliikenteen olosuhteet */}
-            <Grid container spacing={1} paddingBottom={2} paddingRight={1} paddingLeft={2}>
+            <Grid
+              container
+              spacing={1}
+              paddingBottom={2}
+              paddingRight={1}
+              paddingLeft={2}
+            >
               {/* Tuuli */}
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
@@ -956,19 +1013,18 @@ function UserInputForm(props) {
                       >
                         <label>
                           {" "}
-                          Riskiarvon laskentaan valitaan tuulen
-                          nopeusluokka. Alla on esitetty myös tuulen
-                          painokertoimet joihin vaikuttaa tuulen
-                          nopeusluokka sekä aluksen nopeusluokka.
-                          Painokerroin ja aluksen leveys kerrotaan
-                          laskennassa. Laskennassa voi käyttää oletusarvoja
-                          tai määrittää uudet painokertoimet.
+                          Riskiarvon laskentaan valitaan tuulen nopeusluokka.
+                          Alla on esitetty myös tuulen painokertoimet joihin
+                          vaikuttaa tuulen nopeusluokka sekä aluksen
+                          nopeusluokka. Painokerroin ja aluksen leveys kerrotaan
+                          laskennassa. Laskennassa voi käyttää oletusarvoja tai
+                          määrittää uudet painokertoimet.
                         </label>
                       </Typography>
                     )}
                   </div>
                 </Grid>
-                <Grid item xs={4} >
+                <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
                     <Field
                       component="input"
@@ -1650,23 +1706,38 @@ function UserInputForm(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> ja sen raja-arvot
+                  PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>{" "}
+                  ja sen raja-arvot
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <label htmlFor="PF_bend_parameters">
                   {" "}
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> on painokerroin mutkan jyrkkyydelle suhteessa säteeseen, aluksen kääntösäteeseen ja alukseen pituuteen.
-                  BSI = R<span style={{ verticalAlign: "sub", fontSize: 12 }}>b</span> /
-                  C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> * L, kun R on säde,
-                  C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> on kerroin, joka ilmaisee aluksen kääntösäteen ja
-                  L on aluksen pituus. {" "}
+                  PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>{" "}
+                  on painokerroin mutkan jyrkkyydelle suhteessa säteeseen,
+                  aluksen kääntösäteeseen ja alukseen pituuteen. BSI = R
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>b</span>{" "}
+                  / C
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span>{" "}
+                  * L, kun R on säde, C
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span>{" "}
+                  on kerroin, joka ilmaisee aluksen kääntösäteen ja L on aluksen
+                  pituus.{" "}
                 </label>
               </Grid>
 
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1693,8 +1764,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1731,8 +1805,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1769,8 +1846,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1807,8 +1887,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1841,18 +1924,30 @@ function UserInputForm(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span> ja sen raja-arvot
+                  PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>{" "}
+                  ja sen raja-arvot
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <label htmlFor="PF_bend_parameters">
                   {" "}
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span> on painokerroin mutkan jyrkkyydelle suhteessa suuntakulmaan (α){" "}
+                  PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>{" "}
+                  on painokerroin mutkan jyrkkyydelle suhteessa suuntakulmaan
+                  (α){" "}
                 </label>
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1879,8 +1974,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1917,8 +2015,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1953,11 +2054,13 @@ function UserInputForm(props) {
                     width: 60,
                   }}
                 />
-
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -1994,8 +2097,11 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={5}>
-                <label>{"PF"}
-                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+                <label>
+                  {"PF"}
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>
                 </label>
                 <Field
                   component="input"
@@ -2024,11 +2130,18 @@ function UserInputForm(props) {
               <Grid item xs={12}>
                 <label>
                   {" "}
-                  Kulman jyrkkyyden painokerroin lasketaan summasta
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> =
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+
-                  PF<span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
-                  {" "}
+                  Kulman jyrkkyyden painokerroin lasketaan summasta PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend
+                  </span>{" "}
+                  = PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend1
+                  </span>
+                  + PF
+                  <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                    bend2
+                  </span>{" "}
                 </label>
               </Grid>
             </Grid>
@@ -2061,9 +2174,7 @@ function UserInputForm(props) {
                 />
               </Grid>
               <Grid item xs={9}>
-                <label htmlFor="weightfactors.WF_bend">
-                  Mutka (WF bend):
-                </label>
+                <label htmlFor="weightfactors.WF_bend">Mutka (WF bend):</label>
               </Grid>
               <Grid item xs={3}>
                 <Field
