@@ -103,10 +103,10 @@ function UserInputForm(props) {
                     name="navline.VAYLAT"
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                   <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={5}>
                   <Field
                     component="select"
                     name="calculation_interval"
