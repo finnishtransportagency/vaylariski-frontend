@@ -186,6 +186,8 @@ export default function ParameterTabsComponent() {
               setDefaultWayareaList={setDefaultWayareaList}
               vaylatInputValue={vaylatInputValue}
               setVaylatInputValue={setVaylatInputValue}
+              GDOInput={GDOInput}
+              setGDOInput={setGDOInput}
             />
           </FForm>
         )}

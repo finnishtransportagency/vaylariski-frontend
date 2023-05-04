@@ -28,6 +28,8 @@ export default function UserDefinedAngleParamsComponent(props) {
     setDefaultWayareaList,
     vaylatInputValue,
     setVaylatInputValue,
+    GDOInput,
+    setGDOInput,
     ...other
   } = props;
   const { GDOList, setGDOList } = useContext(GDOGIDListContext);
@@ -83,6 +85,8 @@ export default function UserDefinedAngleParamsComponent(props) {
                       name={`navline_angle_params.${index}.GDO_GID`}
                       handleMenuItemClick={setStartingNavline}
                       optionsList={GDOList}
+                      inputValue={GDOInput}
+                      setInputValue={setGDOInput}
                     />
                     <Field
                       style={{ marginTop: 5 }}
@@ -138,5 +142,7 @@ UserDefinedAngleParamsComponent.propTypes = {
   setDefaultWayareaList: PropTypes.func,
   vaylatInputValue: PropTypes.string,
   setVaylatInputValue: PropTypes.func,
+  GDOInput: PropTypes.string,
+  setGDOInput: PropTypes.func
 
 };
