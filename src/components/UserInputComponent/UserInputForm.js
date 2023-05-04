@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import {
   Autocomplete,
@@ -9,6 +9,7 @@ import {
   Menu,
   popoverClasses,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { Field } from "formik";
 
@@ -54,19 +55,33 @@ function UserInputForm(props) {
   function setDefaultBoatValues(newBoat) {
     console.log("setDefaultBoatValues", newBoat);
     if (newBoat) {
-      setSelectedBoat(newBoat);
-      formik.setFieldValue("boat.draft", newBoat.SYVAYS);
-      formik.setFieldValue("boat.length", newBoat.PITUUS);
-      formik.setFieldValue("boat.beam", newBoat.LEVEYS);
+      setSelectedBoat({
+        ...newBoat,
+        LEVEYS: newBoat.LEVEYS || "",
+        PITUUS: newBoat.PITUUS || "",
+        SYVAYS: newBoat.SYVAYS || "",
+      });
+      formik.setValues({
+        ...formik.values,
+        boat: {
+          length: newBoat.PITUUS || "",
+          beam: newBoat.LEVEYS || "",
+          draft: newBoat.SYVAYS || "",
+        },
+      });
     } else {
       setSelectedBoat({});
-      formik.setFieldValue("boat.draft", "");
-      formik.setFieldValue("boat.length", "");
-      formik.setFieldValue("boat.beam", "");
+      formik.setValues({
+        ...formik.values,
+        boat: {
+          length: "",
+          beam: "",
+          draft: "",
+        },
+      });
     }
   }
   function setDefaultWayareaName(wayarea) {
-    console.log(wayarea);
     if (wayarea) {
       setSelectedWayarea(wayarea);
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
@@ -188,43 +203,70 @@ function UserInputForm(props) {
                   <label htmlFor="boat.length">Pituus (m):</label>
                 </Grid>
                 <Grid item xs={9}>
-                  <Field
-                    component="input"
-                    name="boat.length"
-                    type="number"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.boat?.length}
+                  >
+                    <span>
+                      <Field
+                        className={formik.errors?.boat?.length && "has-error"}
+                        component="input"
+                        name="boat.length"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={3}>
                   <label htmlFor="boat.beam">Leveys (m):</label>
                 </Grid>
                 <Grid item xs={9}>
-                  <Field
-                    component="input"
-                    name="boat.beam"
-                    type="number"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.boat?.beam}
+                  >
+                    <span>
+                      <Field
+                        className={formik.errors?.boat?.beam && "has-error"}
+                        component="input"
+                        name="boat.beam"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={3}>
                   <label htmlFor="boat.draft">Syväys (m):</label>
                 </Grid>
                 <Grid item xs={9}>
-                  <Field
-                    component="input"
-                    name="boat.draft"
-                    type="number"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.boat?.draft}
+                  >
+                    <span>
+                      <Field
+                        className={formik.errors?.boat?.draft && "has-error"}
+                        component="input"
+                        name="boat.draft"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
@@ -232,17 +274,17 @@ function UserInputForm(props) {
                 {/*Laivan tiedot*/}
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Väylän tunnus: {selectedBoat.JNRO}
+                    Väylän tunnus: {selectedBoat["JNRO"]}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Väylän nimi: {selectedBoat.VAY_NIMISU}
+                    Väylän nimi: {selectedBoat["VAY_NIMISU"]}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Koko: {selectedBoat.KOKO}
+                    Koko: {selectedBoat["KOKO"]}
                   </Typography>
                 </Grid>
                 {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
@@ -252,7 +294,7 @@ function UserInputForm(props) {
                 </Grid> */}
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Selite: {selectedBoat.SELITE}
+                    Selite: {selectedBoat["SELITE"]}
                   </Typography>
                 </Grid>
               </Grid>
@@ -488,15 +530,30 @@ function UserInputForm(props) {
                   </label>
                 </Grid>
                 <Grid item xs={8}>
-                  <Field
-                    component="input"
-                    name="navline.calculation_params.other.visibility"
-                    type="number"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.navline?.calculation_params?.other
+                        ?.visibility
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.navline?.calculation_params?.other
+                            ?.visibility && "has-error"
+                        }
+                        component="input"
+                        name="navline.calculation_params.other.visibility"
+                        type="number"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
@@ -542,49 +599,90 @@ function UserInputForm(props) {
                       syvyys ≥ 1.5 * syväys
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.deep_inner_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.channel_depth_wf?.deep_inner_channel}
+                  >
+                    <span>
+                      <Field
+                        component="input"
+                        className={
+                          formik.errors?.channel_depth_wf?.deep_inner_channel &&
+                          "has-error"
+                        }
+                        name="channel_depth_wf.deep_inner_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>
                       1.15*syväys ≤ syvyys 1.5*syväys
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.medium_deep_inner_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.channel_depth_wf?.medium_deep_inner_channel
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.channel_depth_wf
+                            ?.medium_deep_inner_channel && "has-error"
+                        }
+                        component="input"
+                        name="channel_depth_wf.medium_deep_inner_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>
                       {"syvyys < 1.15*syväys"}
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.shallow_inner_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.channel_depth_wf?.shallow_inner_channel
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.channel_depth_wf
+                            ?.shallow_inner_channel && "has-error"
+                        }
+                        component="input"
+                        name="channel_depth_wf.shallow_inner_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
                   <div>
@@ -592,49 +690,89 @@ function UserInputForm(props) {
                       syvyys ≥ 1.5 * syväys
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.deep_outer_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.channel_depth_wf?.deep_outer_channel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.channel_depth_wf?.deep_outer_channel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="channel_depth_wf.deep_outer_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>
                       1.25*syväys ≤ syvyys 1.5*syväys
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.medium_deep_outer_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.channel_depth_wf?.medium_deep_outer_channel
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.channel_depth_wf
+                            ?.medium_deep_outer_channel && "has-error"
+                        }
+                        component="input"
+                        name="channel_depth_wf.medium_deep_outer_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>
                       {"syvyys < 1.25*syväys"}
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="channel_depth_wf.shallow_outer_channel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 130,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.channel_depth_wf?.shallow_outer_channel
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.channel_depth_wf
+                            ?.shallow_outer_channel && "has-error"
+                        }
+                        component="input"
+                        name="channel_depth_wf.shallow_outer_channel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 130,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
@@ -709,45 +847,90 @@ function UserInputForm(props) {
                   <div>
                     <label style={{ fontSize: 14 }}>nopea</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_gentle_fast"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_gentle_fast
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_gentle_fast && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_fast"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>keskiverto</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_gentle_moderate"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_gentle_moderate
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_gentle_moderate && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_moderate"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>hidas</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_gentle_slow"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_gentle_slow
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_gentle_slow && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_gentle_slow"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={4}>
                   <div>
@@ -758,45 +941,90 @@ function UserInputForm(props) {
                       nopea
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_sloping_fast"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_sloping_fast
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_sloping_fast && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_fast"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>keskiverto</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_sloping_moderate"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_sloping_moderate
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_sloping_moderate && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_moderate"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>hidas</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_sloping_slow"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_sloping_slow
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_sloping_slow && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_sloping_slow"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={4}>
                   <div>
@@ -807,45 +1035,88 @@ function UserInputForm(props) {
                       nopea
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_steep_fast"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf?.edge_category_steep_fast
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_steep_fast && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_fast"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>keskiverto</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_steep_moderate"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf
+                        ?.edge_category_steep_moderate
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_steep_moderate && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_moderate"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label style={{ fontSize: 14 }}>hidas</label>
                   </div>
-                  <Field
-                    component="input"
-                    name="bank_clearance_wf.edge_category_steep_slow"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.bank_clearance_wf?.edge_category_steep_slow
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.bank_clearance_wf
+                            ?.edge_category_steep_slow && "has-error"
+                        }
+                        component="input"
+                        name="bank_clearance_wf.edge_category_steep_slow"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
@@ -1014,17 +1285,29 @@ function UserInputForm(props) {
                       nopea
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.mild_wind_fast_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.mild_wind_fast_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.mild_wind_fast_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.mild_wind_fast_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.mild_wind_moderate_vessel"
@@ -1033,17 +1316,29 @@ function UserInputForm(props) {
                       keskiverto
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.mild_wind_moderate_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.mild_wind_moderate_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.mild_wind_moderate_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.mild_wind_moderate_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.mild_wind_slow_vessel"
@@ -1051,18 +1346,30 @@ function UserInputForm(props) {
                     >
                       hidas
                     </label>
-                  </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.mild_wind_slow_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  </div>{" "}
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.mild_wind_slow_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.mild_wind_slow_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.mild_wind_slow_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
@@ -1085,17 +1392,29 @@ function UserInputForm(props) {
                   <div>
                     <label style={{ fontSize: 14 }}>nopea</label>
                   </div>
-                  <Field
-                    component="input"
-                    type="number"
-                    step="0.01"
-                    name="wind_wf.moderate_wind_fast_vessel"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.moderate_wind_fast_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.moderate_wind_fast_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        type="number"
+                        step="0.01"
+                        name="wind_wf.moderate_wind_fast_vessel"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.moderate_wind_moderate_vessel"
@@ -1104,17 +1423,31 @@ function UserInputForm(props) {
                       keskiverto
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.moderate_wind_moderate_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={
+                      formik.errors?.wind_wf?.moderate_wind_moderate_vessel
+                    }
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf
+                            ?.moderate_wind_moderate_vessel && "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.moderate_wind_moderate_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.moderate_wind_slow_vessel"
@@ -1123,17 +1456,29 @@ function UserInputForm(props) {
                       hidas
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.moderate_wind_slow_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.moderate_wind_slow_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.moderate_wind_slow_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.moderate_wind_slow_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
@@ -1161,17 +1506,29 @@ function UserInputForm(props) {
                       nopea
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.strong_wind_fast_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.strong_wind_fast_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.strong_wind_fast_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.strong_wind_fast_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.strong_wind_moderate_vessel"
@@ -1180,17 +1537,29 @@ function UserInputForm(props) {
                       keskiverto
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.strong_wind_moderate_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.strong_wind_moderate_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.strong_wind_moderate_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.strong_wind_moderate_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                   <div>
                     <label
                       htmlFor="wind_wf.strong_wind_slow_vessel"
@@ -1199,17 +1568,29 @@ function UserInputForm(props) {
                       hidas
                     </label>
                   </div>
-                  <Field
-                    component="input"
-                    name="wind_wf.strong_wind_slow_vessel"
-                    type="number"
-                    step="0.01"
-                    required
-                    style={{
-                      width: 100,
-                    }}
-                    placeholder="painokerroin"
-                  />
+                  <Tooltip
+                    placement="right"
+                    arrow
+                    title={formik.errors?.wind_wf?.strong_wind_slow_vessel}
+                  >
+                    <span>
+                      <Field
+                        className={
+                          formik.errors?.wind_wf?.strong_wind_slow_vessel &&
+                          "has-error"
+                        }
+                        component="input"
+                        name="wind_wf.strong_wind_slow_vessel"
+                        type="number"
+                        step="0.01"
+                        required
+                        style={{
+                          width: 100,
+                        }}
+                        placeholder="painokerroin"
+                      />
+                    </span>
+                  </Tooltip>
                 </Grid>
               </Grid>
               {/* Poikkivirtaus */}
@@ -1703,29 +2084,53 @@ function UserInputForm(props) {
                     bend1
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_radius_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_radius_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_radius_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_radius_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
                 <label>{"BSI < "}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1734,39 +2139,75 @@ function UserInputForm(props) {
                     bend1
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_radius_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_radius_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_radius_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_radius_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ BSI <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1775,39 +2216,75 @@ function UserInputForm(props) {
                     bend1
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_radius_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_radius_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_radius_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_radius_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ BSI <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1816,39 +2293,75 @@ function UserInputForm(props) {
                     bend1
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_radius_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_radius_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_radius_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_radius_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ BSI <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1857,29 +2370,53 @@ function UserInputForm(props) {
                     bend1
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_radius_5"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_radius_5}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_radius_5 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_radius_5"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
                 <label>{"BSI ≥ "}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_ratio_lim_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_ratio_lim_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_ratio_lim_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_ratio_lim_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
 
               <Grid item xs={12}>
@@ -1913,29 +2450,53 @@ function UserInputForm(props) {
                     bend2
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_angle_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_angle_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_angle_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_angle_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
                 <label>{"α < "}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1944,39 +2505,75 @@ function UserInputForm(props) {
                     bend2
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_angle_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_angle_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_angle_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_angle_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_1"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_1}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_1 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_1"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ α <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -1985,39 +2582,75 @@ function UserInputForm(props) {
                     bend2
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_angle_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_angle_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_angle_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_angle_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_2"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_2}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_2 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_2"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ α <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -2026,39 +2659,75 @@ function UserInputForm(props) {
                     bend2
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_angle_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_angle_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_angle_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_angle_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_3"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="left"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_3}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_3 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_3"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
                 <label>{"≤ α <"}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={5}>
                 <label>
@@ -2067,29 +2736,53 @@ function UserInputForm(props) {
                     bend2
                   </span>
                 </label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.PF_bend_angle_5"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.PF_bend_angle_5}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.PF_bend_angle_5 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.PF_bend_angle_5"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={7}>
                 <label>{" α ≥ "}</label>
-                <Field
-                  component="input"
-                  name="PF_bend_parameters.bend_angle_lim_4"
-                  type="number"
-                  step="0.1"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.PF_bend_parameters?.bend_angle_lim_4}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.PF_bend_parameters?.bend_angle_lim_4 &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="PF_bend_parameters.bend_angle_lim_4"
+                      type="number"
+                      step="0.1"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={12}>
                 <label>
@@ -2127,29 +2820,51 @@ function UserInputForm(props) {
                 </label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_channel"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_channel}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_channel && "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_channel"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={9}>
                 <label htmlFor="weightfactors.WF_bend">Mutka (WF bend):</label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_bend"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_bend}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_bend && "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_bend"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={9}>
                 <label htmlFor="weightfactors.WF_s_bend">
@@ -2157,15 +2872,26 @@ function UserInputForm(props) {
                 </label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_s_bend"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_s_bend}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_s_bend && "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_s_bend"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={9}>
                 <label htmlFor="weightfactors.WF_traffic_complexity">
@@ -2173,15 +2899,27 @@ function UserInputForm(props) {
                 </label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_traffic_complexity"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_traffic_complexity}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_traffic_complexity &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_traffic_complexity"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={9}>
                 <label htmlFor="weightfactors.WF_reduced_visibility">
@@ -2189,15 +2927,27 @@ function UserInputForm(props) {
                 </label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_reduced_visibility"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_reduced_visibility}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_reduced_visibility &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_reduced_visibility"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
               <Grid item xs={9}>
                 <label htmlFor="weightfactors.WF_light_pollution">
@@ -2205,15 +2955,27 @@ function UserInputForm(props) {
                 </label>
               </Grid>
               <Grid item xs={3}>
-                <Field
-                  component="input"
-                  name="weightfactors.WF_light_pollution"
-                  type="number"
-                  required
-                  style={{
-                    width: 60,
-                  }}
-                />
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={formik.errors?.weightfactors?.WF_light_pollution}
+                >
+                  <span>
+                    <Field
+                      className={
+                        formik.errors?.weightfactors?.WF_light_pollution &&
+                        "has-error"
+                      }
+                      component="input"
+                      name="weightfactors.WF_light_pollution"
+                      type="number"
+                      required
+                      style={{
+                        width: 60,
+                      }}
+                    />
+                  </span>
+                </Tooltip>
               </Grid>
             </Grid>
           </Grid>

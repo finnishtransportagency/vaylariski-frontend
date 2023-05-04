@@ -52,13 +52,12 @@ export default function BoatMenuComponent(props) {
 
   return (
     <>
-      <Form.Group className={meta.error && "has-error"}>
+      <Form.Group>
         <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
           Alus:{" "}
         </Typography>
         <Autocomplete
           id="boat"
-          freeSolo
           disablePortal
           options={defaultBoats}
           getOptionLabel={(option) =>
@@ -77,11 +76,6 @@ export default function BoatMenuComponent(props) {
             />
           )}
         />
-        {meta.touched && meta.error && (
-          <small className="react-form-message react-form-message-error">
-            {meta.error}
-          </small>
-        )}
       </Form.Group>
     </>
   );
