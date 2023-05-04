@@ -9,6 +9,7 @@ import {
   Button
 } from "@mui/material";
 import NotificationContext from "contexts/NotificationContext";
+import { CSVLink } from 'react-csv';
 
 
 const style = {
@@ -17,7 +18,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  height:"80%",
+  height: "80%",
   bgcolor: 'background.paper',
   boxShadow: 24,
   pt: 2,
@@ -38,7 +39,7 @@ function TableView(props, { direction }) {
   const onSortColumnsChange = useCallback(sortColumns => { setSortColumns(sortColumns.slice(-1)) }, [])
   const [open, setOpen] = useState(false);
   const { notificationStatus, setNotificationStatus } =
-  useContext(NotificationContext);
+    useContext(NotificationContext);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -458,6 +459,22 @@ function TableView(props, { direction }) {
     });
   });
 
+  const data = filteredRows.map((row) =>
+    visibleColumnsMetadata.reduce((acc, column) => {
+      acc[column.key] = row[column.key];
+      return acc;
+    }, {})
+  );
+
+  const csvData = data.map((row) => {
+    return Object.values(row).map((value) => {
+      if (typeof value === 'number') {
+        return value.toString().replace(/\./g, ',');
+      }
+      return value;
+    });
+  });
+
   return (
     <div
       role="TabPanelComponent"
@@ -467,58 +484,16 @@ function TableView(props, { direction }) {
       {...other}
     >
       <div>
-        <div>
-        <Button variant="contained" onClick={handleAddFilterClick}>Lisää filtteri</Button>
-        {showForm && (
-          <Formik
-            initialValues={{
-              filterConstant: '',
-              filterOperator: '≤',
-              filterValue: '',
-            }}
-            onSubmit={handleFilterSubmit}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <label htmlFor="filterConstant">Parametri:</label>
-                <Field as="select" id="filterConstant" name="filterConstant">
-                  <option value="">Valitse parametri</option>
-                  {columns.map(column => (
-                    <option key={column.key} value={column.key}>{column.name}</option>
-                  ))}
-                </Field>
-                <ErrorMessage name="filterConstant" component="div" />
-
-                <label htmlFor="filterOperator"></label>
-                <Field as="select" id="filterOperator" name="filterOperator">
-                  <option value="≤">≤</option>
-                  <option value="≥">≥</option>
-                  <option value="=">=</option>
-                </Field>
-                <ErrorMessage name="filterOperator" component="div" />
-
-                <label htmlFor="filterValue">Arvo:</label>
-                <Field type="text" id="filterValue" name="filterValue" />
-                <ErrorMessage name="filterValue" component="div" />
-
-                <button type="submit" disabled={isSubmitting}>Käytä</button>
-                <button type="button" onClick={handleCancelClick}>Poista</button>
-              </Form>
-            )}
-          </Formik>
-        )}</div>
-        {filters.length > 0 && (
-          <div>
-            {filters.map((filter, index) => (
-              <div key={index}>
-                <span>{filter.filterConstant} {filter.filterOperator} {filter.filterValue}</span>
-                <button type="button" onClick={() => handleRemoveFilterClick(index)}>Poista</button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <Button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" style={{backgroundColor: "#ced6d8", margin: 1}} >
+            <CSVLink
+              data={csvData}
+              filename={'vaylakohtainen_riski.csv'}
+              separator={';'}
+            >
+              Lataa CSV
+            </CSVLink>
+          </Button>
+          <Button variant="contained" style={{backgroundColor: "#ced6d8", color: "black", margin: 1}} onClick={handleOpen}>
           Valitse sarakkeet
         </Button>
         <Modal
@@ -541,26 +516,79 @@ function TableView(props, { direction }) {
               </label>
               {columns.map((column) => (
                 <div>
-                <label key={column.key}>
-                  <input
-                    type="checkbox"
-                    checked={visibleColumns.includes(column.key)}
-                    onChange={() => handleToggleColumn(column.key)}
-                  />
-                  {column.name}
-                </label>
+                  <label key={column.key}>
+                    <input
+                      type="checkbox"
+                      checked={visibleColumns.includes(column.key)}
+                      onChange={() => handleToggleColumn(column.key)}
+                    />
+                    {column.name}
+                  </label>
                 </div>
               ))}
             </div>
           </Box>
-
-
         </Modal>
+          <Button variant="contained" style={{backgroundColor: "#ced6d8", color: "black", margin: 1}} onClick={handleAddFilterClick}>Lisää filtteri</Button>
+          {showForm && (
+            <Formik
+              initialValues={{
+                filterConstant: '',
+                filterOperator: '≤',
+                filterValue: '',
+              }}
+              onSubmit={handleFilterSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <label htmlFor="filterConstant">Parametri:</label>
+                  <Field as="select" id="filterConstant" name="filterConstant">
+                    <option value="">Valitse parametri</option>
+                    {columns.map(column => (
+                      <option key={column.key} value={column.key}>{column.name}</option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="filterConstant" component="div" />
+
+                  <label htmlFor="filterOperator"></label>
+                  <Field as="select" id="filterOperator" name="filterOperator">
+                    <option value="≤">≤</option>
+                    <option value="≥">≥</option>
+                    <option value="=">=</option>
+                  </Field>
+                  <ErrorMessage name="filterOperator" component="div" />
+
+                  <label htmlFor="filterValue">Arvo:</label>
+                  <Field type="text" id="filterValue" name="filterValue" />
+                  <ErrorMessage name="filterValue" component="div" />
+
+                  <button type="submit" disabled={isSubmitting}>Käytä</button>
+                  <button type="button" onClick={handleCancelClick}>Poista</button>
+                </Form>
+              )}
+            </Formik>
+          )}
+        {filters.length > 0 && (
+          <div>
+            {filters.map((filter, index) => (
+              <div key={index}>
+                <span>{filter.filterConstant} {filter.filterOperator} {filter.filterValue}</span>
+                <button type="button" onClick={() => handleRemoveFilterClick(index)}>Poista</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        
+
+          
+
       </div>
       <DataGrid
         style={{
           height: "600px",
           width: "99%"
+
         }}
         columns={visibleColumnsMetadata}
         rows={filteredRows}
