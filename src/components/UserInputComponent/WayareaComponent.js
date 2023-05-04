@@ -24,19 +24,23 @@ export default function WayareaNameComponent(props) {
   const {
     name,
     defaultWayareaList,
-    setDefaultWayareaList,
-    vaylatInputValue,
-    setVaylatInputValue,
+    selectedWayarea,
     ...other
   } = props;
+
   const [field, meta] = useField(name);
+  const [vaylatInputValue, setVaylatInputValue] = useState( Object.keys(selectedWayarea).length !== 0 ? `${selectedWayarea.VAYLAT} - ${selectedWayarea.Nimi}`: "" );
 
   useEffect(() => {
     console.log("wayareacomp : vaylatInputValue", vaylatInputValue);
   }, [vaylatInputValue]);
 
+  useEffect(() => {
+    console.log("wayareacomp : selectedWayarea", selectedWayarea);
+  }, [selectedWayarea]);
+
   function handleMenuItemClick(event, newValue) {
-    console.log(newValue);
+    console.log('handleMenuItemClick', newValue);
     props.setDefaultWayareaName(newValue);
   }
 

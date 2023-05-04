@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   Grid,
@@ -8,10 +7,8 @@ import {
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSelector";
-import GDOGIDListContext from "contexts/GDOListContext";
 import { Field, FieldArray } from "formik";
 import PropTypes from "prop-types";
-import { useContext } from "react";
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
@@ -22,17 +19,10 @@ export default function UserDefinedAngleParamsComponent(props) {
     tabValue,
     tabIndex,
     formik,
-    setSelectedWayarea,
-    selectedWayarea,
-    defaultWayareaList,
-    setDefaultWayareaList,
-    vaylatInputValue,
-    setVaylatInputValue,
-    GDOInput,
-    setGDOInput,
+    GDOList,
     ...other
   } = props;
-  const { GDOList, setGDOList } = useContext(GDOGIDListContext);
+
   const newAngle = {
     GDO_GID: "",
     SADE: "",
@@ -40,8 +30,8 @@ export default function UserDefinedAngleParamsComponent(props) {
     BEND_ANGLE: "",
   };
 
-  function setStartingNavline(ev, navline, name) {
-    console.log("setStartingNavline", ev, navline, name);
+  function handleMenuItemClick(ev, navline, name) {
+    console.log("setStartingNavline", navline, name);
     if (navline) {
       formik.setFieldValue(name, navline);
     } else {
@@ -83,10 +73,8 @@ export default function UserDefinedAngleParamsComponent(props) {
                   <Stack direction="row" spacing={1} key={index} mt={1}>
                     <CustomAutoCompleteSelectorComponent
                       name={`navline_angle_params.${index}.GDO_GID`}
-                      handleMenuItemClick={setStartingNavline}
+                      handleMenuItemClick={handleMenuItemClick}
                       optionsList={GDOList}
-                      inputValue={GDOInput}
-                      setInputValue={setGDOInput}
                     />
                     <Field
                       style={{ marginTop: 5 }}
@@ -136,13 +124,5 @@ UserDefinedAngleParamsComponent.propTypes = {
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
-  setSelectedWayarea: PropTypes.func,
-  selectedWayarea: PropTypes.object,
-  defaultWayareaList: PropTypes.array,
-  setDefaultWayareaList: PropTypes.func,
-  vaylatInputValue: PropTypes.string,
-  setVaylatInputValue: PropTypes.func,
-  GDOInput: PropTypes.string,
-  setGDOInput: PropTypes.func
-
+  GDOList: PropTypes.array,
 };

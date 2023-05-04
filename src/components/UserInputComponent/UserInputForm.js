@@ -24,6 +24,7 @@ import NotificationContext from "contexts/NotificationContext";
 import apiClient from "http-common";
 import CustomAutoCompleteSelectorComponent from "components/CustomAutoCompleteSelector";
 import GDOGIDListContext from "contexts/GDOListContext";
+import { FormFloating } from "react-bootstrap";
 
 function UserInputForm(props) {
   const {
@@ -34,9 +35,6 @@ function UserInputForm(props) {
     setSelectedWayarea,
     selectedWayarea,
     defaultWayareaList,
-    setDefaultWayareaList,
-    vaylatInputValue,
-    setVaylatInputValue,
     defaultBoats,
     setDefaultBoats,
     selectedIndex,
@@ -45,12 +43,11 @@ function UserInputForm(props) {
     setBoatInputValue,
     GDOList,
     setGDOList,
-    GDOInput,
-    setGDOInput,
+    selectedGDO,
+    setSeletectedGDO,
     ...other
   } = props;
 
-  // const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
@@ -109,11 +106,13 @@ function UserInputForm(props) {
   }
 
   function setStartingNavline(ev, navline) {
-    console.log("setStartingNavline", ev, navline);
+    console.log("setStartingNavline", navline);
     if (navline) {
       formik.setFieldValue("navline.starting_gdo_gid", navline);
+      setSeletectedGDO(navline.toString());
     } else {
       formik.setFieldValue("navline.starting_gdo_gid", "");
+      setSeletectedGDO("");
     }
   }
 
@@ -168,12 +167,8 @@ function UserInputForm(props) {
                   <WayareaComponent
                     setDefaultWayareaName={setDefaultWayareaName}
                     name="navline.VAYLAT"
-                    setSelectedWayarea={setSelectedWayarea}
                     selectedWayarea={selectedWayarea}
                     defaultWayareaList={defaultWayareaList}
-                    setDefaultWayareaList={setDefaultWayareaList}
-                    vaylatInputValue={vaylatInputValue}
-                    setVaylatInputValue={setVaylatInputValue}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -225,8 +220,7 @@ function UserInputForm(props) {
                     name="navline.starting_gdo_gid"
                     handleMenuItemClick={setStartingNavline}
                     optionsList={GDOList}
-                    inputValue={GDOInput}
-                    setInputValue={setGDOInput}
+                    selectedValue={selectedGDO}
                   />
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
                     Jos halutaan laskea s-mutkan suora, annetaan
@@ -2318,8 +2312,6 @@ UserInputForm.propTypes = {
   selectedWayarea: PropTypes.object,
   defaultWayareaList: PropTypes.array,
   setDefaultWayareaList: PropTypes.func,
-  vaylatInputValue: PropTypes.string,
-  setVaylatInputValue: PropTypes.func,
   defaultBoats: PropTypes.array,
   setDefaultBoats: PropTypes.func,
   selectedIndex: PropTypes.number,
@@ -2328,6 +2320,6 @@ UserInputForm.propTypes = {
   setBoatInputValue: PropTypes.func,
   GDOList: PropTypes.array,
   setGDOList: PropTypes.func,
-  GDOInput: PropTypes.string,
-  setGDOInput: PropTypes.func,
+  selectedGDO: PropTypes.string,
+  setSeletectedGDO: PropTypes.func,
 };

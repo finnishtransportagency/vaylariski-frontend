@@ -1,7 +1,4 @@
 import {
-  Button,
-  Menu,
-  MenuItem,
   Autocomplete,
   TextField,
   Typography,
@@ -11,14 +8,16 @@ import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 
 export default function CustomAutoCompleteSelectorComponent(props) {
-  const { name, label, optionsList, inputValue, setInputValue, ...other } =
+  const { name, label, optionsList, selectedValue, ...other } =
     props;
   const [field, meta] = useField(name);
+  const [inputValue, setInputValue] = useState(field.value); // Set input value from formik
+
 
   // useEffect(() => {
   //   console.log("inputValue", inputValue);
-  //   console.log("value", value);
-  // }, [inputValue, value]);
+  //   console.log("selectedValue", selectedValue);
+  // }, [inputValue, selectedValue]);
 
   function handleOnChange(ev, newValue) {
     props.handleMenuItemClick(ev, newValue, name);

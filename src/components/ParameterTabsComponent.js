@@ -51,7 +51,7 @@ export default function ParameterTabsComponent() {
   const [boatInputValue, setBoatInputValue] = useState("");
 
   const { GDOList, setGDOList } = useContext(GDOGIDListContext);
-  const [ GDOInput, setGDOInput ] = useState("");
+  const [ selectedGDO, setSeletectedGDO ] = useState("");
 
   useEffect(() => {
     console.log("param tabs: vaylatInputValue", vaylatInputValue);
@@ -158,12 +158,9 @@ export default function ParameterTabsComponent() {
               tabValue={value}
               tabIndex={0}
               formik={formik}
-              setSelectedWayarea={setSelectedWayarea}
-              selectedWayarea={selectedWayarea}
-              defaultWayareaList={defaultWayareaList}
-              setDefaultWayareaList={setDefaultWayareaList}
-              vaylatInputValue={vaylatInputValue}
-              setVaylatInputValue={setVaylatInputValue}
+              setSelectedWayarea={setSelectedWayarea}  //väylän valintaan
+              selectedWayarea={selectedWayarea}     //väylän valintaan
+              defaultWayareaList={defaultWayareaList}   //väylien nimilista, annetaan wayareacomponentille
               defaultBoats={defaultBoats}
               setDefaultBoats={setDefaultBoats}
               selectedIndex={selectedIndex}
@@ -172,22 +169,14 @@ export default function ParameterTabsComponent() {
               setBoatInputValue={setBoatInputValue}
               GDOList={GDOList}
               setGDOList={setGDOList}
-              GDOInput={GDOInput}
-              setGDOInput={setGDOInput}
-
+              selectedGDO={selectedGDO}
+              setSeletectedGDO={setSeletectedGDO}
             />
             <UserDefinedAngleParamsComponent
               tabValue={value}
               tabIndex={1}
               formik={formik}
-              setSelectedWayarea={setSelectedWayarea}
-              selectedWayarea={selectedWayarea}
-              defaultWayareaList={defaultWayareaList}
-              setDefaultWayareaList={setDefaultWayareaList}
-              vaylatInputValue={vaylatInputValue}
-              setVaylatInputValue={setVaylatInputValue}
-              GDOInput={GDOInput}
-              setGDOInput={setGDOInput}
+              GDOList={GDOList}
             />
           </FForm>
         )}

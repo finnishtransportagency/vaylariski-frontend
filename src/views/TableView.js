@@ -399,8 +399,8 @@ function TableView(props, { direction }) {
     let sortedRows = [...displayRowResults]
 
     switch (columnKey) {
-      // case "GDO_GID": 
-      // case "RISK_INDEX_SUM":"RISK_INDEX_SUM" 
+      // case "GDO_GID":
+      // case "RISK_INDEX_SUM":"RISK_INDEX_SUM"
       default:
         sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey])
         break
