@@ -590,8 +590,7 @@ function TableView(props, { direction }) {
       <DataGrid
         style={{
           height: "550px",
-          width: "99%"
-
+          width: "97%"
         }}
         columns={visibleColumnsMetadata}
         rows={filteredRows}

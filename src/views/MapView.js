@@ -145,7 +145,7 @@ function MapView() {
         scrollWheelZoom={true}
         style={{
           height: "800px",
-          width:"95%",
+          width:"75%",
           backgroundColor: "white",
           marginTop: "80px",
           marginBottom: "5px",
