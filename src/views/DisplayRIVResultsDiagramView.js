@@ -89,7 +89,7 @@ export default function DisplayRIVResultsDiagramView(props) {
       {...other}
     >
       {tabValue === tabIndex && (
-        <ResponsiveContainer width="100%" height={500}>
+        <ResponsiveContainer width="75%" height={500}>
           <LineChart
             data={displayRowResults}
             height={400}
