@@ -5,12 +5,13 @@ import {
   Autocomplete,
   TextField,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import { Fragment, useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 export default function WayareaNameComponent(props) {
   const { name, ...other } = props;
@@ -45,44 +46,43 @@ export default function WayareaNameComponent(props) {
   }
 
   return (
-    <Form.Group className={meta.error && "has-error"}>
-      <Typography style={{ fontSize: 16, fontWeight:550}} color="textSecondary" gutterBottom>
-        Valitse väylä
-      </Typography>
+    <Form.Group>
       <Typography
-        style={{ fontSize: 14 }}
+        style={{ fontSize: 16, fontWeight: 550 }}
         color="textSecondary"
         gutterBottom
       >
+        Valitse väylä
+      </Typography>
+      <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         VAYLAT id/nimi:{" "}
       </Typography>
-      <Autocomplete
-        id="navline.VAYLAT"
-        freeSolo
-        disablePortal
-        options={defaultWayarea}
-        getOptionLabel={(option) =>
-          option ? `${option.VAYLAT} - ${option.Nimi}` : ""
-        }
-        onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-        inputValue={vaylatInputValue}
-        onInputChange={(ev, newInputValue) =>
-          setVaylatInputValue(newInputValue)
-        }
-        sx={{ width: 350 }}
-        renderInput={(params) => (
-          <TextField
-            style={{ backgroundColor: "white" }}
-            {...params}
-            required
+      <Tooltip placement="right" arrow title={meta.error}>
+        <span>
+          <Autocomplete
+            id="navline.VAYLAT"
+            disablePortal
+            options={defaultWayarea}
+            getOptionLabel={(option) =>
+              option ? `${option.VAYLAT} - ${option.Nimi}` : ""
+            }
+            onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+            inputValue={vaylatInputValue}
+            onInputChange={(ev, newInputValue) =>
+              setVaylatInputValue(newInputValue)
+            }
+            sx={{ width: 350 }}
+            renderInput={(params) => (
+              <TextField
+                error={!!meta.error}
+                style={{ backgroundColor: "white" }}
+                {...params}
+                required
+              />
+            )}
           />
-        )}
-      />
-      {meta.touched && meta.error && (
-        <small className="react-form-message react-form-message-error">
-          {meta.error}
-        </small>
-      )}
+        </span>
+      </Tooltip>
     </Form.Group>
   );
 }
