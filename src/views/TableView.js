@@ -354,7 +354,6 @@ function TableView(props, { direction }) {
   }, [])
 
   const [visibleColumns, setVisibleColumns] = useState(columns.map(c => c.key));
-
   const handleToggleColumn = (key) => {
     setVisibleColumns((visibleColumns) => {
       if (visibleColumns.includes(key)) {
@@ -366,8 +365,10 @@ function TableView(props, { direction }) {
   };
 
   const visibleColumnsMetadata = columns.filter((column) =>
-    visibleColumns.includes(column.key)
-  );
+    visibleColumns.includes(column.key)).map((column) => ({
+    ...column,
+    header: column.name
+  }));
 
   const handleSelectAllColumns = (event) => {
     if (event.target.checked) {
@@ -419,7 +420,6 @@ function TableView(props, { direction }) {
     return direction === "DESC" ? sortedRows.reverse() : sortedRows
   }, [displayRowResults, sortColumns])
 
-
   const handleAddFilterClick = () => {
     setShowForm(true);
   };
@@ -459,17 +459,24 @@ function TableView(props, { direction }) {
     });
   });
 
-  const data = filteredRows.map((row) =>
-    visibleColumnsMetadata.reduce((acc, column) => {
-      acc[column.key] = row[column.key];
-      return acc;
-    }, {})
-  );
+  const data = [
+    visibleColumnsMetadata.map((column) => column.header), // Add headers as first row
+    ...filteredRows.map((row) =>
+      visibleColumnsMetadata.reduce((acc, column) => {
+        acc[column.key] = row[column.key];
+        return acc;
+      }, {})
+    ),
+  ];
 
+  
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
-      if (typeof value === 'number') {
+      if (typeof value === 'number') {                      // changing points to commas for excel
         return value.toString().replace(/\./g, ',');
+      }
+      if (value === null) {                                 // empty cells to nan because of excel
+        return value = 'nan';
       }
       return value;
     });
@@ -484,16 +491,16 @@ function TableView(props, { direction }) {
       {...other}
     >
       <div>
-      <Button variant="contained" style={{backgroundColor: "#ced6d8", margin: 1}} >
-            <CSVLink
-              data={csvData}
-              filename={'vaylakohtainen_riski.csv'}
-              separator={';'}
-            >
-              Lataa CSV
-            </CSVLink>
-          </Button>
-          <Button variant="contained" style={{backgroundColor: "#ced6d8", color: "black", margin: 1}} onClick={handleOpen}>
+        <Button variant="contained" style={{ backgroundColor: "#ced6d8", margin: 1 }} >
+          <CSVLink
+            data={csvData}
+            filename={'vaylakohtainen_riski.csv'}
+            separator={';'}
+          >
+            Lataa CSV
+          </CSVLink>
+        </Button>
+        <Button variant="contained" style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} onClick={handleOpen}>
           Valitse sarakkeet
         </Button>
         <Modal
@@ -529,45 +536,45 @@ function TableView(props, { direction }) {
             </div>
           </Box>
         </Modal>
-          <Button variant="contained" style={{backgroundColor: "#ced6d8", color: "black", margin: 1}} onClick={handleAddFilterClick}>Lisää filtteri</Button>
-          {showForm && (
-            <Formik
-              initialValues={{
-                filterConstant: '',
-                filterOperator: '≤',
-                filterValue: '',
-              }}
-              onSubmit={handleFilterSubmit}
-            >
-              {({ isSubmitting }) => (
-                <Form>
-                  <label htmlFor="filterConstant">Parametri:</label>
-                  <Field as="select" id="filterConstant" name="filterConstant">
-                    <option value="">Valitse parametri</option>
-                    {columns.map(column => (
-                      <option key={column.key} value={column.key}>{column.name}</option>
-                    ))}
-                  </Field>
-                  <ErrorMessage name="filterConstant" component="div" />
+        <Button variant="contained" style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} onClick={handleAddFilterClick}>Lisää filtteri</Button>
+        {showForm && (
+          <Formik
+            initialValues={{
+              filterConstant: '',
+              filterOperator: '≤',
+              filterValue: '',
+            }}
+            onSubmit={handleFilterSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <label htmlFor="filterConstant">Parametri:</label>
+                <Field as="select" id="filterConstant" name="filterConstant">
+                  <option value="">Valitse parametri</option>
+                  {columns.map(column => (
+                    <option key={column.key} value={column.key}>{column.name}</option>
+                  ))}
+                </Field>
+                <ErrorMessage name="filterConstant" component="div" />
 
-                  <label htmlFor="filterOperator"></label>
-                  <Field as="select" id="filterOperator" name="filterOperator">
-                    <option value="≤">≤</option>
-                    <option value="≥">≥</option>
-                    <option value="=">=</option>
-                  </Field>
-                  <ErrorMessage name="filterOperator" component="div" />
+                <label htmlFor="filterOperator"></label>
+                <Field as="select" id="filterOperator" name="filterOperator">
+                  <option value="≤">≤</option>
+                  <option value="≥">≥</option>
+                  <option value="=">=</option>
+                </Field>
+                <ErrorMessage name="filterOperator" component="div" />
 
-                  <label htmlFor="filterValue">Arvo:</label>
-                  <Field type="text" id="filterValue" name="filterValue" />
-                  <ErrorMessage name="filterValue" component="div" />
+                <label htmlFor="filterValue">Arvo:</label>
+                <Field type="text" id="filterValue" name="filterValue" />
+                <ErrorMessage name="filterValue" component="div" />
 
-                  <button type="submit" disabled={isSubmitting}>Käytä</button>
-                  <button type="button" onClick={handleCancelClick}>Poista</button>
-                </Form>
-              )}
-            </Formik>
-          )}
+                <button type="submit" disabled={isSubmitting}>Käytä</button>
+                <button type="button" onClick={handleCancelClick}>Poista</button>
+              </Form>
+            )}
+          </Formik>
+        )}
         {filters.length > 0 && (
           <div>
             {filters.map((filter, index) => (
@@ -579,14 +586,10 @@ function TableView(props, { direction }) {
           </div>
         )}
 
-        
-
-          
-
       </div>
       <DataGrid
         style={{
-          height: "600px",
+          height: "550px",
           width: "99%"
 
         }}
