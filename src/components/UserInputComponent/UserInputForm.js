@@ -64,6 +64,7 @@ function UserInputForm(props) {
       formik.setValues({
         ...formik.values,
         boat: {
+          ...formik.values.boat,
           length: newBoat.PITUUS || "",
           beam: newBoat.LEVEYS || "",
           draft: newBoat.SYVAYS || "",
@@ -74,6 +75,7 @@ function UserInputForm(props) {
       formik.setValues({
         ...formik.values,
         boat: {
+          ...formik.values.boat,
           length: "",
           beam: "",
           draft: "",
