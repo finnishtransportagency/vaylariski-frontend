@@ -19,6 +19,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
+import TurningRadiusComponent from "./TurningRadiusComponent";
 import PropTypes from "prop-types";
 import { padding } from "@mui/system";
 
@@ -121,7 +122,9 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={5}>
-                  <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
+                  <label htmlFor="calculation_interval">
+                    Pisteiden väli (m):
+                  </label>
                 </Grid>
                 <Grid item xs={5}>
                   <Field
@@ -145,10 +148,11 @@ function UserInputForm(props) {
                     <option value="100">100</option>
                     <option value="1000">1000</option>
                   </Field>
-                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                    Valitse laskentapisteiden välinen etäisyys navigointilinjalla. Oletusarvo on 10 m.
+                    Valitse laskentapisteiden välinen etäisyys
+                    navigointilinjalla. Oletusarvo on 10 m.
                   </Typography>
                 </Grid>
               </Grid>
@@ -346,6 +350,28 @@ function UserInputForm(props) {
                     />
                     Heikko
                   </label>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                spacing={1}
+                paddingBottom={2}
+                justifyContent="flex-start"
+              >
+                <Grid item textAlign="center" alignSelf={"center"} xs={1}>
+                  <Typography
+                    style={{ fontSize: 14 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    C
+                    <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                      tr
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={11}>
+                  <TurningRadiusComponent name="boat.C_turning_radius" formik={formik} />
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>

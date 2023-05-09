@@ -19,6 +19,7 @@ const userInputDefault = {
     beam: 30,
     draft: 10,
     manoeuvrability: "moderate",
+    C_turning_radius: 5
   },
   navline: {
     VAYLAT: "",
