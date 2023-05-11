@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import L, { FeatureGroup, latLng } from "leaflet";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
+import SelectedIndexContext from "contexts/SelectedIndexContext";
+
 import apiClient from "http-common";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import NotificationContext from "contexts/NotificationContext";
@@ -42,7 +44,6 @@ const geojsonMarkerOptionsGray = {
   opacity: 1,
   fillOpacity: 0.8,
 };
-
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
@@ -58,17 +59,29 @@ function GeoJSONMarkers() {
   const { wayareaPolygons, setWayareaPolygons } = useContext(
     WayareaPolygonContext
   );
+  const {selectedRowIndex, setSelectedRowIndex} = useContext(
+    SelectedIndexContext
+  );
 
-  function onEachFeature(feature, layer) {
+  useEffect(() => {
+    console.log('Map Clicked:', selectedRowIndex);
+  }, [selectedRowIndex])
+
+  function onEachFeature(feature, layer, children) {
     // If feature have have properties parse all of them and bind to layer
     if (feature.properties) {
+
+      layer.on('click', () => {
+        setSelectedRowIndex(feature.properties.point_index);
+      });
+
       layer.bindPopup(
         "<pre>" +
-          JSON.stringify(feature.properties, null, " ").replace(
-            /[\{\}"]/g,
-            ""
-          ) +
-          "</pre>"
+        JSON.stringify(feature.properties, null, " ").replace(
+          /[\{\}"]/g,
+          ""
+        ) +
+        "</pre>"
       );
     }
   }
@@ -92,7 +105,7 @@ function GeoJSONMarkers() {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
-        if(feature.properties.W_channel == null || feature.properties.W_channel_depth == null) {
+        if (feature.properties.W_channel == null || feature.properties.W_channel_depth == null) {
           return L.circleMarker(latlng, geojsonMarkerOptionsGray);
         } else {
           if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
@@ -106,7 +119,7 @@ function GeoJSONMarkers() {
           return L.circleMarker(latlng, geojsonMarkerOptionsRed);
         }
 
-        }
+      }
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 
@@ -119,7 +132,7 @@ function MapView() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
-  
+
   useEffect(() => {
     if (mapRef.current) {
       mapRef.current.setView(coords, 9);
@@ -127,12 +140,10 @@ function MapView() {
   }, [coords]);
 
   useEffect(() => {
-    if (typeof(RIVResults.features)!=="undefined") {
-      setCoords({ lat: RIVResults.features[0].geometry.coordinates[1], lng: RIVResults.features[0].geometry.coordinates[0]});
+    if (typeof (RIVResults.features) !== "undefined") {
+      setCoords({ lat: RIVResults.features[0].geometry.coordinates[1], lng: RIVResults.features[0].geometry.coordinates[0] });
     }
   }, [RIVResults]);
-
-
 
   return (
     <>
@@ -145,7 +156,7 @@ function MapView() {
         scrollWheelZoom={true}
         style={{
           height: "800px",
-          width:"75%",
+          width: "75%",
           backgroundColor: "white",
           marginTop: "80px",
           marginBottom: "5px",

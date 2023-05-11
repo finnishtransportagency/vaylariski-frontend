@@ -11,6 +11,7 @@ import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
+import SelectedIndexContext from "../contexts/SelectedIndexContext"
 
 const userInputDefault = {
   boat: {
@@ -121,6 +122,8 @@ const userInputDefault = {
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
     yellow: 30,
@@ -152,11 +155,15 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <NotificationComponent />
-                <LoadingSpinner />
-                <ParameterTabsComponent />
-                <MapView />
-                <RIVResultsTabsComponent />
+                <SelectedIndexContext.Provider
+                  value={{ selectedRowIndex, setSelectedRowIndex }}
+                >
+                  <NotificationComponent />
+                  <LoadingSpinner />
+                  <ParameterTabsComponent />
+                  <MapView />
+                  <RIVResultsTabsComponent />
+                </SelectedIndexContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>

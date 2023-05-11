@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
-import RIVResultContext from "../contexts/RIVResult";
+import { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from "react";
 import DataGrid from 'react-data-grid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import 'react-data-grid/lib/styles.css';
@@ -8,8 +7,10 @@ import {
   Modal,
   Button
 } from "@mui/material";
-import NotificationContext from "contexts/NotificationContext";
 import { CSVLink } from 'react-csv';
+import RIVResultContext from "../contexts/RIVResult";
+import NotificationContext from "contexts/NotificationContext";
+import SelectedIndexContext from "contexts/SelectedIndexContext";
 
 
 const style = {
@@ -46,10 +47,19 @@ function TableView(props, { direction }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const {selectedRowIndex, setSelectedRowIndex} = useContext(
+    SelectedIndexContext
+  );
 
   // Set columns
   const columns = useMemo(() => {
     return [
+      {
+        key: "point_index",
+        name: 'index',
+        resizable: true,
+        sortable: true
+      },
       {
         key: "GDO_GID",
         name: 'GDO_GID',
