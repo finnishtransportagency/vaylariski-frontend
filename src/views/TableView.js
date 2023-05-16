@@ -47,7 +47,7 @@ function TableView(props, { direction }) {
   const handleClose = () => {
     setOpen(false);
   };
-  const {selectedRowIndex, setSelectedRowIndex} = useContext(
+  const { selectedRowIndex, setSelectedRowIndex } = useContext(
     SelectedIndexContext
   );
 
@@ -376,9 +376,9 @@ function TableView(props, { direction }) {
 
   const visibleColumnsMetadata = columns.filter((column) =>
     visibleColumns.includes(column.key)).map((column) => ({
-    ...column,
-    header: column.name
-  }));
+      ...column,
+      header: column.name
+    }));
 
   const handleSelectAllColumns = (event) => {
     if (event.target.checked) {
@@ -479,7 +479,6 @@ function TableView(props, { direction }) {
     ),
   ];
 
-  
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
       if (typeof value === 'number') {                      // changing points to commas for excel
@@ -491,6 +490,22 @@ function TableView(props, { direction }) {
       return value;
     });
   });
+
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    if (gridRef.current && selectedRowIndex !== null) {
+      const rowIndex = filteredRows.findIndex(row => row.point_index === selectedRowIndex);
+      if (rowIndex !== -1) {
+        const updatedRows = filteredRows.map((row, index) => ({
+          ...row,
+          isSelected: index === rowIndex,
+        }));
+        gridRef.current.scrollToRow(rowIndex);
+      }
+    }
+  }, [filteredRows, selectedRowIndex]);
+
 
   return (
     <div
@@ -602,11 +617,13 @@ function TableView(props, { direction }) {
           height: "550px",
           width: "97%"
         }}
+        ref={gridRef}
         columns={visibleColumnsMetadata}
         rows={filteredRows}
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
         direction={direction}
+
       />
     </div>
   );
