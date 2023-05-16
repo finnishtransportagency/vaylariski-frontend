@@ -20,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
 import TurningRadiusComponent from "./TurningRadiusComponent";
+import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import { padding } from "@mui/system";
 
@@ -315,41 +316,30 @@ function UserInputForm(props) {
                     <label htmlFor="">Aluksen ohjailtavuusluokka</label>
                   </Typography>
                 </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      name="boat.manoeuvrability"
-                      type="radio"
-                      value="good"
-                      id="good"
+                <Grid
+                  container
+                  spacing={1}
+                  paddingBottom={2}
+                  justifyContent="flex-start"
+                >
+                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
+                    <Typography
+                      style={{ fontSize: 14 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      C
+                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                        M
+                      </span>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={11}>
+                    <ManoeuvrabilityComponent
+                      name="boat.C_manoeuvrability"
+                      formik={formik}
                     />
-                    Hyvä
-                  </label>
-                </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      type="radio"
-                      name="boat.manoeuvrability"
-                      value="moderate"
-                      id="moderate"
-                    />
-                    Keskiverto
-                  </label>
-                </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      type="radio"
-                      name="boat.manoeuvrability"
-                      value="poor"
-                      id="poor"
-                    />
-                    Heikko
-                  </label>
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid
@@ -371,7 +361,10 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
                 <Grid item xs={11}>
-                  <TurningRadiusComponent name="boat.C_turning_radius" formik={formik} />
+                  <TurningRadiusComponent
+                    name="boat.C_turning_radius"
+                    formik={formik}
+                  />
                 </Grid>
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
