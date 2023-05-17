@@ -452,7 +452,7 @@ function TableView(props, { direction }) {
         case '≥':
           return rowValue >= filterValue;
         case '=':
-          return rowValue === filterValue;
+          return rowValue == filterValue;
         default:
           return true;
       }
@@ -549,7 +549,7 @@ function TableView(props, { direction }) {
             {({ isSubmitting }) => (
               <Form>
                 <label htmlFor="filterConstant">Parametri:</label>
-                <Field as="select" id="filterConstant" name="filterConstant">
+                <Field as="select" id="filterConstant" name="filterConstant" required>
                   <option value="">Valitse parametri</option>
                   {columns.map(column => (
                     <option key={column.key} value={column.key}>{column.name}</option>
@@ -566,7 +566,7 @@ function TableView(props, { direction }) {
                 <ErrorMessage name="filterOperator" component="div" />
 
                 <label htmlFor="filterValue">Arvo:</label>
-                <Field type="text" id="filterValue" name="filterValue" />
+                <Field type="text" id="filterValue" name="filterValue" required/>
                 <ErrorMessage name="filterValue" component="div" />
 
                 <button type="submit" disabled={isSubmitting}>Käytä</button>
