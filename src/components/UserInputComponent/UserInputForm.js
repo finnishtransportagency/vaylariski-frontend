@@ -1149,7 +1149,7 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navline.calculation_params.light_pollution">
+                  <label htmlFor="navline.calculation_params.other.light_pollution">
                     {" "}
                     Taustavalon voimakkuus:{" "}
                   </label>
@@ -1157,12 +1157,13 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navline.calculation_params.light_pollution"
+                    name="navline.calculation_params.other.light_pollution"
                   >
                     <option value="negligible">Olematon</option>
                     <option value="low">Heikko</option>
                     <option value="moderate">Keskiverto</option>
-                    <option value="strong">Voimakas</option>
+                    <option value="heavy">Voimakas</option>
+                    <option value="very_heavy">Todella voimakas</option>
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
