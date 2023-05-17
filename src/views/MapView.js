@@ -81,15 +81,15 @@ function GeoJSONMarkers() {
         'PF_3_s_bend: ' + JSON.stringify(feature.properties.PF_3_s_bend) + '\n' +
         'PF_4_traffic_complexity: ' + JSON.stringify(feature.properties.PF_4_traffic_complexity) + '\n' +
         'PF_5_reduced_visibility: ' + JSON.stringify(feature.properties.PF_5_reduced_visibility) + '\n' +
-        // 'PF_6_light_pollution: ' + JSON.stringify(feature.properties.PF_6_light_pollution) + '\n' +
-        'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
+        'PF_6_light_pollution: ' + JSON.stringify(feature.properties.PF_6_light_pollution) + '\n' +
+        // 'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
         // 'PF_traffic_complexity: ' + JSON.stringify(feature.properties.PF_traffic_complexity) + '\n' +
-        'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
+        // 'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
         // 'PF_traffic_volume: ' + JSON.stringify(feature.properties.PF_traffic_volume) + '\n' +
         'W_atn: ' + JSON.stringify(feature.properties.W_atn) + '\n' +
         'W_bank_clearance: ' + JSON.stringify(feature.properties.W_bank_clearance) + '\n' +
         'W_bottom_surface: ' + JSON.stringify(feature.properties.W_bottom_surface) + '\n' +
-        'W_channel: ' + JSON.stringify(feature.properties.W_channel) + '\n' +
+        'W_channel_width: ' + JSON.stringify(feature.properties.W_channel) + '\n' +
         'W_channel_depth: ' + JSON.stringify(feature.properties.W_channel_depth) + '\n' +
         'W_cross_current: ' + JSON.stringify(feature.properties.W_cross_current) + '\n' +
         'W_longitudinal_current: ' + JSON.stringify(feature.properties.W_longitudinal_current) + '\n' +

@@ -202,7 +202,7 @@ function TableView(props, { direction }) {
       },
       {
         key: "W_channel",
-        name: 'W_channel',
+        name: 'W_channel_width',
         resizable: true,
         sortable: true
       },
