@@ -24,7 +24,7 @@ export default function TurningRadiusComponent(props) {
 
   const handleChange = (event) => {
     SetC_turning_radius(event.target.value);
-    props.formik.setFieldValue("boat.C_turning_radius", event.target.value)
+    props.formik.setFieldValue("boat.C_turning_radius", event.target.value);
   };
   const MenuOptions = () => {
     return options.map((e) => (
@@ -42,7 +42,9 @@ export default function TurningRadiusComponent(props) {
       >
         {MenuOptions()}
       </Select>
-      <FormHelperText>coefficient indicating a ship's turning radius</FormHelperText>
+      <FormHelperText>
+        parametri joka ilmaisee aluksen kääntösäteen
+      </FormHelperText>
     </Form.Group>
   );
 }

@@ -43,7 +43,7 @@ export default function ManoeuvrabilityComponent(props) {
         {MenuOptions()}
       </Select>
       <FormHelperText>
-        coefficient indicating a ship's level of manoeuvrability
+        parametri joka ilmaisee aluksen ohjattavuuden tasoa
       </FormHelperText>
     </Form.Group>
   );
