@@ -35,7 +35,8 @@ export default function ManoeuvrabilityComponent(props) {
   return (
     <Form.Group>
       <Select
-        sx={{ width: 350 }}
+        sx={{ width: "100%" , height:40}}
+        style={{backgroundColor: "white"}}
         id={name}
         value={C_manoeuvrability}
         onChange={handleChange}
@@ -43,7 +44,7 @@ export default function ManoeuvrabilityComponent(props) {
         {MenuOptions()}
       </Select>
       <FormHelperText>
-        parametri joka ilmaisee aluksen ohjattavuuden tasoa
+        Aluksen ohjailtavuusluokka
       </FormHelperText>
     </Form.Group>
   );

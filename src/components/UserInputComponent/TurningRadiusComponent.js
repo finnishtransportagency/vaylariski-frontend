@@ -35,7 +35,8 @@ export default function TurningRadiusComponent(props) {
   return (
     <Form.Group>
       <Select
-        sx={{ width: 350 }}
+        sx={{ width: "100%", height:40}}
+        style={{backgroundColor: "white"}}
         id={name}
         value={C_turning_radius}
         onChange={handleChange}
@@ -43,7 +44,7 @@ export default function TurningRadiusComponent(props) {
         {MenuOptions()}
       </Select>
       <FormHelperText>
-        parametri joka ilmaisee aluksen kääntösäteen
+        Aluksen kääntösädettä kuvaava parametri
       </FormHelperText>
     </Form.Group>
   );

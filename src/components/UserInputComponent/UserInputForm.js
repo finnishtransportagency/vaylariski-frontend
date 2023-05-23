@@ -305,6 +305,8 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
               </Grid>
+
+              {/* Ctr and Cm parameters */}
               <Grid container spacing={1} paddingBottom={2}>
                 {/* Ohjailtavuus */}
                 <Grid item xs={12}>
@@ -316,38 +318,24 @@ function UserInputForm(props) {
                     <label htmlFor="">Aluksen ohjailtavuusluokka</label>
                   </Typography>
                 </Grid>
-                <Grid
-                  container
-                  spacing={1}
-                  paddingBottom={2}
-                  justifyContent="flex-start"
-                >
-                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
-                    <Typography
-                      style={{ fontSize: 14 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      C
-                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
-                        M
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={11}>
-                    <ManoeuvrabilityComponent
-                      name="boat.C_manoeuvrability"
-                      formik={formik}
-                    />
-                  </Grid>
+                <Grid item textAlign="center" alignSelf={"center"} xs={1}>
+                  <Typography
+                    style={{ fontSize: 14 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    C
+                    <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                      M
+                    </span>
+                  </Typography>
                 </Grid>
-              </Grid>
-              <Grid
-                container
-                spacing={1}
-                paddingBottom={2}
-                justifyContent="flex-start"
-              >
+                <Grid item xs={11}>
+                  <ManoeuvrabilityComponent
+                    name="boat.C_manoeuvrability"
+                    formik={formik}
+                  />
+                </Grid>
                 <Grid item textAlign="center" alignSelf={"center"} xs={1}>
                   <Typography
                     style={{ fontSize: 14 }}
@@ -367,6 +355,10 @@ function UserInputForm(props) {
                   />
                 </Grid>
               </Grid>
+
+
+
+
               <Grid container spacing={1} paddingBottom={2}>
                 {/* Nopeusluokka */}
                 <Grid item xs={12}>
@@ -525,7 +517,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navline.calculation_params.number_of_lanes"
                   >
-                    <option value={2}>Kaksinen väylä</option>
+                    <option value={2}>Kaksisuuntainen väylä</option>
                     <option value={1}>Yksisuuntainen väylä</option>
                   </Field>
                 </Grid>
