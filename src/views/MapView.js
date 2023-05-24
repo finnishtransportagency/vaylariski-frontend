@@ -64,7 +64,7 @@ function GeoJSONMarkers() {
   );
 
   useEffect(() => {
-    console.log('Map Clicked:', selectedRowIndex);
+    console.log('Selected index:', selectedRowIndex);
   }, [selectedRowIndex])
 
   function onEachFeature(feature, layer, children) {

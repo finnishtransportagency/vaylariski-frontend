@@ -28,7 +28,6 @@ const style = {
   overflow: 'scroll'
 };
 
-
 function TableView(props, { direction }) {
   const { children, tabValue, tabIndex, formik, ...other } = props;
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
@@ -39,14 +38,18 @@ function TableView(props, { direction }) {
   const [sortColumns, setSortColumns] = useState([])
   const onSortColumnsChange = useCallback(sortColumns => { setSortColumns(sortColumns.slice(-1)) }, [])
   const [open, setOpen] = useState(false);
+  const gridRef = useRef(null);
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
+
+  // Open and close modal where columns are selected
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+  // Index from clicked map point
   const { selectedRowIndex, setSelectedRowIndex } = useContext(
     SelectedIndexContext
   );
@@ -325,12 +328,6 @@ function TableView(props, { direction }) {
         sortable: true
       },
       {
-        key: "point_index",
-        name: 'point_index',
-        resizable: true,
-        sortable: true
-      },
-      {
         key: "vessel_speed_category",
         name: 'vessel_speed_category',
         resizable: true,
@@ -363,7 +360,10 @@ function TableView(props, { direction }) {
     ]
   }, [])
 
+  // Columns that are selected visible in table
   const [visibleColumns, setVisibleColumns] = useState(columns.map(c => c.key));
+  
+  // Toggle selection for columns (in modal)
   const handleToggleColumn = (key) => {
     setVisibleColumns((visibleColumns) => {
       if (visibleColumns.includes(key)) {
@@ -373,13 +373,14 @@ function TableView(props, { direction }) {
       }
     });
   };
-
-  const visibleColumnsMetadata = columns.filter((column) =>
+  // Visible rows and columns based on selected visibleColumn
+  const visibleData = columns.filter((column) =>
     visibleColumns.includes(column.key)).map((column) => ({
       ...column,
       header: column.name
     }));
-
+  
+  // Handle so that all of the columns are selected
   const handleSelectAllColumns = (event) => {
     if (event.target.checked) {
       setVisibleColumns(columns.map((c) => c.key));
@@ -430,28 +431,31 @@ function TableView(props, { direction }) {
     return direction === "DESC" ? sortedRows.reverse() : sortedRows
   }, [displayRowResults, sortColumns])
 
+  // Open form where filters can be added
   const handleAddFilterClick = () => {
     setShowForm(true);
   };
 
+  // Delete filter form
   const handleCancelClick = () => {
     setShowForm(false);
   };
 
+  // Set added filter to table
   const handleFilterSubmit = (values, { setSubmitting }) => {
-    // Add your filter logic here using values.filterConstant, values.filterValue, and values.filterOperator
-    console.log(values.filterConstant, values.filterOperator, values.filterValue);
     setFilters([...filters, values]);
     setSubmitting(false);
     setShowForm(false);
   };
 
+  // Delete created filter
   const handleRemoveFilterClick = (index) => {
     const updatedFilters = [...filters];
     updatedFilters.splice(index, 1);
     setFilters(updatedFilters);
   };
 
+  // Update rows based on added filters
   const filteredRows = sortedRows.filter((row) => {
     return filters.every((filter) => {
       const { filterConstant, filterOperator, filterValue } = filter;
@@ -468,17 +472,19 @@ function TableView(props, { direction }) {
       }
     });
   });
-
+  
+  // Create data constant to export table as csv
   const data = [
-    visibleColumnsMetadata.map((column) => column.header), // Add headers as first row
+    visibleData.map((column) => column.header), // Add headers as first row
     ...filteredRows.map((row) =>
-      visibleColumnsMetadata.reduce((acc, column) => {
+      visibleData.reduce((acc, column) => {
         acc[column.key] = row[column.key];
         return acc;
       }, {})
     ),
   ];
 
+  // Formatting dataset before exporting
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
       if (typeof value === 'number') {                      // changing points to commas for excel
@@ -491,18 +497,13 @@ function TableView(props, { direction }) {
     });
   });
 
-  const gridRef = useRef(null);
-
+  // Scroll to selected map point in table
   useEffect(() => {
     if (gridRef.current && selectedRowIndex !== null) {
       const rowIndex = filteredRows.findIndex(row => row.point_index === selectedRowIndex);
-      if (rowIndex !== -1) {
-        const updatedRows = filteredRows.map((row, index) => ({
-          ...row,
-          isSelected: index === rowIndex,
-        }));
+
         gridRef.current.scrollToRow(rowIndex);
-      }
+        setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
     }
   }, [filteredRows, selectedRowIndex]);
 
@@ -516,6 +517,7 @@ function TableView(props, { direction }) {
       {...other}
     >
       <div>
+        {/* Export CSV */}
         <Button variant="contained" style={{ backgroundColor: "#ced6d8", margin: 1 }} >
           <CSVLink
             data={csvData}
@@ -525,6 +527,7 @@ function TableView(props, { direction }) {
             Lataa CSV
           </CSVLink>
         </Button>
+        {/* Select column */}
         <Button variant="contained" style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} onClick={handleOpen}>
           Valitse sarakkeet
         </Button>
@@ -535,7 +538,6 @@ function TableView(props, { direction }) {
           aria-describedby="parent-modal-description"
           disableScrollLock={true}
         >
-
           <Box sx={{ ...style }}>
             <div>
               <label>
@@ -561,7 +563,13 @@ function TableView(props, { direction }) {
             </div>
           </Box>
         </Modal>
-        <Button variant="contained" style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} onClick={handleAddFilterClick}>Lisää filtteri</Button>
+        {/* Add filters */}
+        <Button 
+          variant="contained" 
+          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} 
+          onClick={handleAddFilterClick}>
+          Lisää filtteri
+        </Button>
         {showForm && (
           <Formik
             initialValues={{
@@ -618,7 +626,7 @@ function TableView(props, { direction }) {
           width: "97%"
         }}
         ref={gridRef}
-        columns={visibleColumnsMetadata}
+        columns={visibleData}
         rows={filteredRows}
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
