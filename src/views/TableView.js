@@ -212,7 +212,7 @@ function TableView(props, { direction }) {
       },
       {
         key: "W_channel",
-        name: 'W_channel',
+        name: 'W_channel_width',
         resizable: true,
         sortable: true
       },
@@ -547,7 +547,7 @@ function TableView(props, { direction }) {
                 Valitse kaikki
               </label>
               {columns.map((column) => (
-                <div>
+                <div key={column.key}>
                   <label key={column.key}>
                     <input
                       type="checkbox"

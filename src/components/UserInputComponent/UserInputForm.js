@@ -19,6 +19,8 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
+import TurningRadiusComponent from "./TurningRadiusComponent";
+import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import { padding } from "@mui/system";
 
@@ -121,7 +123,9 @@ function UserInputForm(props) {
                   />
                 </Grid>
                 <Grid item xs={5}>
-                  <label htmlFor="calculation_interval">Pisteiden väli (m):</label>
+                  <label htmlFor="calculation_interval">
+                    Pisteiden väli (m):
+                  </label>
                 </Grid>
                 <Grid item xs={5}>
                   <Field
@@ -145,10 +149,11 @@ function UserInputForm(props) {
                     <option value="100">100</option>
                     <option value="1000">1000</option>
                   </Field>
-                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                    Valitse laskentapisteiden välinen etäisyys navigointilinjalla. Oletusarvo on 10 m.
+                    Valitse laskentapisteiden välinen etäisyys
+                    navigointilinjalla. Oletusarvo on 10 m.
                   </Typography>
                 </Grid>
               </Grid>
@@ -300,6 +305,8 @@ function UserInputForm(props) {
                   </Typography>
                 </Grid>
               </Grid>
+
+              {/* Ctr and Cm parameters */}
               <Grid container spacing={1} paddingBottom={2}>
                 {/* Ohjailtavuus */}
                 <Grid item xs={12}>
@@ -311,43 +318,47 @@ function UserInputForm(props) {
                     <label htmlFor="">Aluksen ohjailtavuusluokka</label>
                   </Typography>
                 </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      name="boat.manoeuvrability"
-                      type="radio"
-                      value="good"
-                      id="good"
-                    />
-                    Hyvä
-                  </label>
+                <Grid item textAlign="center" alignSelf={"center"} xs={1}>
+                  <Typography
+                    style={{ fontSize: 14 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    C
+                    <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                      M
+                    </span>
+                  </Typography>
                 </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      type="radio"
-                      name="boat.manoeuvrability"
-                      value="moderate"
-                      id="moderate"
-                    />
-                    Keskiverto
-                  </label>
+                <Grid item xs={11}>
+                  <ManoeuvrabilityComponent
+                    name="boat.C_manoeuvrability"
+                    formik={formik}
+                  />
                 </Grid>
-                <Grid item>
-                  <label htmlFor="boat.manoeuvrability">
-                    <Field
-                      component="input"
-                      type="radio"
-                      name="boat.manoeuvrability"
-                      value="poor"
-                      id="poor"
-                    />
-                    Heikko
-                  </label>
+                <Grid item textAlign="center" alignSelf={"center"} xs={1}>
+                  <Typography
+                    style={{ fontSize: 14 }}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    C
+                    <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                      tr
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={11}>
+                  <TurningRadiusComponent
+                    name="boat.C_turning_radius"
+                    formik={formik}
+                  />
                 </Grid>
               </Grid>
+
+
+
+
               <Grid container spacing={1} paddingBottom={2}>
                 {/* Nopeusluokka */}
                 <Grid item xs={12}>
@@ -506,7 +517,7 @@ function UserInputForm(props) {
                     component="select"
                     name="navline.calculation_params.number_of_lanes"
                   >
-                    <option value={2}>Kaksinen väylä</option>
+                    <option value={2}>Kaksisuuntainen väylä</option>
                     <option value={1}>Yksisuuntainen väylä</option>
                   </Field>
                 </Grid>
@@ -1149,7 +1160,7 @@ function UserInputForm(props) {
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
-                  <label htmlFor="navline.calculation_params.light_pollution">
+                  <label htmlFor="navline.calculation_params.other.light_pollution">
                     {" "}
                     Taustavalon voimakkuus:{" "}
                   </label>
@@ -1157,12 +1168,13 @@ function UserInputForm(props) {
                 <Grid item xs={6}>
                   <Field
                     component="select"
-                    name="navline.calculation_params.light_pollution"
+                    name="navline.calculation_params.other.light_pollution"
                   >
                     <option value="negligible">Olematon</option>
                     <option value="low">Heikko</option>
                     <option value="moderate">Keskiverto</option>
-                    <option value="strong">Voimakas</option>
+                    <option value="heavy">Voimakas</option>
+                    <option value="very_heavy">Todella voimakas</option>
                   </Field>
                 </Grid>
                 <Grid item xs={6}>
