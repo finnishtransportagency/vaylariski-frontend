@@ -522,7 +522,7 @@ function TableView(props, { direction }) {
                 Valitse kaikki
               </label>
               {columns.map((column) => (
-                <div>
+                <div key={column.key}>
                   <label key={column.key}>
                     <input
                       type="checkbox"
