@@ -94,19 +94,20 @@ function UserInputForm(props) {
     }
   }
   function setDefaultWayareaName(wayarea) {
-    console.log("setDefaultWayareaName", wayarea);
+    console.log("userinputform - setDefaultWayareaName:", wayarea);
     if (wayarea) {
-      setSelectedWayarea(wayarea);
+      setSelectedWayarea(wayarea.VAYLAT);
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
-      setSelectedWayarea({});
+      setSelectedWayarea("");
       formik.setFieldValue("navline.VAYLAT", "");
       setGDOList([]);
+      setStartingNavline(null, null); //reset starting gdo
     }
   }
 
   function setStartingNavline(ev, navline) {
-    console.log("setStartingNavline", navline);
+    console.log("userinputform - setStartingNavline", navline);
     if (navline) {
       formik.setFieldValue("navline.starting_gdo_gid", navline);
       setSeletectedGDO(navline.toString());
@@ -139,7 +140,8 @@ function UserInputForm(props) {
   }, [selectedWayarea]);
 
   useEffect(() => {
-    console.log(GDOList);
+    console.log("userinputform - GDOList:", GDOList);
+    console.log("UserInputForm - formik.values:", formik.values);
   }, [GDOList]);
 
   return (

@@ -11,13 +11,13 @@ export default function CustomAutoCompleteSelectorComponent(props) {
   const { name, label, optionsList, selectedValue, ...other } =
     props;
   const [field, meta] = useField(name);
-  const [inputValue, setInputValue] = useState(field.value); // Set input value from formik
+  const [inputValue, setInputValue] = useState(field.value.toString()); // Set input value from formik
 
-
-  // useEffect(() => {
-  //   console.log("inputValue", inputValue);
-  //   console.log("selectedValue", selectedValue);
-  // }, [inputValue, selectedValue]);
+  useEffect(() => {
+    console.log('CustomAutoCompleteSelectorComponent - field.value', field.value, typeof field.value);
+    console.log("CustomAutoCompleteSelectorComponent - inputValue", inputValue);
+    console.log("CustomAutoCompleteSelectorComponent - selectedValue", selectedValue);
+  }, [inputValue, selectedValue]);
 
   function handleOnChange(ev, newValue) {
     props.handleMenuItemClick(ev, newValue, name);
@@ -33,11 +33,12 @@ export default function CustomAutoCompleteSelectorComponent(props) {
         id={name}
         disablePortal
         options={optionsList}
+        value={selectedValue}
         clearOnBlur={false}
         getOptionLabel={(option) => (option ? option.toString() : "")}
         onChange={(ev, newValue) => handleOnChange(ev, newValue)}
         inputValue={inputValue}
-        onInputChange={(ev, newInputValue) => setInputValue(newInputValue)}
+        onInputChange={(ev, newInputValue, reason) => setInputValue(newInputValue)}
         sx={{ width: 350 }}
         renderInput={(params) => (
           <TextField

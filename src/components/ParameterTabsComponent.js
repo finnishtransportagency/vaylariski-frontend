@@ -41,7 +41,7 @@ export default function ParameterTabsComponent() {
   const { RIVResults, setRIVResults } = useContext(RIVResultContext);
   const { notificationStatus, setNotificationStatus } =
     useContext(NotificationContext);
-  const [selectedWayarea, setSelectedWayarea] = useState({});
+  const [selectedWayarea, setSelectedWayarea] = useState("");
   const [defaultWayareaList, setDefaultWayareaList] = useState([]);
   const { vaylatInputValue, setVaylatInputValue } = useContext(
     VaylatInputValueContext

@@ -29,27 +29,39 @@ export default function WayareaNameComponent(props) {
   } = props;
 
   const [field, meta] = useField(name);
-  const [vaylatInputValue, setVaylatInputValue] = useState( Object.keys(selectedWayarea).length !== 0 ? `${selectedWayarea.VAYLAT} - ${selectedWayarea.Nimi}`: "" );
+  // const [vaylatInputValue, setVaylatInputValue] = useState( Object.keys(selectedWayarea).length !== 0 ? `${selectedWayarea.VAYLAT} - ${selectedWayarea.Nimi}`: "" );
+  const [vaylatInputValue, setVaylatInputValue] = useState(
+   kalle()
+   );
+
+  function kalle () {
+    console.log(defaultWayareaList.filter(el => el.VAYLAT === field.value))
+    const el = defaultWayareaList.filter(el => el.VAYLAT === field.value);
+    return el.length > 0 ? `${el.VAYLAT} - ${el.Nimi}` : "";
+  }
 
   useEffect(() => {
-    console.log("wayareacomp : vaylatInputValue", vaylatInputValue);
+    console.log("wayareacomp - vaylatInputValue:", vaylatInputValue);
   }, [vaylatInputValue]);
 
   useEffect(() => {
-    console.log("wayareacomp : selectedWayarea", selectedWayarea);
+    console.log("wayareacomp - selectedWayarea:", selectedWayarea);
   }, [selectedWayarea]);
 
-  function handleMenuItemClick(event, newValue) {
-    console.log('handleMenuItemClick', newValue);
+  function handleMenuItemClick(event, newValue, reason) {
+    console.log('wayareacomp - handleMenuItemClick',event, newValue,reason);
     props.setDefaultWayareaName(newValue);
   }
 
   function handleOnInputChange(event, newInputValue, reason) {
-    console.log("newinputti", newInputValue);
+    console.log("wayareacomp - newinputti:", event, newInputValue,reason);
     setVaylatInputValue(newInputValue);
-
   }
 
+  function isOptionEqualToValue(option, value) {
+    // console.log('mitä onkaan', typeof option.VAYLAT, typeof value, option?.VAYLAT == value?.VAYLAT);
+    return option?.VAYLAT === value?.VAYLAT?.toString() ;
+  }
 
   return (
     <Form.Group className={meta.error && "has-error"}>
@@ -68,10 +80,12 @@ export default function WayareaNameComponent(props) {
         disablePortal
         options={defaultWayareaList}
         clearOnBlur={false}
+        value={selectedWayarea}
+        isOptionEqualToValue={(option, value) => isOptionEqualToValue(option, value)}
         getOptionLabel={(option) =>
           option ? `${option.VAYLAT} - ${option.Nimi}` : ""
         }
-        onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+        onChange={(ev, newValue, reason) => handleMenuItemClick(ev, newValue, reason)}
         inputValue={vaylatInputValue}
         onInputChange={(event, newInputValue, reason) =>
           handleOnInputChange(event, newInputValue, reason)

@@ -53,9 +53,7 @@ export default function UserDefinedAngleParamsComponent(props) {
         gutterBottom
       >
         Tee yhdelle navigointilinjalle (GDO_GID) kaikki haluamasi muutokset
-        samaan kenttään. Tällä hetkellä ohjelma ei hyväksy tyhjien kenttien
-        lähettämistä, joten kaikki tyhjät kentät pitää olla poistettu ennen
-        laskennan lähettämistä.
+        samaan kenttään.
       </Typography>
       <Typography
         style={{ fontSize: 16, fontWeight: 550 }}
