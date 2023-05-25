@@ -1,6 +1,5 @@
 import { createContext } from "react";
 
+const RIVTrafficLightContext = createContext(null);
 
-const RIVTrafficLightContext = createContext();
-
-export default RIVTrafficLightContext
+export default RIVTrafficLightContext;

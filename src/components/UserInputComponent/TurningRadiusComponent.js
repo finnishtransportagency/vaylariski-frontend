@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Typography, InputLabel, FormHelperText } from "@mui/material";
+import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Form from "react-bootstrap/Form";
 import Select from "@mui/material/Select";
-import { useField } from "formik";
 
 export default function TurningRadiusComponent(props) {
-  const { name, ...other } = props;
-  const [field, meta] = useField(name);
   const [C_turning_radius, SetC_turning_radius] = useState(5);
   const options = [
     ["LNG ships, passenger ships", 4],
@@ -35,17 +32,15 @@ export default function TurningRadiusComponent(props) {
   return (
     <Form.Group>
       <Select
-        sx={{ width: "100%", height:40}}
-        style={{backgroundColor: "white"}}
+        sx={{ width: "100%", height: 40 }}
+        style={{ backgroundColor: "white" }}
         id={name}
         value={C_turning_radius}
         onChange={handleChange}
       >
         {MenuOptions()}
       </Select>
-      <FormHelperText>
-        Aluksen kääntösädettä kuvaava parametri
-      </FormHelperText>
+      <FormHelperText>Aluksen kääntösädettä kuvaava parametri</FormHelperText>
     </Form.Group>
   );
 }

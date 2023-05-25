@@ -12,7 +12,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RIVResultsTabsComponent(params) {
+export default function RIVResultsTabsComponent() {
   const [value, setValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -28,10 +28,7 @@ export default function RIVResultsTabsComponent(params) {
           aria-label="basic tabs example"
         >
           <Tab label="RIV taulukko" {...a11yProps(0)} />
-          <Tab
-            label="RIV diagrammi"
-            {...a11yProps(1)}
-          />
+          <Tab label="RIV diagrammi" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TableView tabValue={value} tabIndex={0} />

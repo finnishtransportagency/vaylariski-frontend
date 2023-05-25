@@ -1,16 +1,13 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import L, { FeatureGroup, latLng } from "leaflet";
-import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
 import SelectedIndexContext from "contexts/SelectedIndexContext";
 
-import apiClient from "http-common";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
-import NotificationContext from "contexts/NotificationContext";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
+import L from "leaflet";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -46,76 +43,138 @@ const geojsonMarkerOptionsGray = {
 };
 function GeoJSONMarkers() {
   const map = useMap();
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
-  const { RIVTrafficLight, setRIVTraffiLight } = useContext(
-    RIVTrafficLightContext
-  );
+  const { RIVResults } = useContext(RIVResultContext);
+  const { RIVTrafficLight } = useContext(RIVTrafficLightContext);
   const [geojsonFeatGroup, setGeojsonFeatGroup] = useState(
     new L.FeatureGroup()
   );
   const [geojsonFeatGroupWay, setGeojsonFeatGroupWay] = useState(
     new L.FeatureGroup()
   );
-  const { wayareaPolygons, setWayareaPolygons } = useContext(
-    WayareaPolygonContext
-  );
-  const {selectedRowIndex, setSelectedRowIndex} = useContext(
-    SelectedIndexContext
-  );
+  const { wayareaPolygons } = useContext(WayareaPolygonContext);
+  const { selectedRowIndex, setSelectedRowIndex } =
+    useContext(SelectedIndexContext);
 
   useEffect(() => {
-    console.log('Selected index:', selectedRowIndex);
-  }, [selectedRowIndex])
+    console.log("Selected index:", selectedRowIndex);
+  }, [selectedRowIndex]);
 
-  function onEachFeature(feature, layer, children) {
+  function onEachFeature(feature, layer) {
     // If feature have have properties parse all of them and bind to layer
     if (feature.properties) {
-
-      layer.on('click', () => {
+      layer.on("click", () => {
         setSelectedRowIndex(feature.properties.point_index);
       });
 
       layer.bindPopup(
         "<pre>" +
-        'GDO_GID: ' + JSON.stringify(feature.properties.GDO_GID) + '\n' +
-        'VAYLAT: ' + JSON.stringify(feature.properties.VAYLAT) + '\n' +
-        'RIV_SUM: ' + JSON.stringify(feature.properties.RISK_INDEX_SUM) + '\n' +
-        'RIV_1_channel: ' + JSON.stringify(feature.properties.RIV_1_channel) + '\n' +
-        'RIV_2_bend: ' + JSON.stringify(feature.properties.RIV_2_bend) + '\n' +
-        'RIV_3_s_bend: ' + JSON.stringify(feature.properties.RIV_3_s_bend) + '\n' +
-        'RIV_4_traffic_complexity: ' + JSON.stringify(feature.properties.RIV_4_traffic_complexity) + '\n' +
-        'RIV_5_reduced_visibility: ' + JSON.stringify(feature.properties.RIV_5_reduced_visibility) + '\n' +
-        'RIV_6_light_pollution: ' + JSON.stringify(feature.properties.RIV_6_light_pollution) + '\n' +
-        'PF_1_channel: ' + JSON.stringify(feature.properties.PF_1_channel) + '\n' +
-        'PF_2_bend: ' + JSON.stringify(feature.properties.PF_2_bend) + '\n' +
-        'PF_bend1: ' + JSON.stringify(feature.properties.PF_bend1) + '\n' +
-        'PF_bend2: ' + JSON.stringify(feature.properties.PF_bend2) + '\n' +
-        'BSI: ' + JSON.stringify(feature.properties.BSI) + '\n' +
-        'PF_3_s_bend: ' + JSON.stringify(feature.properties.PF_3_s_bend) + '\n' +
-        'PF_4_traffic_complexity: ' + JSON.stringify(feature.properties.PF_4_traffic_complexity) + '\n' +
-        'PF_5_reduced_visibility: ' + JSON.stringify(feature.properties.PF_5_reduced_visibility) + '\n' +
-        'PF_6_light_pollution: ' + JSON.stringify(feature.properties.PF_6_light_pollution) + '\n' +
-        // 'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
-        // 'PF_traffic_complexity: ' + JSON.stringify(feature.properties.PF_traffic_complexity) + '\n' +
-        // 'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
-        // 'PF_traffic_volume: ' + JSON.stringify(feature.properties.PF_traffic_volume) + '\n' +
-        'W_atn: ' + JSON.stringify(feature.properties.W_atn) + '\n' +
-        'W_bank_clearance: ' + JSON.stringify(feature.properties.W_bank_clearance) + '\n' +
-        'W_bottom_surface: ' + JSON.stringify(feature.properties.W_bottom_surface) + '\n' +
-        'W_channel_width: ' + JSON.stringify(feature.properties.W_channel) + '\n' +
-        'W_channel_depth: ' + JSON.stringify(feature.properties.W_channel_depth) + '\n' +
-        'W_cross_current: ' + JSON.stringify(feature.properties.W_cross_current) + '\n' +
-        'W_longitudinal_current: ' + JSON.stringify(feature.properties.W_longitudinal_current) + '\n' +
-        'W_maneuvrability: ' + JSON.stringify(feature.properties.W_manoeuvrability) + '\n' +
-        'W_speed: ' + JSON.stringify(feature.properties.W_speed) + '\n' +
-        'W_wave_height: ' + JSON.stringify(feature.properties.W_wave_height) + '\n' +
-        'W_wind: ' + JSON.stringify(feature.properties.W_wind) + '\n' +
-        'S_bend_length: ' + JSON.stringify(feature.properties.bend_S_length) + '\n' +
-        'bend_angle: ' + JSON.stringify(feature.properties.bend_angle) + '\n' +
-        'bend_radius: ' + JSON.stringify(feature.properties.bend_radius) + '\n' +
-        'channel_depth: ' + JSON.stringify(feature.properties.channel_depth_value) + '\n' +        
-        'index: ' + JSON.stringify(feature.properties.point_index) + '\n' +        
-        "</pre>"
+          "GDO_GID: " +
+          JSON.stringify(feature.properties.GDO_GID) +
+          "\n" +
+          "VAYLAT: " +
+          JSON.stringify(feature.properties.VAYLAT) +
+          "\n" +
+          "RIV_SUM: " +
+          JSON.stringify(feature.properties.RISK_INDEX_SUM) +
+          "\n" +
+          "RIV_1_channel: " +
+          JSON.stringify(feature.properties.RIV_1_channel) +
+          "\n" +
+          "RIV_2_bend: " +
+          JSON.stringify(feature.properties.RIV_2_bend) +
+          "\n" +
+          "RIV_3_s_bend: " +
+          JSON.stringify(feature.properties.RIV_3_s_bend) +
+          "\n" +
+          "RIV_4_traffic_complexity: " +
+          JSON.stringify(feature.properties.RIV_4_traffic_complexity) +
+          "\n" +
+          "RIV_5_reduced_visibility: " +
+          JSON.stringify(feature.properties.RIV_5_reduced_visibility) +
+          "\n" +
+          "RIV_6_light_pollution: " +
+          JSON.stringify(feature.properties.RIV_6_light_pollution) +
+          "\n" +
+          "PF_1_channel: " +
+          JSON.stringify(feature.properties.PF_1_channel) +
+          "\n" +
+          "PF_2_bend: " +
+          JSON.stringify(feature.properties.PF_2_bend) +
+          "\n" +
+          "PF_bend1: " +
+          JSON.stringify(feature.properties.PF_bend1) +
+          "\n" +
+          "PF_bend2: " +
+          JSON.stringify(feature.properties.PF_bend2) +
+          "\n" +
+          "BSI: " +
+          JSON.stringify(feature.properties.BSI) +
+          "\n" +
+          "PF_3_s_bend: " +
+          JSON.stringify(feature.properties.PF_3_s_bend) +
+          "\n" +
+          "PF_4_traffic_complexity: " +
+          JSON.stringify(feature.properties.PF_4_traffic_complexity) +
+          "\n" +
+          "PF_5_reduced_visibility: " +
+          JSON.stringify(feature.properties.PF_5_reduced_visibility) +
+          "\n" +
+          "PF_6_light_pollution: " +
+          JSON.stringify(feature.properties.PF_6_light_pollution) +
+          "\n" +
+          // 'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
+          // 'PF_traffic_complexity: ' + JSON.stringify(feature.properties.PF_traffic_complexity) + '\n' +
+          // 'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
+          // 'PF_traffic_volume: ' + JSON.stringify(feature.properties.PF_traffic_volume) + '\n' +
+          "W_atn: " +
+          JSON.stringify(feature.properties.W_atn) +
+          "\n" +
+          "W_bank_clearance: " +
+          JSON.stringify(feature.properties.W_bank_clearance) +
+          "\n" +
+          "W_bottom_surface: " +
+          JSON.stringify(feature.properties.W_bottom_surface) +
+          "\n" +
+          "W_channel_width: " +
+          JSON.stringify(feature.properties.W_channel) +
+          "\n" +
+          "W_channel_depth: " +
+          JSON.stringify(feature.properties.W_channel_depth) +
+          "\n" +
+          "W_cross_current: " +
+          JSON.stringify(feature.properties.W_cross_current) +
+          "\n" +
+          "W_longitudinal_current: " +
+          JSON.stringify(feature.properties.W_longitudinal_current) +
+          "\n" +
+          "W_maneuvrability: " +
+          JSON.stringify(feature.properties.W_manoeuvrability) +
+          "\n" +
+          "W_speed: " +
+          JSON.stringify(feature.properties.W_speed) +
+          "\n" +
+          "W_wave_height: " +
+          JSON.stringify(feature.properties.W_wave_height) +
+          "\n" +
+          "W_wind: " +
+          JSON.stringify(feature.properties.W_wind) +
+          "\n" +
+          "S_bend_length: " +
+          JSON.stringify(feature.properties.bend_S_length) +
+          "\n" +
+          "bend_angle: " +
+          JSON.stringify(feature.properties.bend_angle) +
+          "\n" +
+          "bend_radius: " +
+          JSON.stringify(feature.properties.bend_radius) +
+          "\n" +
+          "channel_depth: " +
+          JSON.stringify(feature.properties.channel_depth_value) +
+          "\n" +
+          "index: " +
+          JSON.stringify(feature.properties.point_index) +
+          "\n" +
+          "</pre>"
       );
     }
   }
@@ -139,7 +198,10 @@ function GeoJSONMarkers() {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
-        if (feature.properties.W_channel == null || feature.properties.W_channel_depth == null) {
+        if (
+          feature.properties.W_channel == null ||
+          feature.properties.W_channel_depth == null
+        ) {
           return L.circleMarker(latlng, geojsonMarkerOptionsGray);
         } else {
           if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
@@ -152,8 +214,7 @@ function GeoJSONMarkers() {
           }
           return L.circleMarker(latlng, geojsonMarkerOptionsRed);
         }
-
-      }
+      },
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 
@@ -163,7 +224,7 @@ function GeoJSONMarkers() {
 }
 
 function MapView() {
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
 
@@ -174,8 +235,11 @@ function MapView() {
   }, [coords]);
 
   useEffect(() => {
-    if (typeof (RIVResults.features) !== "undefined") {
-      setCoords({ lat: RIVResults.features[0].geometry.coordinates[1], lng: RIVResults.features[0].geometry.coordinates[0] });
+    if (typeof RIVResults.features !== "undefined") {
+      setCoords({
+        lat: RIVResults.features[0].geometry.coordinates[1],
+        lng: RIVResults.features[0].geometry.coordinates[0],
+      });
     }
   }, [RIVResults]);
 

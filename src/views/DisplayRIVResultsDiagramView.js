@@ -14,13 +14,11 @@ import {
 } from "recharts";
 
 export default function DisplayRIVResultsDiagramView(props) {
-  const { children, tabValue, tabIndex, formik, ...other } = props;
+  const { tabValue, tabIndex, ...other } = props;
 
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const { RIVResults } = useContext(RIVResultContext);
   const [displayRowResults, setDisplayRowResults] = useState([]);
-  const { RIVTrafficLight, setRIVTraffiLight } = useContext(
-    RIVTrafficLightContext
-  );
+  const { RIVTrafficLight } = useContext(RIVTrafficLightContext);
 
   useEffect(() => {
     setDisplayRowResults([]);

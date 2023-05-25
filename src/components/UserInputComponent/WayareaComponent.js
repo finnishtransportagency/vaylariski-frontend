@@ -1,24 +1,15 @@
-import {
-  Button,
-  Menu,
-  MenuItem,
-  Autocomplete,
-  TextField,
-  Typography,
-  Tooltip,
-} from "@mui/material";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Autocomplete, TextField, Typography, Tooltip } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 
 export default function WayareaNameComponent(props) {
-  const { name, ...other } = props;
+  const { name } = props;
   const [field, meta] = useField(name);
   const [defaultWayarea, setDefaultWayarea] = useState([]);
-  const { notificationStatus, setNotificationStatus } =
-    useContext(NotificationContext);
+  const { setNotificationStatus } = useContext(NotificationContext);
   const [vaylatInputValue, setVaylatInputValue] = useState("");
 
   useEffect(() => {
@@ -36,7 +27,6 @@ export default function WayareaNameComponent(props) {
         message: err.message,
         visible: true,
       });
-    } finally {
     }
   }, []);
 

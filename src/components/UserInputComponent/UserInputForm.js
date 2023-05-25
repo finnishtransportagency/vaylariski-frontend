@@ -1,38 +1,24 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
-import {
-  Autocomplete,
-  Button,
-  Divider,
-  FormControl,
-  Grid,
-  Menu,
-  popoverClasses,
-  TextField,
-  Tooltip,
-} from "@mui/material";
+import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { Field } from "formik";
 
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
 import TurningRadiusComponent from "./TurningRadiusComponent";
 import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
-import { padding } from "@mui/system";
 
 function UserInputForm(props) {
-  const { children, tabValue, tabIndex, formik, ...other } = props;
+  const { tabValue, tabIndex, formik, ...other } = props;
 
   // const [vaylatInputValue, setVaylatInputValue] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
   const [selectedBoat, setSelectedBoat] = useState({});
-  const [selectedWayarea, setSelectedWayarea] = useState({});
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -85,12 +71,11 @@ function UserInputForm(props) {
       });
     }
   }
+
   function setDefaultWayareaName(wayarea) {
     if (wayarea) {
-      setSelectedWayarea(wayarea);
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
-      setSelectedWayarea({});
       formik.setFieldValue("navline.VAYLAT", "");
     }
   }
@@ -355,9 +340,6 @@ function UserInputForm(props) {
                   />
                 </Grid>
               </Grid>
-
-
-
 
               <Grid container spacing={1} paddingBottom={2}>
                 {/* Nopeusluokka */}
