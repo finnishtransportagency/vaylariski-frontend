@@ -180,7 +180,6 @@ function GeoJSONMarkers() {
   }
 
   useEffect(() => {
-    console.log(wayareaPolygons);
     setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
     const w_layers = new L.GeoJSON(wayareaPolygons, {
       pointToLayer: function (feature, latlng) {

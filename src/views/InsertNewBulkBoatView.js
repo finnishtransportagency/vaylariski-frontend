@@ -41,12 +41,10 @@ export default function InsertNewBulkBoatComponent(props) {
   const { setNotificationStatus } = useContext(NotificationContext);
 
   const PostShipData = async (values, setSubmitting) => {
-    console.log(values);
     const path = "insert_boat";
     setSpinnerVisible(true);
     try {
       const response = await apiClient.post(path, values);
-      console.log("success", response.data);
       setNotificationStatus({
         severity: "success",
         message: response.data,
