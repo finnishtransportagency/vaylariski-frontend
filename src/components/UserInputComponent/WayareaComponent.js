@@ -13,10 +13,6 @@ export default function WayareaNameComponent(props) {
   const [vaylatInputValue, setVaylatInputValue] = useState("");
 
   useEffect(() => {
-    console.log("vaylatInputValue", vaylatInputValue);
-  }, [vaylatInputValue]);
-
-  useEffect(() => {
     const path = "wayarea_names";
     try {
       apiClient.get(path).then((response) => setDefaultWayarea(response.data));
@@ -31,7 +27,6 @@ export default function WayareaNameComponent(props) {
   }, []);
 
   function handleMenuItemClick(event, newValue) {
-    console.log(newValue);
     props.setDefaultWayareaName(newValue);
   }
 

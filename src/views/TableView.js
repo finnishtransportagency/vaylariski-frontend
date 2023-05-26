@@ -426,11 +426,6 @@ function TableView(props, { direction }) {
 
   const handleFilterSubmit = (values, { setSubmitting }) => {
     // Add your filter logic here using values.filterConstant, values.filterValue, and values.filterOperator
-    console.log(
-      values.filterConstant,
-      values.filterOperator,
-      values.filterValue
-    );
     setFilters([...filters, values]);
     setSubmitting(false);
     setShowForm(false);

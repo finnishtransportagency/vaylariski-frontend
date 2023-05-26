@@ -41,7 +41,6 @@ function UserInputForm(props) {
 
   // This is passed to BoatMenuComponent, which then calls it
   function setDefaultBoatValues(newBoat) {
-    console.log("setDefaultBoatValues", newBoat);
     if (newBoat) {
       setSelectedBoat({
         ...newBoat,
