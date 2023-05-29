@@ -1,6 +1,5 @@
 import { createContext } from "react";
 
-
-const UserInputContext = createContext();
+const UserInputContext = createContext(null);
 
 export default UserInputContext;

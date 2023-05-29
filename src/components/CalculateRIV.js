@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -19,7 +18,7 @@ const userInputDefault = {
     beam: 30,
     draft: 10,
     C_manoeuvrability: 1.5,
-    C_turning_radius: 5
+    C_turning_radius: 5,
   },
   navline: {
     VAYLAT: "",
@@ -133,10 +132,6 @@ function CalculateRIV() {
     visible: false,
   });
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
-
-  useEffect(() => {
-    console.log(RIVTrafficLight);
-  }, [RIVTrafficLight]);
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>

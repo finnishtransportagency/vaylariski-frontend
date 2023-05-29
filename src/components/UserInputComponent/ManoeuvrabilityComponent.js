@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Typography, InputLabel, FormHelperText } from "@mui/material";
+import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Form from "react-bootstrap/Form";
 import Select from "@mui/material/Select";
-import { useField } from "formik";
 
 export default function ManoeuvrabilityComponent(props) {
-  const { name, ...other } = props;
-  const [field, meta] = useField(name);
   const [C_manoeuvrability, SetC_manoeuvrability] = useState(1.5);
   const options = [
     ["Hyvä", "Twin-propeller ships, RoPax ships, and cruise ships", 1.3],
@@ -35,17 +32,15 @@ export default function ManoeuvrabilityComponent(props) {
   return (
     <Form.Group>
       <Select
-        sx={{ width: "100%" , height:40}}
-        style={{backgroundColor: "white"}}
+        sx={{ width: "100%", height: 40 }}
+        style={{ backgroundColor: "white" }}
         id={name}
         value={C_manoeuvrability}
         onChange={handleChange}
       >
         {MenuOptions()}
       </Select>
-      <FormHelperText>
-        Aluksen ohjailtavuusluokka
-      </FormHelperText>
+      <FormHelperText>Aluksen ohjailtavuusluokka</FormHelperText>
     </Form.Group>
   );
 }

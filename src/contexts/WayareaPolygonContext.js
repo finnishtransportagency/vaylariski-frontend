@@ -1,6 +1,5 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
-
-const WayareaPolygonContext = createContext();
+const WayareaPolygonContext = createContext(null);
 
 export default WayareaPolygonContext;
