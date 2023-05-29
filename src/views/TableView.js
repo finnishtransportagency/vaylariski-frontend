@@ -501,12 +501,12 @@ function TableView(props, { direction }) {
   useEffect(() => {
     if (gridRef.current && selectedRowIndex !== null) {
       const rowIndex = filteredRows.findIndex(row => row.point_index === selectedRowIndex);
-
-        gridRef.current.scrollToRow(rowIndex);
-        setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
+      gridRef.current.scrollToRow(rowIndex);
+      // gridRef.current.element.attributes.style 
+      console.log(gridRef.current.element.attributes.style)
+      setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
     }
   }, [filteredRows, selectedRowIndex]);
-
 
   return (
     <div
@@ -631,6 +631,7 @@ function TableView(props, { direction }) {
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
         direction={direction}
+        // renderers={{ rowRenderer: myRowRenderer }}
 
       />
     </div>
