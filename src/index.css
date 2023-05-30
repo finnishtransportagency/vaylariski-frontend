@@ -1,3 +1,13 @@
+:root {
+  --color-black-100: rgba(0, 0, 0, 1);
+  --color-black-80: rgba(0, 0, 0, 0.8);
+  --color-black-50: rgba(0, 0, 0, 0.5);
+  --color-black-20: rgba(0, 0, 0, 0.2);
+  --color-black-10: rgba(0, 0, 0, 0.1);
+
+  --color-white-100: rgba(256, 256, 256, 100);
+}
+
 body {
   background-color: white;
   color: #282c34;
