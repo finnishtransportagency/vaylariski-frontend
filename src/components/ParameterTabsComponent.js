@@ -272,7 +272,6 @@ export default function ParameterTabsComponent() {
   const fetchRiskValue = async (values) => {
     const path = "fairway/calculate_risk";
     const path_wayarea = "wayarea";
-    console.log("You clicked me!" + JSON.stringify(values));
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
