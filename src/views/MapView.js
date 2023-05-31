@@ -8,6 +8,9 @@ import SelectedIndexContext from "contexts/SelectedIndexContext";
 
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import L from "leaflet";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
+import { layerBindPopupString } from "utils/layerBindPopupString";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -54,128 +57,20 @@ function GeoJSONMarkers() {
   const { wayareaPolygons } = useContext(WayareaPolygonContext);
   const { selectedRowIndex, setSelectedRowIndex } =
     useContext(SelectedIndexContext);
-
-  useEffect(() => {
-    console.log("Selected index:", selectedRowIndex);
-  }, [selectedRowIndex]);
+  const { setMapPointClicked } = useContext(MapPointClickedContext);
+  const { tableRowClicked, setTableRowClicked } = useContext(
+    TableRowClickedContext
+  );
 
   function onEachFeature(feature, layer) {
-    // If feature have have properties parse all of them and bind to layer
+    // If feature have properties parse all of them and bind to layer
     if (feature.properties) {
       layer.on("click", () => {
+        setMapPointClicked(true);
         setSelectedRowIndex(feature.properties.point_index);
       });
 
-      layer.bindPopup(
-        "<pre>" +
-          "GDO_GID: " +
-          JSON.stringify(feature.properties.GDO_GID) +
-          "\n" +
-          "VAYLAT: " +
-          JSON.stringify(feature.properties.VAYLAT) +
-          "\n" +
-          "RIV_SUM: " +
-          JSON.stringify(feature.properties.RISK_INDEX_SUM) +
-          "\n" +
-          "RIV_1_channel: " +
-          JSON.stringify(feature.properties.RIV_1_channel) +
-          "\n" +
-          "RIV_2_bend: " +
-          JSON.stringify(feature.properties.RIV_2_bend) +
-          "\n" +
-          "RIV_3_s_bend: " +
-          JSON.stringify(feature.properties.RIV_3_s_bend) +
-          "\n" +
-          "RIV_4_traffic_complexity: " +
-          JSON.stringify(feature.properties.RIV_4_traffic_complexity) +
-          "\n" +
-          "RIV_5_reduced_visibility: " +
-          JSON.stringify(feature.properties.RIV_5_reduced_visibility) +
-          "\n" +
-          "RIV_6_light_pollution: " +
-          JSON.stringify(feature.properties.RIV_6_light_pollution) +
-          "\n" +
-          "PF_1_channel: " +
-          JSON.stringify(feature.properties.PF_1_channel) +
-          "\n" +
-          "PF_2_bend: " +
-          JSON.stringify(feature.properties.PF_2_bend) +
-          "\n" +
-          "PF_bend1: " +
-          JSON.stringify(feature.properties.PF_bend1) +
-          "\n" +
-          "PF_bend2: " +
-          JSON.stringify(feature.properties.PF_bend2) +
-          "\n" +
-          "BSI: " +
-          JSON.stringify(feature.properties.BSI) +
-          "\n" +
-          "PF_3_s_bend: " +
-          JSON.stringify(feature.properties.PF_3_s_bend) +
-          "\n" +
-          "PF_4_traffic_complexity: " +
-          JSON.stringify(feature.properties.PF_4_traffic_complexity) +
-          "\n" +
-          "PF_5_reduced_visibility: " +
-          JSON.stringify(feature.properties.PF_5_reduced_visibility) +
-          "\n" +
-          "PF_6_light_pollution: " +
-          JSON.stringify(feature.properties.PF_6_light_pollution) +
-          "\n" +
-          // 'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
-          // 'PF_traffic_complexity: ' + JSON.stringify(feature.properties.PF_traffic_complexity) + '\n' +
-          // 'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
-          // 'PF_traffic_volume: ' + JSON.stringify(feature.properties.PF_traffic_volume) + '\n' +
-          "W_atn: " +
-          JSON.stringify(feature.properties.W_atn) +
-          "\n" +
-          "W_bank_clearance: " +
-          JSON.stringify(feature.properties.W_bank_clearance) +
-          "\n" +
-          "W_bottom_surface: " +
-          JSON.stringify(feature.properties.W_bottom_surface) +
-          "\n" +
-          "W_channel_width: " +
-          JSON.stringify(feature.properties.W_channel) +
-          "\n" +
-          "W_channel_depth: " +
-          JSON.stringify(feature.properties.W_channel_depth) +
-          "\n" +
-          "W_cross_current: " +
-          JSON.stringify(feature.properties.W_cross_current) +
-          "\n" +
-          "W_longitudinal_current: " +
-          JSON.stringify(feature.properties.W_longitudinal_current) +
-          "\n" +
-          "W_maneuvrability: " +
-          JSON.stringify(feature.properties.W_manoeuvrability) +
-          "\n" +
-          "W_speed: " +
-          JSON.stringify(feature.properties.W_speed) +
-          "\n" +
-          "W_wave_height: " +
-          JSON.stringify(feature.properties.W_wave_height) +
-          "\n" +
-          "W_wind: " +
-          JSON.stringify(feature.properties.W_wind) +
-          "\n" +
-          "S_bend_length: " +
-          JSON.stringify(feature.properties.bend_S_length) +
-          "\n" +
-          "bend_angle: " +
-          JSON.stringify(feature.properties.bend_angle) +
-          "\n" +
-          "bend_radius: " +
-          JSON.stringify(feature.properties.bend_radius) +
-          "\n" +
-          "channel_depth: " +
-          JSON.stringify(feature.properties.channel_depth_value) +
-          "\n" +
-          "index: " +
-          JSON.stringify(feature.properties.point_index) +
-          "\n" +
-          "</pre>"
-      );
+      layer.bindPopup(layerBindPopupString(feature));
     }
   }
 
@@ -219,6 +114,28 @@ function GeoJSONMarkers() {
 
     geojsonFeatGroup.addTo(map);
   }, [RIVResults, RIVTrafficLight]);
+
+  useEffect(() => {
+    if (tableRowClicked) {
+      setTableRowClicked(false);
+      let chosenLayer;
+      geojsonFeatGroup.eachLayer((layer) => {
+        // @ts-ignore
+        // The above ts-ignore is needed as otherwise the intellisense will say that
+        // layer.feature doesn't exist, even though it does :D
+        if (layer.feature) {
+          // @ts-ignore
+          if (layer.feature.id === selectedRowIndex.toString()) {
+            chosenLayer = layer;
+          }
+        }
+      });
+      // @ts-ignore
+      // Same reasoning here as above
+      if (chosenLayer) chosenLayer.openPopup();
+    }
+  }, [selectedRowIndex]);
+
   return null;
 }
 

@@ -14,6 +14,9 @@ import { CSVLink } from "react-csv";
 import RIVResultContext from "../contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
 import SelectedIndexContext from "contexts/SelectedIndexContext";
+import { TableViewColumns as columns } from "constants/TableViewColumns";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
 
 const style = {
   position: "absolute",
@@ -41,8 +44,15 @@ function TableView(props, { direction }) {
     setSortColumns(sortColumns.slice(-1));
   }, []);
   const [open, setOpen] = useState(false);
-  const gridRef = useRef(null);
   const { setNotificationStatus } = useContext(NotificationContext);
+  const gridRef = useRef(null);
+  // Index from clicked map point
+  const { selectedRowIndex, setSelectedRowIndex } =
+    useContext(SelectedIndexContext);
+  const { mapPointClicked, setMapPointClicked } = useContext(
+    MapPointClickedContext
+  );
+  const { setTableRowClicked } = useContext(TableRowClickedContext);
 
   // Open and close modal where columns are selected
   const handleOpen = () => {
@@ -51,321 +61,6 @@ function TableView(props, { direction }) {
   const handleClose = () => {
     setOpen(false);
   };
-  // Index from clicked map point
-  const { selectedRowIndex, setSelectedRowIndex } =
-    useContext(SelectedIndexContext);
-
-  // Set columns
-  const columns = useMemo(() => {
-    return [
-      {
-        key: "point_index",
-        name: "index",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "GDO_GID",
-        name: "GDO_GID",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "VAYLAT",
-        name: "VAYLAT",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RISK_INDEX_SUM",
-        name: "RIV_SUM",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_1_channel",
-        name: "RIV_1_channel",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_2_bend",
-        name: "RIV_2_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_3_s_bend",
-        name: "RIV_3_s_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_4_traffic_complexity",
-        name: "RIV_4_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_5_reduced_visibility",
-        name: "RIV_5_reduced_visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_6_light_pollution",
-        name: "RIV_6_light_pollution",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_1_channel",
-        name: "PF_1_channel",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_2_bend",
-        name: "PF_2_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_bend1",
-        name: "PF_bend1",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_bend2",
-        name: "PF_bend2",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "BSI",
-        name: "BSI",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_3_s_bend",
-        name: "PF_3_s_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_4_traffic_complexity",
-        name: "PF_4_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_5_reduced_visibility",
-        name: "PF_5_reduced_visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_6_light_pollution",
-        name: "PF_6_light_pollution",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_6_light_pollution_value",
-        name: "PF_6_light_pollution_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_complexity",
-        name: "PF_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_value",
-        name: "PF_traffic_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_volume",
-        name: "PF_traffic_volume",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_atn",
-        name: "W_atn",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_bank_clearance",
-        name: "W_bank_clearance",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_bottom_surface",
-        name: "W_bottom_surface",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_channel",
-        name: "W_channel_width",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_channel_depth",
-        name: "W_channel_depth",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_cross_current",
-        name: "W_cross_current",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_longitudinal_current",
-        name: "W_longitudinal_current",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_manoeuvrability",
-        name: "W_manoeuvrability",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_speed",
-        name: "W_speed",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_wave_height",
-        name: "W_wave_height",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_wind",
-        name: "W_wind",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "aids_to_navigation_category",
-        name: "ATN",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_S_length",
-        name: "S_bend_length",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_angle",
-        name: "bend_angle",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_radius",
-        name: "bend_radius",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bottom_surface_category",
-        name: "bottom_surface_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_depth_value",
-        name: "channel_depth_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_edge_type",
-        name: "channel_edge_type",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_type",
-        name: "channel_type",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "cross_current_category",
-        name: "cross_current_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "longitudinal_current_category",
-        name: "longitudinal_current_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "number_of_lanes",
-        name: "number_of_lanes",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "point_index",
-        name: "point_index",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "vessel_speed_category",
-        name: "vessel_speed_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "visibility",
-        name: "visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "wave_height_category",
-        name: "wave_height_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "wind_speed_category",
-        name: "wind_speed_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "MID_POINT",
-        name: "point_coordinate",
-        resizable: true,
-        sortable: true,
-      },
-    ];
-  }, []);
 
   // Columns that are selected visible in table
   const [visibleColumns, setVisibleColumns] = useState(
@@ -465,6 +160,11 @@ function TableView(props, { direction }) {
     setFilters(updatedFilters);
   };
 
+  const handleCellClick = (cell) => {
+    setTableRowClicked(true);
+    setSelectedRowIndex(cell.row.point_index);
+  };
+
   // Update rows based on added filters
   const filteredRows = sortedRows.filter((row) => {
     return filters.every((filter) => {
@@ -511,13 +211,10 @@ function TableView(props, { direction }) {
 
   // Scroll to selected map point in table
   useEffect(() => {
-    if (gridRef.current && selectedRowIndex !== null) {
-      const rowIndex = filteredRows.findIndex(
-        (row) => row.point_index === selectedRowIndex
-      );
-
-      gridRef.current.scrollToRow(rowIndex);
-      setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
+    if (gridRef.current && mapPointClicked) {
+      gridRef.current.scrollToRow(selectedRowIndex);
+      setMapPointClicked(false);
+      //setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
     }
   }, [filteredRows, selectedRowIndex]);
 
@@ -675,6 +372,10 @@ function TableView(props, { direction }) {
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
         direction={direction}
+        onCellClick={(cell) => handleCellClick(cell)}
+        rowClass={(row) =>
+          row.point_index == selectedRowIndex ? "selected-row-bg-color" : ""
+        }
       />
     </div>
   );
