@@ -10,7 +10,9 @@ import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
-import SelectedIndexContext from "../contexts/SelectedIndexContext"
+import SelectedIndexContext from "../contexts/SelectedIndexContext";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
 
 const userInputDefault = {
   boat: {
@@ -135,6 +137,8 @@ function CalculateRIV() {
     visible: false,
   });
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
+  const [mapPointClicked, setMapPointClicked] = useState(false);
+  const [tableRowClicked, setTableRowClicked] = useState(false);
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -154,11 +158,19 @@ function CalculateRIV() {
                 <SelectedIndexContext.Provider
                   value={{ selectedRowIndex, setSelectedRowIndex }}
                 >
-                  <NotificationComponent />
-                  <LoadingSpinner />
-                  <ParameterTabsComponent />
-                  <MapView />
-                  <RIVResultsTabsComponent />
+                  <MapPointClickedContext.Provider
+                    value={{ mapPointClicked, setMapPointClicked }}
+                  >
+                    <TableRowClickedContext.Provider
+                      value={{ tableRowClicked, setTableRowClicked }}
+                    >
+                      <NotificationComponent />
+                      <LoadingSpinner />
+                      <ParameterTabsComponent />
+                      <MapView />
+                      <RIVResultsTabsComponent />
+                    </TableRowClickedContext.Provider>
+                  </MapPointClickedContext.Provider>
                 </SelectedIndexContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
