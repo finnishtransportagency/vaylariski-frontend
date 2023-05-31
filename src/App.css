@@ -25,3 +25,7 @@ li {
 .post h4 {
   font-size: 2rem;
 }
+
+.selected-row-bg-color {
+  background-color: var(--rdg-row-selected-background-color);
+}
