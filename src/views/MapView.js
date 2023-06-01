@@ -119,6 +119,8 @@ function GeoJSONMarkers() {
     if (tableRowClicked) {
       setTableRowClicked(false);
       let chosenLayer;
+      // TODO: Optimise this, and check how this can be implemented
+      // without having to use ts-ignore
       geojsonFeatGroup.eachLayer((layer) => {
         // @ts-ignore
         // The above ts-ignore is needed as otherwise the intellisense will say that
@@ -132,7 +134,12 @@ function GeoJSONMarkers() {
       });
       // @ts-ignore
       // Same reasoning here as above
-      if (chosenLayer) chosenLayer.openPopup();
+      if (chosenLayer) {
+        // @ts-ignore
+        chosenLayer.openPopup();
+        // @ts-ignore
+        map.panTo(chosenLayer._latlng);
+      }
     }
   }, [selectedRowIndex]);
 
