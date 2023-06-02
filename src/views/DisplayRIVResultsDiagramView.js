@@ -66,7 +66,19 @@ export default function DisplayRIVResultsDiagramView(props) {
   const diagramRef = useRef(null);
 
   useEffect(() => {
-    // If a point on the map was clicked, and the diagram is rendered
+    setDisplayRowResults([]);
+    if (RIVResults.length === 0) return;
+
+    let rowResults = [];
+    RIVResults.features.map((el) => {
+      rowResults.push(el.properties);
+    });
+    setDisplayRowResults(rowResults);
+  }, [RIVResults]);
+
+  // Runs when a point in the map has been clicked, renders the corresponding
+  // tooltip in the diagram
+  useEffect(() => {
     if (mapPointClicked && diagramRef.current) {
       setMapPointClicked(false);
 
@@ -102,17 +114,6 @@ export default function DisplayRIVResultsDiagramView(props) {
       );
     }
   }, [selectedRowIndex]);
-
-  useEffect(() => {
-    setDisplayRowResults([]);
-    if (RIVResults.length === 0) return;
-
-    let rowResults = [];
-    RIVResults.features.map((el) => {
-      rowResults.push(el.properties);
-    });
-    setDisplayRowResults(rowResults);
-  }, [RIVResults]);
 
   const handleOnClick = (data) => {
     setDiagramPointClicked(true); // This triggers a useEffect in MapView to render the correct tooltip on the map

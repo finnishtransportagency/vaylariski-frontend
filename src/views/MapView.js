@@ -119,6 +119,7 @@ function GeoJSONMarkers() {
     geojsonFeatGroup.addTo(map);
   }, [RIVResults, RIVTrafficLight]);
 
+  // Helper function to render a tooltip to the map for the selectedRowIndex
   const toggleMapTooltipAndPanToPoint = () => {
     let chosenLayer;
     // TODO: Optimise this, and check how this can be implemented
@@ -144,6 +145,8 @@ function GeoJSONMarkers() {
     }
   };
 
+  // Runs when a row in the RIV table or a point in the RIV diagram has been clicked,
+  // renders the correct tooltip on the map
   useEffect(() => {
     if (tableRowClicked) {
       setTableRowClicked(false);

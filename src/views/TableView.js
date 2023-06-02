@@ -209,14 +209,14 @@ function TableView(props, { direction }) {
     });
   });
 
-  // Scroll to selected map point in table
+  // Runs when a point in the map has been clicked, scrolls to the corresponding
+  // row in the table
   useEffect(() => {
     if (gridRef.current && mapPointClicked) {
       gridRef.current.scrollToRow(selectedRowIndex);
       setMapPointClicked(false);
-      //setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
     }
-  }, [filteredRows, selectedRowIndex]);
+  }, [selectedRowIndex]);
 
   return (
     <div
