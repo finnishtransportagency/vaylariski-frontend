@@ -13,6 +13,7 @@ import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
 import SelectedIndexContext from "../contexts/SelectedIndexContext";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
+import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 
 const userInputDefault = {
   boat: {
@@ -139,6 +140,7 @@ function CalculateRIV() {
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
   const [mapPointClicked, setMapPointClicked] = useState(false);
   const [tableRowClicked, setTableRowClicked] = useState(false);
+  const [diagramPointClicked, setDiagramPointClicked] = useState(false);
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -164,11 +166,15 @@ function CalculateRIV() {
                     <TableRowClickedContext.Provider
                       value={{ tableRowClicked, setTableRowClicked }}
                     >
-                      <NotificationComponent />
-                      <LoadingSpinner />
-                      <ParameterTabsComponent />
-                      <MapView />
-                      <RIVResultsTabsComponent />
+                      <DiagramPointClickedContext.Provider
+                        value={{ diagramPointClicked, setDiagramPointClicked }}
+                      >
+                        <NotificationComponent />
+                        <LoadingSpinner />
+                        <ParameterTabsComponent />
+                        <MapView />
+                        <RIVResultsTabsComponent />
+                      </DiagramPointClickedContext.Provider>
                     </TableRowClickedContext.Provider>
                   </MapPointClickedContext.Provider>
                 </SelectedIndexContext.Provider>

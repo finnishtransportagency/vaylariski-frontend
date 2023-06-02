@@ -11,6 +11,7 @@ import L from "leaflet";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
+import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -60,6 +61,9 @@ function GeoJSONMarkers() {
   const { setMapPointClicked } = useContext(MapPointClickedContext);
   const { tableRowClicked, setTableRowClicked } = useContext(
     TableRowClickedContext
+  );
+  const { diagramPointClicked, setDiagramPointClicked } = useContext(
+    DiagramPointClickedContext
   );
 
   function onEachFeature(feature, layer) {
@@ -115,31 +119,38 @@ function GeoJSONMarkers() {
     geojsonFeatGroup.addTo(map);
   }, [RIVResults, RIVTrafficLight]);
 
+  const toggleMapTooltipAndPanToPoint = () => {
+    let chosenLayer;
+    // TODO: Optimise this, and check how this can be implemented
+    // without having to use ts-ignore
+    geojsonFeatGroup.eachLayer((layer) => {
+      // @ts-ignore
+      // The above ts-ignore is needed as otherwise the intellisense will say that
+      // layer.feature doesn't exist, even though it does :D
+      if (layer.feature) {
+        // @ts-ignore
+        if (layer.feature.id === selectedRowIndex.toString()) {
+          chosenLayer = layer;
+        }
+      }
+    });
+    // @ts-ignore
+    // Same reasoning here as above
+    if (chosenLayer) {
+      // @ts-ignore
+      chosenLayer.openPopup();
+      // @ts-ignore
+      map.panTo(chosenLayer._latlng);
+    }
+  };
+
   useEffect(() => {
     if (tableRowClicked) {
       setTableRowClicked(false);
-      let chosenLayer;
-      // TODO: Optimise this, and check how this can be implemented
-      // without having to use ts-ignore
-      geojsonFeatGroup.eachLayer((layer) => {
-        // @ts-ignore
-        // The above ts-ignore is needed as otherwise the intellisense will say that
-        // layer.feature doesn't exist, even though it does :D
-        if (layer.feature) {
-          // @ts-ignore
-          if (layer.feature.id === selectedRowIndex.toString()) {
-            chosenLayer = layer;
-          }
-        }
-      });
-      // @ts-ignore
-      // Same reasoning here as above
-      if (chosenLayer) {
-        // @ts-ignore
-        chosenLayer.openPopup();
-        // @ts-ignore
-        map.panTo(chosenLayer._latlng);
-      }
+      toggleMapTooltipAndPanToPoint();
+    } else if (diagramPointClicked) {
+      setDiagramPointClicked(false);
+      toggleMapTooltipAndPanToPoint();
     }
   }, [selectedRowIndex]);
 
