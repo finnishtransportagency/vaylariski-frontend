@@ -84,9 +84,9 @@ export default function DisplayRIVResultsDiagramView(props) {
 
       // Get the data point corresponding to the point clicked on the map
       const activeItem =
-        diagramRef.current.state.formattedGraphicalItems?.[0].props.points[
-          selectedRowIndex
-        ];
+        diagramRef.current.state.formattedGraphicalItems?.[0].props.points.find(
+          (row) => row.payload.point_index === selectedRowIndex
+        );
 
       if (!activeItem) {
         console.error(

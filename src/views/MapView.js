@@ -129,8 +129,10 @@ function GeoJSONMarkers() {
       // The above ts-ignore is needed as otherwise the intellisense will say that
       // layer.feature doesn't exist, even though it does :D
       if (layer.feature) {
-        // @ts-ignore
-        if (layer.feature.id === selectedRowIndex.toString()) {
+        if (
+          // @ts-ignore
+          layer.feature.properties.point_index === selectedRowIndex
+        ) {
           chosenLayer = layer;
         }
       }

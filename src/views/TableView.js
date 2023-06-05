@@ -213,7 +213,10 @@ function TableView(props, { direction }) {
   // row in the table
   useEffect(() => {
     if (gridRef.current && mapPointClicked) {
-      gridRef.current.scrollToRow(selectedRowIndex);
+      const idx = filteredRows.findIndex(
+        (row) => row.point_index === selectedRowIndex
+      );
+      gridRef.current.scrollToRow(idx);
       setMapPointClicked(false);
     }
   }, [selectedRowIndex]);
