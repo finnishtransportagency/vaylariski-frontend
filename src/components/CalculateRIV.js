@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -11,6 +10,10 @@ import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
+import SelectedIndexContext from "../contexts/SelectedIndexContext";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
+import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 
 const userInputDefault = {
   boat: {
@@ -19,7 +22,7 @@ const userInputDefault = {
     beam: 30,
     draft: 10,
     C_manoeuvrability: 1.5,
-    C_turning_radius: 5
+    C_turning_radius: 5,
   },
   navline: {
     VAYLAT: "",
@@ -122,6 +125,8 @@ const userInputDefault = {
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
     yellow: 30,
@@ -133,10 +138,9 @@ function CalculateRIV() {
     visible: false,
   });
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
-
-  useEffect(() => {
-    console.log(RIVTrafficLight);
-  }, [RIVTrafficLight]);
+  const [mapPointClicked, setMapPointClicked] = useState(false);
+  const [tableRowClicked, setTableRowClicked] = useState(false);
+  const [diagramPointClicked, setDiagramPointClicked] = useState(false);
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -153,11 +157,27 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <NotificationComponent />
-                <LoadingSpinner />
-                <ParameterTabsComponent />
-                <MapView />
-                <RIVResultsTabsComponent />
+                <SelectedIndexContext.Provider
+                  value={{ selectedRowIndex, setSelectedRowIndex }}
+                >
+                  <MapPointClickedContext.Provider
+                    value={{ mapPointClicked, setMapPointClicked }}
+                  >
+                    <TableRowClickedContext.Provider
+                      value={{ tableRowClicked, setTableRowClicked }}
+                    >
+                      <DiagramPointClickedContext.Provider
+                        value={{ diagramPointClicked, setDiagramPointClicked }}
+                      >
+                        <NotificationComponent />
+                        <LoadingSpinner />
+                        <ParameterTabsComponent />
+                        <MapView />
+                        <RIVResultsTabsComponent />
+                      </DiagramPointClickedContext.Provider>
+                    </TableRowClickedContext.Provider>
+                  </MapPointClickedContext.Provider>
+                </SelectedIndexContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>

@@ -2,12 +2,18 @@ import { CardContent, Typography, Grid, Box } from "@mui/material";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useContext } from "react";
 
-export default function RIVTrafficLightsComponent(params) {
-  const { RIVTrafficLight, setRIVTraffiLight } = useContext(RIVTrafficLightContext);
+export default function RIVTrafficLightsComponent() {
+  const { RIVTrafficLight, setRIVTraffiLight } = useContext(
+    RIVTrafficLightContext
+  );
 
   return (
     <CardContent>
-      <Typography style={{ fontSize: 16, fontWeight:550 }} color="textSecondary" gutterBottom>
+      <Typography
+        style={{ fontSize: 16, fontWeight: 550 }}
+        color="textSecondary"
+        gutterBottom
+      >
         Riskiarvojen esitysvärien raja-arvot:
       </Typography>
       <Grid container spacing={1}>
@@ -103,15 +109,16 @@ export default function RIVTrafficLightsComponent(params) {
           />
         </Grid>
         <Grid item xs={2.5}>
-          <Box sx={{bgcolor: "gray", color: "black", p: 1}}>Harmaa</Box>
+          <Box sx={{ bgcolor: "gray", color: "black", p: 1 }}>Harmaa</Box>
         </Grid>
         <Grid item xs={9.5}>
-          <label>Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä vaikuttaa lopulliseen riskiarvoon.</label>
+          <label>
+            Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä
+            vaikuttaa lopulliseen riskiarvoon.
+          </label>
         </Grid>
         {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
-        
       </Grid>
     </CardContent>
   );
 }
-
