@@ -1,6 +1,5 @@
 import { createContext } from "react";
 
-
-const RIVResultContext = createContext();
+const RIVResultContext = createContext(null);
 
 export default RIVResultContext;

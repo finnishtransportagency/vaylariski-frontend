@@ -1,46 +1,58 @@
-import { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from "react";
-import DataGrid from 'react-data-grid';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import 'react-data-grid/lib/styles.css';
 import {
-  Box,
-  Modal,
-  Button
-} from "@mui/material";
-import { CSVLink } from 'react-csv';
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
+import DataGrid from "react-data-grid";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import "react-data-grid/lib/styles.css";
+import { Box, Modal, Button } from "@mui/material";
+import { CSVLink } from "react-csv";
 import RIVResultContext from "../contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
 import SelectedIndexContext from "contexts/SelectedIndexContext";
-
+import { TableViewColumns as columns } from "constants/TableViewColumns";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
   height: "80%",
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   boxShadow: 24,
   pt: 2,
   px: 4,
   pb: 3,
-  overflow: 'scroll'
+  overflow: "scroll",
 };
 
 function TableView(props, { direction }) {
-  const { children, tabValue, tabIndex, formik, ...other } = props;
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
+  const { tabValue, tabIndex, ...other } = props;
+  const { RIVResults } = useContext(RIVResultContext);
   const [displayRowResults, setDisplayRowResults] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [showFormCol, setShowFormCol] = useState(false);
   const [filters, setFilters] = useState([]);
-  const [sortColumns, setSortColumns] = useState([])
-  const onSortColumnsChange = useCallback(sortColumns => { setSortColumns(sortColumns.slice(-1)) }, [])
+  const [sortColumns, setSortColumns] = useState([]);
+  const onSortColumnsChange = useCallback((sortColumns) => {
+    setSortColumns(sortColumns.slice(-1));
+  }, []);
   const [open, setOpen] = useState(false);
+  const { setNotificationStatus } = useContext(NotificationContext);
   const gridRef = useRef(null);
-  const { notificationStatus, setNotificationStatus } =
-    useContext(NotificationContext);
+  // Index from clicked map point
+  const { selectedRowIndex, setSelectedRowIndex } =
+    useContext(SelectedIndexContext);
+  const { mapPointClicked, setMapPointClicked } = useContext(
+    MapPointClickedContext
+  );
+  const { setTableRowClicked } = useContext(TableRowClickedContext);
 
   // Open and close modal where columns are selected
   const handleOpen = () => {
@@ -49,320 +61,12 @@ function TableView(props, { direction }) {
   const handleClose = () => {
     setOpen(false);
   };
-  // Index from clicked map point
-  const { selectedRowIndex, setSelectedRowIndex } = useContext(
-    SelectedIndexContext
-  );
-
-  // Set columns
-  const columns = useMemo(() => {
-    return [
-      {
-        key: "point_index",
-        name: 'index',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "GDO_GID",
-        name: 'GDO_GID',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "VAYLAT",
-        name: 'VAYLAT',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RISK_INDEX_SUM",
-        name: 'RIV_SUM',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_1_channel",
-        name: 'RIV_1_channel',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_2_bend",
-        name: 'RIV_2_bend',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_3_s_bend",
-        name: 'RIV_3_s_bend',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_4_traffic_complexity",
-        name: 'RIV_4_traffic_complexity',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_5_reduced_visibility",
-        name: 'RIV_5_reduced_visibility',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "RIV_6_light_pollution",
-        name: 'RIV_6_light_pollution',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_1_channel",
-        name: 'PF_1_channel',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_2_bend",
-        name: 'PF_2_bend',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_bend1",
-        name: 'PF_bend1',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_bend2",
-        name: 'PF_bend2',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "BSI",
-        name: 'BSI',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_3_s_bend",
-        name: 'PF_3_s_bend',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_4_traffic_complexity",
-        name: 'PF_4_traffic_complexity',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_5_reduced_visibility",
-        name: 'PF_5_reduced_visibility',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_6_light_pollution",
-        name: 'PF_6_light_pollution',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_6_light_pollution_value",
-        name: 'PF_6_light_pollution_value',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_traffic_complexity",
-        name: 'PF_traffic_complexity',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_traffic_value",
-        name: 'PF_traffic_value',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "PF_traffic_volume",
-        name: 'PF_traffic_volume',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_atn",
-        name: 'W_atn',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_bank_clearance",
-        name: 'W_bank_clearance',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_bottom_surface",
-        name: 'W_bottom_surface',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_channel",
-        name: 'W_channel_width',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_channel_depth",
-        name: 'W_channel_depth',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_cross_current",
-        name: 'W_cross_current',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_longitudinal_current",
-        name: 'W_longitudinal_current',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_manoeuvrability",
-        name: 'W_manoeuvrability',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_speed",
-        name: 'W_speed',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_wave_height",
-        name: 'W_wave_height',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "W_wind",
-        name: 'W_wind',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "aids_to_navigation_category",
-        name: 'ATN',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "bend_S_length",
-        name: 'S_bend_length',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "bend_angle",
-        name: 'bend_angle',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "bend_radius",
-        name: 'bend_radius',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "bottom_surface_category",
-        name: 'bottom_surface_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "channel_depth_value",
-        name: 'channel_depth_value',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "channel_edge_type",
-        name: 'channel_edge_type',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "channel_type",
-        name: 'channel_type',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "cross_current_category",
-        name: 'cross_current_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "longitudinal_current_category",
-        name: 'longitudinal_current_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "number_of_lanes",
-        name: 'number_of_lanes',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "vessel_speed_category",
-        name: 'vessel_speed_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "visibility",
-        name: 'visibility',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "wave_height_category",
-        name: 'wave_height_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "wind_speed_category",
-        name: 'wind_speed_category',
-        resizable: true,
-        sortable: true
-      },
-      {
-        key: "MID_POINT",
-        name: 'point_coordinate',
-        resizable: true,
-        sortable: true
-      },
-    ]
-  }, [])
 
   // Columns that are selected visible in table
-  const [visibleColumns, setVisibleColumns] = useState(columns.map(c => c.key));
-  
+  const [visibleColumns, setVisibleColumns] = useState(
+    columns.map((c) => c.key)
+  );
+
   // Toggle selection for columns (in modal)
   const handleToggleColumn = (key) => {
     setVisibleColumns((visibleColumns) => {
@@ -373,13 +77,15 @@ function TableView(props, { direction }) {
       }
     });
   };
+
   // Visible rows and columns based on selected visibleColumn
-  const visibleData = columns.filter((column) =>
-    visibleColumns.includes(column.key)).map((column) => ({
+  const visibleData = columns
+    .filter((column) => visibleColumns.includes(column.key))
+    .map((column) => ({
       ...column,
-      header: column.name
+      header: column.name,
     }));
-  
+
   // Handle so that all of the columns are selected
   const handleSelectAllColumns = (event) => {
     if (event.target.checked) {
@@ -415,21 +121,20 @@ function TableView(props, { direction }) {
 
   // Sort rows
   const sortedRows = useMemo(() => {
-    if (sortColumns.length === 0)
-      return displayRowResults
-    const { columnKey, direction } = sortColumns[0]
+    if (sortColumns.length === 0) return displayRowResults;
+    const { columnKey, direction } = sortColumns[0];
 
-    let sortedRows = [...displayRowResults]
+    let sortedRows = [...displayRowResults];
 
     switch (columnKey) {
       // case "GDO_GID":
       // case "RISK_INDEX_SUM":"RISK_INDEX_SUM"
       default:
-        sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey])
-        break
+        sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey]);
+        break;
     }
-    return direction === "DESC" ? sortedRows.reverse() : sortedRows
-  }, [displayRowResults, sortColumns])
+    return direction === "DESC" ? sortedRows.reverse() : sortedRows;
+  }, [displayRowResults, sortColumns]);
 
   // Open form where filters can be added
   const handleAddFilterClick = () => {
@@ -455,24 +160,29 @@ function TableView(props, { direction }) {
     setFilters(updatedFilters);
   };
 
+  const handleCellClick = (cell) => {
+    setTableRowClicked(true);
+    setSelectedRowIndex(cell.row.point_index);
+  };
+
   // Update rows based on added filters
   const filteredRows = sortedRows.filter((row) => {
     return filters.every((filter) => {
       const { filterConstant, filterOperator, filterValue } = filter;
       const rowValue = row[filterConstant];
       switch (filterOperator) {
-        case '≤':
+        case "≤":
           return rowValue <= filterValue;
-        case '≥':
+        case "≥":
           return rowValue >= filterValue;
-        case '=':
+        case "=":
           return rowValue == filterValue;
         default:
           return true;
       }
     });
   });
-  
+
   // Create data constant to export table as csv
   const data = [
     visibleData.map((column) => column.header), // Add headers as first row
@@ -487,26 +197,26 @@ function TableView(props, { direction }) {
   // Formatting dataset before exporting
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
-      if (typeof value === 'number') {                      // changing points to commas for excel
-        return value.toString().replace(/\./g, ',');
+      if (typeof value === "number") {
+        // changing points to commas for excel
+        return value.toString().replace(/\./g, ",");
       }
-      if (value === null) {                                 // empty cells to nan because of excel
-        return value = 'nan';
+      if (value === null) {
+        // empty cells to nan because of excel
+        return (value = "nan");
       }
       return value;
     });
   });
 
-  // Scroll to selected map point in table
+  // Runs when a point in the map has been clicked, scrolls to the corresponding
+  // row in the table
   useEffect(() => {
-    if (gridRef.current && selectedRowIndex !== null) {
-      const rowIndex = filteredRows.findIndex(row => row.point_index === selectedRowIndex);
-      gridRef.current.scrollToRow(rowIndex);
-      // gridRef.current.element.attributes.style 
-      console.log(gridRef.current.element.attributes.style)
-      setSelectedRowIndex(null); // Reset selectedRowIndex after scrolling
+    if (gridRef.current && mapPointClicked) {
+      gridRef.current.scrollToRow(selectedRowIndex);
+      setMapPointClicked(false);
     }
-  }, [filteredRows, selectedRowIndex]);
+  }, [selectedRowIndex]);
 
   return (
     <div
@@ -518,17 +228,24 @@ function TableView(props, { direction }) {
     >
       <div>
         {/* Export CSV */}
-        <Button variant="contained" style={{ backgroundColor: "#ced6d8", margin: 1 }} >
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#ced6d8", margin: 1 }}
+        >
           <CSVLink
             data={csvData}
-            filename={'vaylakohtainen_riski.csv'}
-            separator={';'}
+            filename={"vaylakohtainen_riski.csv"}
+            separator={";"}
           >
             Lataa CSV
           </CSVLink>
         </Button>
         {/* Select column */}
-        <Button variant="contained" style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} onClick={handleOpen}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
+          onClick={handleOpen}
+        >
           Valitse sarakkeet
         </Button>
         <Modal
@@ -564,28 +281,36 @@ function TableView(props, { direction }) {
           </Box>
         </Modal>
         {/* Add filters */}
-        <Button 
-          variant="contained" 
-          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }} 
-          onClick={handleAddFilterClick}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
+          onClick={handleAddFilterClick}
+        >
           Lisää filtteri
         </Button>
         {showForm && (
           <Formik
             initialValues={{
-              filterConstant: '',
-              filterOperator: '≤',
-              filterValue: '',
+              filterConstant: "",
+              filterOperator: "≤",
+              filterValue: "",
             }}
             onSubmit={handleFilterSubmit}
           >
             {({ isSubmitting }) => (
               <Form>
                 <label htmlFor="filterConstant">Parametri:</label>
-                <Field as="select" id="filterConstant" name="filterConstant" required>
+                <Field
+                  as="select"
+                  id="filterConstant"
+                  name="filterConstant"
+                  required
+                >
                   <option value="">Valitse parametri</option>
-                  {columns.map(column => (
-                    <option key={column.key} value={column.key}>{column.name}</option>
+                  {columns.map((column) => (
+                    <option key={column.key} value={column.key}>
+                      {column.name}
+                    </option>
                   ))}
                 </Field>
                 <ErrorMessage name="filterConstant" component="div" />
@@ -599,11 +324,20 @@ function TableView(props, { direction }) {
                 <ErrorMessage name="filterOperator" component="div" />
 
                 <label htmlFor="filterValue">Arvo:</label>
-                <Field type="text" id="filterValue" name="filterValue" required/>
+                <Field
+                  type="text"
+                  id="filterValue"
+                  name="filterValue"
+                  required
+                />
                 <ErrorMessage name="filterValue" component="div" />
 
-                <button type="submit" disabled={isSubmitting}>Käytä</button>
-                <button type="button" onClick={handleCancelClick}>Poista</button>
+                <button type="submit" disabled={isSubmitting}>
+                  Käytä
+                </button>
+                <button type="button" onClick={handleCancelClick}>
+                  Poista
+                </button>
               </Form>
             )}
           </Formik>
@@ -612,18 +346,25 @@ function TableView(props, { direction }) {
           <div>
             {filters.map((filter, index) => (
               <div key={index}>
-                <span>{filter.filterConstant} {filter.filterOperator} {filter.filterValue}</span>
-                <button type="button" onClick={() => handleRemoveFilterClick(index)}>Poista</button>
+                <span>
+                  {filter.filterConstant} {filter.filterOperator}{" "}
+                  {filter.filterValue}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFilterClick(index)}
+                >
+                  Poista
+                </button>
               </div>
             ))}
           </div>
         )}
-
       </div>
       <DataGrid
         style={{
           height: "550px",
-          width: "97%"
+          width: "97%",
         }}
         ref={gridRef}
         columns={visibleData}
@@ -631,8 +372,10 @@ function TableView(props, { direction }) {
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
         direction={direction}
-        // renderers={{ rowRenderer: myRowRenderer }}
-
+        onCellClick={(cell) => handleCellClick(cell)}
+        rowClass={(row) =>
+          row.point_index == selectedRowIndex ? "selected-row-bg-color" : ""
+        }
       />
     </div>
   );

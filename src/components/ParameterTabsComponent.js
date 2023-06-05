@@ -11,7 +11,6 @@ import UserInputContext from "contexts/UserInput";
 import apiClient from "http-common";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
-import InsertNewBulkBoatView from "../views/InsertNewBulkBoatView";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import * as Yup from "yup";
 
@@ -91,45 +90,39 @@ const validationSchema = Yup.object().shape({
       .min(0, "ei voi olla negatiivinen")
       .required("vaaditaan"),
     bend_angle_lim_1: Yup.number()
-    .min(
-      0,
-      "ei voi negatiivinen"
-    )
-    .max(
-      Yup.ref("bend_angle_lim_2"),
-      "ei voi olla isompi kun bend_angle_lim_2"
-    )
-    .required("vaaditaan"),
+      .min(0, "ei voi negatiivinen")
+      .max(
+        Yup.ref("bend_angle_lim_2"),
+        "ei voi olla isompi kun bend_angle_lim_2"
+      )
+      .required("vaaditaan"),
     bend_angle_lim_2: Yup.number()
-    .min(
-      Yup.ref("bend_angle_lim_1"),
-      "ei voi olla pienempi kun bend_angle_lim_1"
-    )
-    .max(
-      Yup.ref("bend_angle_lim_3"),
-      "ei voi olla isompi kun bend_angle_lim_3"
-    )
-    .required("vaaditaan"),
+      .min(
+        Yup.ref("bend_angle_lim_1"),
+        "ei voi olla pienempi kun bend_angle_lim_1"
+      )
+      .max(
+        Yup.ref("bend_angle_lim_3"),
+        "ei voi olla isompi kun bend_angle_lim_3"
+      )
+      .required("vaaditaan"),
     bend_angle_lim_3: Yup.number()
-    .min(
-      Yup.ref("bend_angle_lim_3"),
-      "ei voi olla pienempi kun bend_angle_lim_3"
-    )
-    .max(
-      Yup.ref("bend_angle_lim_4"),
-      "ei voi olla isompi kun bend_angle_lim_4"
-    )
-    .required("vaaditaan"),
+      .min(
+        Yup.ref("bend_angle_lim_3"),
+        "ei voi olla pienempi kun bend_angle_lim_3"
+      )
+      .max(
+        Yup.ref("bend_angle_lim_4"),
+        "ei voi olla isompi kun bend_angle_lim_4"
+      )
+      .required("vaaditaan"),
     bend_angle_lim_4: Yup.number()
-    .min(
-      Yup.ref("bend_angle_lim_3"),
-      "ei voi olla pienempi kun bend_angle_lim_3"
-    )
-    .lessThan(
-      360,
-      "pitää olla pienempi kun 360"
-    )
-    .required("vaaditaan"),
+      .min(
+        Yup.ref("bend_angle_lim_3"),
+        "ei voi olla pienempi kun bend_angle_lim_3"
+      )
+      .lessThan(360, "pitää olla pienempi kun 360")
+      .required("vaaditaan"),
     PF_bend_angle_1: Yup.number()
       .min(0, "ei voi olla negatiivinen")
       .required("vaaditaan"),
@@ -226,35 +219,35 @@ const validationSchema = Yup.object().shape({
   }),
   wind_wf: Yup.object({
     mild_wind_fast_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     mild_wind_moderate_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     mild_wind_slow_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
 
     moderate_wind_fast_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     moderate_wind_moderate_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     moderate_wind_slow_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
 
     strong_wind_fast_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     strong_wind_moderate_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
     strong_wind_slow_vessel: Yup.number()
-    .min(0, "ei voi olla negatiivinen")
-    .required("vaaditaan"),
-  })
+      .min(0, "ei voi olla negatiivinen")
+      .required("vaaditaan"),
+  }),
 });
 
 function a11yProps(index) {
@@ -266,25 +259,19 @@ function a11yProps(index) {
 
 export default function ParameterTabsComponent() {
   const [value, setValue] = useState(0);
-  const { spinnerVisible, setSpinnerVisible } = useContext(
-    SpinnerVisibilityContext
-  );
-  const { userInput, setUserInput } = useContext(UserInputContext);
-  const { RIVResults, setRIVResults } = useContext(RIVResultContext);
-  const { notificationStatus, setNotificationStatus } =
-    useContext(NotificationContext);
+  const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
+  const { userInput } = useContext(UserInputContext);
+  const { setRIVResults } = useContext(RIVResultContext);
+  const { setNotificationStatus } = useContext(NotificationContext);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
-  const { wayareaPolygons, setWayareaPolygons } = useContext(
-    WayareaPolygonContext
-  );
+  const { setWayareaPolygons } = useContext(WayareaPolygonContext);
 
   const fetchRiskValue = async (values) => {
     const path = "fairway/calculate_risk";
     const path_wayarea = "wayarea";
-    console.log("You clicked me!" + JSON.stringify(values));
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
