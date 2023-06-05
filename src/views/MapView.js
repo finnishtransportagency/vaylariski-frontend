@@ -4,8 +4,14 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import RIVResultContext from "../contexts/RIVResult";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
+import SelectedIndexContext from "contexts/SelectedIndexContext";
+
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import L from "leaflet";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
+import { layerBindPopupString } from "utils/layerBindPopupString";
+import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -39,7 +45,6 @@ const geojsonMarkerOptionsGray = {
   opacity: 1,
   fillOpacity: 0.8,
 };
-
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults } = useContext(RIVResultContext);
@@ -51,120 +56,25 @@ function GeoJSONMarkers() {
     new L.FeatureGroup()
   );
   const { wayareaPolygons } = useContext(WayareaPolygonContext);
+  const { selectedRowIndex, setSelectedRowIndex } =
+    useContext(SelectedIndexContext);
+  const { setMapPointClicked } = useContext(MapPointClickedContext);
+  const { tableRowClicked, setTableRowClicked } = useContext(
+    TableRowClickedContext
+  );
+  const { diagramPointClicked, setDiagramPointClicked } = useContext(
+    DiagramPointClickedContext
+  );
 
   function onEachFeature(feature, layer) {
-    // If feature have have properties parse all of them and bind to layer
+    // If feature have properties parse all of them and bind to layer
     if (feature.properties) {
-      layer.bindPopup(
-        "<pre>" +
-          "GDO_GID: " +
-          JSON.stringify(feature.properties.GDO_GID) +
-          "\n" +
-          "VAYLAT: " +
-          JSON.stringify(feature.properties.VAYLAT) +
-          "\n" +
-          "RIV_SUM: " +
-          JSON.stringify(feature.properties.RISK_INDEX_SUM) +
-          "\n" +
-          "RIV_1_channel: " +
-          JSON.stringify(feature.properties.RIV_1_channel) +
-          "\n" +
-          "RIV_2_bend: " +
-          JSON.stringify(feature.properties.RIV_2_bend) +
-          "\n" +
-          "RIV_3_s_bend: " +
-          JSON.stringify(feature.properties.RIV_3_s_bend) +
-          "\n" +
-          "RIV_4_traffic_complexity: " +
-          JSON.stringify(feature.properties.RIV_4_traffic_complexity) +
-          "\n" +
-          "RIV_5_reduced_visibility: " +
-          JSON.stringify(feature.properties.RIV_5_reduced_visibility) +
-          "\n" +
-          "RIV_6_light_pollution: " +
-          JSON.stringify(feature.properties.RIV_6_light_pollution) +
-          "\n" +
-          "PF_1_channel: " +
-          JSON.stringify(feature.properties.PF_1_channel) +
-          "\n" +
-          "PF_2_bend: " +
-          JSON.stringify(feature.properties.PF_2_bend) +
-          "\n" +
-          "PF_bend1: " +
-          JSON.stringify(feature.properties.PF_bend1) +
-          "\n" +
-          "PF_bend2: " +
-          JSON.stringify(feature.properties.PF_bend2) +
-          "\n" +
-          "BSI: " +
-          JSON.stringify(feature.properties.BSI) +
-          "\n" +
-          "PF_3_s_bend: " +
-          JSON.stringify(feature.properties.PF_3_s_bend) +
-          "\n" +
-          "PF_4_traffic_complexity: " +
-          JSON.stringify(feature.properties.PF_4_traffic_complexity) +
-          "\n" +
-          "PF_5_reduced_visibility: " +
-          JSON.stringify(feature.properties.PF_5_reduced_visibility) +
-          "\n" +
-          "PF_6_light_pollution: " +
-          JSON.stringify(feature.properties.PF_6_light_pollution) +
-          "\n" +
-          // 'PF_6_light_pollution_value: ' + JSON.stringify(feature.properties.PF_6_light_pollution_value) + '\n' +
-          // 'PF_traffic_complexity: ' + JSON.stringify(feature.properties.PF_traffic_complexity) + '\n' +
-          // 'PF_traffic_value: ' + JSON.stringify(feature.properties.PF_traffic_value) + '\n' +
-          // 'PF_traffic_volume: ' + JSON.stringify(feature.properties.PF_traffic_volume) + '\n' +
-          "W_atn: " +
-          JSON.stringify(feature.properties.W_atn) +
-          "\n" +
-          "W_bank_clearance: " +
-          JSON.stringify(feature.properties.W_bank_clearance) +
-          "\n" +
-          "W_bottom_surface: " +
-          JSON.stringify(feature.properties.W_bottom_surface) +
-          "\n" +
-          "W_channel_width: " +
-          JSON.stringify(feature.properties.W_channel) +
-          "\n" +
-          "W_channel_depth: " +
-          JSON.stringify(feature.properties.W_channel_depth) +
-          "\n" +
-          "W_cross_current: " +
-          JSON.stringify(feature.properties.W_cross_current) +
-          "\n" +
-          "W_longitudinal_current: " +
-          JSON.stringify(feature.properties.W_longitudinal_current) +
-          "\n" +
-          "W_maneuvrability: " +
-          JSON.stringify(feature.properties.W_manoeuvrability) +
-          "\n" +
-          "W_speed: " +
-          JSON.stringify(feature.properties.W_speed) +
-          "\n" +
-          "W_wave_height: " +
-          JSON.stringify(feature.properties.W_wave_height) +
-          "\n" +
-          "W_wind: " +
-          JSON.stringify(feature.properties.W_wind) +
-          "\n" +
-          "S_bend_length: " +
-          JSON.stringify(feature.properties.bend_S_length) +
-          "\n" +
-          "bend_angle: " +
-          JSON.stringify(feature.properties.bend_angle) +
-          "\n" +
-          "bend_radius: " +
-          JSON.stringify(feature.properties.bend_radius) +
-          "\n" +
-          "channel_depth: " +
-          JSON.stringify(feature.properties.channel_depth_value) +
-          "\n" +
-          "index: " +
-          JSON.stringify(feature.properties.point_index) +
-          "\n" +
-          "</pre>"
-      );
+      layer.on("click", () => {
+        setMapPointClicked(true);
+        setSelectedRowIndex(feature.properties.point_index);
+      });
+
+      layer.bindPopup(layerBindPopupString(feature));
     }
   }
 
@@ -208,6 +118,47 @@ function GeoJSONMarkers() {
 
     geojsonFeatGroup.addTo(map);
   }, [RIVResults, RIVTrafficLight]);
+
+  // Helper function to render a tooltip to the map for the selectedRowIndex
+  const toggleMapTooltipAndPanToPoint = () => {
+    let chosenLayer;
+    // TODO: Optimise this, and check how this can be implemented
+    // without having to use ts-ignore
+    geojsonFeatGroup.eachLayer((layer) => {
+      // @ts-ignore
+      // The above ts-ignore is needed as otherwise the intellisense will say that
+      // layer.feature doesn't exist, even though it does :D
+      if (layer.feature) {
+        if (
+          // @ts-ignore
+          layer.feature.properties.point_index === selectedRowIndex
+        ) {
+          chosenLayer = layer;
+        }
+      }
+    });
+    // @ts-ignore
+    // Same reasoning here as above
+    if (chosenLayer) {
+      // @ts-ignore
+      chosenLayer.openPopup();
+      // @ts-ignore
+      map.panTo(chosenLayer._latlng);
+    }
+  };
+
+  // Runs when a row in the RIV table or a point in the RIV diagram has been clicked,
+  // renders the correct tooltip on the map
+  useEffect(() => {
+    if (tableRowClicked) {
+      setTableRowClicked(false);
+      toggleMapTooltipAndPanToPoint();
+    } else if (diagramPointClicked) {
+      setDiagramPointClicked(false);
+      toggleMapTooltipAndPanToPoint();
+    }
+  }, [selectedRowIndex]);
+
   return null;
 }
 

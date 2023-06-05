@@ -1,11 +1,22 @@
-import { useContext, useEffect, useState, useCallback, useMemo } from "react";
-import RIVResultContext from "../contexts/RIVResult";
+import {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import DataGrid from "react-data-grid";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "react-data-grid/lib/styles.css";
 import { Box, Modal, Button } from "@mui/material";
-import NotificationContext from "contexts/NotificationContext";
 import { CSVLink } from "react-csv";
+import RIVResultContext from "../contexts/RIVResult";
+import NotificationContext from "contexts/NotificationContext";
+import SelectedIndexContext from "contexts/SelectedIndexContext";
+import { TableViewColumns as columns } from "constants/TableViewColumns";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
 
 const style = {
   position: "absolute",
@@ -34,6 +45,16 @@ function TableView(props, { direction }) {
   }, []);
   const [open, setOpen] = useState(false);
   const { setNotificationStatus } = useContext(NotificationContext);
+  const gridRef = useRef(null);
+  // Index from clicked map point
+  const { selectedRowIndex, setSelectedRowIndex } =
+    useContext(SelectedIndexContext);
+  const { mapPointClicked, setMapPointClicked } = useContext(
+    MapPointClickedContext
+  );
+  const { setTableRowClicked } = useContext(TableRowClickedContext);
+
+  // Open and close modal where columns are selected
   const handleOpen = () => {
     setOpen(true);
   };
@@ -41,315 +62,12 @@ function TableView(props, { direction }) {
     setOpen(false);
   };
 
-  // Set columns
-  const columns = useMemo(() => {
-    return [
-      {
-        key: "GDO_GID",
-        name: "GDO_GID",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "VAYLAT",
-        name: "VAYLAT",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RISK_INDEX_SUM",
-        name: "RIV_SUM",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_1_channel",
-        name: "RIV_1_channel",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_2_bend",
-        name: "RIV_2_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_3_s_bend",
-        name: "RIV_3_s_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_4_traffic_complexity",
-        name: "RIV_4_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_5_reduced_visibility",
-        name: "RIV_5_reduced_visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "RIV_6_light_pollution",
-        name: "RIV_6_light_pollution",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_1_channel",
-        name: "PF_1_channel",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_2_bend",
-        name: "PF_2_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_bend1",
-        name: "PF_bend1",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_bend2",
-        name: "PF_bend2",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "BSI",
-        name: "BSI",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_3_s_bend",
-        name: "PF_3_s_bend",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_4_traffic_complexity",
-        name: "PF_4_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_5_reduced_visibility",
-        name: "PF_5_reduced_visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_6_light_pollution",
-        name: "PF_6_light_pollution",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_6_light_pollution_value",
-        name: "PF_6_light_pollution_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_complexity",
-        name: "PF_traffic_complexity",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_value",
-        name: "PF_traffic_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "PF_traffic_volume",
-        name: "PF_traffic_volume",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_atn",
-        name: "W_atn",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_bank_clearance",
-        name: "W_bank_clearance",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_bottom_surface",
-        name: "W_bottom_surface",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_channel",
-        name: "W_channel_width",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_channel_depth",
-        name: "W_channel_depth",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_cross_current",
-        name: "W_cross_current",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_longitudinal_current",
-        name: "W_longitudinal_current",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_manoeuvrability",
-        name: "W_manoeuvrability",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_speed",
-        name: "W_speed",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_wave_height",
-        name: "W_wave_height",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "W_wind",
-        name: "W_wind",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "aids_to_navigation_category",
-        name: "ATN",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_S_length",
-        name: "S_bend_length",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_angle",
-        name: "bend_angle",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bend_radius",
-        name: "bend_radius",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "bottom_surface_category",
-        name: "bottom_surface_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_depth_value",
-        name: "channel_depth_value",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_edge_type",
-        name: "channel_edge_type",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "channel_type",
-        name: "channel_type",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "cross_current_category",
-        name: "cross_current_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "longitudinal_current_category",
-        name: "longitudinal_current_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "number_of_lanes",
-        name: "number_of_lanes",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "point_index",
-        name: "point_index",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "vessel_speed_category",
-        name: "vessel_speed_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "visibility",
-        name: "visibility",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "wave_height_category",
-        name: "wave_height_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "wind_speed_category",
-        name: "wind_speed_category",
-        resizable: true,
-        sortable: true,
-      },
-      {
-        key: "MID_POINT",
-        name: "point_coordinate",
-        resizable: true,
-        sortable: true,
-      },
-    ];
-  }, []);
-
+  // Columns that are selected visible in table
   const [visibleColumns, setVisibleColumns] = useState(
     columns.map((c) => c.key)
   );
+
+  // Toggle selection for columns (in modal)
   const handleToggleColumn = (key) => {
     setVisibleColumns((visibleColumns) => {
       if (visibleColumns.includes(key)) {
@@ -360,13 +78,15 @@ function TableView(props, { direction }) {
     });
   };
 
-  const visibleColumnsMetadata = columns
+  // Visible rows and columns based on selected visibleColumn
+  const visibleData = columns
     .filter((column) => visibleColumns.includes(column.key))
     .map((column) => ({
       ...column,
       header: column.name,
     }));
 
+  // Handle so that all of the columns are selected
   const handleSelectAllColumns = (event) => {
     if (event.target.checked) {
       setVisibleColumns(columns.map((c) => c.key));
@@ -416,27 +136,36 @@ function TableView(props, { direction }) {
     return direction === "DESC" ? sortedRows.reverse() : sortedRows;
   }, [displayRowResults, sortColumns]);
 
+  // Open form where filters can be added
   const handleAddFilterClick = () => {
     setShowForm(true);
   };
 
+  // Delete filter form
   const handleCancelClick = () => {
     setShowForm(false);
   };
 
+  // Set added filter to table
   const handleFilterSubmit = (values, { setSubmitting }) => {
-    // Add your filter logic here using values.filterConstant, values.filterValue, and values.filterOperator
     setFilters([...filters, values]);
     setSubmitting(false);
     setShowForm(false);
   };
 
+  // Delete created filter
   const handleRemoveFilterClick = (index) => {
     const updatedFilters = [...filters];
     updatedFilters.splice(index, 1);
     setFilters(updatedFilters);
   };
 
+  const handleCellClick = (cell) => {
+    setTableRowClicked(true);
+    setSelectedRowIndex(cell.row.point_index);
+  };
+
+  // Update rows based on added filters
   const filteredRows = sortedRows.filter((row) => {
     return filters.every((filter) => {
       const { filterConstant, filterOperator, filterValue } = filter;
@@ -454,16 +183,18 @@ function TableView(props, { direction }) {
     });
   });
 
+  // Create data constant to export table as csv
   const data = [
-    visibleColumnsMetadata.map((column) => column.header), // Add headers as first row
+    visibleData.map((column) => column.header), // Add headers as first row
     ...filteredRows.map((row) =>
-      visibleColumnsMetadata.reduce((acc, column) => {
+      visibleData.reduce((acc, column) => {
         acc[column.key] = row[column.key];
         return acc;
       }, {})
     ),
   ];
 
+  // Formatting dataset before exporting
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
       if (typeof value === "number") {
@@ -478,6 +209,18 @@ function TableView(props, { direction }) {
     });
   });
 
+  // Runs when a point in the map has been clicked, scrolls to the corresponding
+  // row in the table
+  useEffect(() => {
+    if (gridRef.current && mapPointClicked) {
+      const idx = filteredRows.findIndex(
+        (row) => row.point_index === selectedRowIndex
+      );
+      gridRef.current.scrollToRow(idx);
+      setMapPointClicked(false);
+    }
+  }, [selectedRowIndex]);
+
   return (
     <div
       role="TabPanelComponent"
@@ -487,6 +230,7 @@ function TableView(props, { direction }) {
       {...other}
     >
       <div>
+        {/* Export CSV */}
         <Button
           variant="contained"
           style={{ backgroundColor: "#ced6d8", margin: 1 }}
@@ -499,6 +243,7 @@ function TableView(props, { direction }) {
             Lataa CSV
           </CSVLink>
         </Button>
+        {/* Select column */}
         <Button
           variant="contained"
           style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
@@ -538,6 +283,7 @@ function TableView(props, { direction }) {
             </div>
           </Box>
         </Modal>
+        {/* Add filters */}
         <Button
           variant="contained"
           style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
@@ -623,11 +369,16 @@ function TableView(props, { direction }) {
           height: "550px",
           width: "97%",
         }}
-        columns={visibleColumnsMetadata}
+        ref={gridRef}
+        columns={visibleData}
         rows={filteredRows}
         sortColumns={sortColumns}
         onSortColumnsChange={onSortColumnsChange}
         direction={direction}
+        onCellClick={(cell) => handleCellClick(cell)}
+        rowClass={(row) =>
+          row.point_index == selectedRowIndex ? "selected-row-bg-color" : ""
+        }
       />
     </div>
   );
