@@ -15,11 +15,13 @@ import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import userInputDefault from "constants/UserInputDefault";
+import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+  const [selectedWayarea, setSelectedWayarea] = useState("");
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -51,27 +53,34 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <SelectedIndexContext.Provider
-                  value={{ selectedRowIndex, setSelectedRowIndex }}
+                <SelectedWayareaContext.Provider
+                  value={{ selectedWayarea, setSelectedWayarea }}
                 >
-                  <MapPointClickedContext.Provider
-                    value={{ mapPointClicked, setMapPointClicked }}
+                  <SelectedIndexContext.Provider
+                    value={{ selectedRowIndex, setSelectedRowIndex }}
                   >
-                    <TableRowClickedContext.Provider
-                      value={{ tableRowClicked, setTableRowClicked }}
+                    <MapPointClickedContext.Provider
+                      value={{ mapPointClicked, setMapPointClicked }}
                     >
-                      <DiagramPointClickedContext.Provider
-                        value={{ diagramPointClicked, setDiagramPointClicked }}
+                      <TableRowClickedContext.Provider
+                        value={{ tableRowClicked, setTableRowClicked }}
                       >
-                        <NotificationComponent />
-                        <LoadingSpinner />
-                        <ParameterTabsComponent />
-                        <MapView />
-                        <RIVResultsTabsComponent />
-                      </DiagramPointClickedContext.Provider>
-                    </TableRowClickedContext.Provider>
-                  </MapPointClickedContext.Provider>
-                </SelectedIndexContext.Provider>
+                        <DiagramPointClickedContext.Provider
+                          value={{
+                            diagramPointClicked,
+                            setDiagramPointClicked,
+                          }}
+                        >
+                          <NotificationComponent />
+                          <LoadingSpinner />
+                          <ParameterTabsComponent />
+                          <MapView />
+                          <RIVResultsTabsComponent />
+                        </DiagramPointClickedContext.Provider>
+                      </TableRowClickedContext.Provider>
+                    </MapPointClickedContext.Provider>
+                  </SelectedIndexContext.Provider>
+                </SelectedWayareaContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
