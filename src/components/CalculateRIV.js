@@ -16,12 +16,14 @@ import TableRowClickedContext from "contexts/TableRowClickedContext";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
+import SelectedBoatContext from "contexts/SelectedBoatContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [selectedWayarea, setSelectedWayarea] = useState("");
+  const [selectedBoat, setSelectedBoat] = useState("");
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -56,30 +58,34 @@ function CalculateRIV() {
                 <SelectedWayareaContext.Provider
                   value={{ selectedWayarea, setSelectedWayarea }}
                 >
-                  <SelectedIndexContext.Provider
-                    value={{ selectedRowIndex, setSelectedRowIndex }}
+                  <SelectedBoatContext.Provider
+                    value={{ selectedBoat, setSelectedBoat }}
                   >
-                    <MapPointClickedContext.Provider
-                      value={{ mapPointClicked, setMapPointClicked }}
+                    <SelectedIndexContext.Provider
+                      value={{ selectedRowIndex, setSelectedRowIndex }}
                     >
-                      <TableRowClickedContext.Provider
-                        value={{ tableRowClicked, setTableRowClicked }}
+                      <MapPointClickedContext.Provider
+                        value={{ mapPointClicked, setMapPointClicked }}
                       >
-                        <DiagramPointClickedContext.Provider
-                          value={{
-                            diagramPointClicked,
-                            setDiagramPointClicked,
-                          }}
+                        <TableRowClickedContext.Provider
+                          value={{ tableRowClicked, setTableRowClicked }}
                         >
-                          <NotificationComponent />
-                          <LoadingSpinner />
-                          <ParameterTabsComponent />
-                          <MapView />
-                          <RIVResultsTabsComponent />
-                        </DiagramPointClickedContext.Provider>
-                      </TableRowClickedContext.Provider>
-                    </MapPointClickedContext.Provider>
-                  </SelectedIndexContext.Provider>
+                          <DiagramPointClickedContext.Provider
+                            value={{
+                              diagramPointClicked,
+                              setDiagramPointClicked,
+                            }}
+                          >
+                            <NotificationComponent />
+                            <LoadingSpinner />
+                            <ParameterTabsComponent />
+                            <MapView />
+                            <RIVResultsTabsComponent />
+                          </DiagramPointClickedContext.Provider>
+                        </TableRowClickedContext.Provider>
+                      </MapPointClickedContext.Provider>
+                    </SelectedIndexContext.Provider>
+                  </SelectedBoatContext.Provider>
                 </SelectedWayareaContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
