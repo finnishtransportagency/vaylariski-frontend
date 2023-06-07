@@ -104,7 +104,6 @@ function UserInputForm(props) {
                   <WayareaComponent
                     setChosenWayareaFormikValue={setChosenWayareaFormikValue}
                     name="navline.VAYLAT"
-                    fieldValue={formik.values.navline.VAYLAT}
                   />
                 </Grid>
                 <Grid item xs={5}>
