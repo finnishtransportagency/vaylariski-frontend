@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import Form from "react-bootstrap/Form";
+import SelectedBoatContext from "contexts/SelectedBoatContext";
 
 export default function BoatMenuComponent(props) {
   const [defaultBoats, setDefaultBoats] = useState([]);
-  const [boatInputValue, setBoatInputValue] = useState("");
-
   const { setNotificationStatus } = useContext(NotificationContext);
+  const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
 
   useEffect(() => {
     const path = "get_all_default_ships";
@@ -27,6 +27,12 @@ export default function BoatMenuComponent(props) {
   function handleMenuItemClick(event, newValue) {
     // Calls parent component's (UserInputForm) function with new boat
     props.setDefaultBoatValues(newValue);
+    // Ternary operator needed since when the user clears the field, this is run and newValue is null
+    setSelectedBoat(
+      newValue
+        ? `${newValue.JNRO} - ${newValue.VAY_NIMISU}, pituus: ${newValue.PITUUS}, leveys: ${newValue.LEVEYS},  syväys: ${newValue.SYVAYS}`
+        : ""
+    );
   }
 
   return (
@@ -45,10 +51,10 @@ export default function BoatMenuComponent(props) {
               : ""
           }
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-          inputValue={boatInputValue}
-          onInputChange={(ev, newInputValue) =>
-            setBoatInputValue(newInputValue)
-          }
+          inputValue={selectedBoat}
+          onInputChange={(ev, newInputValue, reason) => {
+            if (reason === "input") setSelectedBoat(newInputValue);
+          }}
           sx={{ width: 350 }}
           renderInput={(params) => (
             <TextField style={{ backgroundColor: "white" }} {...params} />
