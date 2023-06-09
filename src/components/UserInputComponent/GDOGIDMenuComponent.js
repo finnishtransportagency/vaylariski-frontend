@@ -29,9 +29,17 @@ export default function GDOGIDMenuComponent(props) {
             VAYLAT: selectedWayarea.VAYLAT,
           },
         })
-        .then((response) => setAllGDOGIDs(response.data.GDO_GID))
+        .then((response) => {
+          if (!response.data.GDO_GID.length)
+            setNotificationStatus({
+              severity: "info",
+              message: `No GDO_GIDs found for ${selectedWayarea.VAYLAT}`,
+              visible: true,
+            });
+          setAllGDOGIDs(response.data.GDO_GID);
+        })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
           setNotificationStatus({
             severity: "error",
             message: err.message,
