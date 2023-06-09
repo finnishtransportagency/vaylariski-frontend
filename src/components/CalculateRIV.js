@@ -17,13 +17,15 @@ import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
+import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-  const [selectedWayarea, setSelectedWayarea] = useState("");
-  const [selectedBoat, setSelectedBoat] = useState("");
+  const [selectedWayarea, setSelectedWayarea] = useState(null);
+  const [selectedBoat, setSelectedBoat] = useState(null);
+  const [selectedGDOGID, setSelectedGDOGID] = useState("");
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -58,34 +60,38 @@ function CalculateRIV() {
                 <SelectedWayareaContext.Provider
                   value={{ selectedWayarea, setSelectedWayarea }}
                 >
-                  <SelectedBoatContext.Provider
-                    value={{ selectedBoat, setSelectedBoat }}
+                  <GDOGIDListContext.Provider
+                    value={{ selectedGDOGID, setSelectedGDOGID }}
                   >
-                    <SelectedIndexContext.Provider
-                      value={{ selectedRowIndex, setSelectedRowIndex }}
+                    <SelectedBoatContext.Provider
+                      value={{ selectedBoat, setSelectedBoat }}
                     >
-                      <MapPointClickedContext.Provider
-                        value={{ mapPointClicked, setMapPointClicked }}
+                      <SelectedIndexContext.Provider
+                        value={{ selectedRowIndex, setSelectedRowIndex }}
                       >
-                        <TableRowClickedContext.Provider
-                          value={{ tableRowClicked, setTableRowClicked }}
+                        <MapPointClickedContext.Provider
+                          value={{ mapPointClicked, setMapPointClicked }}
                         >
-                          <DiagramPointClickedContext.Provider
-                            value={{
-                              diagramPointClicked,
-                              setDiagramPointClicked,
-                            }}
+                          <TableRowClickedContext.Provider
+                            value={{ tableRowClicked, setTableRowClicked }}
                           >
-                            <NotificationComponent />
-                            <LoadingSpinner />
-                            <ParameterTabsComponent />
-                            <MapView />
-                            <RIVResultsTabsComponent />
-                          </DiagramPointClickedContext.Provider>
-                        </TableRowClickedContext.Provider>
-                      </MapPointClickedContext.Provider>
-                    </SelectedIndexContext.Provider>
-                  </SelectedBoatContext.Provider>
+                            <DiagramPointClickedContext.Provider
+                              value={{
+                                diagramPointClicked,
+                                setDiagramPointClicked,
+                              }}
+                            >
+                              <NotificationComponent />
+                              <LoadingSpinner />
+                              <ParameterTabsComponent />
+                              <MapView />
+                              <RIVResultsTabsComponent />
+                            </DiagramPointClickedContext.Provider>
+                          </TableRowClickedContext.Provider>
+                        </MapPointClickedContext.Provider>
+                      </SelectedIndexContext.Provider>
+                    </SelectedBoatContext.Provider>
+                  </GDOGIDListContext.Provider>
                 </SelectedWayareaContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>

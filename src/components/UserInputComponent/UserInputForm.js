@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { Field } from "formik";
@@ -10,6 +10,8 @@ import WayareaComponent from "./WayareaComponent";
 import TurningRadiusComponent from "./TurningRadiusComponent";
 import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
+import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
+import SelectedBoatContext from "contexts/SelectedBoatContext";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
@@ -18,7 +20,9 @@ function UserInputForm(props) {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
-  const [selectedBoat, setSelectedBoat] = useState({});
+  const [wayareaInputString, setWayareaInputString] = useState("");
+  const [boatInputString, setBoatInputString] = useState("");
+  const { selectedBoat } = useContext(SelectedBoatContext);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -40,14 +44,8 @@ function UserInputForm(props) {
   };
 
   // This is passed to BoatMenuComponent, which then calls it
-  function setDefaultBoatValues(newBoat) {
+  function setChosenBoatFormikValue(newBoat) {
     if (newBoat) {
-      setSelectedBoat({
-        ...newBoat,
-        LEVEYS: newBoat.LEVEYS || "",
-        PITUUS: newBoat.PITUUS || "",
-        SYVAYS: newBoat.SYVAYS || "",
-      });
       formik.setValues({
         ...formik.values,
         boat: {
@@ -58,7 +56,6 @@ function UserInputForm(props) {
         },
       });
     } else {
-      setSelectedBoat({});
       formik.setValues({
         ...formik.values,
         boat: {
@@ -76,6 +73,14 @@ function UserInputForm(props) {
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
       formik.setFieldValue("navline.VAYLAT", "");
+    }
+  }
+
+  function setChosenGDOGIDFormikValue(gdo_gid) {
+    if (gdo_gid) {
+      formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
+    } else {
+      formik.setFieldValue("navline.starting_gdo_gid", "");
     }
   }
 
@@ -103,6 +108,8 @@ function UserInputForm(props) {
                 <Grid item xs={12}>
                   <WayareaComponent
                     setChosenWayareaFormikValue={setChosenWayareaFormikValue}
+                    wayareaInputString={wayareaInputString}
+                    setWayareaInputString={setWayareaInputString}
                     name="navline.VAYLAT"
                   />
                 </Grid>
@@ -143,24 +150,12 @@ function UserInputForm(props) {
               </Grid>
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
-                  <Typography
-                    style={{ fontSize: 16, fontWeight: 550 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    S-mutkan laskenta{" "}
-                  </Typography>
-                  <label htmlFor="navline.starting_gdo_gid">
-                    Ensimmäinen navigointilinjan tunnus (GDO_GID):
-                  </label>
-                  <Field
-                    component="input"
+                  <GDOGIDMenuComponent
+                    setChosenGDOGIDFormikValue={setChosenGDOGIDFormikValue}
                     name="navline.starting_gdo_gid"
-                    type="number"
-                    style={{
-                      width: 100,
-                    }}
-                  ></Field>
+                  />
+                </Grid>
+                <Grid item xs={12}>
                   <Typography color="textSecondary" style={{ fontSize: 14 }}>
                     Jos halutaan laskea s-mutkan suora, annetaan
                     navigointilinjan ensimmäinen GDO_GID. Esim. Oulun väylällä
@@ -182,7 +177,9 @@ function UserInputForm(props) {
                   </Typography>
                   {/* Menu selector for default boat values */}
                   <BoatMenuComponent
-                    setDefaultBoatValues={setDefaultBoatValues}
+                    setChosenBoatFormikValue={setChosenBoatFormikValue}
+                    boatInputString={boatInputString}
+                    setBoatInputString={setBoatInputString}
                     name="boat"
                   />
                 </Grid>
@@ -265,27 +262,28 @@ function UserInputForm(props) {
                 {/*Laivan tiedot*/}
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Väylän tunnus: {selectedBoat["JNRO"]}
+                    Väylän tunnus: {selectedBoat ? selectedBoat["JNRO"] : ""}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Väylän nimi: {selectedBoat["VAY_NIMISU"]}
+                    Väylän nimi:{" "}
+                    {selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Koko: {selectedBoat["KOKO"]}
+                    Koko: {selectedBoat ? selectedBoat["KOKO"] : ""}
                   </Typography>
                 </Grid>
                 {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
                   <Typography style={{ fontSize: 14 }}>
-                    RUNKO_TKERROIN: {selectedBoat.RUNKO_TKERROIN}
-                  </Typography>
+                    RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
+  : ""                 </Typography>
                 </Grid> */}
                 <Grid item>
                   <Typography style={{ fontSize: 14 }}>
-                    Selite: {selectedBoat["SELITE"]}
+                    Selite: {selectedBoat ? selectedBoat["SELITE"] : ""}
                   </Typography>
                 </Grid>
               </Grid>
