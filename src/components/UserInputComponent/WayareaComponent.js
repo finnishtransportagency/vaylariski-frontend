@@ -15,16 +15,17 @@ export default function WayareaNameComponent(props) {
 
   useEffect(() => {
     const path = "wayarea_names";
-    try {
-      apiClient.get(path).then((response) => setAllWayareas(response.data));
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.message,
-        visible: true,
+    apiClient
+      .get(path)
+      .then((response) => setAllWayareas(response.data))
+      .catch((err) => {
+        console.log(err);
+        setNotificationStatus({
+          severity: "error",
+          message: err.message,
+          visible: true,
+        });
       });
-    }
   }, []);
 
   const formatInputString = (wayarea) => `${wayarea.VAYLAT} - ${wayarea.Nimi}`;

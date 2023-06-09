@@ -12,16 +12,17 @@ export default function BoatMenuComponent(props) {
 
   useEffect(() => {
     const path = "get_all_default_ships";
-    try {
-      apiClient.get(path).then((response) => setDefaultBoats(response.data));
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.message,
-        visible: true,
+    apiClient
+      .get(path)
+      .then((response) => setDefaultBoats(response.data))
+      .catch((err) => {
+        console.log(err);
+        setNotificationStatus({
+          severity: "error",
+          message: err.message,
+          visible: true,
+        });
       });
-    }
   }, []);
 
   const formatInputString = (boat) =>

@@ -6,11 +6,13 @@ import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedGDOGIDContext from "contexts/SelectedGDOGIDContext";
+import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 
 export default function GDOGIDMenuComponent(props) {
   const { name } = props;
   const [field, meta] = useField(name);
   const { setNotificationStatus } = useContext(NotificationContext);
+  const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
   const [allGDOGIDs, setAllGDOGIDs] = useState([]);
   const { selectedWayarea } = useContext(SelectedWayareaContext);
   const { selectedGDOGIDString, setSelectedGDOGIDString } = useContext(
@@ -20,22 +22,25 @@ export default function GDOGIDMenuComponent(props) {
   useEffect(() => {
     if (selectedWayarea) {
       const path = "gdo_gids_for_vaylat";
-      try {
-        apiClient
-          .get(path, {
-            params: {
-              VAYLAT: selectedWayarea.VAYLAT,
-            },
-          })
-          .then((response) => setAllGDOGIDs(response.data.GDO_GID));
-      } catch (err) {
-        console.log(err);
-        setNotificationStatus({
-          severity: "error",
-          message: err.message,
-          visible: true,
+      setSpinnerVisible(true);
+      apiClient
+        .get(path, {
+          params: {
+            VAYLAT: selectedWayarea.VAYLAT,
+          },
+        })
+        .then((response) => setAllGDOGIDs(response.data.GDO_GID))
+        .catch((err) => {
+          console.log(err.response);
+          setNotificationStatus({
+            severity: "error",
+            message: err.message,
+            visible: true,
+          });
+        })
+        .finally(() => {
+          setSpinnerVisible(false);
         });
-      }
     }
   }, [selectedWayarea]);
 
