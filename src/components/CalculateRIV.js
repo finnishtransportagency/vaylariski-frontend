@@ -25,7 +25,7 @@ function CalculateRIV() {
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [selectedWayarea, setSelectedWayarea] = useState(null);
   const [selectedBoat, setSelectedBoat] = useState(null);
-  const [selectedGDOGID, setSelectedGDOGID] = useState("");
+  const [selectedGDOGIDString, setSelectedGDOGIDString] = useState("");
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -61,7 +61,7 @@ function CalculateRIV() {
                   value={{ selectedWayarea, setSelectedWayarea }}
                 >
                   <GDOGIDListContext.Provider
-                    value={{ selectedGDOGID, setSelectedGDOGID }}
+                    value={{ selectedGDOGIDString, setSelectedGDOGIDString }}
                   >
                     <SelectedBoatContext.Provider
                       value={{ selectedBoat, setSelectedBoat }}
