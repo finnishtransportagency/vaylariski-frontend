@@ -2973,9 +2973,43 @@ function UserInputForm(props) {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained">
-              Lähetä
-            </Button>
+            <Tooltip
+              placement="right"
+              arrow
+              title={
+                !(formik.isValid && formik.dirty) && (
+                  <span>
+                    Korjaa seuraavat asiat lähetettäeksi arvot:
+                    <br />
+                    {!formik.dirty
+                      ? "- VAYLAT id vaaditaan"
+                      : Object.values(formik.errors).map((obj) => {
+                          let msg = null;
+                          Object.values(obj).forEach((err_msg) => {
+                            msg = (
+                              <span key={err_msg}>
+                                - {err_msg}
+                                <br />
+                              </span>
+                            );
+                          });
+                          return msg;
+                        })}
+                  </span>
+                )
+              }
+            >
+              <span>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={!(formik.isValid && formik.dirty)} //formik.dirty is needed to disable on initial load
+                >
+                  <span style={{ marginRight: "0.2em" }}>Lähetä</span>
+                  {!(formik.isValid && formik.dirty) && <AiOutlineInfoCircle />}
+                </Button>
+              </span>
+            </Tooltip>
           </Grid>
         </Grid>
       )}
@@ -2984,7 +3018,6 @@ function UserInputForm(props) {
 }
 
 export default UserInputForm;
-
 UserInputForm.propTypes = {
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
