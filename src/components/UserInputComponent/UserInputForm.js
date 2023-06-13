@@ -12,6 +12,7 @@ import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
+import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
@@ -23,6 +24,9 @@ function UserInputForm(props) {
   const [wayareaInputString, setWayareaInputString] = useState("");
   const [boatInputString, setBoatInputString] = useState("");
   const { selectedBoat } = useContext(SelectedBoatContext);
+  const { selectedWayareaWithNoGDOGID } = useContext(
+    SelectedWayareaWithNoGDOGIDContext
+  );
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -2977,36 +2981,51 @@ function UserInputForm(props) {
               placement="right"
               arrow
               title={
-                !(formik.isValid && formik.dirty) && (
+                !(formik.isValid && formik.dirty) ||
+                selectedWayareaWithNoGDOGID ? (
                   <span>
                     Korjaa seuraavat asiat lähetettäeksi arvot:
                     <br />
-                    {!formik.dirty
-                      ? "- VAYLAT id vaaditaan"
-                      : Object.values(formik.errors).map((obj) => {
-                          let msg = null;
-                          Object.values(obj).forEach((err_msg) => {
-                            msg = (
-                              <span key={err_msg}>
-                                - {err_msg}
-                                <br />
-                              </span>
-                            );
-                          });
-                          return msg;
-                        })}
+                    {!formik.dirty ? (
+                      <>
+                        - VAYLAT id vaaditaan
+                        <br />
+                      </>
+                    ) : (
+                      Object.values(formik.errors).map((obj) => {
+                        let msg = null;
+                        Object.values(obj).forEach((err_msg) => {
+                          msg = (
+                            <span key={err_msg}>
+                              - {err_msg}
+                              <br />
+                            </span>
+                          );
+                        });
+                        return msg;
+                      })
+                    )}
+                    {selectedWayareaWithNoGDOGID && (
+                      <>- Valitulle väylälle ei ole tunnuksia</>
+                    )}
                   </span>
-                )
+                ) : null
               }
             >
               <span>
                 <Button
                   type="submit"
                   variant="contained"
-                  disabled={!(formik.isValid && formik.dirty)} //formik.dirty is needed to disable on initial load
+                  disabled={
+                    !(formik.isValid && formik.dirty) ||
+                    selectedWayareaWithNoGDOGID
+                  } //formik.dirty is needed to disable on initial load
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {!(formik.isValid && formik.dirty) && <AiOutlineInfoCircle />}
+                  {!(formik.isValid && formik.dirty) ||
+                  selectedWayareaWithNoGDOGID ? (
+                    <AiOutlineInfoCircle />
+                  ) : null}
                 </Button>
               </span>
             </Tooltip>
