@@ -28,7 +28,7 @@ function CalculateRIV() {
   const [selectedBoat, setSelectedBoat] = useState(null);
   const [selectedGDOGIDString, setSelectedGDOGIDString] = useState("");
   const [selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID] =
-    useState(false);
+    useState(true);
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
