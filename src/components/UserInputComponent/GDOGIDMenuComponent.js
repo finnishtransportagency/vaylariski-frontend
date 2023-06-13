@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedGDOGIDContext from "contexts/SelectedGDOGIDContext";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
+import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 export default function GDOGIDMenuComponent(props) {
   const { name } = props;
@@ -18,7 +19,8 @@ export default function GDOGIDMenuComponent(props) {
   const { selectedGDOGIDString, setSelectedGDOGIDString } = useContext(
     SelectedGDOGIDContext
   );
-  const [disabled, setDisabled] = useState(false);
+  const { selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID } =
+    useContext(SelectedWayareaWithNoGDOGIDContext);
 
   useEffect(() => {
     if (selectedWayarea) {
@@ -32,13 +34,13 @@ export default function GDOGIDMenuComponent(props) {
         })
         .then((response) => {
           if (!response.data.GDO_GID.length) {
-            setDisabled(true);
+            setSelectedWayareaWithNoGDOGID(true);
             setNotificationStatus({
               severity: "info",
               message: `Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä ${selectedWayarea.VAYLAT}`,
               visible: true,
             });
-          } else setDisabled(false);
+          } else setSelectedWayareaWithNoGDOGID(false);
           setAllGDOGIDs(response.data.GDO_GID);
         })
         .catch((err) => {
@@ -73,12 +75,24 @@ export default function GDOGIDMenuComponent(props) {
       <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         Ensimmäinen navigointilinjan tunnus (GDO_GID):{" "}
       </Typography>
-      <Tooltip placement="right" arrow title={meta.error}>
+      <Tooltip
+        placement="right"
+        arrow
+        title={
+          meta.error
+            ? meta.error //show meta.error
+            : !selectedWayarea
+            ? "Valitse väylä ensin" //no wayarea is selected
+            : selectedWayareaWithNoGDOGID
+            ? "Valitulle väylälle ei ole tunnuksia" //wayarea with no GDOGIDs was selected
+            : null
+        }
+      >
         <span>
           <Autocomplete
             id="navline.starting_gdo_gid"
             disablePortal
-            disabled={disabled}
+            disabled={selectedWayareaWithNoGDOGID}
             options={allGDOGIDs}
             getOptionLabel={(option) => option.toString() ?? ""}
             onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
@@ -94,7 +108,7 @@ export default function GDOGIDMenuComponent(props) {
                 style={{ backgroundColor: "white" }}
                 {...params}
                 required
-              />
+              ></TextField>
             )}
           />
         </span>
