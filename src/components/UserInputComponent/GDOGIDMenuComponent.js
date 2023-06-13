@@ -18,6 +18,7 @@ export default function GDOGIDMenuComponent(props) {
   const { selectedGDOGIDString, setSelectedGDOGIDString } = useContext(
     SelectedGDOGIDContext
   );
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (selectedWayarea) {
@@ -30,12 +31,14 @@ export default function GDOGIDMenuComponent(props) {
           },
         })
         .then((response) => {
-          if (!response.data.GDO_GID.length)
+          if (!response.data.GDO_GID.length) {
+            setDisabled(true);
             setNotificationStatus({
               severity: "info",
-              message: `No GDO_GIDs found for ${selectedWayarea.VAYLAT}`,
+              message: `Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä ${selectedWayarea.VAYLAT}`,
               visible: true,
             });
+          } else setDisabled(false);
           setAllGDOGIDs(response.data.GDO_GID);
         })
         .catch((err) => {
@@ -75,6 +78,7 @@ export default function GDOGIDMenuComponent(props) {
           <Autocomplete
             id="navline.starting_gdo_gid"
             disablePortal
+            disabled={disabled}
             options={allGDOGIDs}
             getOptionLabel={(option) => option.toString() ?? ""}
             onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
