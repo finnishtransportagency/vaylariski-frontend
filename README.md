@@ -1,7 +1,7 @@
 # Node and npm versions
 
 Node: 16.15.0
-npm: 8.5.5
+Npm: 8.5.5
 
 # Getting Started with Create React App
 
