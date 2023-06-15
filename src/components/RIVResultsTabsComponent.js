@@ -3,7 +3,7 @@ import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
-import DisplayRIVResultsTableView from "views/DisplayRIVResultsTableView";
+import TableView from "views/TableView";
 
 function a11yProps(index) {
   return {
@@ -12,7 +12,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RIVResultsTabsComponent(params) {
+export default function RIVResultsTabsComponent() {
   const [value, setValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -28,13 +28,10 @@ export default function RIVResultsTabsComponent(params) {
           aria-label="basic tabs example"
         >
           <Tab label="RIV taulukko" {...a11yProps(0)} />
-          <Tab
-            label="RIV diagrammi"
-            {...a11yProps(1)}
-          />
+          <Tab label="RIV diagrammi" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <DisplayRIVResultsTableView tabValue={value} tabIndex={0} />
+      <TableView tabValue={value} tabIndex={0} />
       <DisplayRIVResultsDiagramView tabValue={value} tabIndex={1} />
     </Box>
   );

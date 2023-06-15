@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-
-import DisplayRIVResultsTableView from "../views/DisplayRIVResultsTableView";
+import { useState } from "react";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -11,8 +9,11 @@ import NotificationContext from "contexts/NotificationContext";
 import MapView from "../views/MapView";
 import ParameterTabsComponent from "./ParameterTabsComponent";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
-import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
 import RIVResultsTabsComponent from "./RIVResultsTabsComponent";
+import SelectedIndexContext from "../contexts/SelectedIndexContext";
+import MapPointClickedContext from "contexts/MapPointClickedContext";
+import TableRowClickedContext from "contexts/TableRowClickedContext";
+import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 
 const userInputDefault = {
   boat: {
@@ -20,12 +21,13 @@ const userInputDefault = {
     speed: "moderate",
     beam: 30,
     draft: 10,
-    manoeuvrability: "moderate",
+    C_manoeuvrability: 1.5,
+    C_turning_radius: 5,
   },
-  navilinja: {
+  navline: {
     VAYLAT: "",
     starting_gdo_gid: "",
-    navilinja: [
+    navline: [
       {
         coordinates: [],
         width: 10,
@@ -92,20 +94,39 @@ const userInputDefault = {
     strong_wind_moderate_vessel: 0.7,
     strong_wind_slow_vessel: 1.1,
   },
-  manoeuvrability_params: {
-    C_manoeuvrability_good: 1.3,
-    C_manoeuvrability_moderate: 1.5,
-    C_manoeuvrability_poor: 1.8,
-    C_turning_radius_good: 4,
-    C_turning_radius_moderate: 5,
-    C_turning_radius_poor: 6,
+  navline_angle_params: [],
+
+  PF_bend_parameters: {
+    bend_ratio_lim_1: 0.6,
+    bend_ratio_lim_2: 1.0,
+    bend_ratio_lim_3: 1.6,
+    bend_ratio_lim_4: 2.0,
+
+    PF_bend_radius_1: 4,
+    PF_bend_radius_2: 3,
+    PF_bend_radius_3: 2,
+    PF_bend_radius_4: 1,
+    PF_bend_radius_5: 0,
+
+    bend_angle_lim_1: 30,
+    bend_angle_lim_2: 50,
+    bend_angle_lim_3: 60,
+    bend_angle_lim_4: 70,
+
+    PF_bend_angle_1: 0.0,
+    PF_bend_angle_2: 0.5,
+    PF_bend_angle_3: 1.0,
+    PF_bend_angle_4: 1.5,
+    PF_bend_angle_5: 2.0,
   },
-  navilinja_angle_params: [],
+  calculation_interval: 10,
 };
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
     yellow: 30,
@@ -117,10 +138,9 @@ function CalculateRIV() {
     visible: false,
   });
   const [wayareaPolygons, setWayareaPolygons] = useState([]);
-
-  useEffect(() => {
-    console.log(RIVTrafficLight);
-  }, [RIVTrafficLight]);
+  const [mapPointClicked, setMapPointClicked] = useState(false);
+  const [tableRowClicked, setTableRowClicked] = useState(false);
+  const [diagramPointClicked, setDiagramPointClicked] = useState(false);
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -137,13 +157,27 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <NotificationComponent />
-                <LoadingSpinner />
-                <ParameterTabsComponent />
-                <MapView />
-                <RIVResultsTabsComponent />
-                {/* <DisplayRIVResultsTableView/>
-                <DisplayRIVResultsDiagramView /> */}
+                <SelectedIndexContext.Provider
+                  value={{ selectedRowIndex, setSelectedRowIndex }}
+                >
+                  <MapPointClickedContext.Provider
+                    value={{ mapPointClicked, setMapPointClicked }}
+                  >
+                    <TableRowClickedContext.Provider
+                      value={{ tableRowClicked, setTableRowClicked }}
+                    >
+                      <DiagramPointClickedContext.Provider
+                        value={{ diagramPointClicked, setDiagramPointClicked }}
+                      >
+                        <NotificationComponent />
+                        <LoadingSpinner />
+                        <ParameterTabsComponent />
+                        <MapView />
+                        <RIVResultsTabsComponent />
+                      </DiagramPointClickedContext.Provider>
+                    </TableRowClickedContext.Provider>
+                  </MapPointClickedContext.Provider>
+                </SelectedIndexContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
