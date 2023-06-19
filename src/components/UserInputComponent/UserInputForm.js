@@ -28,6 +28,8 @@ function UserInputForm(props) {
     SelectedWayareaWithNoGDOGIDContext
   );
 
+  console.log(formik.values.navline.starting_gdo_gid);
+
   const handleMouseOver = () => {
     setIsHovering(true);
   };

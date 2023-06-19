@@ -24,8 +24,11 @@ export default function GDOGIDMenuComponent(props) {
 
   useEffect(() => {
     if (selectedWayarea) {
-      const path = "gdo_gids_for_vaylat";
       setSpinnerVisible(true);
+      props.setChosenGDOGIDFormikValue();
+      setSelectedGDOGIDString("");
+
+      const path = "gdo_gids_for_vaylat";
       apiClient
         .get(path, {
           params: {
