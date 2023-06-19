@@ -1,4 +1,12 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+import { createPortal } from "react-dom";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -12,6 +20,7 @@ import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
+import NewWindow from "react-new-window";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -162,7 +171,39 @@ function GeoJSONMarkers() {
   return null;
 }
 
-function MapView() {
+const RenderInWindow = (props) => {
+  const [container, setContainer] = useState(null);
+  const newWindow = useRef(null);
+
+  useEffect(() => {
+    // Create container element on client-side
+    setContainer(document.createElement("div"));
+  }, []);
+
+  useEffect(() => {
+    // When container is ready
+    if (container) {
+      // Create window
+      newWindow.current = window.open(
+        "",
+        "",
+        "width=1200,height=1000,left=200,top=200"
+      );
+      // Append container
+      newWindow.current.document.body.appendChild(container);
+
+      // Save reference to window for cleanup
+      const curWindow = newWindow.current;
+
+      // Return cleanup function
+      return () => curWindow.close();
+    }
+  }, [container]);
+
+  return container && createPortal(props.children, container);
+};
+
+const MapView = (props) => {
   const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
@@ -182,31 +223,99 @@ function MapView() {
     }
   }, [RIVResults]);
 
+  function ExternalStateExample() {
+    const [map, setMap] = useState(null);
+    const [container, setContainer] = useState(null);
+    const newWindow = useRef(null);
+    /*
+    useEffect(() => {
+      // Create container element on client-side
+      setContainer(document.createElement("div"));
+    }, []);
+
+    useEffect(() => {
+      // When container is ready
+      if (container) {
+        // Create window
+        newWindow.current = window.open(
+          "",
+          "",
+          "width=1200,height=1000,left=200,top=200"
+        );
+        // Append container
+        newWindow.current.document.body.appendChild(container);
+
+        // Save reference to window for cleanup
+        const curWindow = newWindow.current;
+
+        // Return cleanup function
+        return () => curWindow.close();
+      }
+    }, [container]);
+    */
+
+    const displayMap = useMemo(
+      () => (
+        <NewWindow>
+          <MapContainer
+            center={coords}
+            zoom={8}
+            scrollWheelZoom={true}
+            ref={setMap}
+            style={{
+              height: "550px",
+              width: "100%",
+              backgroundColor: "white",
+              marginTop: "80px",
+              marginBottom: "5px",
+            }}
+          >
+            <GeoJSONMarkers />
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </MapContainer>
+        </NewWindow>
+      ),
+      []
+    );
+    /*
+    return (
+      container &&
+      createPortal(
+        <MapContainer
+          center={coords}
+          zoom={8}
+          scrollWheelZoom={true}
+          ref={setMap}
+          style={{
+            height: "800px",
+            width: "75%",
+            backgroundColor: "white",
+            marginTop: "80px",
+            marginBottom: "5px",
+          }}
+        >
+          <GeoJSONMarkers />
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>,
+        container
+      )
+    );
+    */
+    return <div>{displayMap}</div>;
+  }
+
   return (
     <>
       <RIVTrafficLightsComponent />
-      <MapContainer
-        // whenReady={ instance => {mapRef.current = instance} }
-        ref={mapRef}
-        center={coords}
-        zoom={9}
-        scrollWheelZoom={true}
-        style={{
-          height: "800px",
-          width: "75%",
-          backgroundColor: "white",
-          marginTop: "80px",
-          marginBottom: "5px",
-        }}
-      >
-        <GeoJSONMarkers />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-      </MapContainer>
+      <ExternalStateExample />
     </>
   );
-}
+};
 
 export default MapView;
