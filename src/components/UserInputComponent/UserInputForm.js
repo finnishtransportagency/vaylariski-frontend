@@ -357,9 +357,15 @@ function UserInputForm(props) {
                       type="radio"
                       name="boat.speed"
                       value="fast"
-                      id="fast"
+                      id="fast-speed"
                     />
-                    Nopea
+                    <span
+                      onClick={() =>
+                        document.getElementById("fast-speed").click()
+                      }
+                    >
+                      {" Nopea"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={8}>
@@ -382,9 +388,15 @@ function UserInputForm(props) {
                       type="radio"
                       name="boat.speed"
                       value="moderate"
-                      id="moderate"
+                      id="moderate-speed"
                     />
-                    Keskiverto
+                    <span
+                      onClick={() =>
+                        document.getElementById("moderate-speed").click()
+                      }
+                    >
+                      {" Keskiverto"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={8}>
@@ -418,9 +430,15 @@ function UserInputForm(props) {
                       name="boat.speed"
                       type="radio"
                       value="slow"
-                      id="slow"
+                      id="slow-speed"
                     />
-                    Hidas
+                    <span
+                      onClick={() =>
+                        document.getElementById("slow-speed").click()
+                      }
+                    >
+                      {" Hidas"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={8}>
@@ -812,7 +830,13 @@ function UserInputForm(props) {
                       value="gentle_slope"
                       id="gentle_slope"
                     />
-                    Loiva kaltevuus
+                    <span
+                      onClick={() =>
+                        document.getElementById("gentle_slope").click()
+                      }
+                    >
+                      {" Loiva kaltevuus"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={4}>
@@ -823,7 +847,13 @@ function UserInputForm(props) {
                       value="sloping_edges"
                       id="sloping_edges"
                     />
-                    Viistot reunat
+                    <span
+                      onClick={() =>
+                        document.getElementById("sloping_edges").click()
+                      }
+                    >
+                      {" Viistot reunat"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={4}>
@@ -834,7 +864,13 @@ function UserInputForm(props) {
                       value="steep_and_hard"
                       id="steep_and_hard"
                     />
-                    Jyrkkä ja kova
+                    <span
+                      onClick={() =>
+                        document.getElementById("steep_and_hard").click()
+                      }
+                    >
+                      {" Jyrkkä ja kova"}
+                    </span>
                   </label>
                 </Grid>
                 <Grid item xs={4}>
@@ -1261,9 +1297,15 @@ function UserInputForm(props) {
                       type="radio"
                       name="navline.calculation_params.operating_conditions.wind_speed"
                       value="mild"
-                      id="mild"
+                      id="mild-wind"
                     />
-                    Heikko
+                    <span
+                      onClick={() =>
+                        document.getElementById("mild-wind").click()
+                      }
+                    >
+                      {" Heikko"}
+                    </span>
                   </label>
                   <Typography
                     style={{ fontSize: 14 }}
@@ -1373,9 +1415,15 @@ function UserInputForm(props) {
                       type="radio"
                       name="navline.calculation_params.operating_conditions.wind_speed"
                       value="moderate"
-                      id="moderate"
+                      id="moderate-wind"
                     />
-                    Keskiverto
+                    <span
+                      onClick={() =>
+                        document.getElementById("moderate-wind").click()
+                      }
+                    >
+                      {" Keskiverto"}
+                    </span>
                   </label>
                   <Typography
                     style={{ fontSize: 14 }}
@@ -1482,9 +1530,15 @@ function UserInputForm(props) {
                       type="radio"
                       name="navline.calculation_params.operating_conditions.wind_speed"
                       value="strong"
-                      id="strong"
+                      id="strong-wind"
                     />
-                    Voimakas
+                    <span
+                      onClick={() =>
+                        document.getElementById("strong-wind").click()
+                      }
+                    >
+                      {" Voimakas"}
+                    </span>
                   </label>
                   <Typography
                     style={{ fontSize: 14 }}
@@ -1616,9 +1670,17 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="negligible"
-                        id="negligible"
+                        id="negligible-cross-current"
                       />
-                      Olematon
+                      <span
+                        onClick={() =>
+                          document
+                            .getElementById("negligible-cross-current")
+                            .click()
+                        }
+                      >
+                        {" Olematon"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1657,9 +1719,15 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="low"
-                        id="low"
+                        id="low-cross-current"
                       />
-                      Heikko
+                      <span
+                        onClick={() =>
+                          document.getElementById("low-cross-current").click()
+                        }
+                      >
+                        {" Heikko"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1698,9 +1766,17 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="moderate"
-                        id="moderate"
+                        id="moderate-cross-current"
                       />
-                      Keskiverto
+                      <span
+                        onClick={() =>
+                          document
+                            .getElementById("moderate-cross-current")
+                            .click()
+                        }
+                      >
+                        {" Keskiverto"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1739,9 +1815,17 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.cross_current_speed"
                         value="strong"
-                        id="strong"
+                        id="strong-cross-current"
                       />
-                      Voimakas
+                      <span
+                        onClick={() =>
+                          document
+                            .getElementById("strong-cross-current")
+                            .click()
+                        }
+                      >
+                        {" Voimakas"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1803,9 +1887,17 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="negligible"
-                        id="negligible"
+                        id="negligible-long-current"
                       />
-                      Olematon
+                      <span
+                        onClick={() =>
+                          document
+                            .getElementById("negligible-long-current")
+                            .click()
+                        }
+                      >
+                        {" Olematon"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1844,9 +1936,17 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="moderate"
-                        id="moderate"
+                        id="moderate-long-current"
                       />
-                      Keskiverto
+                      <span
+                        onClick={() =>
+                          document
+                            .getElementById("moderate-long-current")
+                            .click()
+                        }
+                      >
+                        {" Keskiverto"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1885,9 +1985,15 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
                         value="strong"
-                        id="strong"
+                        id="strong-long-current"
                       />
-                      Voimakas
+                      <span
+                        onClick={() =>
+                          document.getElementById("strong-long-current").click()
+                        }
+                      >
+                        {" Voimakas"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1936,9 +2042,15 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.wave_height"
                         value="low"
-                        id="low"
+                        id="low-wave"
                       />
-                      Matala
+                      <span
+                        onClick={() =>
+                          document.getElementById("low-wave").click()
+                        }
+                      >
+                        {" Matala"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -1971,9 +2083,15 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.wave_height"
                         value="moderate"
-                        id="moderate"
+                        id="moderate-wave"
                       />
-                      Keskiverto
+                      <span
+                        onClick={() =>
+                          document.getElementById("moderate-wave").click()
+                        }
+                      >
+                        {" Keskiverto"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
@@ -2006,9 +2124,15 @@ function UserInputForm(props) {
                         type="radio"
                         name="navline.calculation_params.operating_conditions.wave_height"
                         value="high"
-                        id="high"
+                        id="high-wave"
                       />
-                      Korkea
+                      <span
+                        onClick={() =>
+                          document.getElementById("high-wave").click()
+                        }
+                      >
+                        {" Korkea"}
+                      </span>
                     </label>
                   </Grid>
                   <Grid item xs={8}>
