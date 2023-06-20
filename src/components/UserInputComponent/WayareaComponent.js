@@ -50,31 +50,26 @@ export default function WayareaNameComponent(props) {
         VAYLAT id/nimi:{" "}
       </Typography>
       <Tooltip placement="right" arrow title={meta.error}>
-        <span>
-          <Autocomplete
-            id="navline.VAYLAT"
-            disablePortal
-            options={allWayareas}
-            getOptionLabel={(option) =>
-              option ? formatInputString(option) : ""
-            }
-            onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-            inputValue={props.wayareaInputString}
-            onInputChange={(ev, newInputValue, reason) => {
-              if (reason === "input")
-                props.setWayareaInputString(newInputValue);
-            }}
-            sx={{ width: 350 }}
-            renderInput={(params) => (
-              <TextField
-                error={!!meta.error}
-                style={{ backgroundColor: "white" }}
-                {...params}
-                required
-              />
-            )}
-          />
-        </span>
+        <Autocomplete
+          id="navline.VAYLAT"
+          disablePortal
+          options={allWayareas}
+          getOptionLabel={(option) => (option ? formatInputString(option) : "")}
+          onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+          inputValue={props.wayareaInputString}
+          onInputChange={(ev, newInputValue, reason) => {
+            if (reason === "input") props.setWayareaInputString(newInputValue);
+          }}
+          sx={{ width: 350 }}
+          renderInput={(params) => (
+            <TextField
+              error={!!meta.error}
+              style={{ backgroundColor: "white" }}
+              {...params}
+              required
+            />
+          )}
+        />
       </Tooltip>
     </Form.Group>
   );
