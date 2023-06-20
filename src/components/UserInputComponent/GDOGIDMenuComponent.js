@@ -21,6 +21,7 @@ export default function GDOGIDMenuComponent(props) {
   );
   const { selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID } =
     useContext(SelectedWayareaWithNoGDOGIDContext);
+  const [invalidFieldInput, setInvalidFieldInput] = useState(false);
 
   useEffect(() => {
     props.setChosenGDOGIDFormikValue();
@@ -60,11 +61,20 @@ export default function GDOGIDMenuComponent(props) {
     }
   }, [selectedWayarea]);
 
-  function handleMenuItemClick(event, newValue) {
+  const handleMenuItemClick = (event, newValue) => {
     props.setChosenGDOGIDFormikValue(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setSelectedGDOGIDString(newValue?.toString() ?? "");
-  }
+  };
+
+  const handleInputChange = (newValue) => {
+    setSelectedGDOGIDString(newValue);
+
+    if (allGDOGIDs.includes(Number(newValue)) || newValue === "") {
+      setInvalidFieldInput(false);
+      props.setChosenGDOGIDFormikValue(newValue);
+    } else setInvalidFieldInput(true);
+  };
 
   return (
     <Form.Group>
@@ -84,6 +94,8 @@ export default function GDOGIDMenuComponent(props) {
         title={
           meta.error
             ? meta.error //show meta.error
+            : invalidFieldInput
+            ? "Annettu arvo ei ole osaa valikoimaa"
             : !selectedWayarea
             ? "Valitse väylä ensin" //no wayarea is selected
             : selectedWayareaWithNoGDOGID
@@ -100,12 +112,12 @@ export default function GDOGIDMenuComponent(props) {
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
           inputValue={selectedGDOGIDString}
           onInputChange={(ev, newInputValue, reason) => {
-            if (reason === "input") setSelectedGDOGIDString(newInputValue);
+            if (reason === "input") handleInputChange(newInputValue);
           }}
           sx={{ width: 350 }}
           renderInput={(params) => (
             <TextField
-              error={!!meta.error}
+              error={!!meta.error || invalidFieldInput}
               type="number"
               style={{ backgroundColor: "white" }}
               {...params}
@@ -116,26 +128,3 @@ export default function GDOGIDMenuComponent(props) {
     </Form.Group>
   );
 }
-
-/*
-<Grid item xs={12}>
-                  <Typography
-                    style={{ fontSize: 16, fontWeight: 550 }}
-                    color="textSecondary"
-                    gutterBottom
-                  >
-                    S-mutkan laskenta{" "}
-                  </Typography>
-                  <label htmlFor="navline.starting_gdo_gid">
-                    Ensimmäinen navigointilinjan tunnus (GDO_GID):
-                  </label>
-                  <Field
-                    component="input"
-                    name="navline.starting_gdo_gid"
-                    type="number"
-                    style={{
-                      width: 100,
-                    }}
-                  ></Field>
-                </Grid>
-*/
