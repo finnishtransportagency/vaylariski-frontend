@@ -14,118 +14,16 @@ import SelectedIndexContext from "../contexts/SelectedIndexContext";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
-
-const userInputDefault = {
-  boat: {
-    length: 210,
-    speed: "moderate",
-    beam: 30,
-    draft: 10,
-    C_manoeuvrability: 1.5,
-    C_turning_radius: 5,
-  },
-  navline: {
-    VAYLAT: "",
-    starting_gdo_gid: "",
-    navline: [
-      {
-        coordinates: [],
-        width: 10,
-      },
-    ],
-    calculation_params: {
-      operating_conditions: {
-        wind_speed: "moderate",
-        cross_current_speed: "negligible",
-        longitudinal_current_speed: "negligible",
-        wave_height: "low",
-      },
-      other: {
-        traffic_volume: "low",
-        traffic_complexity: "low",
-        visibility: 1852,
-        light_pollution: "negligible",
-      },
-      type: "outer",
-      number_of_lanes: 2,
-      bottom_surface: "smooth_and_soft",
-      channel_edge: "gentle_slope",
-      aids_to_navigation: "excellent",
-      bend_radius: "inf",
-      bend_angle: 0,
-      distance_between_bends: "inf",
-    },
-  },
-  weightfactors: {
-    WF_channel: 4,
-    WF_bend: 4,
-    WF_s_bend: 4,
-    WF_traffic_complexity: 4,
-    WF_reduced_visibility: 3,
-    WF_light_pollution: 2,
-  },
-  bank_clearance_wf: {
-    edge_category_gentle_fast: 0.2,
-    edge_category_gentle_moderate: 0.1,
-    edge_category_gentle_slow: 0.1,
-    edge_category_sloping_fast: 0.7,
-    edge_category_sloping_moderate: 0.5,
-    edge_category_sloping_slow: 0.3,
-    edge_category_steep_fast: 1.3,
-    edge_category_steep_moderate: 1,
-    edge_category_steep_slow: 0.5,
-  },
-  channel_depth_wf: {
-    deep_inner_channel: 0,
-    medium_deep_inner_channel: 0.2,
-    shallow_inner_channel: 0.4,
-    deep_outer_channel: 0,
-    medium_deep_outer_channel: 0.1,
-    shallow_outer_channel: 0.2,
-  },
-  wind_wf: {
-    mild_wind_fast_vessel: 0.1,
-    mild_wind_moderate_vessel: 0.2,
-    mild_wind_slow_vessel: 0.3,
-    moderate_wind_fast_vessel: 0.3,
-    moderate_wind_moderate_vessel: 0.4,
-    moderate_wind_slow_vessel: 0.6,
-    strong_wind_fast_vessel: 0.5,
-    strong_wind_moderate_vessel: 0.7,
-    strong_wind_slow_vessel: 1.1,
-  },
-  navline_angle_params: [],
-
-  PF_bend_parameters: {
-    bend_ratio_lim_1: 0.6,
-    bend_ratio_lim_2: 1.0,
-    bend_ratio_lim_3: 1.6,
-    bend_ratio_lim_4: 2.0,
-
-    PF_bend_radius_1: 4,
-    PF_bend_radius_2: 3,
-    PF_bend_radius_3: 2,
-    PF_bend_radius_4: 1,
-    PF_bend_radius_5: 0,
-
-    bend_angle_lim_1: 30,
-    bend_angle_lim_2: 50,
-    bend_angle_lim_3: 60,
-    bend_angle_lim_4: 70,
-
-    PF_bend_angle_1: 0.0,
-    PF_bend_angle_2: 0.5,
-    PF_bend_angle_3: 1.0,
-    PF_bend_angle_4: 1.5,
-    PF_bend_angle_5: 2.0,
-  },
-  calculation_interval: 10,
-};
+import userInputDefault from "constants/UserInputDefault";
+import SelectedWayareaContext from "contexts/SelectedWayareaContext";
+import SelectedBoatContext from "contexts/SelectedBoatContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+  const [selectedWayarea, setSelectedWayarea] = useState("");
+  const [selectedBoat, setSelectedBoat] = useState("");
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -157,27 +55,38 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <SelectedIndexContext.Provider
-                  value={{ selectedRowIndex, setSelectedRowIndex }}
+                <SelectedWayareaContext.Provider
+                  value={{ selectedWayarea, setSelectedWayarea }}
                 >
-                  <MapPointClickedContext.Provider
-                    value={{ mapPointClicked, setMapPointClicked }}
+                  <SelectedBoatContext.Provider
+                    value={{ selectedBoat, setSelectedBoat }}
                   >
-                    <TableRowClickedContext.Provider
-                      value={{ tableRowClicked, setTableRowClicked }}
+                    <SelectedIndexContext.Provider
+                      value={{ selectedRowIndex, setSelectedRowIndex }}
                     >
-                      <DiagramPointClickedContext.Provider
-                        value={{ diagramPointClicked, setDiagramPointClicked }}
+                      <MapPointClickedContext.Provider
+                        value={{ mapPointClicked, setMapPointClicked }}
                       >
-                        <NotificationComponent />
-                        <LoadingSpinner />
-                        <ParameterTabsComponent />
-                        <MapView />
-                        <RIVResultsTabsComponent />
-                      </DiagramPointClickedContext.Provider>
-                    </TableRowClickedContext.Provider>
-                  </MapPointClickedContext.Provider>
-                </SelectedIndexContext.Provider>
+                        <TableRowClickedContext.Provider
+                          value={{ tableRowClicked, setTableRowClicked }}
+                        >
+                          <DiagramPointClickedContext.Provider
+                            value={{
+                              diagramPointClicked,
+                              setDiagramPointClicked,
+                            }}
+                          >
+                            <NotificationComponent />
+                            <LoadingSpinner />
+                            <ParameterTabsComponent />
+                            <MapView />
+                            <RIVResultsTabsComponent />
+                          </DiagramPointClickedContext.Provider>
+                        </TableRowClickedContext.Provider>
+                      </MapPointClickedContext.Provider>
+                    </SelectedIndexContext.Provider>
+                  </SelectedBoatContext.Provider>
+                </SelectedWayareaContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>

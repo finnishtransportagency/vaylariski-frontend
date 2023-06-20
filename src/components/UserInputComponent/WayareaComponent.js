@@ -4,18 +4,21 @@ import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
+import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
 export default function WayareaNameComponent(props) {
   const { name } = props;
   const [field, meta] = useField(name);
-  const [defaultWayarea, setDefaultWayarea] = useState([]);
+  const [allWayareas, setAllWayareas] = useState([]);
   const { setNotificationStatus } = useContext(NotificationContext);
-  const [vaylatInputValue, setVaylatInputValue] = useState("");
+  const { selectedWayarea, setSelectedWayarea } = useContext(
+    SelectedWayareaContext
+  );
 
   useEffect(() => {
     const path = "wayarea_names";
     try {
-      apiClient.get(path).then((response) => setDefaultWayarea(response.data));
+      apiClient.get(path).then((response) => setAllWayareas(response.data));
     } catch (err) {
       console.log(err);
       setNotificationStatus({
@@ -27,7 +30,9 @@ export default function WayareaNameComponent(props) {
   }, []);
 
   function handleMenuItemClick(event, newValue) {
-    props.setDefaultWayareaName(newValue);
+    props.setChosenWayareaFormikValue(newValue);
+    // Ternary operator needed since when the user clears the field, this is run and newValue is null
+    setSelectedWayarea(newValue ? `${newValue.VAYLAT} - ${newValue.Nimi}` : "");
   }
 
   return (
@@ -47,15 +52,15 @@ export default function WayareaNameComponent(props) {
           <Autocomplete
             id="navline.VAYLAT"
             disablePortal
-            options={defaultWayarea}
+            options={allWayareas}
             getOptionLabel={(option) =>
               option ? `${option.VAYLAT} - ${option.Nimi}` : ""
             }
             onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-            inputValue={vaylatInputValue}
-            onInputChange={(ev, newInputValue) =>
-              setVaylatInputValue(newInputValue)
-            }
+            inputValue={selectedWayarea}
+            onInputChange={(ev, newInputValue, reason) => {
+              if (reason === "input") setSelectedWayarea(newInputValue);
+            }}
             sx={{ width: 350 }}
             renderInput={(params) => (
               <TextField
@@ -71,3 +76,27 @@ export default function WayareaNameComponent(props) {
     </Form.Group>
   );
 }
+/*
+<Field
+  component="select"
+  name="calculation_interval"
+  type="number"
+  required
+  style={{
+    width: 100,
+  }}
+>
+  <option value="10">10</option>
+  <option value="20">20</option>
+  <option value="30">30</option>
+  <option value="40">40</option>
+  <option value="50">50</option>
+  <option value="60">60</option>
+  <option value="70">70</option>
+  <option value="80">80</option>
+  <option value="90">90</option>
+  <option value="100">100</option>
+  <option value="1000">1000</option>
+</Field>;
+
+*/

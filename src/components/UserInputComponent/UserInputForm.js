@@ -71,7 +71,7 @@ function UserInputForm(props) {
     }
   }
 
-  function setDefaultWayareaName(wayarea) {
+  function setChosenWayareaFormikValue(wayarea) {
     if (wayarea) {
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
     } else {
@@ -102,7 +102,7 @@ function UserInputForm(props) {
                 {/*väylämenu*/}
                 <Grid item xs={12}>
                   <WayareaComponent
-                    setDefaultWayareaName={setDefaultWayareaName}
+                    setChosenWayareaFormikValue={setChosenWayareaFormikValue}
                     name="navline.VAYLAT"
                   />
                 </Grid>
