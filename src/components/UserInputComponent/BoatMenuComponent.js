@@ -9,6 +9,7 @@ export default function BoatMenuComponent(props) {
   const [defaultBoats, setDefaultBoats] = useState([]);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { setSelectedBoat } = useContext(SelectedBoatContext);
+  const [boatInputString, setBoatInputString] = useState("");
 
   useEffect(() => {
     const path = "get_all_default_ships";
@@ -33,7 +34,7 @@ export default function BoatMenuComponent(props) {
     props.setChosenBoatFormikValue(newValue);
     setSelectedBoat(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
-    props.setBoatInputString(newValue ? formatInputString(newValue) : "");
+    setBoatInputString(newValue ? formatInputString(newValue) : "");
   }
 
   return (
@@ -48,9 +49,9 @@ export default function BoatMenuComponent(props) {
           options={defaultBoats}
           getOptionLabel={(option) => (option ? formatInputString(option) : "")}
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-          inputValue={props.boatInputString}
+          inputValue={boatInputString}
           onInputChange={(ev, newInputValue, reason) => {
-            if (reason === "input") props.setBoatInputString(newInputValue);
+            if (reason === "input") setBoatInputString(newInputValue);
           }}
           sx={{ width: 350 }}
           renderInput={(params) => (

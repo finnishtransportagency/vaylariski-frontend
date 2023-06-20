@@ -21,8 +21,6 @@ function UserInputForm(props) {
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringDepth, setIsHoveringDepth] = useState(false);
   const [isHoveringWind, setIsHoveringWind] = useState(false);
-  const [wayareaInputString, setWayareaInputString] = useState("");
-  const [boatInputString, setBoatInputString] = useState("");
   const { selectedBoat } = useContext(SelectedBoatContext);
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
@@ -112,8 +110,6 @@ function UserInputForm(props) {
                 <Grid item xs={12}>
                   <WayareaComponent
                     setChosenWayareaFormikValue={setChosenWayareaFormikValue}
-                    wayareaInputString={wayareaInputString}
-                    setWayareaInputString={setWayareaInputString}
                     name="navline.VAYLAT"
                   />
                 </Grid>
@@ -182,8 +178,6 @@ function UserInputForm(props) {
                   {/* Menu selector for default boat values */}
                   <BoatMenuComponent
                     setChosenBoatFormikValue={setChosenBoatFormikValue}
-                    boatInputString={boatInputString}
-                    setBoatInputString={setBoatInputString}
                     name="boat"
                   />
                 </Grid>

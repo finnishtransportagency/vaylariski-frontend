@@ -12,6 +12,7 @@ export default function WayareaNameComponent(props) {
   const [allWayareas, setAllWayareas] = useState([]);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { setSelectedWayarea } = useContext(SelectedWayareaContext);
+  const [wayareaInputString, setWayareaInputString] = useState("");
 
   useEffect(() => {
     const path = "wayarea_names";
@@ -34,7 +35,7 @@ export default function WayareaNameComponent(props) {
     props.setChosenWayareaFormikValue(newValue);
     setSelectedWayarea(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
-    props.setWayareaInputString(newValue ? formatInputString(newValue) : "");
+    setWayareaInputString(newValue ? formatInputString(newValue) : "");
   };
 
   return (
@@ -56,9 +57,9 @@ export default function WayareaNameComponent(props) {
           options={allWayareas}
           getOptionLabel={(option) => (option ? formatInputString(option) : "")}
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-          inputValue={props.wayareaInputString}
+          inputValue={wayareaInputString}
           onInputChange={(ev, newInputValue, reason) => {
-            if (reason === "input") props.setWayareaInputString(newInputValue);
+            if (reason === "input") setWayareaInputString(newInputValue);
           }}
           sx={{ width: 350 }}
           renderInput={(params) => (
