@@ -23,10 +23,10 @@ export default function GDOGIDMenuComponent(props) {
     useContext(SelectedWayareaWithNoGDOGIDContext);
 
   useEffect(() => {
+    props.setChosenGDOGIDFormikValue();
+    setSelectedGDOGIDString("");
     if (selectedWayarea) {
       setSpinnerVisible(true);
-      props.setChosenGDOGIDFormikValue();
-      setSelectedGDOGIDString("");
 
       const path = "gdo_gids_for_vaylat";
       apiClient
@@ -94,7 +94,7 @@ export default function GDOGIDMenuComponent(props) {
         <Autocomplete
           id="navline.starting_gdo_gid"
           disablePortal
-          disabled={selectedWayareaWithNoGDOGID}
+          disabled={selectedWayareaWithNoGDOGID || !selectedWayarea}
           options={allGDOGIDs}
           getOptionLabel={(option) => option.toString() ?? ""}
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
