@@ -91,30 +91,27 @@ export default function GDOGIDMenuComponent(props) {
             : null
         }
       >
-        <span>
-          <Autocomplete
-            id="navline.starting_gdo_gid"
-            disablePortal
-            disabled={selectedWayareaWithNoGDOGID}
-            options={allGDOGIDs}
-            getOptionLabel={(option) => option.toString() ?? ""}
-            onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-            inputValue={selectedGDOGIDString}
-            onInputChange={(ev, newInputValue, reason) => {
-              if (reason === "input") setSelectedGDOGIDString(newInputValue);
-            }}
-            sx={{ width: 350 }}
-            renderInput={(params) => (
-              <TextField
-                error={!!meta.error}
-                type="number"
-                style={{ backgroundColor: "white" }}
-                {...params}
-                required
-              ></TextField>
-            )}
-          />
-        </span>
+        <Autocomplete
+          id="navline.starting_gdo_gid"
+          disablePortal
+          disabled={selectedWayareaWithNoGDOGID}
+          options={allGDOGIDs}
+          getOptionLabel={(option) => option.toString() ?? ""}
+          onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+          inputValue={selectedGDOGIDString}
+          onInputChange={(ev, newInputValue, reason) => {
+            if (reason === "input") setSelectedGDOGIDString(newInputValue);
+          }}
+          sx={{ width: 350 }}
+          renderInput={(params) => (
+            <TextField
+              error={!!meta.error}
+              type="number"
+              style={{ backgroundColor: "white" }}
+              {...params}
+            ></TextField>
+          )}
+        />
       </Tooltip>
     </Form.Group>
   );
