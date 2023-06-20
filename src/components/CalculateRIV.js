@@ -17,13 +17,18 @@ import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
+import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
+import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
-  const [selectedWayarea, setSelectedWayarea] = useState("");
-  const [selectedBoat, setSelectedBoat] = useState("");
+  const [selectedWayarea, setSelectedWayarea] = useState(null);
+  const [selectedBoat, setSelectedBoat] = useState(null);
+  const [selectedGDOGIDString, setSelectedGDOGIDString] = useState("");
+  const [selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID] =
+    useState(true);
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
@@ -58,34 +63,45 @@ function CalculateRIV() {
                 <SelectedWayareaContext.Provider
                   value={{ selectedWayarea, setSelectedWayarea }}
                 >
-                  <SelectedBoatContext.Provider
-                    value={{ selectedBoat, setSelectedBoat }}
+                  <SelectedWayareaWithNoGDOGIDContext.Provider
+                    value={{
+                      selectedWayareaWithNoGDOGID,
+                      setSelectedWayareaWithNoGDOGID,
+                    }}
                   >
-                    <SelectedIndexContext.Provider
-                      value={{ selectedRowIndex, setSelectedRowIndex }}
+                    <GDOGIDListContext.Provider
+                      value={{ selectedGDOGIDString, setSelectedGDOGIDString }}
                     >
-                      <MapPointClickedContext.Provider
-                        value={{ mapPointClicked, setMapPointClicked }}
+                      <SelectedBoatContext.Provider
+                        value={{ selectedBoat, setSelectedBoat }}
                       >
-                        <TableRowClickedContext.Provider
-                          value={{ tableRowClicked, setTableRowClicked }}
+                        <SelectedIndexContext.Provider
+                          value={{ selectedRowIndex, setSelectedRowIndex }}
                         >
-                          <DiagramPointClickedContext.Provider
-                            value={{
-                              diagramPointClicked,
-                              setDiagramPointClicked,
-                            }}
+                          <MapPointClickedContext.Provider
+                            value={{ mapPointClicked, setMapPointClicked }}
                           >
-                            <NotificationComponent />
-                            <LoadingSpinner />
-                            <ParameterTabsComponent />
-                            <MapView />
-                            <RIVResultsTabsComponent />
-                          </DiagramPointClickedContext.Provider>
-                        </TableRowClickedContext.Provider>
-                      </MapPointClickedContext.Provider>
-                    </SelectedIndexContext.Provider>
-                  </SelectedBoatContext.Provider>
+                            <TableRowClickedContext.Provider
+                              value={{ tableRowClicked, setTableRowClicked }}
+                            >
+                              <DiagramPointClickedContext.Provider
+                                value={{
+                                  diagramPointClicked,
+                                  setDiagramPointClicked,
+                                }}
+                              >
+                                <NotificationComponent />
+                                <LoadingSpinner />
+                                <ParameterTabsComponent />
+                                <MapView />
+                                <RIVResultsTabsComponent />
+                              </DiagramPointClickedContext.Provider>
+                            </TableRowClickedContext.Provider>
+                          </MapPointClickedContext.Provider>
+                        </SelectedIndexContext.Provider>
+                      </SelectedBoatContext.Provider>
+                    </GDOGIDListContext.Provider>
+                  </SelectedWayareaWithNoGDOGIDContext.Provider>
                 </SelectedWayareaContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
