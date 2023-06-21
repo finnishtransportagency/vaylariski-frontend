@@ -1,12 +1,4 @@
-import {
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
-import { createPortal } from "react-dom";
+import { useContext, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -21,6 +13,10 @@ import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import NewWindow from "react-new-window";
+import { Button } from "@mui/material";
+import NotificationContext from "contexts/NotificationContext";
+import CustomNewWindow from "components/CustomNewWindow";
+import { Link } from "react-router-dom";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -171,42 +167,14 @@ function GeoJSONMarkers() {
   return null;
 }
 
-const RenderInWindow = (props) => {
-  const [container, setContainer] = useState(null);
-  const newWindow = useRef(null);
-
-  useEffect(() => {
-    // Create container element on client-side
-    setContainer(document.createElement("div"));
-  }, []);
-
-  useEffect(() => {
-    // When container is ready
-    if (container) {
-      // Create window
-      newWindow.current = window.open(
-        "",
-        "",
-        "width=1200,height=1000,left=200,top=200"
-      );
-      // Append container
-      newWindow.current.document.body.appendChild(container);
-
-      // Save reference to window for cleanup
-      const curWindow = newWindow.current;
-
-      // Return cleanup function
-      return () => curWindow.close();
-    }
-  }, [container]);
-
-  return container && createPortal(props.children, container);
-};
-
-const MapView = (props) => {
+const MapView = () => {
   const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
+  const [openMap, setOpenMap] = useState(false);
+  const [openMap2, setOpenMap2] = useState(false);
+  const { setNotificationStatus } = useContext(NotificationContext);
+  const windowRef = useRef(null);
 
   useEffect(() => {
     if (mapRef.current) {
@@ -223,51 +191,43 @@ const MapView = (props) => {
     }
   }, [RIVResults]);
 
-  function ExternalStateExample() {
-    const [map, setMap] = useState(null);
-    const [container, setContainer] = useState(null);
-    const newWindow = useRef(null);
-    /*
-    useEffect(() => {
-      // Create container element on client-side
-      setContainer(document.createElement("div"));
-    }, []);
+  const handlePopupBlock = () => {
+    setNotificationStatus({
+      severity: "error",
+      message:
+        "Karttaa ei saatu näkyville. Teidän täytyy sallii pop-up ikkunaa tälle sivulle.",
+      visible: true,
+    });
+  };
 
-    useEffect(() => {
-      // When container is ready
-      if (container) {
-        // Create window
-        newWindow.current = window.open(
-          "",
-          "",
-          "width=1200,height=1000,left=200,top=200"
-        );
-        // Append container
-        newWindow.current.document.body.appendChild(container);
-
-        // Save reference to window for cleanup
-        const curWindow = newWindow.current;
-
-        // Return cleanup function
-        return () => curWindow.close();
-      }
-    }, [container]);
-    */
-
-    const displayMap = useMemo(
-      () => (
-        <NewWindow>
+  return (
+    <>
+      <RIVTrafficLightsComponent />
+      <Button
+        onClick={() => setOpenMap((r) => !r)}
+        type="submit"
+        variant="contained"
+        sx={{ marginLeft: "1rem" }}
+      >
+        {openMap ? "Sulje kartta (New Window)" : "Näytä kartta (New Window)"}
+      </Button>
+      {openMap && (
+        <NewWindow
+          onUnload={() => setOpenMap(false)}
+          onBlock={() => handlePopupBlock()}
+          center="screen"
+          title="Väyläriski kartta"
+          ref={windowRef}
+        >
           <MapContainer
+            //whenReady={(m) => setMap(m)}
             center={coords}
             zoom={8}
             scrollWheelZoom={true}
-            ref={setMap}
             style={{
               height: "550px",
               width: "100%",
               backgroundColor: "white",
-              marginTop: "80px",
-              marginBottom: "5px",
             }}
           >
             <GeoJSONMarkers />
@@ -277,43 +237,42 @@ const MapView = (props) => {
             />
           </MapContainer>
         </NewWindow>
-      ),
-      []
-    );
-    /*
-    return (
-      container &&
-      createPortal(
-        <MapContainer
-          center={coords}
-          zoom={8}
-          scrollWheelZoom={true}
-          ref={setMap}
-          style={{
-            height: "800px",
-            width: "75%",
-            backgroundColor: "white",
-            marginTop: "80px",
-            marginBottom: "5px",
-          }}
-        >
-          <GeoJSONMarkers />
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </MapContainer>,
-        container
-      )
-    );
-    */
-    return <div>{displayMap}</div>;
-  }
-
-  return (
-    <>
-      <RIVTrafficLightsComponent />
-      <ExternalStateExample />
+      )}
+      <Button
+        onClick={() => setOpenMap2((r) => !r)}
+        type="submit"
+        variant="contained"
+        sx={{ marginLeft: "1rem" }}
+      >
+        {openMap2
+          ? "Sulje kartta v2 (Custom New Window)"
+          : "Näytä kartta v2 (Custom New Window)"}
+      </Button>
+      {openMap2 && (
+        <CustomNewWindow title="Väyläriski kartta">
+          <MapContainer
+            //whenReady={(m) => setMap(m)}
+            center={coords}
+            zoom={8}
+            scrollWheelZoom={true}
+            style={{
+              height: "550px",
+              width: "100%",
+              backgroundColor: "white",
+            }}
+          >
+            <GeoJSONMarkers />
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </MapContainer>
+          <div>after map report</div>
+        </CustomNewWindow>
+      )}
+      <Link to="map" target="_blank" style={{ marginLeft: "1rem" }}>
+        Näytä kartta uudessa tabissa (react-router implementation)
+      </Link>
     </>
   );
 };
