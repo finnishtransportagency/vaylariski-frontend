@@ -1,7 +1,15 @@
-import { CardContent, Typography, Grid, Box, Button } from "@mui/material";
+import {
+  CardContent,
+  Typography,
+  Grid,
+  Box,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useState } from "react";
 import { useContext } from "react";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 export default function RIVTrafficLightsComponent() {
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(
@@ -12,14 +20,24 @@ export default function RIVTrafficLightsComponent() {
 
   return (
     <CardContent>
-      <Typography
-        style={{ fontSize: 16, fontWeight: 550 }}
-        color="textSecondary"
-        gutterBottom
+      <Tooltip
+        placement="right"
+        arrow
+        title="Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä vaikuttaa lopulliseen riskiarvoon."
       >
-        Riskiarvojen esitysvärien raja-arvot:
-      </Typography>
-      <Grid container item xs={9}>
+        <Typography
+          sx={{ fontSize: 16, fontWeight: 550, width: "fit-content" }}
+          color="textSecondary"
+          gutterBottom
+        >
+          Riskiarvojen esitysvärien raja-arvot:{" "}
+          <span>
+            <AiOutlineInfoCircle />
+          </span>
+        </Typography>
+      </Tooltip>
+
+      <Grid container item xs={9} sx={{ paddingBottom: 1 }}>
         <Grid
           container
           item
@@ -114,37 +132,15 @@ export default function RIVTrafficLightsComponent() {
           </Box>
         </Grid>
       </Grid>
-      <Grid container item xs={9}>
-        <Grid
-          justifyContent="space-evenly"
-          container
-          item
-          xs={4}
-          sx={{ bgcolor: "gray", color: "black", p: 1 }}
-        >
-          <label>
-            Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä
-            vaikuttaa lopulliseen riskiarvoon.
-          </label>
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          container
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
-          <Button
-            variant="contained"
-            onClick={() => {
-              setRIVTraffiLight(tempRIVTrafficLight);
-            }}
-          >
-            Aseta / Piirrä
-          </Button>
-        </Grid>
-        {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
-      </Grid>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setRIVTraffiLight(tempRIVTrafficLight);
+        }}
+      >
+        Aseta / Piirrä
+      </Button>
+      {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
     </CardContent>
   );
 }
