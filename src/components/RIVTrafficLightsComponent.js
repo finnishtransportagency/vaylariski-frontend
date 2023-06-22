@@ -96,7 +96,6 @@ export default function RIVTrafficLightsComponent() {
           sx={{ bgcolor: "red", color: "white", p: 1 }}
         >
           <Box>
-            <label>{"RIV ≥"}</label>
             <input
               type="float"
               required
@@ -111,6 +110,7 @@ export default function RIVTrafficLightsComponent() {
                 width: 100,
               }}
             />
+            <label>{"≤ RIV"}</label>
           </Box>
         </Grid>
       </Grid>
