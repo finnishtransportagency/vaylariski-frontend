@@ -30,10 +30,10 @@ export default function RIVTrafficLightsComponent() {
           color="textSecondary"
           gutterBottom
         >
-          Riskiarvojen esitysvärien raja-arvot:{" "}
-          <span>
-            <AiOutlineInfoCircle />
+          <span style={{ marginRight: "0.2em" }}>
+            Riskiarvojen esitysvärien raja-arvot:
           </span>
+          <AiOutlineInfoCircle />
         </Typography>
       </Tooltip>
 
