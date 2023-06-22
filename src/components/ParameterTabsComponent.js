@@ -63,7 +63,7 @@ export default function ParameterTabsComponent() {
   };
 
   return (
-    <Box sx={{ width: "100%", margin: "5px" }}>
+    <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
