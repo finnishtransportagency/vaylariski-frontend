@@ -8,31 +8,33 @@ import SelectedBoatContext from "contexts/SelectedBoatContext";
 export default function BoatMenuComponent(props) {
   const [defaultBoats, setDefaultBoats] = useState([]);
   const { setNotificationStatus } = useContext(NotificationContext);
-  const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
+  const { setSelectedBoat } = useContext(SelectedBoatContext);
+  const [boatInputString, setBoatInputString] = useState("");
 
   useEffect(() => {
     const path = "get_all_default_ships";
-    try {
-      apiClient.get(path).then((response) => setDefaultBoats(response.data));
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.message,
-        visible: true,
+    apiClient
+      .get(path)
+      .then((response) => setDefaultBoats(response.data))
+      .catch((err) => {
+        console.log(err);
+        setNotificationStatus({
+          severity: "error",
+          message: err.message,
+          visible: true,
+        });
       });
-    }
   }, []);
+
+  const formatInputString = (boat) =>
+    `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.PITUUS}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`;
 
   function handleMenuItemClick(event, newValue) {
     // Calls parent component's (UserInputForm) function with new boat
-    props.setDefaultBoatValues(newValue);
+    props.setChosenBoatFormikValue(newValue);
+    setSelectedBoat(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
-    setSelectedBoat(
-      newValue
-        ? `${newValue.JNRO} - ${newValue.VAY_NIMISU}, pituus: ${newValue.PITUUS}, leveys: ${newValue.LEVEYS},  syväys: ${newValue.SYVAYS}`
-        : ""
-    );
+    setBoatInputString(newValue ? formatInputString(newValue) : "");
   }
 
   return (
@@ -45,15 +47,11 @@ export default function BoatMenuComponent(props) {
           id="boat"
           disablePortal
           options={defaultBoats}
-          getOptionLabel={(option) =>
-            option
-              ? `${option.JNRO} - ${option.VAY_NIMISU}, pituus: ${option.PITUUS}, leveys: ${option.LEVEYS},  syväys: ${option.SYVAYS}`
-              : ""
-          }
+          getOptionLabel={(option) => (option ? formatInputString(option) : "")}
           onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-          inputValue={selectedBoat}
+          inputValue={boatInputString}
           onInputChange={(ev, newInputValue, reason) => {
-            if (reason === "input") setSelectedBoat(newInputValue);
+            if (reason === "input") setBoatInputString(newInputValue);
           }}
           sx={{ width: 350 }}
           renderInput={(params) => (
