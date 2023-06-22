@@ -62,6 +62,8 @@ export default function ParameterTabsComponent() {
     }
   };
 
+  console.log(value)
+
   return (
     <Box sx={{ width: "100%", margin: "5px" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -69,11 +71,13 @@ export default function ParameterTabsComponent() {
           value={value}
           onChange={handleTabChange}
           aria-label="basic tabs example"
+          className="tab-container"
         >
-          <Tab label="Parametrit" {...a11yProps(0)} />
+          <Tab label="Parametrit" {...a11yProps(0)} className={value === 0 ? "tab-active" : ""} />
           <Tab
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
+            className={value === 1 ? "tab-active" : ""}
           />
           {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
         </Tabs>

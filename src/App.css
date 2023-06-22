@@ -53,3 +53,15 @@ li {
   padding-bottom: 4px;
   color: rgb(136, 132, 216);
 }
+
+.App-header {
+  background-color: var(--color-black-30) !important;
+}
+
+.tab-container {
+  background-color: var(--color-black-20) !important;
+}
+
+/*.tab-active > * {
+   background-color: rgb(202, 202, 202) !important;
+}*/

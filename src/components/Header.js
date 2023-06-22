@@ -1,8 +1,8 @@
 import { Row, Col, Container } from "react-bootstrap";
 
 export const Header = () => (
-  <header>
-    <Container fluid className="App-header">
+  <header className="App-header">
+    <Container fluid>
       <Row>
         <Col>
           <p className="App-logo">
