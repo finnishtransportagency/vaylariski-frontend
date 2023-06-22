@@ -138,7 +138,7 @@ export default function RIVTrafficLightsComponent() {
           setRIVTraffiLight(tempRIVTrafficLight);
         }}
       >
-        Aseta / Piirrä
+        Aseta
       </Button>
       {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
     </CardContent>
