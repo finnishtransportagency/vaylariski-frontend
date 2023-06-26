@@ -91,6 +91,7 @@ export default function GDOGIDMenuComponent(props) {
       <Tooltip
         placement="right"
         arrow
+        id="gdo-gid-tooltip"
         title={
           meta.error
             ? meta.error //show meta.error
@@ -105,6 +106,7 @@ export default function GDOGIDMenuComponent(props) {
       >
         <Autocomplete
           id="navline.starting_gdo_gid"
+          data-cy-id="navline.starting_gdo_gid.id"
           disablePortal
           disabled={selectedWayareaWithNoGDOGID || !selectedWayarea}
           options={allGDOGIDs}

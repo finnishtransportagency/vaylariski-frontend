@@ -50,9 +50,10 @@ export default function WayareaNameComponent(props) {
       <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         VAYLAT id/nimi:{" "}
       </Typography>
-      <Tooltip placement="right" arrow title={meta.error}>
+      <Tooltip placement="right" arrow title={meta.error} id="wayarea-tooltip">
         <Autocomplete
           id="navline.VAYLAT"
+          data-cy-id="navline.VAYLAT.id"
           disablePortal
           options={allWayareas}
           getOptionLabel={(option) => (option ? formatInputString(option) : "")}
