@@ -3096,7 +3096,7 @@ function UserInputForm(props) {
           </Grid>
           <Grid item xs={12}>
             <Tooltip
-              placement="right"
+              placement="bottom"
               arrow
               title={
                 !(formik.isValid && formik.dirty) ||
@@ -3134,6 +3134,8 @@ function UserInputForm(props) {
                 <Button
                   type="submit"
                   variant="contained"
+                  size="large"
+                  sx={{ minWidth: "1" }}
                   disabled={
                     !(formik.isValid && formik.dirty) ||
                     selectedWayareaWithNoGDOGID
