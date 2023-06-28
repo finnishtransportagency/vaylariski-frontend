@@ -63,6 +63,10 @@ export default function RIVTrafficLightsComponent() {
               }
               style={{
                 width: 100,
+                backgroundColor:
+                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                    ? "white"
+                    : "red",
               }}
             />
           </Box>
@@ -87,6 +91,10 @@ export default function RIVTrafficLightsComponent() {
               }
               style={{
                 width: 100,
+                backgroundColor:
+                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                    ? "white"
+                    : "red",
               }}
             />
             <label>{"≤ RIV <"}</label>
