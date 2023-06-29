@@ -3102,7 +3102,7 @@ function UserInputForm(props) {
                 !(formik.isValid && formik.dirty) ||
                 selectedWayareaWithNoGDOGID ? (
                   <span>
-                    Korjaa seuraavat asiat lähetettäeksi arvot:
+                    Korjaa seuraavat asiat lähettääksesi arvot:
                     <br />
                     {!formik.dirty ? (
                       <>
@@ -3124,7 +3124,7 @@ function UserInputForm(props) {
                       })
                     )}
                     {selectedWayareaWithNoGDOGID && (
-                      <>- Valitulle väylälle ei ole tunnuksia</>
+                      <>- Valitulle väylälle ei löydy navigointilinjoja</>
                     )}
                   </span>
                 ) : null
