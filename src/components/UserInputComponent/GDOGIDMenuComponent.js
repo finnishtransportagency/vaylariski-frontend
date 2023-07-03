@@ -1,4 +1,12 @@
-import { Autocomplete, TextField, Typography, Tooltip } from "@mui/material";
+import {
+  Autocomplete,
+  TextField,
+  Typography,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
@@ -22,6 +30,14 @@ export default function GDOGIDMenuComponent(props) {
   const { selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID } =
     useContext(SelectedWayareaWithNoGDOGIDContext);
   const [invalidFieldInput, setInvalidFieldInput] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
     props.setChosenGDOGIDFormikValue();
@@ -79,11 +95,39 @@ export default function GDOGIDMenuComponent(props) {
   return (
     <Form.Group>
       <Typography
-        style={{ fontSize: 16, fontWeight: 550 }}
+        style={{
+          fontSize: 16,
+          fontWeight: 550,
+          verticalAlign: "middle",
+        }}
         color="textSecondary"
         gutterBottom
       >
-        S-mutkan laskenta{" "}
+        S-mutkan laskenta
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <Tooltip
+            title={
+              <label style={{ fontSize: 14 }}>
+                Jos halutaan laskea s-mutkan suora, annetaan navigointilinjan
+                ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen
+                GDO_GID on 227903 ja Turun väylällä (3255) ensimmäinen GDO_GID
+                on 204344.
+              </label>
+            }
+            PopperProps={{
+              disablePortal: true,
+            }}
+            onClose={handleTooltipClose}
+            open={open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+          >
+            <IconButton onClick={handleTooltipOpen}>
+              <InfoOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </ClickAwayListener>
       </Typography>
       <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
         Ensimmäinen navigointilinjan tunnus (GDO_GID):{" "}
@@ -95,11 +139,11 @@ export default function GDOGIDMenuComponent(props) {
           meta.error
             ? meta.error //show meta.error
             : invalidFieldInput
-            ? "Annettu arvo ei ole osaa valikoimaa"
+            ? "Annettua arvoa ei löydy"
             : !selectedWayarea
-            ? "Valitse väylä ensin" //no wayarea is selected
+            ? "Valitse ensin väylän tunnus" //no wayarea is selected
             : selectedWayareaWithNoGDOGID
-            ? "Valitulle väylälle ei ole tunnuksia" //wayarea with no GDOGIDs was selected
+            ? "Valitulle väylälle ei löydy tunnuksia" //wayarea with no GDOGIDs was selected
             : null
         }
       >
