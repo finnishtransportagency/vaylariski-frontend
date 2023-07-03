@@ -158,7 +158,8 @@ export default function GDOGIDMenuComponent(props) {
           onInputChange={(ev, newInputValue, reason) => {
             if (reason === "input") handleInputChange(newInputValue);
           }}
-          sx={{ width: 350 }}
+          sx={{ width: "99%" }}
+          size="small"
           renderInput={(params) => (
             <TextField
               error={!!meta.error || invalidFieldInput}
