@@ -5,7 +5,10 @@ import {
   Box,
   Button,
   Tooltip,
+  IconButton,
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useState } from "react";
 import { useContext } from "react";
@@ -18,24 +21,67 @@ export default function RIVTrafficLightsComponent() {
   const [tempRIVTrafficLight, setTempRIVTrafficLight] =
     useState(RIVTrafficLight);
 
+  const createTooltipFunctions = () => {
+    const [open, setOpen] = useState(false);
+    const handleTooltipClose = () => {
+      setOpen(false);
+    };
+    const handleTooltipOpen = () => {
+      setOpen(true);
+    };
+
+    return {
+      open,
+      handleTooltipClose,
+      handleTooltipOpen,
+    };
+  };
+
+  const tooltips = {
+    sbend: createTooltipFunctions(),
+    depth: createTooltipFunctions(),
+    edge: createTooltipFunctions(),
+    wind: createTooltipFunctions(),
+  };
+
   return (
     <CardContent>
-      <Tooltip
-        placement="right"
-        arrow
-        title="Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys, mikä vaikuttaa lopulliseen riskiarvoon."
+      <Typography
+        component="span"
+        style={{
+          fontSize: 16,
+          fontWeight: 550,
+          verticalAlign: "middle",
+        }}
+        color="textSecondary"
+        gutterBottom
       >
-        <Typography
-          sx={{ fontSize: 16, fontWeight: 550, width: "fit-content" }}
-          color="textSecondary"
-          gutterBottom
-        >
-          <span style={{ marginRight: "0.2em" }}>
-            Riskiarvojen esitysvärien raja-arvot:
-          </span>
-          <AiOutlineInfoCircle />
-        </Typography>
-      </Tooltip>
+        Riskiarvojen esitysvärien raja-arvot:
+        <ClickAwayListener onClickAway={tooltips.edge.handleTooltipClose}>
+          <Tooltip
+            placement="right"
+            arrow
+            title={
+              <label style={{ fontSize: 14 }}>
+                Piste esitetään harmaana, jos siltä puuttuu leveys tai syvyys,
+                mikä vaikuttaa lopulliseen riskiarvoon.
+              </label>
+            }
+            PopperProps={{
+              disablePortal: true,
+            }}
+            onClose={tooltips.edge.handleTooltipClose}
+            open={tooltips.edge.open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+          >
+            <IconButton onClick={tooltips.edge.handleTooltipOpen}>
+              <InfoOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </ClickAwayListener>
+      </Typography>
 
       <Grid container item xs={9} sx={{ paddingBottom: 1 }}>
         <Grid
@@ -152,9 +198,11 @@ export default function RIVTrafficLightsComponent() {
         placement="right"
         arrow
         title={
-          tempRIVTrafficLight.green > tempRIVTrafficLight.yellow
-            ? "raja-arvot ovat virheellisiä"
-            : ""
+          tempRIVTrafficLight.green > tempRIVTrafficLight.yellow ? (
+            <label style={{ fontSize: 14 }}>raja-arvot ovat virheellisiä</label>
+          ) : (
+            ""
+          )
         }
       >
         <span>
