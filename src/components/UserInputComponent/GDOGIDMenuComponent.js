@@ -102,6 +102,7 @@ export default function GDOGIDMenuComponent(props) {
         }}
         color="textSecondary"
         gutterBottom
+        component="span"
       >
         S-mutkan laskenta
         <ClickAwayListener onClickAway={handleTooltipClose}>
