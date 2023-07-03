@@ -110,6 +110,10 @@ export default function RIVTrafficLightsComponent() {
               }
               style={{
                 width: 100,
+                backgroundColor:
+                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                    ? "white"
+                    : "red",
               }}
             />
           </Box>
@@ -134,20 +138,40 @@ export default function RIVTrafficLightsComponent() {
               }
               style={{
                 width: 100,
+                backgroundColor:
+                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                    ? "white"
+                    : "red",
               }}
             />
             <label>{"≤ RIV"}</label>
           </Box>
         </Grid>
       </Grid>
-      <Button
-        variant="contained"
-        onClick={() => {
-          setRIVTraffiLight(tempRIVTrafficLight);
-        }}
+      <Tooltip
+        placement="right"
+        arrow
+        title={
+          tempRIVTrafficLight.green > tempRIVTrafficLight.yellow
+            ? "raja-arvot ovat virheellisiä"
+            : ""
+        }
       >
-        Aseta
-      </Button>
+        <span>
+          <Button
+            disabled={tempRIVTrafficLight.green > tempRIVTrafficLight.yellow}
+            variant="contained"
+            onClick={() => {
+              setRIVTraffiLight(tempRIVTrafficLight);
+            }}
+          >
+            <span style={{ marginRight: "0.2em" }}>Aseta</span>
+            {tempRIVTrafficLight.green > tempRIVTrafficLight.yellow ? (
+              <AiOutlineInfoCircle />
+            ) : null}
+          </Button>
+        </span>
+      </Tooltip>
       {/* Tarkista onko syvyys tai leveys np.NaN jos on niin laita trafficlight vihreäksi*/}
     </CardContent>
   );
