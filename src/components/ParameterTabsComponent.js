@@ -14,6 +14,8 @@ import { Form as FForm } from "formik";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
 
+import Tooltip from "@mui/material/Tooltip";
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -60,23 +62,27 @@ export default function ParameterTabsComponent() {
     } finally {
       setSpinnerVisible(false);
     }
-  };
-
+  }
+  
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Tooltip
+         style={{ backgroundColor: "grey" }}    
+        >
         <Tabs
           value={value}
           onChange={handleTabChange}
           aria-label="basic tabs example"
-        >
-          <Tab label="Parametrit" {...a11yProps(0)} />
-          <Tab
-            label="Navigointilinjojen valinnaiset parametrit"
+        >        
+          <Tab label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
-          />
+            ></Tab>
+        </Tabs> 
+      </Tooltip>
+
           {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
-        </Tabs>
+
       </Box>
       <Formik
         onSubmit={(values) => {
