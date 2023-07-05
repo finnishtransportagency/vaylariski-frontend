@@ -812,6 +812,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.edge.handleTooltipClose}
                     >
                       <Tooltip
+                         arrow
+                         placement="right"
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan väylän reunan tyyppi.
