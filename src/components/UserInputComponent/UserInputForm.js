@@ -814,8 +814,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.edge.handleTooltipClose}
                     >
                       <Tooltip
-                        placement="right"
                         arrow
+                        placement="right"
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan väylän reunan tyyppi.
@@ -1289,8 +1289,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.wind.handleTooltipClose}
                     >
                       <Tooltip
-                        placement="left"
                         arrow
+                        placement="right"
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan tuulen nopeusluokka.
