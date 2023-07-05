@@ -1287,6 +1287,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.wind.handleTooltipClose}
                     >
                       <Tooltip
+                        arrow
+                        placement="right"
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan tuulen nopeusluokka.
