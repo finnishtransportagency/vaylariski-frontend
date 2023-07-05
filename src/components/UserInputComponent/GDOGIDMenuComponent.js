@@ -107,6 +107,8 @@ export default function GDOGIDMenuComponent(props) {
         S-mutkan laskenta
         <ClickAwayListener onClickAway={handleTooltipClose}>
           <Tooltip
+            placement="right"
+            arrow
             title={
               <label style={{ fontSize: 14 }}>
                 Jos halutaan laskea s-mutkan suora, annetaan navigointilinjan

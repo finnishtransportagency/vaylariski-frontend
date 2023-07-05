@@ -582,6 +582,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.depth.handleTooltipClose}
                     >
                       <Tooltip
+                        placement="right"
+                        arrow
                         title={
                           <label style={{ fontSize: 14 }}>
                             Syvyyden painokerroin kerrotaan aluksen leveydellä
@@ -812,6 +814,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.edge.handleTooltipClose}
                     >
                       <Tooltip
+                        placement="right"
+                        arrow
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan väylän reunan tyyppi.
@@ -1285,6 +1289,8 @@ function UserInputForm(props) {
                       onClickAway={tooltips.wind.handleTooltipClose}
                     >
                       <Tooltip
+                        placement="left"
+                        arrow
                         title={
                           <label style={{ fontSize: 14 }}>
                             Riskiarvon laskentaan valitaan tuulen nopeusluokka.
