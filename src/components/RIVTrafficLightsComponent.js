@@ -6,6 +6,8 @@ import {
   Button,
   Tooltip,
   IconButton,
+  Slider,
+  Switch,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -20,8 +22,38 @@ export default function RIVTrafficLightsComponent() {
   );
   const [tempRIVTrafficLight, setTempRIVTrafficLight] =
     useState(RIVTrafficLight);
-
   const [open, setOpen] = useState(false);
+  const [showOld, setShowOld] = useState(false);
+
+  const minDistance = 0;
+  const maxSliderValue = 50;
+
+  const handleChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], maxSliderValue - minDistance);
+        setTempRIVTrafficLight({
+          green: clamped + minDistance,
+          yellow: clamped,
+        });
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setTempRIVTrafficLight({
+          green: clamped - minDistance,
+          yellow: clamped,
+        });
+      }
+    } else {
+      setTempRIVTrafficLight({
+        green: newValue[0],
+        yellow: newValue[1],
+      });
+    }
+  };
   const handleTooltipClose = () => {
     setOpen(false);
   };
@@ -67,118 +99,174 @@ export default function RIVTrafficLightsComponent() {
           </Tooltip>
         </ClickAwayListener>
       </Typography>
-
-      <Grid container item xs={9} sx={{ paddingBottom: 1 }}>
-        <Grid
-          container
-          item
-          xs
-          justifyContent="space-evenly"
-          sx={{
-            bgcolor: "green",
-            color: "success.contrastText",
-            p: 1,
-          }}
-        >
-          <Box>
-            <label>{"RIV <"}</label>
-            <input
-              type="float"
-              required
-              value={tempRIVTrafficLight.green}
-              onChange={(ev) =>
-                setTempRIVTrafficLight({
-                  ...tempRIVTrafficLight,
-                  green: Number(ev.target.value),
-                })
-              }
-              style={{
-                width: 100,
-                backgroundColor:
-                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                    ? "white"
-                    : "red",
-              }}
-            />
-          </Box>
+      <Typography
+        style={{
+          fontSize: 14,
+          fontWeight: 275,
+          verticalAlign: "middle",
+        }}
+        color="textSecondary"
+        gutterBottom
+      >
+        Näytä numeeriset inputit
+        <Switch
+          size="small"
+          checked={showOld}
+          onChange={(e) => setShowOld(e.target.checked)}
+          inputProps={{ "aria-label": "controlled" }}
+        />
+      </Typography>
+      {showOld ? (
+        <Grid container item xs={9} sx={{ paddingBottom: 1 }}>
+          <Grid
+            container
+            item
+            xs
+            justifyContent="space-evenly"
+            sx={{
+              bgcolor: "green",
+              color: "success.contrastText",
+              p: 1,
+            }}
+          >
+            <Box>
+              <label>{"RIV <"}</label>
+              <input
+                type="float"
+                required
+                value={tempRIVTrafficLight.green}
+                onChange={(ev) =>
+                  setTempRIVTrafficLight({
+                    ...tempRIVTrafficLight,
+                    green: Number(ev.target.value),
+                  })
+                }
+                style={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid
+            container
+            item
+            xs
+            justifyContent="space-evenly"
+            sx={{ bgcolor: "yellow", color: "black", p: 1 }}
+          >
+            <Box>
+              <input
+                type="float"
+                required
+                value={tempRIVTrafficLight.green}
+                onChange={(ev) =>
+                  setTempRIVTrafficLight({
+                    ...tempRIVTrafficLight,
+                    green: Number(ev.target.value),
+                  })
+                }
+                style={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+              />
+              <label>{"≤ RIV <"}</label>
+              <input
+                type="float"
+                required
+                value={tempRIVTrafficLight.yellow}
+                onChange={(ev) =>
+                  setTempRIVTrafficLight({
+                    ...tempRIVTrafficLight,
+                    yellow: Number(ev.target.value),
+                  })
+                }
+                style={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+              />
+            </Box>
+          </Grid>
+          <Grid
+            container
+            item
+            xs
+            justifyContent="space-evenly"
+            sx={{ bgcolor: "red", color: "white", p: 1 }}
+          >
+            <Box>
+              <input
+                type="float"
+                required
+                value={tempRIVTrafficLight.yellow}
+                onChange={(ev) =>
+                  setTempRIVTrafficLight({
+                    ...tempRIVTrafficLight,
+                    yellow: Number(ev.target.value),
+                  })
+                }
+                style={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+              />
+              <label>{"≤ RIV"}</label>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid
-          container
-          item
-          xs
-          justifyContent="space-evenly"
-          sx={{ bgcolor: "yellow", color: "black", p: 1 }}
-        >
-          <Box>
-            <input
-              type="float"
-              required
-              value={tempRIVTrafficLight.green}
-              onChange={(ev) =>
-                setTempRIVTrafficLight({
-                  ...tempRIVTrafficLight,
-                  green: Number(ev.target.value),
-                })
-              }
-              style={{
-                width: 100,
-                backgroundColor:
-                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                    ? "white"
-                    : "red",
-              }}
-            />
-            <label>{"≤ RIV <"}</label>
-            <input
-              type="float"
-              required
-              value={tempRIVTrafficLight.yellow}
-              onChange={(ev) =>
-                setTempRIVTrafficLight({
-                  ...tempRIVTrafficLight,
-                  yellow: Number(ev.target.value),
-                })
-              }
-              style={{
-                width: 100,
-                backgroundColor:
-                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                    ? "white"
-                    : "red",
-              }}
-            />
-          </Box>
+      ) : (
+        <Grid>
+          <Slider
+            sx={{
+              width: 500,
+              height: 10,
+              "& .MuiSlider-rail": {
+                background: `linear-gradient(90deg, green ${
+                  (tempRIVTrafficLight.green / maxSliderValue) * 100
+                }%, red ${
+                  (tempRIVTrafficLight.green / maxSliderValue) * 100
+                }%);`,
+                opacity: 1,
+              },
+              "& .MuiSlider-track": {
+                color: "yellow",
+              },
+              "& .MuiSlider-mark": {
+                color: "black",
+              },
+              "& .MuiSlider-markLabel": {
+                color: "black",
+              },
+            }}
+            valueLabelDisplay="auto"
+            value={[tempRIVTrafficLight.green, tempRIVTrafficLight.yellow]}
+            step={1}
+            marks={Array.from(Array(Math.round(maxSliderValue / 10) + 1).keys())
+              .map((e) => e * 10)
+              .map((i) => ({
+                label: i,
+                value: i,
+              }))}
+            min={0}
+            max={maxSliderValue}
+            onChange={handleChange}
+          />
         </Grid>
-        <Grid
-          container
-          item
-          xs
-          justifyContent="space-evenly"
-          sx={{ bgcolor: "red", color: "white", p: 1 }}
-        >
-          <Box>
-            <input
-              type="float"
-              required
-              value={tempRIVTrafficLight.yellow}
-              onChange={(ev) =>
-                setTempRIVTrafficLight({
-                  ...tempRIVTrafficLight,
-                  yellow: Number(ev.target.value),
-                })
-              }
-              style={{
-                width: 100,
-                backgroundColor:
-                  tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                    ? "white"
-                    : "red",
-              }}
-            />
-            <label>{"≤ RIV"}</label>
-          </Box>
-        </Grid>
-      </Grid>
+      )}
       <Tooltip
         placement="right"
         arrow
