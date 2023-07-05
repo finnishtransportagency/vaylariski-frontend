@@ -53,7 +53,8 @@ export default function BoatMenuComponent(props) {
           onInputChange={(ev, newInputValue, reason) => {
             if (reason === "input") setBoatInputString(newInputValue);
           }}
-          sx={{ width: 350 }}
+          sx={{ width: "99%" }}
+          size="small"
           renderInput={(params) => (
             <TextField style={{ backgroundColor: "white" }} {...params} />
           )}

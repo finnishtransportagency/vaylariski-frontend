@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 
-import { Button, Divider, Grid, Tooltip } from "@mui/material";
+import { Button, Divider, Grid, Tooltip, IconButton } from "@mui/material";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { Field } from "formik";
-
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
@@ -17,32 +18,32 @@ import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGD
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
 
-  // const [vaylatInputValue, setVaylatInputValue] = useState("");
-  const [isHovering, setIsHovering] = useState(false);
-  const [isHoveringDepth, setIsHoveringDepth] = useState(false);
-  const [isHoveringWind, setIsHoveringWind] = useState(false);
   const { selectedBoat } = useContext(SelectedBoatContext);
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
   );
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
+  const createTooltipFunctions = () => {
+    const [open, setOpen] = useState(false);
+    const handleTooltipClose = () => {
+      setOpen(false);
+    };
+    const handleTooltipOpen = () => {
+      setOpen(true);
+    };
+
+    return {
+      open,
+      handleTooltipClose,
+      handleTooltipOpen,
+    };
   };
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-  const handleMouseOverDepth = () => {
-    setIsHoveringDepth(true);
-  };
-  const handleMouseOutDepth = () => {
-    setIsHoveringDepth(false);
-  };
-  const handleMouseOverWind = () => {
-    setIsHoveringWind(true);
-  };
-  const handleMouseOutWind = () => {
-    setIsHoveringWind(false);
+
+  const tooltips = {
+    sbend: createTooltipFunctions(),
+    depth: createTooltipFunctions(),
+    edge: createTooltipFunctions(),
+    wind: createTooltipFunctions(),
   };
 
   // This is passed to BoatMenuComponent, which then calls it
@@ -567,33 +568,46 @@ function UserInputForm(props) {
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
                   <Typography
-                    style={{ fontSize: 16, fontWeight: 550 }}
+                    component="span"
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 550,
+                      verticalAlign: "middle",
+                    }}
                     color="textSecondary"
                     gutterBottom
                   >
                     Väylän syvyyden painokerroin
-                  </Typography>
-                  <div>
-                    <div
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
+                    <ClickAwayListener
+                      onClickAway={tooltips.depth.handleTooltipClose}
                     >
-                      <AiOutlineInfoCircle />
-                    </div>
-                    {isHovering && (
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="black"
-                        gutterBottom
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={
+                          <label style={{ fontSize: 14 }}>
+                            Syvyyden painokerroin kerrotaan aluksen leveydellä
+                            alla näkyvien määritysten perusteella, joihin
+                            vaikuttaa väylän syvyys ja aluksen syväys.
+                            Laskennassa voi käyttää oletusarvoja tai määrittää
+                            uudet painokertoimet.
+                          </label>
+                        }
+                        PopperProps={{
+                          disablePortal: true,
+                        }}
+                        onClose={tooltips.depth.handleTooltipClose}
+                        open={tooltips.depth.open}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
                       >
-                        {" "}
-                        Syvyyden painokerroin kerrotaan aluksen leveydellä alla
-                        näkyvien määritysten perusteella, joihin vaikuttaa
-                        väylän syvyys ja aluksen syväys. Laskennassa voi käyttää
-                        oletusarvoja tai määrittää uudet painokertoimet.
-                      </Typography>
-                    )}
-                  </div>
+                        <IconButton onClick={tooltips.depth.handleTooltipOpen}>
+                          <InfoOutlinedIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </ClickAwayListener>
+                  </Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <label> Väylän sisäosa: </label>
@@ -786,37 +800,47 @@ function UserInputForm(props) {
               <Grid container spacing={1} paddingBottom={2}>
                 <Grid item xs={12}>
                   <Typography
-                    style={{ fontSize: 16, fontWeight: 550 }}
+                    component="span"
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 550,
+                      verticalAlign: "middle",
+                    }}
                     color="textSecondary"
                     gutterBottom
                   >
                     Väylän reuna ja reunan painokerroin
-                  </Typography>
-                  <div>
-                    <div
-                      onMouseOver={handleMouseOverDepth}
-                      onMouseOut={handleMouseOutDepth}
+                    <ClickAwayListener
+                      onClickAway={tooltips.edge.handleTooltipClose}
                     >
-                      <AiOutlineInfoCircle />
-                    </div>
-                    {isHoveringDepth && (
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="black"
-                        gutterBottom
+                      <Tooltip
+                        arrow
+                        placement="right"
+                        title={
+                          <label style={{ fontSize: 14 }}>
+                            Riskiarvon laskentaan valitaan väylän reunan tyyppi.
+                            Alla on esitetty myös reunan painokertoimet joihin
+                            vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
+                            Painokerroin ja aluksen leveys kerrotaan
+                            laskennassa. Laskennassa voi käyttää oletusarvoja
+                            tai määrittää uudet painokertoimet.
+                          </label>
+                        }
+                        PopperProps={{
+                          disablePortal: true,
+                        }}
+                        onClose={tooltips.edge.handleTooltipClose}
+                        open={tooltips.edge.open}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
                       >
-                        <label>
-                          {" "}
-                          Riskiarvon laskentaan valitaan väylän reunan tyyppi.
-                          Alla on esitetty myös reunan painokertoimet joihin
-                          vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
-                          Painokerroin ja aluksen leveys kerrotaan laskennassa.
-                          Laskennassa voi käyttää oletusarvoja tai määrittää
-                          uudet painokertoimet.
-                        </label>
-                      </Typography>
-                    )}
-                  </div>
+                        <IconButton onClick={tooltips.edge.handleTooltipOpen}>
+                          <InfoOutlinedIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </ClickAwayListener>
+                  </Typography>
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.channel_edge">
@@ -1252,39 +1276,46 @@ function UserInputForm(props) {
                   {/* Tuuli */}
 
                   <Typography
-                    style={{ fontSize: 16 }}
+                    style={{
+                      fontSize: 16,
+                      verticalAlign: "middle",
+                    }}
                     color="textSecondary"
                     gutterBottom
+                    component="span"
                   >
-                    <label>
-                      Tuulen nopeusluokka sekä tuulen painokertoimet:
-                    </label>
-                  </Typography>
-                  <div>
-                    <div
-                      onMouseOver={handleMouseOverWind}
-                      onMouseOut={handleMouseOutWind}
+                    Tuulen nopeusluokka sekä painokertoimet:
+                    <ClickAwayListener
+                      onClickAway={tooltips.wind.handleTooltipClose}
                     >
-                      <AiOutlineInfoCircle />
-                    </div>
-                    {isHoveringWind && (
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="black"
-                        gutterBottom
+                      <Tooltip
+                        arrow
+                        placement="right"
+                        title={
+                          <label style={{ fontSize: 14 }}>
+                            Riskiarvon laskentaan valitaan tuulen nopeusluokka.
+                            Alla on esitetty myös tuulen painokertoimet joihin
+                            vaikuttaa tuulen nopeusluokka sekä aluksen
+                            nopeusluokka. Painokerroin ja aluksen leveys
+                            kerrotaan laskennassa. Laskennassa voi käyttää
+                            oletusarvoja tai määrittää uudet painokertoimet.
+                          </label>
+                        }
+                        PopperProps={{
+                          disablePortal: true,
+                        }}
+                        onClose={tooltips.wind.handleTooltipClose}
+                        open={tooltips.wind.open}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
                       >
-                        <label>
-                          {" "}
-                          Riskiarvon laskentaan valitaan tuulen nopeusluokka.
-                          Alla on esitetty myös tuulen painokertoimet joihin
-                          vaikuttaa tuulen nopeusluokka sekä aluksen
-                          nopeusluokka. Painokerroin ja aluksen leveys kerrotaan
-                          laskennassa. Laskennassa voi käyttää oletusarvoja tai
-                          määrittää uudet painokertoimet.
-                        </label>
-                      </Typography>
-                    )}
-                  </div>
+                        <IconButton onClick={tooltips.wind.handleTooltipOpen}>
+                          <InfoOutlinedIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </ClickAwayListener>
+                  </Typography>
                 </Grid>
                 <Grid item xs={4}>
                   <label htmlFor="navline.calculation_params.operating_conditions.wind_speed">
