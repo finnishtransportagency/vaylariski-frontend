@@ -8,6 +8,7 @@ import {
   IconButton,
   Slider,
   Switch,
+  TextField,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -131,9 +132,17 @@ export default function RIVTrafficLightsComponent() {
           >
             <Box>
               <label>{"RIV <"}</label>
-              <input
-                type="float"
-                required
+              <TextField
+                error={tempRIVTrafficLight.green > tempRIVTrafficLight.yellow}
+                sx={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+                InputProps={{ sx: { height: 30 } }}
+                type="number"
                 value={tempRIVTrafficLight.green}
                 onChange={(ev) =>
                   setTempRIVTrafficLight({
@@ -141,13 +150,6 @@ export default function RIVTrafficLightsComponent() {
                     green: Number(ev.target.value),
                   })
                 }
-                style={{
-                  width: 100,
-                  backgroundColor:
-                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                      ? "white"
-                      : "red",
-                }}
               />
             </Box>
           </Grid>
@@ -159,9 +161,17 @@ export default function RIVTrafficLightsComponent() {
             sx={{ bgcolor: "yellow", color: "black", p: 1 }}
           >
             <Box>
-              <input
-                type="float"
-                required
+              <TextField
+                error={tempRIVTrafficLight.green > tempRIVTrafficLight.yellow}
+                sx={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+                InputProps={{ sx: { height: 30 } }}
+                type="number"
                 value={tempRIVTrafficLight.green}
                 onChange={(ev) =>
                   setTempRIVTrafficLight({
@@ -169,18 +179,19 @@ export default function RIVTrafficLightsComponent() {
                     green: Number(ev.target.value),
                   })
                 }
-                style={{
+              />
+              <label>{"≤ RIV <"}</label>
+              <TextField
+                error={tempRIVTrafficLight.green > tempRIVTrafficLight.yellow}
+                sx={{
                   width: 100,
                   backgroundColor:
                     tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
                       ? "white"
                       : "red",
                 }}
-              />
-              <label>{"≤ RIV <"}</label>
-              <input
-                type="float"
-                required
+                InputProps={{ sx: { height: 30 } }}
+                type="number"
                 value={tempRIVTrafficLight.yellow}
                 onChange={(ev) =>
                   setTempRIVTrafficLight({
@@ -188,13 +199,6 @@ export default function RIVTrafficLightsComponent() {
                     yellow: Number(ev.target.value),
                   })
                 }
-                style={{
-                  width: 100,
-                  backgroundColor:
-                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                      ? "white"
-                      : "red",
-                }}
               />
             </Box>
           </Grid>
@@ -206,9 +210,17 @@ export default function RIVTrafficLightsComponent() {
             sx={{ bgcolor: "red", color: "white", p: 1 }}
           >
             <Box>
-              <input
-                type="float"
-                required
+              <TextField
+                error={tempRIVTrafficLight.green > tempRIVTrafficLight.yellow}
+                sx={{
+                  width: 100,
+                  backgroundColor:
+                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
+                      ? "white"
+                      : "red",
+                }}
+                InputProps={{ sx: { height: 30 } }}
+                type="number"
                 value={tempRIVTrafficLight.yellow}
                 onChange={(ev) =>
                   setTempRIVTrafficLight({
@@ -216,13 +228,6 @@ export default function RIVTrafficLightsComponent() {
                     yellow: Number(ev.target.value),
                   })
                 }
-                style={{
-                  width: 100,
-                  backgroundColor:
-                    tempRIVTrafficLight.green <= tempRIVTrafficLight.yellow
-                      ? "white"
-                      : "red",
-                }}
               />
               <label>{"≤ RIV"}</label>
             </Box>
