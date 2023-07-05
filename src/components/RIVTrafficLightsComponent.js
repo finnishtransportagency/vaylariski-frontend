@@ -21,27 +21,12 @@ export default function RIVTrafficLightsComponent() {
   const [tempRIVTrafficLight, setTempRIVTrafficLight] =
     useState(RIVTrafficLight);
 
-  const createTooltipFunctions = () => {
-    const [open, setOpen] = useState(false);
-    const handleTooltipClose = () => {
-      setOpen(false);
-    };
-    const handleTooltipOpen = () => {
-      setOpen(true);
-    };
-
-    return {
-      open,
-      handleTooltipClose,
-      handleTooltipOpen,
-    };
+  const [open, setOpen] = useState(false);
+  const handleTooltipClose = () => {
+    setOpen(false);
   };
-
-  const tooltips = {
-    sbend: createTooltipFunctions(),
-    depth: createTooltipFunctions(),
-    edge: createTooltipFunctions(),
-    wind: createTooltipFunctions(),
+  const handleTooltipOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -57,7 +42,7 @@ export default function RIVTrafficLightsComponent() {
         gutterBottom
       >
         Riskiarvojen esitysvärien raja-arvot:
-        <ClickAwayListener onClickAway={tooltips.edge.handleTooltipClose}>
+        <ClickAwayListener onClickAway={handleTooltipClose}>
           <Tooltip
             placement="right"
             arrow
@@ -70,13 +55,13 @@ export default function RIVTrafficLightsComponent() {
             PopperProps={{
               disablePortal: true,
             }}
-            onClose={tooltips.edge.handleTooltipClose}
-            open={tooltips.edge.open}
+            onClose={handleTooltipClose}
+            open={open}
             disableFocusListener
             disableHoverListener
             disableTouchListener
           >
-            <IconButton onClick={tooltips.edge.handleTooltipOpen}>
+            <IconButton onClick={handleTooltipOpen}>
               <InfoOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
