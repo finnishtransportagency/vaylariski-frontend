@@ -1,0 +1,55 @@
+.App {
+  text-align: left;
+  background-color: var(--color-background-white);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-logo {
+  pointer-events: none;
+  font-family: "Exo 2", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  margin: auto;
+}
+
+.App-header {
+  background-color: var(--color-header);
+  font-size: calc(10px + 2vmin);
+  padding: 0.5rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+li {
+  list-style-type: none;
+}
+
+.post {
+  margin-bottom: 4em;
+}
+
+.post h4 {
+  font-size: 2rem;
+}
+
+.selected-row-bg-color {
+  background-color: var(--rdg-row-selected-background-color);
+}
+
+.has-error {
+  background-color: rgba(241, 47, 44, 0.764);
+}
+
+.version-col {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}

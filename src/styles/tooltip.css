@@ -1,35 +1,3 @@
-.App {
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-li {
-  list-style-type: none;
-}
-
-.post {
-  margin-bottom: 4em;
-}
-
-.post h4 {
-  font-size: 2rem;
-}
-
-.selected-row-bg-color {
-  background-color: var(--rdg-row-selected-background-color);
-}
-
 .recharts-default-tooltip-style {
   margin: 0px;
   padding: 10px;
