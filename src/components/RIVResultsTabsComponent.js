@@ -40,7 +40,7 @@ export default function RIVResultsTabsComponent() {
           <Tab
             label="RIV taulukko"
             {...a11yProps(0)}
-            className={`riv-tab ${value === 1 ? "riv-tab-active" : ""}`}
+            className={`riv-tab ${value === 0 ? "riv-tab-active" : ""}`}
           />
           <Tab
             label="RIV diagrammi"

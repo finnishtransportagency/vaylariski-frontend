@@ -83,7 +83,7 @@ export default function ParameterTabsComponent() {
           <Tab
             label="Parametrit"
             {...a11yProps(0)}
-            className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
+            className={`main-tab ${value === 0 ? "main-tab-active" : ""}`}
           />
           <Tab
             label="Navigointilinjojen valinnaiset parametrit"
