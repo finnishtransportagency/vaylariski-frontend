@@ -40,12 +40,12 @@ export default function RIVResultsTabsComponent() {
           <Tab
             label="RIV taulukko"
             {...a11yProps(0)}
-            className={value === 0 ? "riv-tab-active" : ""}
+            className={`riv-tab ${value === 1 ? "riv-tab-active" : ""}`}
           />
           <Tab
             label="RIV diagrammi"
             {...a11yProps(1)}
-            className={value === 1 ? "riv-tab-active" : ""}
+            className={`riv-tab ${value === 1 ? "riv-tab-active" : ""}`}
           />
         </Tabs>
       </Box>

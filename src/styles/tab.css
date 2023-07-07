@@ -2,6 +2,11 @@
   background-color: var(--color-tab);
 }
 
+.main-tab {
+  font-size: 1rem !important;
+  text-transform: none !important;
+}
+
 .main-tab-active {
   background-color: var(--color-container) !important;
 }
@@ -24,6 +29,11 @@
 
 .riv-tabs {
   background-color: var(--color-tab);
+}
+
+.riv-tab {
+  font-size: 1rem !important;
+  text-transform: none !important;
 }
 
 .riv-tab-active {
