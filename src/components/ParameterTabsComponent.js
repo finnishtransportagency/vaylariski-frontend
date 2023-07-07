@@ -64,19 +64,34 @@ export default function ParameterTabsComponent() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleTabChange}
           aria-label="basic tabs example"
+          className="main-tabs"
+          sx={{
+            ".Mui-selected": {
+              color: "var(--color-tab-text) !important",
+              fontWeight: "bold !important",
+            },
+          }}
+          TabIndicatorProps={{
+            style: { background: "var(--color-container)" },
+          }}
         >
-          <Tab label="Parametrit" {...a11yProps(0)} />
+          <Tab
+            label="Parametrit"
+            {...a11yProps(0)}
+            className={`main-tab ${value === 0 ? "main-tab-active" : ""}`}
+          />
           <Tab
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
+            className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
           />
-          {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
         </Tabs>
+        {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
       </Box>
       <Formik
         onSubmit={(values) => {
@@ -87,12 +102,16 @@ export default function ParameterTabsComponent() {
       >
         {(formik) => (
           <FForm>
-            <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
-            <UserDefinedAngleParamsComponent
-              tabValue={value}
-              tabIndex={1}
-              formik={formik}
-            />
+            <div className="main-tab-container">
+              <div className="main-tab-content">
+                <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
+                <UserDefinedAngleParamsComponent
+                  tabValue={value}
+                  tabIndex={1}
+                  formik={formik}
+                />
+              </div>
+            </div>
           </FForm>
         )}
       </Formik>

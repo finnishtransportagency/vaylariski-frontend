@@ -1,0 +1,9 @@
+.map-view-container {
+  background-color: var(--color-container);
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.map-view-content {
+  background-color: var(--color-background-white);
+}

@@ -1,17 +1,18 @@
 :root {
-  --color-black-100: rgba(0, 0, 0, 1);
-  --color-black-80: rgba(0, 0, 0, 0.8);
-  --color-black-50: rgba(0, 0, 0, 0.5);
-  --color-black-20: rgba(0, 0, 0, 0.2);
-  --color-black-10: rgba(0, 0, 0, 0.1);
-
-  --color-white-100: rgba(256, 256, 256, 100);
+  --color-background-white: #ffffff;
+  --color-header: #bebebe;
+  --color-submit-button: #bebebe;
+  --color-tab: #d8d8d8;
+  --color-tab-text: #565656;
+  --color-container: #f1f1f1;
+  --color-table-container: #f6f6f6;
 }
 
 body {
   background-color: white;
   color: #282c34;
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
