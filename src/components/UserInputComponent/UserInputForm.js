@@ -3133,32 +3133,34 @@ function UserInputForm(props) {
               title={
                 !(formik.isValid && formik.dirty) ||
                 selectedWayareaWithNoGDOGID ? (
-                  <span data-cy-id="submit-button-tooltip-span">
-                    Korjaa seuraavat asiat lähetettäeksi arvot:
-                    <br />
-                    {!formik.dirty ? (
-                      <>
-                        - VAYLAT id vaaditaan
-                        <br />
-                      </>
-                    ) : (
-                      Object.values(formik.errors).map((obj) => {
-                        let msg = null;
-                        Object.values(obj).forEach((err_msg) => {
-                          msg = (
-                            <span key={err_msg}>
-                              - {err_msg}
-                              <br />
-                            </span>
-                          );
-                        });
-                        return msg;
-                      })
-                    )}
-                    {selectedWayareaWithNoGDOGID && (
-                      <>- Valitulle väylälle ei löydy navigointilinjoja</>
-                    )}
-                  </span>
+                  <label style={{ fontSize: 14 }}>
+                    <span data-cy-id="submit-button-tooltip-span">
+                      Korjaa seuraavat asiat lähettääksesi arvot:
+                      <br />
+                      {!formik.dirty ? (
+                        <>
+                          - VAYLAT id vaaditaan
+                          <br />
+                        </>
+                      ) : (
+                        Object.values(formik.errors).map((obj) => {
+                          let msg = null;
+                          Object.values(obj).forEach((err_msg) => {
+                            msg = (
+                              <span key={err_msg}>
+                                - {err_msg}
+                                <br />
+                              </span>
+                            );
+                          });
+                          return msg;
+                        })
+                      )}
+                      {selectedWayareaWithNoGDOGID && (
+                        <>- Valitulle väylälle ei löydy navigointilinjoja</>
+                      )}
+                    </span>
+                  </label>
                 ) : null
               }
             >
