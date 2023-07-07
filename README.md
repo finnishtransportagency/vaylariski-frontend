@@ -3,6 +3,20 @@
 Node: 16.15.0
 Npm: 8.5.5
 
+# How to run end-to-end (E2E) tests
+
+We use the [Cypress](https://docs.cypress.io/guides/overview/why-cypress)-library for running the E2E tests. For running the tests, you need to have three terminal sessions, one for running the backend, one for the frontend, and one for running cypress.
+
+Step-by-step guide on how to run the E2E tests:
+
+1. Run the backend with your desired branch
+2. Run the frontend with your desired branch
+3. Open a new terminal session and navigate to the frontend folder (root-folder where e.g. package.json resides). **NOTE!** If this is your first time running tests, make sure to run the command `npm i` to install the cypress library
+4. Run the command `npm run cypress`. This should open up cypress in a new cypress-browser
+5. Choose "E2E Testing"
+6. Choose your browser. **NOTE!** If you cannot see any other browser execpt for Electron, you might not have the desired browser installed. This can happen e.g. when running the cypress command from a WSL-terminal, which doesn't have e.g. Chrome or Firefox pre-installed. So, to get your browser you want to test against you need to download and install that browser. Example for installing Chrome for WSL have be found [here](https://shouv.medium.com/how-to-run-cypress-on-wsl2-989b83795fb6)
+7. You can find the E2E tests under the cypress/e2e folder in the newly opened window. Run your desired tests
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
