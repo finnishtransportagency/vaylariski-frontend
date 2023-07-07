@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import NotificationContext from "contexts/NotificationContext";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useState } from "react";
 import { useContext } from "react";
@@ -21,6 +22,8 @@ export default function RIVTrafficLightsComponent() {
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(
     RIVTrafficLightContext
   );
+  const { setNotificationStatus } = useContext(NotificationContext);
+
   const [tempRIVTrafficLight, setTempRIVTrafficLight] =
     useState(RIVTrafficLight);
   const [open, setOpen] = useState(false);
@@ -289,6 +292,11 @@ export default function RIVTrafficLightsComponent() {
             variant="contained"
             onClick={() => {
               setRIVTraffiLight(tempRIVTrafficLight);
+              setNotificationStatus({
+                severity: "success",
+                message: `Raja arvot asetettu`,
+                visible: true,
+              });
             }}
           >
             <span style={{ marginRight: "0.2em" }}>Aseta</span>
