@@ -21,6 +21,10 @@
   padding: 0.5rem;
 }
 
+.MuiButton-root {
+  text-transform: none !important;
+}
+
 .center {
   display: flex;
   justify-content: center;
