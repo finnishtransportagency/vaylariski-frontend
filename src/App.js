@@ -1,5 +1,4 @@
 import CalculateRIV from "./components/CalculateRIV";
-import "./App.css";
 import { Header } from "components/Header";
 
 function App() {

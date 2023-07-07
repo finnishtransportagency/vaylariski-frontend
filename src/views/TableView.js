@@ -367,7 +367,7 @@ function TableView(props, { direction }) {
       <DataGrid
         style={{
           height: "550px",
-          width: "97%",
+          width: "100%",
         }}
         ref={gridRef}
         columns={visibleData}

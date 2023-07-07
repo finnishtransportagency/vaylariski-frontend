@@ -184,27 +184,33 @@ function MapView() {
 
   return (
     <>
-      <RIVTrafficLightsComponent />
-      <MapContainer
-        // whenReady={ instance => {mapRef.current = instance} }
-        ref={mapRef}
-        center={coords}
-        zoom={9}
-        scrollWheelZoom={true}
-        style={{
-          height: "800px",
-          width: "75%",
-          backgroundColor: "white",
-          marginTop: "80px",
-          marginBottom: "5px",
-        }}
-      >
-        <GeoJSONMarkers />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-      </MapContainer>
+      <div className="map-view-container">
+        <div className="map-view-content">
+          <RIVTrafficLightsComponent />
+        </div>
+      </div>
+      <div className="map-view-container">
+        <div className="map-view-content">
+          <MapContainer
+            // whenReady={ instance => {mapRef.current = instance} }
+            ref={mapRef}
+            center={coords}
+            zoom={9}
+            scrollWheelZoom={true}
+            style={{
+              height: "800px",
+              width: "100%",
+              backgroundColor: "white",
+            }}
+          >
+            <GeoJSONMarkers />
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </MapContainer>
+        </div>
+      </div>
     </>
   );
 }
