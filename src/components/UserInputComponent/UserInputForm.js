@@ -2784,11 +2784,12 @@ function UserInputForm(props) {
             <Tooltip
               placement="bottom"
               arrow
+              id="submit-button-tooltip"
               title={
                 !(formik.isValid && formik.dirty) ||
                 selectedWayareaWithNoGDOGID ? (
                   <label style={{ fontSize: 14 }}>
-                    <span>
+                    <span data-cy-id="submit-button-tooltip-span">
                       Korjaa seuraavat asiat lähettääksesi arvot:
                       <br />
                       {!formik.dirty ? (
@@ -2828,11 +2829,12 @@ function UserInputForm(props) {
                     !(formik.isValid && formik.dirty) ||
                     selectedWayareaWithNoGDOGID
                   } //formik.dirty is needed to disable on initial load
+                  data-cy-id="submit-button"
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
                   {!(formik.isValid && formik.dirty) ||
                   selectedWayareaWithNoGDOGID ? (
-                    <AiOutlineInfoCircle />
+                    <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
                   ) : null}
                 </Button>
               </span>
