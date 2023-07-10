@@ -113,41 +113,8 @@ function UserInputForm(props) {
                     <WayareaComponent
                       setChosenWayareaFormikValue={setChosenWayareaFormikValue}
                       name="navline.VAYLAT"
+                      formik={formik}
                     />
-                  </Grid>
-                  <Grid item xs={5}>
-                    <label htmlFor="calculation_interval">
-                      Pisteiden väli (m):
-                    </label>
-                  </Grid>
-                  <Grid item xs={5}>
-                    <Field
-                      component="select"
-                      name="calculation_interval"
-                      type="number"
-                      required
-                      style={{
-                        width: 100,
-                      }}
-                    >
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="40">40</option>
-                      <option value="50">50</option>
-                      <option value="60">60</option>
-                      <option value="70">70</option>
-                      <option value="80">80</option>
-                      <option value="90">90</option>
-                      <option value="100">100</option>
-                      <option value="1000">1000</option>
-                    </Field>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                      Valitse laskentapisteiden välinen etäisyys
-                      navigointilinjalla. Oletusarvo on 10 m.
-                    </Typography>
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
