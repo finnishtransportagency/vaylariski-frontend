@@ -146,7 +146,7 @@ export default function BoatMenuComponent(props) {
           </Tooltip>
         </Grid>
       </Grid>
-      <Grid container spacing={1} paddingBottom={2}>
+      <Grid container spacing={1}>
         {/*Laivan tiedot*/}
         <Grid item>
           <Typography style={{ fontSize: 14 }}>
