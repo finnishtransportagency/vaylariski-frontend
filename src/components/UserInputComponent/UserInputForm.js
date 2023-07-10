@@ -12,13 +12,11 @@ import TurningRadiusComponent from "./TurningRadiusComponent";
 import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
-import SelectedBoatContext from "contexts/SelectedBoatContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
 
-  const { selectedBoat } = useContext(SelectedBoatContext);
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
   );
@@ -172,39 +170,6 @@ function UserInputForm(props) {
                   name="boat"
                   formik={formik}
                 />
-
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/*Laivan tiedot*/}
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Väylän tunnus: {selectedBoat ? selectedBoat["JNRO"] : ""}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Väylän nimi:{" "}
-                      {selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Koko: {selectedBoat ? selectedBoat["KOKO"] : ""}
-                    </Typography>
-                  </Grid>
-                  {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
-                   *    <Typography style={{ fontSize: 14 }}>
-                   *      RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
-                   *        : ""
-                   *    </Typography>
-                   *  </Grid>
-                   */}
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Selite: {selectedBoat ? selectedBoat["SELITE"] : ""}
-                    </Typography>
-                  </Grid>
-                </Grid>
-
                 {/* Ctr and Cm parameters */}
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Ohjailtavuus */}
