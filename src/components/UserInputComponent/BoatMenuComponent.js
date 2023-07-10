@@ -47,7 +47,7 @@ export default function BoatMenuComponent(props) {
 
   return (
     <>
-      <Grid container spacing={1} paddingBottom={2}>
+      <Grid container paddingBottom={2}>
         <Grid item xs={12}>
           <Typography
             style={{ fontSize: 16, fontWeight: 550 }}
@@ -146,7 +146,7 @@ export default function BoatMenuComponent(props) {
           </Tooltip>
         </Grid>
       </Grid>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} paddingBottom={2}>
         {/*Laivan tiedot*/}
         <Grid item>
           <Typography style={{ fontSize: 14 }}>
