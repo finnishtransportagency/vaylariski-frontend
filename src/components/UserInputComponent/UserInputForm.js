@@ -124,14 +124,6 @@ function UserInputForm(props) {
                       name="navline.starting_gdo_gid"
                     />
                   </Grid>
-                  {/* <Grid item xs={12}>
-                    <Typography color="textSecondary" style={{ fontSize: 14 }}>
-                      Jos halutaan laskea s-mutkan suora, annetaan
-                      navigointilinjan ensimmäinen GDO_GID. Esim. Oulun väylällä
-                      (100) ensimmäinen GDO_GID on 227903 ja Turun väylällä
-                      (3255) ensimmäinen GDO_GID on 204344.
-                    </Typography>
-                  </Grid> */}
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   {" "}
