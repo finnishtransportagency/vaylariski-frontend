@@ -166,86 +166,13 @@ function UserInputForm(props) {
                     </Typography>
                   </Grid> */}
                 </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/*Laivamenu */}
-                  <BoatMenuComponent
-                    setChosenBoatFormikValue={setChosenBoatFormikValue}
-                    name="boat"
-                  />
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
-                  {/* Laivan koko*/}
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.length">Pituus (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.length}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.length && "has-error"}
-                          component="input"
-                          name="boat.length"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.beam">Leveys (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.beam}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.beam && "has-error"}
-                          component="input"
-                          name="boat.beam"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.draft">Syväys (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.draft}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.draft && "has-error"}
-                          component="input"
-                          name="boat.draft"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                </Grid>
+                {/*Laivamenu */}
+                <BoatMenuComponent
+                  setChosenBoatFormikValue={setChosenBoatFormikValue}
+                  name="boat"
+                  formik={formik}
+                />
+
                 <Grid container spacing={1} paddingBottom={2}>
                   {/*Laivan tiedot*/}
                   <Grid item>
