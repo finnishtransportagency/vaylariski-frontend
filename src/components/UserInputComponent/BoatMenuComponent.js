@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, Typography } from "@mui/material";
+import { Autocomplete, TextField, Typography, Grid } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
@@ -38,7 +38,15 @@ export default function BoatMenuComponent(props) {
   }
 
   return (
-    <>
+    <Grid item xs={12}>
+      <Typography
+        style={{ fontSize: 16, fontWeight: 550 }}
+        color="textSecondary"
+        gutterBottom
+      >
+        Valitse alus
+      </Typography>
+      {/* Menu selector for default boat values */}
       <Form.Group>
         <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
           Alus:{" "}
@@ -60,6 +68,6 @@ export default function BoatMenuComponent(props) {
           )}
         />
       </Form.Group>
-    </>
+    </Grid>
   );
 }

@@ -167,22 +167,11 @@ function UserInputForm(props) {
                   </Grid> */}
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
                   {/*Laivamenu */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      Valitse alus
-                    </Typography>
-                    {/* Menu selector for default boat values */}
-                    <BoatMenuComponent
-                      setChosenBoatFormikValue={setChosenBoatFormikValue}
-                      name="boat"
-                    />
-                  </Grid>
+                  <BoatMenuComponent
+                    setChosenBoatFormikValue={setChosenBoatFormikValue}
+                    name="boat"
+                  />
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   {" "}
