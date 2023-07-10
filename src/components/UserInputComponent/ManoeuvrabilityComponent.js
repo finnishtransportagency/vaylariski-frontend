@@ -34,7 +34,7 @@ export default function ManoeuvrabilityComponent(props) {
       <Select
         sx={{ width: "100%", height: 40 }}
         style={{ backgroundColor: "white" }}
-        id={name}
+        id={props.name}
         value={C_manoeuvrability}
         onChange={handleChange}
       >
