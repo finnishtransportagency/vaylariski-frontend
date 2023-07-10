@@ -277,10 +277,12 @@ function UserInputForm(props) {
                     </Typography>
                   </Grid>
                   {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
-      <Typography style={{ fontSize: 14 }}>
-        RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
-: ""                 </Typography>
-    </Grid> */}
+                   *    <Typography style={{ fontSize: 14 }}>
+                   *      RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
+                   *        : ""
+                   *    </Typography>
+                   *  </Grid>
+                   */}
                   <Grid item>
                     <Typography style={{ fontSize: 14 }}>
                       Selite: {selectedBoat ? selectedBoat["SELITE"] : ""}
