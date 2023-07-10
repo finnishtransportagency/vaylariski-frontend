@@ -258,7 +258,6 @@ function UserInputForm(props) {
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
                   {/*Laivan tiedot*/}
                   <Grid item>
                     <Typography style={{ fontSize: 14 }}>
