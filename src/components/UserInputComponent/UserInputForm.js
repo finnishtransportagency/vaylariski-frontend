@@ -29,7 +29,7 @@ function UserInputForm(props) {
       setOpen(false);
     };
     const handleTooltipOpen = () => {
-      setOpen(true);
+      setOpen((r) => !r);
     };
 
     return {
