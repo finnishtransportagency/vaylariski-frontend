@@ -36,7 +36,7 @@ export default function GDOGIDMenuComponent(props) {
     setOpen(false);
   };
   const handleTooltipOpen = () => {
-    setOpen(true);
+    setOpen((r) => !r);
   };
 
   useEffect(() => {
