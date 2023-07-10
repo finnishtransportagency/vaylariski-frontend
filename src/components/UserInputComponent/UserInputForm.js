@@ -1708,6 +1708,380 @@ function UserInputForm(props) {
                   </Grid>
                   <Grid container spacing={1} paddingBottom={2}>
                     <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.cross_current_speed"
+                          value="negligible"
+                          id="negligible-cross-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("negligible-cross-current")
+                              .click()
+                          }
+                        >
+                          {" Olematon"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wneg_lower"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={0.0}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        disabled
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wneg_upper"
+                        type="number"
+                        step="0.01"
+                        placeholder="nopeus"
+                        defaultValue={0.2}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.cross_current_speed"
+                          value="low"
+                          id="low-cross-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document.getElementById("low-cross-current").click()
+                          }
+                        >
+                          {" Heikko"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wneg_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={0.2}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wlow_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={0.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.cross_current_speed"
+                          value="moderate"
+                          id="moderate-cross-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("moderate-cross-current")
+                              .click()
+                          }
+                        >
+                          {" Keskiverto"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wlow_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={0.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wmod_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={1.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.cross_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.cross_current_speed"
+                          value="strong"
+                          id="strong-cross-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("strong-cross-current")
+                              .click()
+                          }
+                        >
+                          {" Voimakas"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wmod_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={1.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.cross_current_Wstrong_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={2}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {/* Pitkittäisvirtaus */}
+                <Grid container spacing={1} paddingBottom={2}>
+                  <Grid item xs={4}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Pitkittäisvirtaus:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Arvovälit pitkittäisvirtauksen nopeudelle v [solmu]:
+                    </Typography>
+                  </Grid>
+                  <Grid container spacing={1} paddingBottom={2}>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
+                          value="negligible"
+                          id="negligible-long-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("negligible-long-current")
+                              .click()
+                          }
+                        >
+                          {" Olematon"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_lower"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={0}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={1.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
+                          value="moderate"
+                          id="moderate-long-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("moderate-long-current")
+                              .click()
+                          }
+                        >
+                          {" Keskiverto"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_Wneg_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={1.5}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                      <label>{"≤ v <"}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={3}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <label htmlFor="navline.calculation_params.operating_conditions.longitudinal_current_speed">
+                        <Field
+                          component="input"
+                          type="radio"
+                          name="navline.calculation_params.operating_conditions.longitudinal_current_speed"
+                          value="strong"
+                          id="strong-long-current"
+                        />
+                        <span
+                          onClick={() =>
+                            document
+                              .getElementById("strong-long-current")
+                              .click()
+                          }
+                        >
+                          {" Voimakas"}
+                        </span>
+                      </label>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <label>{"v ≥ "}</label>
+                      <Field
+                        component="input"
+                        name="navline.calculation_params.operating_conditions.longitudinal_current_Wmod_upper"
+                        type="number"
+                        step="0.01"
+                        disabled
+                        placeholder="nopeus"
+                        defaultValue={3}
+                        style={{
+                          width: 80,
+                          backgroundColor: "#ced6d8",
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {/* Aallon korkeus */}
+                <Grid container spacing={1} paddingBottom={2}>
+                  <Grid item xs={4}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Aallon korkeus:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography
+                      style={{ fontSize: 16 }}
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      Arvovälit korkeudelle h [m]:
+                    </Typography>
+                  </Grid>
+                  <Grid container spacing={1} paddingBottom={2}>
+                    <Grid item xs={4}>
                       <label htmlFor="navline.calculation_params.operating_conditions.wave_height">
                         <Field
                           component="input"
