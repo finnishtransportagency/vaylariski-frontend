@@ -5,6 +5,7 @@ import {
   Grid,
   Tooltip,
   InputLabel,
+  Switch,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
@@ -21,6 +22,7 @@ export default function BoatMenuComponent(props) {
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
   const [boatInputString, setBoatInputString] = useState("");
+  const [showOld, setShowOld] = useState(false);
 
   useEffect(() => {
     const path = "get_all_default_ships";
@@ -188,63 +190,84 @@ export default function BoatMenuComponent(props) {
           </Tooltip>
         </Grid>
       </Grid>
-      <Grid container spacing={1} paddingBottom={2}>
-        {/*Laivan tiedot*/}
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"Väylän_tunnus"}>
-            Väylän tunnus:
-          </InputLabel>
-          <TextField
-            id="Väylän_tunnus"
-            InputProps={{ sx: { height: 30 } }}
-            value={selectedBoat ? selectedBoat["JNRO"] : ""}
-            disabled
+      <Grid paddingBottom={2}>
+        <Typography
+          style={{
+            fontSize: 14,
+            fontWeight: 275,
+            verticalAlign: "middle",
+          }}
+          color="textSecondary"
+          gutterBottom
+        >
+          Näytä laivan lisätiedot
+          <Switch
+            size="small"
+            checked={showOld}
+            onChange={(e) => setShowOld(e.target.checked)}
+            inputProps={{ "aria-label": "controlled" }}
           />
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"Väylän_nimi"}>
-            Väylän nimi:
-          </InputLabel>
-          <TextField
-            id="Väylän_nimi"
-            InputProps={{ sx: { height: 30 } }}
-            value={selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
-            disabled
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"Koko"}>
-            Koko:
-          </InputLabel>
-          <TextField
-            id="Koko"
-            InputProps={{ sx: { height: 30 } }}
-            value={selectedBoat ? selectedBoat["KOKO"] : ""}
-            disabled
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"Runko_kerroin"}>
-            Runko kerroin:
-          </InputLabel>
-          <TextField
-            id="Runko_kerroin"
-            InputProps={{ sx: { height: 30 } }}
-            value={selectedBoat ? selectedBoat["RUNKO_TKERROIN"] : ""}
-            disabled
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"Selite"}>
-            Selite:
-          </InputLabel>
-          <TextField
-            id="Selite"
-            InputProps={{ sx: { height: 30 } }}
-            value={selectedBoat ? selectedBoat["SELITE"] : ""}
-            disabled
-          />
-        </Grid>
+        </Typography>
+        {showOld ? (
+          <Grid container spacing={1}>
+            {/*Laivan tiedot*/}
+            <Grid item xs={4}>
+              <InputLabel style={{ fontSize: 14 }} id={"Väylän_tunnus"}>
+                Väylän tunnus:
+              </InputLabel>
+              <TextField
+                id="Väylän_tunnus"
+                InputProps={{ sx: { height: 30 } }}
+                value={selectedBoat ? selectedBoat["JNRO"] : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <InputLabel style={{ fontSize: 14 }} id={"Väylän_nimi"}>
+                Väylän nimi:
+              </InputLabel>
+              <TextField
+                id="Väylän_nimi"
+                InputProps={{ sx: { height: 30 } }}
+                value={selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <InputLabel style={{ fontSize: 14 }} id={"Selite"}>
+                Selite:
+              </InputLabel>
+              <TextField
+                id="Selite"
+                InputProps={{ sx: { height: 30 } }}
+                value={selectedBoat ? selectedBoat["SELITE"] : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <InputLabel style={{ fontSize: 14 }} id={"Koko"}>
+                Koko:
+              </InputLabel>
+              <TextField
+                id="Koko"
+                InputProps={{ sx: { height: 30 } }}
+                value={selectedBoat ? selectedBoat["KOKO"] : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <InputLabel style={{ fontSize: 14 }} id={"Runko_kerroin"}>
+                Runko kerroin:
+              </InputLabel>
+              <TextField
+                id="Runko_kerroin"
+                InputProps={{ sx: { height: 30 } }}
+                value={selectedBoat ? selectedBoat["RUNKO_TKERROIN"] : ""}
+                disabled
+              />
+            </Grid>
+          </Grid>
+        ) : null}
       </Grid>
     </>
   );
