@@ -4,8 +4,8 @@ import {
   Typography,
   Grid,
   Tooltip,
+  InputLabel,
 } from "@mui/material";
-import { Field } from "formik";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
@@ -15,6 +15,9 @@ import SelectedBoatContext from "contexts/SelectedBoatContext";
 export default function BoatMenuComponent(props) {
   const { formik } = props;
   const [defaultBoats, setDefaultBoats] = useState([]);
+  const [length, setLength] = useState(formik.values.boat.length);
+  const [beam, setBeam] = useState(formik.values.boat.beam);
+  const [draft, setDraft] = useState(formik.values.boat.draft);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
   const [boatInputString, setBoatInputString] = useState("");
@@ -39,10 +42,37 @@ export default function BoatMenuComponent(props) {
 
   function handleMenuItemClick(event, newValue) {
     // Calls parent component's (UserInputForm) function with new boat
-    props.setChosenBoatFormikValue(newValue);
+    setChosenBoatFormikValue(newValue);
     setSelectedBoat(newValue);
+    setLength(newValue?.PITUUS || "");
+    setBeam(newValue?.LEVEYS || "");
+    setDraft(newValue?.SYVAYS || "");
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setBoatInputString(newValue ? formatInputString(newValue) : "");
+  }
+
+  function setChosenBoatFormikValue(newBoat) {
+    if (newBoat) {
+      formik.setValues({
+        ...formik.values,
+        boat: {
+          ...formik.values.boat,
+          length: newBoat.PITUUS || "",
+          beam: newBoat.LEVEYS || "",
+          draft: newBoat.SYVAYS || "",
+        },
+      });
+    } else {
+      formik.setValues({
+        ...formik.values,
+        boat: {
+          ...formik.values.boat,
+          length: "",
+          beam: "",
+          draft: "",
+        },
+      });
+    }
   }
 
   return (
@@ -88,58 +118,70 @@ export default function BoatMenuComponent(props) {
       </Grid>
       <Grid container spacing={1} paddingBottom={2}>
         {/* Laivan koko*/}
-        <Grid item xs={3}>
-          <label htmlFor="boat.length">Pituus (m):</label>
-        </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"boat.length"}>
+            Pituus (m):
+          </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.length}>
             <span>
-              <Field
-                className={formik.errors?.boat?.length && "has-error"}
-                component="input"
-                name="boat.length"
+              <TextField
+                id="boat.length"
+                error={!!formik.errors?.boat?.length}
+                InputProps={{ sx: { height: 30 } }}
+                inputProps={{
+                  step: "0.1",
+                }}
                 type="number"
-                required
-                style={{
-                  width: 100,
+                value={length}
+                onChange={(e) => {
+                  setLength(String(e.target.value));
+                  formik.setFieldValue("boat.length", Number(e.target.value));
                 }}
               />
             </span>
           </Tooltip>
         </Grid>
-        <Grid item xs={3}>
-          <label htmlFor="boat.beam">Leveys (m):</label>
-        </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"boat.beam"}>
+            Leveys (m):
+          </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.beam}>
             <span>
-              <Field
-                className={formik.errors?.boat?.beam && "has-error"}
-                component="input"
-                name="boat.beam"
+              <TextField
+                id="boat.beam"
+                error={!!formik.errors?.boat?.beam}
+                InputProps={{ sx: { height: 30 } }}
+                inputProps={{
+                  step: "0.1",
+                }}
                 type="number"
-                required
-                style={{
-                  width: 100,
+                value={beam}
+                onChange={(e) => {
+                  setBeam(String(e.target.value));
+                  formik.setFieldValue("boat.beam", Number(e.target.value));
                 }}
               />
             </span>
           </Tooltip>
         </Grid>
-        <Grid item xs={3}>
-          <label htmlFor="boat.draft">Syväys (m):</label>
-        </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"boat.draft"}>
+            Syväys (m):
+          </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.draft}>
             <span>
-              <Field
-                className={formik.errors?.boat?.draft && "has-error"}
-                component="input"
-                name="boat.draft"
+              <TextField
+                id="boat.draft"
+                error={!!formik.errors?.boat?.draft}
+                InputProps={{ sx: { height: 30 } }}
+                inputProps={{
+                  step: "0.1",
+                }}
                 type="number"
-                required
-                style={{
-                  width: 100,
+                value={draft}
+                onChange={(e) => {
+                  setDraft(String(e.target.value));
+                  formik.setFieldValue("boat.draft", Number(e.target.value));
                 }}
               />
             </span>
@@ -148,32 +190,60 @@ export default function BoatMenuComponent(props) {
       </Grid>
       <Grid container spacing={1} paddingBottom={2}>
         {/*Laivan tiedot*/}
-        <Grid item>
-          <Typography style={{ fontSize: 14 }}>
-            Väylän tunnus: {selectedBoat ? selectedBoat["JNRO"] : ""}
-          </Typography>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"Väylän_tunnus"}>
+            Väylän tunnus:
+          </InputLabel>
+          <TextField
+            id="Väylän_tunnus"
+            InputProps={{ sx: { height: 30 } }}
+            value={selectedBoat ? selectedBoat["JNRO"] : ""}
+            disabled
+          />
         </Grid>
-        <Grid item>
-          <Typography style={{ fontSize: 14 }}>
-            Väylän nimi: {selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
-          </Typography>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"Väylän_nimi"}>
+            Väylän nimi:
+          </InputLabel>
+          <TextField
+            id="Väylän_nimi"
+            InputProps={{ sx: { height: 30 } }}
+            value={selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
+            disabled
+          />
         </Grid>
-        <Grid item>
-          <Typography style={{ fontSize: 14 }}>
-            Koko: {selectedBoat ? selectedBoat["KOKO"] : ""}
-          </Typography>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"Koko"}>
+            Koko:
+          </InputLabel>
+          <TextField
+            id="Koko"
+            InputProps={{ sx: { height: 30 } }}
+            value={selectedBoat ? selectedBoat["KOKO"] : ""}
+            disabled
+          />
         </Grid>
-        {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
-         *    <Typography style={{ fontSize: 14 }}>
-         *      RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
-         *        : ""
-         *    </Typography>
-         *  </Grid>
-         */}
-        <Grid item>
-          <Typography style={{ fontSize: 14 }}>
-            Selite: {selectedBoat ? selectedBoat["SELITE"] : ""}
-          </Typography>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"Runko_kerroin"}>
+            Runko kerroin:
+          </InputLabel>
+          <TextField
+            id="Runko_kerroin"
+            InputProps={{ sx: { height: 30 } }}
+            value={selectedBoat ? selectedBoat["RUNKO_TKERROIN"] : ""}
+            disabled
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <InputLabel style={{ fontSize: 14 }} id={"Selite"}>
+            Selite:
+          </InputLabel>
+          <TextField
+            id="Selite"
+            InputProps={{ sx: { height: 30 } }}
+            value={selectedBoat ? selectedBoat["SELITE"] : ""}
+            disabled
+          />
         </Grid>
       </Grid>
     </>

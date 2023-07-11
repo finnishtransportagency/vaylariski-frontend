@@ -44,31 +44,6 @@ function UserInputForm(props) {
     wind: createTooltipFunctions(),
   };
 
-  // This is passed to BoatMenuComponent, which then calls it
-  function setChosenBoatFormikValue(newBoat) {
-    if (newBoat) {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: newBoat.PITUUS || "",
-          beam: newBoat.LEVEYS || "",
-          draft: newBoat.SYVAYS || "",
-        },
-      });
-    } else {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: "",
-          beam: "",
-          draft: "",
-        },
-      });
-    }
-  }
-
   function setChosenWayareaFormikValue(wayarea) {
     if (wayarea) {
       formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
@@ -165,11 +140,7 @@ function UserInputForm(props) {
                   </Grid> */}
                 </Grid>
                 {/*Laivamenu */}
-                <BoatMenuComponent
-                  setChosenBoatFormikValue={setChosenBoatFormikValue}
-                  name="boat"
-                  formik={formik}
-                />
+                <BoatMenuComponent name="boat" formik={formik} />
                 {/* Ctr and Cm parameters */}
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Ohjailtavuus */}
