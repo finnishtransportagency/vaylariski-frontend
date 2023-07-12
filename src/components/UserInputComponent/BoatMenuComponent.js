@@ -200,7 +200,7 @@ export default function BoatMenuComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Näytä laivan lisätiedot
+          Näytä aluksen lisätiedot
           <Switch
             size="small"
             checked={showOld}
