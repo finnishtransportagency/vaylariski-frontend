@@ -18,7 +18,7 @@ import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
-export default function WayareaNameComponent(props) {
+export default function WayareaComponent(props) {
   const { name, formik } = props;
   const [field, meta] = useField(name);
   const [allWayareas, setAllWayareas] = useState([]);
