@@ -14,7 +14,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
-import { useField, Field } from "formik";
+import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
