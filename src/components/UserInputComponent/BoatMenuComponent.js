@@ -218,7 +218,7 @@ export default function BoatMenuComponent(props) {
               <TextField
                 id="Väylän_tunnus"
                 InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat ? selectedBoat["JNRO"] : ""}
+                value={selectedBoat?.["JNRO"] || ""}
                 disabled
               />
             </Grid>
@@ -229,7 +229,7 @@ export default function BoatMenuComponent(props) {
               <TextField
                 id="Väylän_nimi"
                 InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
+                value={selectedBoat?.["VAY_NIMISU"] || ""}
                 disabled
               />
             </Grid>
@@ -240,7 +240,7 @@ export default function BoatMenuComponent(props) {
               <TextField
                 id="Selite"
                 InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat ? selectedBoat["SELITE"] : ""}
+                value={selectedBoat?.["SELITE"] || ""}
                 disabled
               />
             </Grid>
@@ -251,7 +251,7 @@ export default function BoatMenuComponent(props) {
               <TextField
                 id="Koko"
                 InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat ? selectedBoat["KOKO"] : ""}
+                value={selectedBoat?.["KOKO"] || ""}
                 disabled
               />
             </Grid>
@@ -262,7 +262,7 @@ export default function BoatMenuComponent(props) {
               <TextField
                 id="Runko_kerroin"
                 InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat ? selectedBoat["RUNKO_TKERROIN"] : ""}
+                value={selectedBoat?.["RUNKO_TKERROIN"] || ""}
                 disabled
               />
             </Grid>
