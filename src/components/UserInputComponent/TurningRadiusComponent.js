@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Form from "react-bootstrap/Form";
 import Select from "@mui/material/Select";
@@ -40,7 +39,6 @@ export default function TurningRadiusComponent(props) {
       >
         {MenuOptions()}
       </Select>
-      <FormHelperText>Aluksen kääntösädettä kuvaava parametri</FormHelperText>
     </Form.Group>
   );
 }

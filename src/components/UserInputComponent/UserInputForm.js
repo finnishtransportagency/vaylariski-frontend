@@ -8,8 +8,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
-import TurningRadiusComponent from "./TurningRadiusComponent";
-import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
+import BoatManoeuvrabilityComponent from "./BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
@@ -144,53 +143,8 @@ function UserInputForm(props) {
                 {/* Ctr and Cm parameters */}
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Ohjailtavuus */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      <label htmlFor="">Aluksen ohjailtavuusluokka</label>
-                    </Typography>
-                  </Grid>
-                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
-                    <Typography
-                      style={{ fontSize: 14 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      C
-                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
-                        M
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={11}>
-                    <ManoeuvrabilityComponent
-                      name="boat.C_manoeuvrability"
-                      formik={formik}
-                    />
-                  </Grid>
-                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
-                    <Typography
-                      style={{ fontSize: 14 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      C
-                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
-                        tr
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={11}>
-                    <TurningRadiusComponent
-                      name="boat.C_turning_radius"
-                      formik={formik}
-                    />
-                  </Grid>
+                  <BoatManoeuvrabilityComponent formik={formik} />
                 </Grid>
-
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Nopeusluokka */}
                   <Grid item xs={12}>
