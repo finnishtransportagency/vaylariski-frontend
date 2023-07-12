@@ -31,6 +31,14 @@ export default function WayareaComponent(props) {
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
   ];
 
+  function setChosenWayareaFormikValue(wayarea) {
+    if (wayarea) {
+      formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
+    } else {
+      formik.setFieldValue("navline.VAYLAT", "");
+    }
+  }
+
   useEffect(() => {
     const path = "wayarea_names";
     apiClient
@@ -67,7 +75,7 @@ export default function WayareaComponent(props) {
   const formatInputString = (wayarea) => `${wayarea.VAYLAT} - ${wayarea.Nimi}`;
 
   const handleMenuItemClick = (event, newValue) => {
-    props.setChosenWayareaFormikValue(newValue);
+    setChosenWayareaFormikValue(newValue);
     setSelectedWayarea(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setWayareaInputString(newValue ? formatInputString(newValue) : "");

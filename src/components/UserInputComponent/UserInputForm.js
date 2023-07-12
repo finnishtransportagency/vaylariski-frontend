@@ -71,22 +71,6 @@ function UserInputForm(props) {
     }
   }
 
-  function setChosenWayareaFormikValue(wayarea) {
-    if (wayarea) {
-      formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
-    } else {
-      formik.setFieldValue("navline.VAYLAT", "");
-    }
-  }
-
-  function setChosenGDOGIDFormikValue(gdo_gid) {
-    if (gdo_gid) {
-      formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
-    } else {
-      formik.setFieldValue("navline.starting_gdo_gid", "");
-    }
-  }
-
   return (
     <div
       role="TabPanelComponent"
@@ -110,17 +94,13 @@ function UserInputForm(props) {
                   {" "}
                   {/*väylämenu*/}
                   <Grid item xs={12}>
-                    <WayareaComponent
-                      setChosenWayareaFormikValue={setChosenWayareaFormikValue}
-                      name="navline.VAYLAT"
-                      formik={formik}
-                    />
+                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={12}>
                     <GDOGIDMenuComponent
-                      setChosenGDOGIDFormikValue={setChosenGDOGIDFormikValue}
+                      formik={formik}
                       name="navline.starting_gdo_gid"
                     />
                   </Grid>

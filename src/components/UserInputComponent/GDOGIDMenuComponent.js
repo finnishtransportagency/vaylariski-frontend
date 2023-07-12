@@ -18,7 +18,7 @@ import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 export default function GDOGIDMenuComponent(props) {
-  const { name } = props;
+  const { name, formik } = props;
   const [field, meta] = useField(name);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
@@ -38,6 +38,13 @@ export default function GDOGIDMenuComponent(props) {
   const handleTooltipOpen = () => {
     setOpen((r) => !r);
   };
+  function setChosenGDOGIDFormikValue(gdo_gid) {
+    if (gdo_gid) {
+      formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
+    } else {
+      formik.setFieldValue("navline.starting_gdo_gid", "");
+    }
+  }
 
   useEffect(() => {
     props.setChosenGDOGIDFormikValue();
@@ -78,7 +85,7 @@ export default function GDOGIDMenuComponent(props) {
   }, [selectedWayarea]);
 
   const handleMenuItemClick = (event, newValue) => {
-    props.setChosenGDOGIDFormikValue(newValue);
+    setChosenGDOGIDFormikValue(newValue);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setSelectedGDOGIDString(newValue?.toString() ?? "");
   };
@@ -88,7 +95,7 @@ export default function GDOGIDMenuComponent(props) {
 
     if (allGDOGIDs.includes(Number(newValue)) || newValue === "") {
       setInvalidFieldInput(false);
-      props.setChosenGDOGIDFormikValue(newValue);
+      setChosenGDOGIDFormikValue(newValue);
     } else setInvalidFieldInput(true);
   };
 
