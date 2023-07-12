@@ -16,13 +16,13 @@ const parametersValidationSchema = Yup.object().shape({
 
   boat: Yup.object().shape({
     length: Yup.number()
-      .min(1, "Pituus ei voi olla negatiivinen")
+      .moreThan(0, "Pituus ei voi olla negatiivinen")
       .required("Pituus vaaditaan"),
     beam: Yup.number()
-      .min(1, "Leveys ei voi olla negatiivinen")
+      .moreThan(0, "Leveys ei voi olla negatiivinen")
       .required("Leveys vaaditaan"),
     draft: Yup.number()
-      .min(1, "Syväys ei voi olla negatiivinen")
+      .moreThan(0, "Syväys ei voi olla negatiivinen")
       .required("Syväys vaaditaan"),
   }),
 
