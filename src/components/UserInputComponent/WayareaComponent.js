@@ -32,11 +32,7 @@ export default function WayareaComponent(props) {
   ];
 
   function setChosenWayareaFormikValue(wayarea) {
-    if (wayarea) {
-      formik.setFieldValue("navline.VAYLAT", wayarea.VAYLAT);
-    } else {
-      formik.setFieldValue("navline.VAYLAT", "");
-    }
+    formik.setFieldValue("navline.VAYLAT", wayarea?.VAYLAT || "");
   }
 
   useEffect(() => {
