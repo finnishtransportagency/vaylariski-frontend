@@ -12,6 +12,7 @@ import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import Form from "react-bootstrap/Form";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
+import userInputDefault from "constants/UserInputDefault";
 
 export default function BoatMenuComponent(props) {
   const { formik } = props;
@@ -46,9 +47,9 @@ export default function BoatMenuComponent(props) {
     // Calls parent component's (UserInputForm) function with new boat
     setChosenBoatFormikValue(newValue);
     setSelectedBoat(newValue);
-    setLength(newValue?.PITUUS || "");
-    setBeam(newValue?.LEVEYS || "");
-    setDraft(newValue?.SYVAYS || "");
+    setLength(newValue?.PITUUS || userInputDefault.boat.length);
+    setBeam(newValue?.LEVEYS || userInputDefault.boat.beam);
+    setDraft(newValue?.SYVAYS || userInputDefault.boat.draft);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setBoatInputString(newValue ? formatInputString(newValue) : "");
   }
@@ -69,9 +70,9 @@ export default function BoatMenuComponent(props) {
         ...formik.values,
         boat: {
           ...formik.values.boat,
-          length: "",
-          beam: "",
-          draft: "",
+          length: userInputDefault.boat.length,
+          beam: userInputDefault.boat.beam,
+          draft: userInputDefault.boat.draft,
         },
       });
     }
