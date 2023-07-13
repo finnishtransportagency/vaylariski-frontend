@@ -6,18 +6,11 @@ import {
   FormControlLabel,
   Tooltip,
 } from "@mui/material";
-import { Field } from "formik";
 import { useState } from "react";
 
 export default function BoatSpeedComponent(props) {
   const { formik } = props;
   const [selected, setSelected] = useState("moderate");
-
-  const options = [
-    { value: "slow", info: "Hidas (5 ≤ v < 8)" },
-    { value: "moderate", info: "Keskiverto (8 ≤ v < 12)" },
-    { value: "fast", info: "Nopea (v ≥ 12)" },
-  ];
 
   return (
     <>
