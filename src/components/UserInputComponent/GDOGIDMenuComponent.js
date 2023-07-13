@@ -39,15 +39,11 @@ export default function GDOGIDMenuComponent(props) {
     setOpen((prevValue) => !prevValue);
   };
   function setChosenGDOGIDFormikValue(gdo_gid) {
-    if (gdo_gid) {
-      formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
-    } else {
-      formik.setFieldValue("navline.starting_gdo_gid", "");
-    }
+    formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
   }
 
   useEffect(() => {
-    setChosenGDOGIDFormikValue();
+    setChosenGDOGIDFormikValue("");
     setSelectedGDOGIDString("");
     if (selectedWayarea) {
       setSpinnerVisible(true);
@@ -85,7 +81,7 @@ export default function GDOGIDMenuComponent(props) {
   }, [selectedWayarea]);
 
   const handleMenuItemClick = (event, newValue) => {
-    setChosenGDOGIDFormikValue(newValue);
+    setChosenGDOGIDFormikValue(newValue || "");
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setSelectedGDOGIDString(newValue?.toString() ?? "");
   };
