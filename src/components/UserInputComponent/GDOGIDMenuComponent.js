@@ -47,7 +47,7 @@ export default function GDOGIDMenuComponent(props) {
   }
 
   useEffect(() => {
-    props.setChosenGDOGIDFormikValue();
+    setChosenGDOGIDFormikValue();
     setSelectedGDOGIDString("");
     if (selectedWayarea) {
       setSpinnerVisible(true);

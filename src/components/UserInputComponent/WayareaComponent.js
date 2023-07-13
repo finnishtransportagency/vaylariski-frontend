@@ -26,7 +26,7 @@ export default function WayareaComponent(props) {
   const { setNotificationStatus } = useContext(NotificationContext);
   const { setSelectedWayarea } = useContext(SelectedWayareaContext);
   const [wayareaInputString, setWayareaInputString] = useState("");
-  const [calculationInterval, SetCalculationInterval] = useState(10);
+  const [calculationInterval, setCalculationInterval] = useState(10);
   const calculationIntervalOptions = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
   ];
@@ -55,7 +55,7 @@ export default function WayareaComponent(props) {
   }, []);
 
   const handleChange = (event) => {
-    SetCalculationInterval(event.target.value);
+    setCalculationInterval(event.target.value);
     formik.setFieldValue("calculation_interval", event.target.value);
   };
   const MenuOptions = () => {
