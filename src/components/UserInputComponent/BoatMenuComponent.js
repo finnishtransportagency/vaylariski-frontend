@@ -47,9 +47,16 @@ export default function BoatMenuComponent(props) {
     // Calls parent component's (UserInputForm) function with new boat
     setChosenBoatFormikValue(newValue);
     setSelectedBoat(newValue);
-    setLength(newValue?.PITUUS || userInputDefault.boat.length);
-    setBeam(newValue?.LEVEYS || userInputDefault.boat.beam);
-    setDraft(newValue?.SYVAYS || userInputDefault.boat.draft);
+    if (newValue) {
+      setLength(newValue.PITUUS ? newValue.PITUUS : "");
+      setBeam(newValue.LEVEYS ? newValue.LEVEYS : "");
+      setDraft(newValue.SYVAYS ? newValue.SYVAYS : "");
+    } else {
+      setLength(userInputDefault.boat.length);
+      setBeam(userInputDefault.boat.beam);
+      setDraft(userInputDefault.boat.draft);
+    }
+
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setBoatInputString(newValue ? formatInputString(newValue) : "");
   }
@@ -60,9 +67,9 @@ export default function BoatMenuComponent(props) {
         ...formik.values,
         boat: {
           ...formik.values.boat,
-          length: newBoat.PITUUS || "",
-          beam: newBoat.LEVEYS || "",
-          draft: newBoat.SYVAYS || "",
+          length: newBoat.PITUUS ? newBoat.PITUUS : "",
+          beam: newBoat.LEVEYS ? newBoat.LEVEYS : "",
+          draft: newBoat.SYVAYS ? newBoat.SYVAYS : "",
         },
       });
     } else {
