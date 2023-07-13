@@ -8,17 +8,14 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
-import TurningRadiusComponent from "./TurningRadiusComponent";
-import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
+import BoatManoeuvrabilityComponent from "./BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
-import SelectedBoatContext from "contexts/SelectedBoatContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
 
-  const { selectedBoat } = useContext(SelectedBoatContext);
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
   );
@@ -45,31 +42,6 @@ function UserInputForm(props) {
     edge: createTooltipFunctions(),
     wind: createTooltipFunctions(),
   };
-
-  // This is passed to BoatMenuComponent, which then calls it
-  function setChosenBoatFormikValue(newBoat) {
-    if (newBoat) {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: newBoat.PITUUS || "",
-          beam: newBoat.LEVEYS || "",
-          draft: newBoat.SYVAYS || "",
-        },
-      });
-    } else {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: "",
-          beam: "",
-          draft: "",
-        },
-      });
-    }
-  }
 
   return (
     <div
@@ -105,178 +77,13 @@ function UserInputForm(props) {
                     />
                   </Grid>
                 </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
-                  {/*Laivamenu */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      Valitse alus
-                    </Typography>
-                    {/* Menu selector for default boat values */}
-                    <BoatMenuComponent
-                      setChosenBoatFormikValue={setChosenBoatFormikValue}
-                      name="boat"
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
-                  {/* Laivan koko*/}
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.length">Pituus (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.length}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.length && "has-error"}
-                          component="input"
-                          name="boat.length"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.beam">Leveys (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.beam}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.beam && "has-error"}
-                          component="input"
-                          name="boat.beam"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <label htmlFor="boat.draft">Syväys (m):</label>
-                  </Grid>
-                  <Grid item xs={9}>
-                    <Tooltip
-                      placement="right"
-                      arrow
-                      title={formik.errors?.boat?.draft}
-                    >
-                      <span>
-                        <Field
-                          className={formik.errors?.boat?.draft && "has-error"}
-                          component="input"
-                          name="boat.draft"
-                          type="number"
-                          required
-                          style={{
-                            width: 100,
-                          }}
-                        />
-                      </span>
-                    </Tooltip>
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
-                  {/*Laivan tiedot*/}
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Väylän tunnus: {selectedBoat ? selectedBoat["JNRO"] : ""}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Väylän nimi:{" "}
-                      {selectedBoat ? selectedBoat["VAY_NIMISU"] : ""}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Koko: {selectedBoat ? selectedBoat["KOKO"] : ""}
-                    </Typography>
-                  </Grid>
-                  {/* <Grid item>     EI YHTÄÄN ARVOA TÄLLE?!
-      <Typography style={{ fontSize: 14 }}>
-        RUNKO_TKERROIN: {selectedBoat ? selectedBoat.RUNKO_TKERROIN}
-: ""                 </Typography>
-    </Grid> */}
-                  <Grid item>
-                    <Typography style={{ fontSize: 14 }}>
-                      Selite: {selectedBoat ? selectedBoat["SELITE"] : ""}
-                    </Typography>
-                  </Grid>
-                </Grid>
-
+                {/*Laivamenu */}
+                <BoatMenuComponent name="boat" formik={formik} />
                 {/* Ctr and Cm parameters */}
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Ohjailtavuus */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      <label htmlFor="">Aluksen ohjailtavuusluokka</label>
-                    </Typography>
-                  </Grid>
-                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
-                    <Typography
-                      style={{ fontSize: 14 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      C
-                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
-                        M
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={11}>
-                    <ManoeuvrabilityComponent
-                      name="boat.C_manoeuvrability"
-                      formik={formik}
-                    />
-                  </Grid>
-                  <Grid item textAlign="center" alignSelf={"center"} xs={1}>
-                    <Typography
-                      style={{ fontSize: 14 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      C
-                      <span style={{ verticalAlign: "sub", fontSize: 12 }}>
-                        tr
-                      </span>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={11}>
-                    <TurningRadiusComponent
-                      name="boat.C_turning_radius"
-                      formik={formik}
-                    />
-                  </Grid>
+                  <BoatManoeuvrabilityComponent formik={formik} />
                 </Grid>
-
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Nopeusluokka */}
                   <Grid item xs={12}>
