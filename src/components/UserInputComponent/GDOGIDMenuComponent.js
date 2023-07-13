@@ -36,7 +36,7 @@ export default function GDOGIDMenuComponent(props) {
     setOpen(false);
   };
   const handleTooltipOpen = () => {
-    setOpen((r) => !r);
+    setOpen((prevValue) => !prevValue);
   };
   function setChosenGDOGIDFormikValue(gdo_gid) {
     if (gdo_gid) {

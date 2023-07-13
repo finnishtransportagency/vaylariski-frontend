@@ -69,7 +69,7 @@ export default function WayareaComponent(props) {
     setOpen(false);
   };
   const handleTooltipOpen = () => {
-    setOpen((r) => !r);
+    setOpen((prevValue) => !prevValue);
   };
 
   const formatInputString = (wayarea) => `${wayarea.VAYLAT} - ${wayarea.Nimi}`;
