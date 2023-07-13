@@ -62,7 +62,7 @@ export default function RIVTrafficLightsComponent() {
     setOpen(false);
   };
   const handleTooltipOpen = () => {
-    setOpen(true);
+    setOpen((prevValue) => !prevValue);
   };
 
   return (

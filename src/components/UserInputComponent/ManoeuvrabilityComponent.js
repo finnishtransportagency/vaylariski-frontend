@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FormHelperText } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Form from "react-bootstrap/Form";
 import Select from "@mui/material/Select";
@@ -34,13 +33,12 @@ export default function ManoeuvrabilityComponent(props) {
       <Select
         sx={{ width: "100%", height: 40 }}
         style={{ backgroundColor: "white" }}
-        id={name}
+        id={props.name}
         value={C_manoeuvrability}
         onChange={handleChange}
       >
         {MenuOptions()}
       </Select>
-      <FormHelperText>Aluksen ohjailtavuusluokka</FormHelperText>
     </Form.Group>
   );
 }
