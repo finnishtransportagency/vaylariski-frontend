@@ -1822,7 +1822,15 @@ function UserInputForm(props) {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid id="abba" item xs={3.99}>
+            <Grid
+              id="abba"
+              container
+              spacing={1}
+              paddingBottom={2}
+              paddingRight={2}
+              paddingLeft={2}
+              xs={3.99}
+            >
               <Grid container spacing={1} paddingBottom={2}>
                 <BendParametersComponent formik={formik} />
               </Grid>
