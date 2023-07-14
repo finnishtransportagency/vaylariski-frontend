@@ -12,6 +12,7 @@ import BoatManoeuvrabilityComponent from "./BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
+import BoatSpeedComponent from "./BoatSpeedComponent";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
@@ -86,130 +87,7 @@ function UserInputForm(props) {
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Nopeusluokka */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      Aluksen nopeusluokka
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <label htmlFor="boat.speed">
-                      <Field
-                        type="radio"
-                        name="boat.speed"
-                        value="fast"
-                        id="fast-speed"
-                      />
-                      <span
-                        onClick={() =>
-                          document.getElementById("fast-speed").click()
-                        }
-                      >
-                        {" Nopea"}
-                      </span>
-                    </label>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <label>{"v ≥ "}</label>
-                    <input
-                      disabled
-                      type="number"
-                      required
-                      style={{
-                        width: 80,
-                        backgroundColor: "#ced6d8",
-                      }}
-                      placeholder="nopeus"
-                      defaultValue={12}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <label htmlFor="boat.speed">
-                      <Field
-                        type="radio"
-                        name="boat.speed"
-                        value="moderate"
-                        id="moderate-speed"
-                      />
-                      <span
-                        onClick={() =>
-                          document.getElementById("moderate-speed").click()
-                        }
-                      >
-                        {" Keskiverto"}
-                      </span>
-                    </label>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <input
-                      disabled
-                      type="number"
-                      required
-                      style={{
-                        width: 80,
-                        backgroundColor: "#ced6d8",
-                      }}
-                      placeholder="nopeus"
-                      defaultValue={8}
-                    />
-                    <label>{"≤ v <"}</label>
-                    <input
-                      disabled
-                      type="number"
-                      required
-                      style={{
-                        width: 80,
-                        backgroundColor: "#ced6d8",
-                      }}
-                      placeholder="nopeus"
-                      defaultValue={12}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <label htmlFor="boat.speed">
-                      <Field
-                        name="boat.speed"
-                        type="radio"
-                        value="slow"
-                        id="slow-speed"
-                      />
-                      <span
-                        onClick={() =>
-                          document.getElementById("slow-speed").click()
-                        }
-                      >
-                        {" Hidas"}
-                      </span>
-                    </label>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <input
-                      disabled
-                      type="number"
-                      required
-                      style={{
-                        width: 80,
-                        backgroundColor: "#ced6d8",
-                      }}
-                      placeholder="nopeus"
-                      defaultValue={5}
-                    />
-                    <label>{"≤ v <"}</label>
-                    <input
-                      disabled
-                      type="number"
-                      required
-                      style={{
-                        width: 80,
-                        backgroundColor: "#ced6d8",
-                      }}
-                      placeholder="nopeus"
-                      defaultValue={8}
-                    />
-                  </Grid>
+                  <BoatSpeedComponent formik={formik} name="boat.speed" />
                 </Grid>
               </Grid>
             </Grid>
