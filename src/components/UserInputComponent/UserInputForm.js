@@ -39,7 +39,6 @@ function UserInputForm(props) {
   };
 
   const tooltips = {
-    sbend: createTooltipFunctions(),
     depth: createTooltipFunctions(),
     edge: createTooltipFunctions(),
     wind: createTooltipFunctions(),
