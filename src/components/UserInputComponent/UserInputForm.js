@@ -60,7 +60,7 @@ function UserInputForm(props) {
                 container
                 spacing={1}
                 paddingBottom={2}
-                paddingRight={1}
+                paddingRight={2}
                 paddingLeft={2}
               >
                 <Grid container spacing={1} paddingBottom={2}>
