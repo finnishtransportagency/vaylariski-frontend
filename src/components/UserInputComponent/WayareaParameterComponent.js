@@ -1,4 +1,11 @@
-import { Grid, Typography, Tooltip } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Tooltip,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { Field } from "formik";
 
 export default function WayareaParameterComponent(props) {
@@ -14,6 +21,26 @@ export default function WayareaParameterComponent(props) {
           Väylän parametrit
         </Typography>
       </Grid>
+      <Grid item xs={6}>
+        <InputLabel id="navline.calculation_params.type">Tyyppi</InputLabel>
+        <Select
+          labelId="navline.calculation_params.type"
+          id="navline.calculation_params.type"
+          value={formik.values.navline.calculation_params.type}
+          size="small"
+          fullWidth
+          onChange={(e) => {
+            formik.setFieldValue(
+              "navline.calculation_params.type",
+              e.target.value
+            );
+          }}
+        >
+          <MenuItem value={"inner"}>Väylän sisäosa</MenuItem>
+          <MenuItem value={"outer"}>Väylän ulko-osa</MenuItem>
+        </Select>
+      </Grid>
+      <Grid xs={12} />
       <Grid item xs={4}>
         <label htmlFor="navline.calculation_params.type"> Tyyppi: </label>
       </Grid>
