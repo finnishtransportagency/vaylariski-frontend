@@ -40,7 +40,28 @@ export default function WayareaParameterComponent(props) {
           <MenuItem value={"outer"}>Väylän ulko-osa</MenuItem>
         </Select>
       </Grid>
-      <Grid xs={12} />
+      <Grid item xs={6}>
+        <InputLabel id="navline.calculation_params.number_of_lanes">
+          Kaistat
+        </InputLabel>
+        <Select
+          labelId="navline.calculation_params.number_of_lanes"
+          id="navline.calculation_params.number_of_lanes"
+          value={formik.values.navline.calculation_params.number_of_lanes}
+          size="small"
+          fullWidth
+          onChange={(e) => {
+            formik.setFieldValue(
+              "navline.calculation_params.number_of_lanes",
+              e.target.value
+            );
+          }}
+        >
+          <MenuItem value={1}>Kaksisuuntainen väylä</MenuItem>
+          <MenuItem value={2}>Yksisuuntainen väylä</MenuItem>
+        </Select>
+      </Grid>
+      <Grid item xs={12} />
       <Grid item xs={4}>
         <label htmlFor="navline.calculation_params.type"> Tyyppi: </label>
       </Grid>
