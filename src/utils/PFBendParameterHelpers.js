@@ -45,24 +45,36 @@ const input = (id, formik) => {
 };
 
 const limText = (n, symbol) => {
-  let text;
   let whitespaceFront = false;
   let whitespaceEnd = false;
   if (n === 1) {
-    text = `${symbol} <`;
     whitespaceFront = true;
   } else if (n === 5) {
-    text = `≤ ${symbol}`;
     whitespaceEnd = true;
-  } else {
-    text = `≤ ${symbol} <`;
   }
   return (
-    <Typography style={{ fontSize: 15, textAlign: "center" }}>
-      {whitespaceFront ? <>&nbsp;&nbsp;</> : null}
-      {text}
-      {whitespaceEnd ? <>&nbsp;&nbsp;&nbsp;</> : null}
-    </Typography>
+    <Grid item container>
+      <Grid item sx={{ width: "33.3%" }}>
+        {whitespaceFront ? null : (
+          <Typography style={{ fontSize: 15, textAlign: "center" }}>
+            {"≤"}
+          </Typography>
+        )}
+      </Grid>
+      <Grid item sx={{ width: "33.3%" }}>
+        <Typography style={{ fontSize: 15, textAlign: "center" }}>
+          {symbol}
+        </Typography>
+      </Grid>
+
+      <Grid item sx={{ width: "33.3%" }}>
+        {whitespaceEnd ? null : (
+          <Typography style={{ fontSize: 15, textAlign: "center" }}>
+            {"<"}
+          </Typography>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 
@@ -82,7 +94,7 @@ function row(n, formik, isBend1) {
       <Grid item xs={2}>
         {n > 1 ? input(`bend_${lim}_lim_${n - 1}`, formik) : null}
       </Grid>
-      <Grid item xs={2} paddingBottom={0.5} justifySelf="center">
+      <Grid item xs={2} paddingBottom={0.5}>
         {limText(n, symbol)}
       </Grid>
       <Grid item xs={2}>
