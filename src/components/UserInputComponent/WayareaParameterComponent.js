@@ -61,6 +61,27 @@ export default function WayareaParameterComponent(props) {
           <MenuItem value={2}>Yksisuuntainen väylä</MenuItem>
         </Select>
       </Grid>
+      <Grid item xs={6}>
+        <InputLabel id="navline.calculation_params.bottom_surface">
+          Pohja
+        </InputLabel>
+        <Select
+          labelId="navline.calculation_params.bottom_surface"
+          id="navline.calculation_params.bottom_surface"
+          value={formik.values.navline.calculation_params.bottom_surface}
+          size="small"
+          fullWidth
+          onChange={(e) => {
+            formik.setFieldValue(
+              "navline.calculation_params.bottom_surface",
+              e.target.value
+            );
+          }}
+        >
+          <MenuItem value={"smooth_and_soft"}>Sileä ja pehmeä</MenuItem>
+          <MenuItem value={"rough_and_hard"}>Epätasainen ja kova</MenuItem>
+        </Select>
+      </Grid>
       <Grid item xs={12} />
       <Grid item xs={4}>
         <label htmlFor="navline.calculation_params.type"> Tyyppi: </label>
