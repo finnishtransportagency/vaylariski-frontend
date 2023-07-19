@@ -42,7 +42,6 @@ function UserInputForm(props) {
   };
 
   const tooltips = {
-    depth: createTooltipFunctions(),
     edge: createTooltipFunctions(),
     wind: createTooltipFunctions(),
   };
@@ -110,7 +109,7 @@ function UserInputForm(props) {
                 paddingLeft={2}
               >
                 <WayareaParameterComponent formik={formik} />
-                <WayareaDepthWFComponent formik={formik} tooltips={tooltips} />
+                <WayareaDepthWFComponent formik={formik} />
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={12}>
                     <Typography
