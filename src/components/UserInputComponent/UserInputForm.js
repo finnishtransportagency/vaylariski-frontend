@@ -90,8 +90,13 @@ function UserInputForm(props) {
                   {/* Nopeusluokka */}
                   <BoatSpeedComponent formik={formik} name="boat.speed" />
                 </Grid>
+                <Grid container spacing={1} paddingBottom={2}>
+                  <PFBend1Component formik={formik} />
+                  <PFBend2Component formik={formik} />
+                </Grid>
               </Grid>
             </Grid>
+
             <Divider orientation="vertical" flexItem></Divider>
             <Grid item xs={3.99}>
               {/* Väylän parametrit */}
@@ -888,6 +893,192 @@ function UserInputForm(props) {
                       <option value="high">Monimutkainen</option>
                       <option value="very_high">Erittäin monimutkainen</option>
                     </Field>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={1} paddingBottom={2}>
+                  {/* Riskiarvojen painokerttoimet */}
+                  <Grid container item spacing={1} paddingBottom={2}>
+                    <Grid item xs={12}>
+                      <Typography
+                        style={{ fontSize: 16, fontWeight: 550 }}
+                        color="textSecondary"
+                        gutterBottom
+                      >
+                        <label>Riskiarvojen painokertoimet:</label>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_channel">
+                        Väylä (WF channel):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={formik.errors?.weightfactors?.WF_channel}
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors?.WF_channel &&
+                              "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_channel"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_bend">
+                        Mutka (WF bend):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={formik.errors?.weightfactors?.WF_bend}
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors?.WF_bend &&
+                              "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_bend"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_s_bend">
+                        S-mutka (WF S-bend):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={formik.errors?.weightfactors?.WF_s_bend}
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors?.WF_s_bend &&
+                              "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_s_bend"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_traffic_complexity">
+                        Liikenteen monimutkaisuus (WF traffic complexity):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={
+                          formik.errors?.weightfactors?.WF_traffic_complexity
+                        }
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors
+                                ?.WF_traffic_complexity && "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_traffic_complexity"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_reduced_visibility">
+                        Heikentynyt näkyvyys (WF reduced visibility):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={
+                          formik.errors?.weightfactors?.WF_reduced_visibility
+                        }
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors
+                                ?.WF_reduced_visibility && "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_reduced_visibility"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
+                      <label htmlFor="weightfactors.WF_light_pollution">
+                        Taustavalon voimakkuus (WF light pollution):
+                      </label>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Tooltip
+                        placement="right"
+                        arrow
+                        title={formik.errors?.weightfactors?.WF_light_pollution}
+                      >
+                        <span>
+                          <Field
+                            className={
+                              formik.errors?.weightfactors
+                                ?.WF_light_pollution && "has-error"
+                            }
+                            component="input"
+                            name="weightfactors.WF_light_pollution"
+                            type="number"
+                            required
+                            style={{
+                              width: 60,
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -1831,192 +2022,9 @@ function UserInputForm(props) {
                 paddingBottom={2}
                 paddingRight={2}
                 paddingLeft={2}
-              >
-                <Grid container spacing={1} paddingBottom={2}>
-                  <PFBend1Component formik={formik} />
-                  <PFBend2Component formik={formik} />
-                </Grid>
-              </Grid>
+              ></Grid>
             </Grid>
             <Divider orientation="vertical" flexItem></Divider>
-            {/* Riskiarvojen painokerttoimet */}
-            <Grid item xs={5}>
-              <Typography
-                style={{ fontSize: 16, fontWeight: 550 }}
-                color="textSecondary"
-                gutterBottom
-              >
-                <label>Riskiarvojen painokertoimet:</label>
-              </Typography>
-              <Grid container spacing={1} paddingBottom={2}>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_channel">
-                    Väylä (WF channel):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_channel}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_channel &&
-                          "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_channel"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_bend">
-                    Mutka (WF bend):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_bend}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_bend && "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_bend"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_s_bend">
-                    S-mutka (WF S-bend):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_s_bend}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_s_bend && "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_s_bend"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_traffic_complexity">
-                    Liikenteen monimutkaisuus (WF traffic complexity):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_traffic_complexity}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_traffic_complexity &&
-                          "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_traffic_complexity"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_reduced_visibility">
-                    Heikentynyt näkyvyys (WF reduced visibility):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_reduced_visibility}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_reduced_visibility &&
-                          "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_reduced_visibility"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={9}>
-                  <label htmlFor="weightfactors.WF_light_pollution">
-                    Taustavalon voimakkuus (WF light pollution):
-                  </label>
-                </Grid>
-                <Grid item xs={3}>
-                  <Tooltip
-                    placement="right"
-                    arrow
-                    title={formik.errors?.weightfactors?.WF_light_pollution}
-                  >
-                    <span>
-                      <Field
-                        className={
-                          formik.errors?.weightfactors?.WF_light_pollution &&
-                          "has-error"
-                        }
-                        component="input"
-                        name="weightfactors.WF_light_pollution"
-                        type="number"
-                        required
-                        style={{
-                          width: 60,
-                        }}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Tooltip
