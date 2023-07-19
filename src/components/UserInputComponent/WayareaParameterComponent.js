@@ -7,7 +7,6 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
-import { Field } from "formik";
 
 export default function WayareaParameterComponent(props) {
   const { formik } = props;
