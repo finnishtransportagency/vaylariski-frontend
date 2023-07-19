@@ -11,9 +11,18 @@ import {
 } from "@mui/material";
 import { Field } from "formik";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useState } from "react";
 
 export default function WayareaDepthWFComponent(props) {
-  const { formik, tooltips } = props;
+  const { formik } = props;
+
+  const [open, setOpen] = useState(false);
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+  const handleTooltipOpen = () => {
+    setOpen((prevValue) => !prevValue);
+  };
   return (
     <Grid container spacing={1} paddingBottom={2}>
       <Grid item xs={12}>
@@ -28,7 +37,7 @@ export default function WayareaDepthWFComponent(props) {
           gutterBottom
         >
           Väylän syvyyden painokerroin
-          <ClickAwayListener onClickAway={tooltips.depth.handleTooltipClose}>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
               placement="right"
               arrow
@@ -43,13 +52,13 @@ export default function WayareaDepthWFComponent(props) {
               PopperProps={{
                 disablePortal: true,
               }}
-              onClose={tooltips.depth.handleTooltipClose}
-              open={tooltips.depth.open}
+              onClose={handleTooltipClose}
+              open={open}
               disableFocusListener
               disableHoverListener
               disableTouchListener
             >
-              <IconButton onClick={tooltips.depth.handleTooltipOpen}>
+              <IconButton onClick={handleTooltipOpen}>
                 <InfoOutlinedIcon fontSize="small" />
               </IconButton>
             </Tooltip>
