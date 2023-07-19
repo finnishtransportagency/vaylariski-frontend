@@ -67,9 +67,6 @@ const limText = (n, symbol) => {
 };
 
 function row(n, formik, isBend1) {
-  if (n < 1 || n > 5) {
-    return null;
-  }
   const symbol = isBend1 ? "BSI" : "α";
   const bend = isBend1 ? "radius" : "angle";
   const lim = isBend1 ? "ratio" : "angle";
@@ -95,10 +92,10 @@ function row(n, formik, isBend1) {
   );
 }
 
-export function table(n, formik, isBend1) {
+export function table(numberOfRows, formik, isBend1) {
   return (
     <Grid container item paddingBottom={2} spacing={1}>
-      {Array.from(Array(n + 1).keys())
+      {Array.from(Array(numberOfRows + 1).keys())
         .slice(1)
         .map((n) => row(n, formik, isBend1))}
     </Grid>
