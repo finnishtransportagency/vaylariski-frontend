@@ -20,6 +20,7 @@ const input = (id, formik) => {
           id={"PF_bend_parameters." + id}
           error={!!formik.errors?.PF_bend_parameters?.[id]}
           InputProps={{ sx: { height: 30 } }}
+          fullWidth
           inputProps={{
             step: "0.1",
           }}
