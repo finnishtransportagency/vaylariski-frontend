@@ -65,7 +65,6 @@ function UserInputForm(props) {
                 paddingLeft={2}
               >
                 <Grid container spacing={1} paddingBottom={2}>
-                  {" "}
                   {/*väylämenu*/}
                   <Grid item xs={12}>
                     <WayareaComponent name="navline.VAYLAT" formik={formik} />
