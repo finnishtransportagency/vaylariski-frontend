@@ -32,55 +32,53 @@ export default function WayareaDepthWFComponent(props) {
   );
   return (
     <Grid container spacing={1} paddingBottom={2}>
-      <Grid item container spacing={0}>
-        <Grid item xs={12}>
-          <Typography
-            component="span"
-            style={{
-              fontSize: 16,
-              fontWeight: 550,
-              verticalAlign: "middle",
-            }}
-            color="textSecondary"
-            gutterBottom
-          >
-            Väylän syvyyden painokerroin
-            <ClickAwayListener onClickAway={handleTooltipClose}>
-              <Tooltip
-                placement="right"
-                arrow
-                title={
-                  <label style={{ fontSize: 14 }}>
-                    Syvyyden painokerroin kerrotaan aluksen leveydellä alla
-                    näkyvien määritysten perusteella, joihin vaikuttaa väylän
-                    syvyys ja aluksen syväys. Laskennassa voi käyttää
-                    oletusarvoja tai määrittää uudet painokertoimet.
-                  </label>
-                }
-                PopperProps={{
-                  disablePortal: true,
-                }}
-                onClose={handleTooltipClose}
-                open={open}
-                disableFocusListener
-                disableHoverListener
-                disableTouchListener
-              >
-                <IconButton onClick={handleTooltipOpen}>
-                  <InfoOutlinedIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </ClickAwayListener>
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography component="span" color="textSecondary">
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>V</span> =
-              väylän syvyys, {boatDepth} = laivan syväys
-            </em>
-          </Typography>
-        </Grid>
+      <Grid item xs={12}>
+        <Typography
+          component="span"
+          style={{
+            fontSize: 16,
+            fontWeight: 550,
+            verticalAlign: "middle",
+          }}
+          color="textSecondary"
+          gutterBottom
+        >
+          Väylän syvyyden painokerroin
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
+              placement="right"
+              arrow
+              title={
+                <label style={{ fontSize: 14 }}>
+                  Syvyyden painokerroin kerrotaan aluksen leveydellä alla
+                  näkyvien määritysten perusteella, joihin vaikuttaa väylän
+                  syvyys ja aluksen syväys. Laskennassa voi käyttää oletusarvoja
+                  tai määrittää uudet painokertoimet.
+                  <br />
+                  <em>
+                    S
+                    <span style={{ verticalAlign: "sub", fontSize: 12 }}>
+                      V
+                    </span>{" "}
+                    = väylän syvyys, {boatDepth} = laivan syväys
+                  </em>
+                </label>
+              }
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+            >
+              <IconButton onClick={handleTooltipOpen}>
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+        </Typography>
       </Grid>
       <Grid item container spacing={1}>
         <Grid item xs={12}>
