@@ -4,33 +4,43 @@ import { table, headerAndTooltip } from "../../utils/PFBendParameterHelpers";
 
 export default function PFBend1Component(props) {
   const { formik } = props;
-  const [open, setOpen] = useState(false);
-  const handleTooltipClose = () => {
-    setOpen(false);
+  const [openPFBend, setOpenPFBend] = useState(false);
+  const handleTooltipClosePFBend = () => {
+    setOpenPFBend(false);
   };
-  const handleTooltipOpen = () => {
-    setOpen((prevValue) => !prevValue);
+  const handleTooltipOpenPFBend = () => {
+    setOpenPFBend((prevValue) => !prevValue);
   };
-  const tooltipTitle = (
+  const [openBSI, setOpenBSI] = useState(false);
+  const handleTooltipCloseBSI = () => {
+    setOpenBSI(false);
+  };
+  const handleTooltipOpenBSI = () => {
+    setOpenBSI((prevValue) => !prevValue);
+  };
+  const PFBendtooltipTitle = (
     <label style={{ fontSize: 14 }}>
       PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> on
       painokerroin mutkan jyrkkyydelle suhteessa säteeseen, aluksen
       kääntösäteeseen ja alukseen pituuteen.
-      <br />
+    </label>
+  );
+  const PFBendTitle = (
+    <>
+      PF
+      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>
+    </>
+  );
+  const BSITooltipTitle = (
+    <label style={{ fontSize: 14 }}>
       BSI = R<span style={{ verticalAlign: "sub", fontSize: 12 }}>b</span> / C
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> * L, kun R
       on säde, C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span>{" "}
       on kerroin, joka ilmaisee aluksen kääntösäteen ja L on aluksen pituus.{" "}
     </label>
   );
-  const headerTitle = (
-    <>
-      PF
-      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> ja sen
-      raja-arvot
-    </>
-  );
+  const BSITitle = <>BSI</>;
 
   return (
     <>
@@ -45,11 +55,16 @@ export default function PFBend1Component(props) {
       </Grid>
       <Grid item xs={12}>
         {headerAndTooltip(
-          headerTitle,
-          tooltipTitle,
-          open,
-          handleTooltipClose,
-          handleTooltipOpen
+          PFBendTitle,
+          PFBendtooltipTitle,
+          openPFBend,
+          handleTooltipClosePFBend,
+          handleTooltipOpenPFBend,
+          BSITitle,
+          BSITooltipTitle,
+          openBSI,
+          handleTooltipCloseBSI,
+          handleTooltipOpenBSI
         )}
       </Grid>
       {table(5, formik, true)}

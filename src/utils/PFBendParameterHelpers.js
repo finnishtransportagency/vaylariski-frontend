@@ -85,11 +85,9 @@ function row(n, formik, isBend1) {
   return (
     <Grid container item alignItems="flex-end" spacing={1} key={n}>
       <Grid item xs={2}>
-        {label(isBend1 ? 1 : 2)}
-      </Grid>
-      <Grid item xs={2}>
         {input(`PF_bend_${bend}_${n}`, formik)}
       </Grid>
+      <Grid item xs={2} />
       <Grid item xs={2} />
       <Grid item xs={2}>
         {n > 1 ? input(`bend_${lim}_lim_${n - 1}`, formik) : null}
@@ -114,39 +112,77 @@ export function table(numberOfRows, formik, isBend1) {
   );
 }
 export function headerAndTooltip(
-  headerTitle,
-  tooltipTitle,
-  state,
-  handleClose,
-  handleOpen
+  headerTitle1,
+  tooltipTitle1,
+  state1,
+  handleClose1,
+  handleOpen1,
+  headerTitle2,
+  tooltipTitle2,
+  state2,
+  handleClose2,
+  handleOpen2
 ) {
   return (
-    <Typography
-      style={{ fontSize: 14, fontWeight: 550 }}
-      color="textSecondary"
-      gutterBottom
-      component="span"
-    >
-      {headerTitle}
-      <ClickAwayListener onClickAway={handleClose}>
-        <Tooltip
-          placement="right"
-          arrow
-          title={tooltipTitle}
-          PopperProps={{
-            disablePortal: true,
-          }}
-          onClose={handleClose}
-          open={state}
-          disableFocusListener
-          disableHoverListener
-          disableTouchListener
+    <Grid item xs={12} container>
+      <Grid item xs={6}>
+        <Typography
+          style={{ fontSize: 14, fontWeight: 550 }}
+          color="textSecondary"
+          gutterBottom
+          component="div"
         >
-          <IconButton onClick={handleOpen}>
-            <InfoOutlinedIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </ClickAwayListener>
-    </Typography>
+          {headerTitle1}
+          <ClickAwayListener onClickAway={handleClose1}>
+            <Tooltip
+              placement="right"
+              arrow
+              title={tooltipTitle1}
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleClose1}
+              open={state1}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+            >
+              <IconButton onClick={handleOpen1}>
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography
+          style={{ fontSize: 14, fontWeight: 550 }}
+          color="textSecondary"
+          gutterBottom
+          component="div"
+        >
+          {headerTitle2}
+          <ClickAwayListener onClickAway={handleClose2}>
+            <Tooltip
+              placement="right"
+              arrow
+              title={tooltipTitle2}
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleClose2}
+              open={state2}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+            >
+              <IconButton onClick={handleOpen2}>
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+        </Typography>
+      </Grid>
+    </Grid>
   );
 }
