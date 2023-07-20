@@ -13,9 +13,7 @@ import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import BoatSpeedComponent from "./BoatSpeedComponent";
-import PFBend1Component from "./PFBend1Component";
-import PFBend2Component from "./PFBend2Component";
-
+import PFBendComponent from "./PFBendComponent";
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
 
@@ -91,8 +89,7 @@ function UserInputForm(props) {
                   <BoatSpeedComponent formik={formik} name="boat.speed" />
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
-                  <PFBend1Component formik={formik} />
-                  <PFBend2Component formik={formik} />
+                  <PFBendComponent formik={formik} />
                 </Grid>
               </Grid>
             </Grid>

@@ -6,6 +6,14 @@ export default function PFBend1Component(props) {
   const { formik } = props;
   const [openPFBend, setOpenPFBend] = useState(false);
   const handleTooltipClosePFBend = () => {
+    const headerTooltipTitle = (
+      <label style={{ fontSize: 14 }}>
+        Kulman jyrkkyyden painokerroin lasketaan summasta PF
+        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> = PF
+        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+ PF
+        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
+      </label>
+    );
     setOpenPFBend(false);
   };
   const handleTooltipOpenPFBend = () => {
@@ -44,15 +52,6 @@ export default function PFBend1Component(props) {
 
   return (
     <>
-      <Grid item xs={12}>
-        <Typography
-          style={{ fontSize: 16, fontWeight: 550 }}
-          color="textSecondary"
-          gutterBottom
-        >
-          Mutkan painokertoimet
-        </Typography>
-      </Grid>
       <Grid item xs={12}>
         {headerAndTooltip(
           PFBendTitle,

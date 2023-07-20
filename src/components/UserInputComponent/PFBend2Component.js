@@ -11,13 +11,6 @@ export default function PFBend2Component(props) {
   const handleTooltipOpenPFBend = () => {
     setOpenPFBend((prevValue) => !prevValue);
   };
-  const [openAngle, setOpenAngle] = useState(false);
-  const handleTooltipCloseAngle = () => {
-    setOpenAngle(false);
-  };
-  const handleTooltipOpenAngle = () => {
-    setOpenAngle((prevValue) => !prevValue);
-  };
   const PFBendtooltipTitle = (
     <label style={{ fontSize: 14 }}>
       PF
@@ -32,14 +25,6 @@ export default function PFBend2Component(props) {
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
     </>
   );
-  const angleTooltipTitle = (
-    <label style={{ fontSize: 14 }}>
-      Kulman jyrkkyyden painokerroin lasketaan summasta PF
-      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> = PF
-      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+ PF
-      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
-    </label>
-  );
   const angleTitle = <>Suuntakulma</>;
 
   return (
@@ -51,11 +36,7 @@ export default function PFBend2Component(props) {
           openPFBend,
           handleTooltipClosePFBend,
           handleTooltipOpenPFBend,
-          angleTitle,
-          angleTooltipTitle,
-          openAngle,
-          handleTooltipCloseAngle,
-          handleTooltipOpenAngle
+          angleTitle
         )}
       </Grid>
       {table(5, formik, false)}

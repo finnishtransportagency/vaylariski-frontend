@@ -3,20 +3,10 @@ import {
   Typography,
   Grid,
   Tooltip,
-  InputLabel,
   IconButton,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-
-const label = (number) => {
-  return (
-    <InputLabel style={{ fontSize: 14 }}>
-      PF
-      <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend{number}</span>
-    </InputLabel>
-  );
-};
 
 const input = (id, formik) => {
   return (
@@ -118,13 +108,13 @@ export function headerAndTooltip(
   handleClose1,
   handleOpen1,
   headerTitle2,
-  tooltipTitle2,
-  state2,
-  handleClose2,
-  handleOpen2
+  tooltipTitle2 = null,
+  state2 = null,
+  handleClose2 = null,
+  handleOpen2 = null
 ) {
   return (
-    <Grid item xs={12} container>
+    <Grid item xs={12} container alignItems="center">
       <Grid item xs={6}>
         <Typography
           style={{ fontSize: 14, fontWeight: 550 }}
@@ -162,25 +152,27 @@ export function headerAndTooltip(
           component="div"
         >
           {headerTitle2}
-          <ClickAwayListener onClickAway={handleClose2}>
-            <Tooltip
-              placement="right"
-              arrow
-              title={tooltipTitle2}
-              PopperProps={{
-                disablePortal: true,
-              }}
-              onClose={handleClose2}
-              open={state2}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-            >
-              <IconButton onClick={handleOpen2}>
-                <InfoOutlinedIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </ClickAwayListener>
+          {tooltipTitle2 ? (
+            <ClickAwayListener onClickAway={handleClose2}>
+              <Tooltip
+                placement="right"
+                arrow
+                title={tooltipTitle2}
+                PopperProps={{
+                  disablePortal: true,
+                }}
+                onClose={handleClose2}
+                open={state2}
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener
+              >
+                <IconButton onClick={handleOpen2}>
+                  <InfoOutlinedIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </ClickAwayListener>
+          ) : null}
         </Typography>
       </Grid>
     </Grid>
