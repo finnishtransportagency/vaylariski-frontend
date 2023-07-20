@@ -4,7 +4,6 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
-  Tooltip,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -28,6 +27,10 @@ export default function BoatSpeedComponent(props) {
           row
           aria-labelledby={`${props.name}-group-label`}
           name={props.name}
+          sx={{
+            width: "100%",
+            justifyContent: "space-between",
+          }}
           value={selected}
           defaultValue="moderate"
           onChange={(e) => {
@@ -35,45 +38,39 @@ export default function BoatSpeedComponent(props) {
             setSelected(e.target.value);
           }}
         >
-          <Grid item xs={4}>
-            <Tooltip
-              placement="bottom"
-              arrow
-              title={<label style={{ fontSize: 14 }}>{"5 ≤ v < 8"}</label>}
-            >
-              <FormControlLabel
-                value="slow"
-                control={<Radio />}
-                label="Hidas"
-              />
-            </Tooltip>
-          </Grid>
-          <Grid item xs={4}>
-            <Tooltip
-              placement="bottom"
-              arrow
-              title={<label style={{ fontSize: 14 }}>{"8 ≤ v < 12"}</label>}
-            >
-              <FormControlLabel
-                value="moderate"
-                control={<Radio />}
-                label="Keskiverto"
-              />
-            </Tooltip>
-          </Grid>
-          <Grid item xs={4}>
-            <Tooltip
-              placement="bottom"
-              arrow
-              title={<label style={{ fontSize: 14 }}>{"v ≥ 12"}</label>}
-            >
-              <FormControlLabel
-                value="fast"
-                control={<Radio />}
-                label="Nopea"
-              />
-            </Tooltip>
-          </Grid>
+          <FormControlLabel
+            value="slow"
+            control={<Radio />}
+            label={
+              <>
+                Hidas
+                <br />
+                {"5 ≤ v < 8"}
+              </>
+            }
+          />
+          <FormControlLabel
+            value="moderate"
+            control={<Radio />}
+            label={
+              <>
+                Keskiverto
+                <br />
+                {"8 ≤ v < 12"}
+              </>
+            }
+          />
+          <FormControlLabel
+            value="fast"
+            control={<Radio />}
+            label={
+              <>
+                Nopea
+                <br />
+                {"v ≥ 12"}
+              </>
+            }
+          />
         </RadioGroup>
       </Grid>
     </>
