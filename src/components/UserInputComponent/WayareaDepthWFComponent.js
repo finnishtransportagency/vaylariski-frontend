@@ -20,6 +20,16 @@ export default function WayareaDepthWFComponent(props) {
   const handleTooltipOpen = () => {
     setOpen((prevValue) => !prevValue);
   };
+  const boatDepth = (
+    <em>
+      S<span style={{ verticalAlign: "sub", fontSize: 12 }}>L</span>
+    </em>
+  );
+  const wayareaDepth = (
+    <em>
+      S<span style={{ verticalAlign: "sub", fontSize: 12 }}>V</span>
+    </em>
+  );
   return (
     <Grid container spacing={1} paddingBottom={2}>
       <Grid item container spacing={0}>
@@ -66,13 +76,8 @@ export default function WayareaDepthWFComponent(props) {
         <Grid item xs={12}>
           <Typography component="span" color="textSecondary">
             <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span> =
-              syvyys
-            </em>
-            ,{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span> =
-              syväys
+              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>V</span> =
+              väylän syvyys, {boatDepth} = laivan syväys
             </em>
           </Typography>
         </Grid>
@@ -86,13 +91,9 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.deep_inner_channel"}
           >
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>
+            {wayareaDepth}
             {" ≥ 1.5 × "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
@@ -125,18 +126,7 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.medium_deep_inner_channel"}
           >
-            1.15 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>{" "}
-            ≤{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>{" "}
-            {"<"} 1.5 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            1.15 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
@@ -171,13 +161,7 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.shallow_inner_channel"}
           >
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>{" "}
-            {"<"} 1.15 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            {wayareaDepth} {"<"} 1.15 × {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
@@ -215,13 +199,9 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.deep_outer_channel"}
           >
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>
+            {wayareaDepth}
             {" ≥ 1.5 × "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
@@ -254,18 +234,7 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.medium_deep_outer_channel"}
           >
-            1.25 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>{" "}
-            ≤{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>{" "}
-            {"<"} 1.5 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            1.25 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
@@ -300,13 +269,7 @@ export default function WayareaDepthWFComponent(props) {
             style={{ fontSize: 14 }}
             id={"channel_depth_wf.shallow_outer_channel"}
           >
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>y</span>
-            </em>{" "}
-            {"<"} 1.25 ×{" "}
-            <em>
-              S<span style={{ verticalAlign: "sub", fontSize: 12 }}>ä</span>
-            </em>
+            {wayareaDepth} {"<"} 1.25 × {boatDepth}
           </InputLabel>
           <Tooltip
             placement="right"
