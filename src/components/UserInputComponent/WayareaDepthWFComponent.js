@@ -208,7 +208,7 @@ export default function WayareaDepthWFComponent(props) {
       </Grid>
       <Grid item container spacing={1}>
         <Grid item xs={12}>
-          <Typography color="textSecondary">Väylän sisäosa</Typography>
+          <Typography color="textSecondary">Väylän ulko-osa</Typography>
         </Grid>
         <Grid item xs={4}>
           <InputLabel
