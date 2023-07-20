@@ -43,7 +43,7 @@ export default function PFBend1Component(props) {
   const BSITitle = <>BSI</>;
 
   return (
-    <>
+    <Grid item container>
       <Grid item xs={12}>
         {headerAndTooltip(
           PFBendTitle,
@@ -59,6 +59,6 @@ export default function PFBend1Component(props) {
         )}
       </Grid>
       {table(5, formik, true)}
-    </>
+    </Grid>
   );
 }

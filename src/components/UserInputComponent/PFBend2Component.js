@@ -28,7 +28,7 @@ export default function PFBend2Component(props) {
   const angleTitle = <>Suuntakulma</>;
 
   return (
-    <>
+    <Grid item container>
       <Grid item xs={12}>
         {headerAndTooltip(
           PFBendTitle,
@@ -40,6 +40,6 @@ export default function PFBend2Component(props) {
         )}
       </Grid>
       {table(5, formik, false)}
-    </>
+    </Grid>
   );
 }

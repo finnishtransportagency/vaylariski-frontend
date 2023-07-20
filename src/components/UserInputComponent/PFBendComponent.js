@@ -24,7 +24,7 @@ export default function PFBendComponent(props) {
   );
 
   return (
-    <>
+    <Grid item container>
       <Grid item xs={12}>
         <Typography
           style={{ fontSize: 16, fontWeight: 550 }}
@@ -55,6 +55,6 @@ export default function PFBendComponent(props) {
       </Grid>
       <PFBend1Component formik={formik} />
       <PFBend2Component formik={formik} />
-    </>
+    </Grid>
   );
 }
