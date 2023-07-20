@@ -103,7 +103,7 @@ export default function BoatMenuComponent(props) {
               color="textSecondary"
               gutterBottom
             >
-              Alus:{" "}
+              Alus
             </Typography>
             <Autocomplete
               id="boat"
@@ -129,7 +129,7 @@ export default function BoatMenuComponent(props) {
         {/* Laivan koko*/}
         <Grid item xs={4}>
           <InputLabel style={{ fontSize: 14 }} id={"boat.length"}>
-            Pituus (m):
+            Pituus (m)
           </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.length}>
             <span>
@@ -152,7 +152,7 @@ export default function BoatMenuComponent(props) {
         </Grid>
         <Grid item xs={4}>
           <InputLabel style={{ fontSize: 14 }} id={"boat.beam"}>
-            Leveys (m):
+            Leveys (m)
           </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.beam}>
             <span>
@@ -175,7 +175,7 @@ export default function BoatMenuComponent(props) {
         </Grid>
         <Grid item xs={4}>
           <InputLabel style={{ fontSize: 14 }} id={"boat.draft"}>
-            Syväys (m):
+            Syväys (m)
           </InputLabel>
           <Tooltip placement="right" arrow title={formik.errors?.boat?.draft}>
             <span>
