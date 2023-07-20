@@ -1,4 +1,4 @@
-import { Typography, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useState } from "react";
 import { table, headerAndTooltip } from "../../utils/PFBendParameterHelpers";
 
@@ -6,14 +6,6 @@ export default function PFBend1Component(props) {
   const { formik } = props;
   const [openPFBend, setOpenPFBend] = useState(false);
   const handleTooltipClosePFBend = () => {
-    const headerTooltipTitle = (
-      <label style={{ fontSize: 14 }}>
-        Kulman jyrkkyyden painokerroin lasketaan summasta PF
-        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> = PF
-        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+ PF
-        <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
-      </label>
-    );
     setOpenPFBend(false);
   };
   const handleTooltipOpenPFBend = () => {
