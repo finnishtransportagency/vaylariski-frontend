@@ -136,7 +136,7 @@ export default function GDOGIDMenuComponent(props) {
         </ClickAwayListener>
       </Typography>
       <Typography style={{ fontSize: 14 }} color="textSecondary" gutterBottom>
-        Ensimmäinen navigointilinjan tunnus (GDO_GID):{" "}
+        Ensimmäinen navigointilinjan tunnus (GDO_GID)
       </Typography>
       <Tooltip
         placement="right"
