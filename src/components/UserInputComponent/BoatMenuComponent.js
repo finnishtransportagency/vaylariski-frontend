@@ -134,6 +134,7 @@ export default function BoatMenuComponent(props) {
           <Tooltip placement="right" arrow title={formik.errors?.boat?.length}>
             <span>
               <TextField
+                fullWidth
                 id="boat.length"
                 error={!!formik.errors?.boat?.length}
                 InputProps={{ sx: { height: 30 } }}
@@ -163,6 +164,7 @@ export default function BoatMenuComponent(props) {
                 inputProps={{
                   step: "0.1",
                 }}
+                fullWidth
                 type="number"
                 value={beam}
                 onChange={(e) => {
@@ -180,6 +182,7 @@ export default function BoatMenuComponent(props) {
           <Tooltip placement="right" arrow title={formik.errors?.boat?.draft}>
             <span>
               <TextField
+                fullWidth
                 id="boat.draft"
                 error={!!formik.errors?.boat?.draft}
                 InputProps={{ sx: { height: 30 } }}
@@ -223,6 +226,7 @@ export default function BoatMenuComponent(props) {
                 Väylän tunnus:
               </InputLabel>
               <TextField
+                fullWidth
                 id="Väylän_tunnus"
                 InputProps={{ sx: { height: 30 } }}
                 value={selectedBoat?.["JNRO"] || ""}
@@ -234,6 +238,7 @@ export default function BoatMenuComponent(props) {
                 Väylän nimi:
               </InputLabel>
               <TextField
+                fullWidth
                 id="Väylän_nimi"
                 InputProps={{ sx: { height: 30 } }}
                 value={selectedBoat?.["VAY_NIMISU"] || ""}
@@ -245,6 +250,7 @@ export default function BoatMenuComponent(props) {
                 Selite:
               </InputLabel>
               <TextField
+                fullWidth
                 id="Selite"
                 InputProps={{ sx: { height: 30 } }}
                 value={selectedBoat?.["SELITE"] || ""}
@@ -256,6 +262,7 @@ export default function BoatMenuComponent(props) {
                 Koko:
               </InputLabel>
               <TextField
+                fullWidth
                 id="Koko"
                 InputProps={{ sx: { height: 30 } }}
                 value={selectedBoat?.["KOKO"] || ""}
@@ -267,6 +274,7 @@ export default function BoatMenuComponent(props) {
                 Runko kerroin:
               </InputLabel>
               <TextField
+                fullWidth
                 id="Runko_kerroin"
                 InputProps={{ sx: { height: 30 } }}
                 value={selectedBoat?.["RUNKO_TKERROIN"] || ""}
