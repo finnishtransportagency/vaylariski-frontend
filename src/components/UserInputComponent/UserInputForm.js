@@ -16,6 +16,7 @@ import BoatSpeedComponent from "./BoatSpeedComponent";
 import PFBendComponent from "./PFBendComponent";
 import WayareaParameterComponent from "./WayareaParameterComponent";
 import WayareaDepthWFComponent from "./WayareaDepthWFComponent";
+import TrafficFactorsComponent from "./TrafficFactorsComponent";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
@@ -482,88 +483,7 @@ function UserInputForm(props) {
                     </Tooltip>
                   </Grid>
                 </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/* ATN */}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ fontSize: 16, fontWeight: 550 }}
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      Vesiliikenteeseen vaikuttavat tekijät
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <label htmlFor="navline.calculation_params.aids_to_navigation">
-                      {" "}
-                      Turvalaitteet (ATN):{" "}
-                    </label>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Field
-                      component="select"
-                      name="navline.calculation_params.aids_to_navigation"
-                    >
-                      <option value="excellent">Erinomainen</option>
-                      <option value="good">Hyvä</option>
-                      <option value="moderate">Keskiverto</option>
-                    </Field>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <label htmlFor="navline.calculation_params.other.light_pollution">
-                      {" "}
-                      Taustavalon voimakkuus:{" "}
-                    </label>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Field
-                      component="select"
-                      name="navline.calculation_params.other.light_pollution"
-                    >
-                      <option value="negligible">Olematon</option>
-                      <option value="low">Heikko</option>
-                      <option value="moderate">Keskiverto</option>
-                      <option value="heavy">Voimakas</option>
-                      <option value="very_heavy">Todella voimakas</option>
-                    </Field>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <label htmlFor="navline.calculation_params.other.traffic_volume">
-                      {" "}
-                      Liikenteen määrä:{" "}
-                    </label>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Field
-                      component="select"
-                      name="navline.calculation_params.other.traffic_volume"
-                    >
-                      <option value="negligible">Olematon</option>
-                      <option value="low">Matala</option>
-                      <option value="moderate">Keskiverto</option>
-                      <option value="heavy">Runsas</option>
-                      <option value="very_heavy">Todella runsas</option>
-                    </Field>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <label htmlFor="navline.calculation_params.other.traffic_complexity">
-                      {" "}
-                      Liikenteen monimutkaisuus:{" "}
-                    </label>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Field
-                      component="select"
-                      name="navline.calculation_params.other.traffic_complexity"
-                    >
-                      <option value="negligible">Olematon</option>
-                      <option value="low">Matala</option>
-                      <option value="moderate">Keskiverto</option>
-                      <option value="high">Monimutkainen</option>
-                      <option value="very_high">Erittäin monimutkainen</option>
-                    </Field>
-                  </Grid>
-                </Grid>
+                <TrafficFactorsComponent formik={formik} />
                 <Grid container spacing={1} paddingBottom={2}>
                   {/* Riskiarvojen painokerttoimet */}
                   <Grid container item spacing={1} paddingBottom={2}>
