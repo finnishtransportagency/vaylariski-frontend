@@ -7,11 +7,11 @@ import {
   Tooltip,
   ClickAwayListener,
   IconButton,
+  Typography,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Field } from "formik";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
 import BoatManoeuvrabilityComponent from "./BoatManoeuvrabilityComponent";
