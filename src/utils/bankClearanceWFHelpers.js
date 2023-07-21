@@ -1,13 +1,19 @@
-import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
+import {
+  TextField,
+  Grid,
+  Tooltip,
+  InputLabel,
+  Typography,
+} from "@mui/material";
 
 const formikValueCategory = "bank_clearance_wf";
 const formikValuePrefix = "edge_category";
-const categorys = ["fast", "moderate", "slow"];
-const edges = ["gentle", "sloping", "steep"];
+const boatSpeedOptions = ["fast", "moderate", "slow"];
+const edgeOptions = ["gentle", "sloping", "steep"];
 
-const label = (id, category) => {
+const getFinnishBoatSPeedText = (boatSpeed) => {
   let labelText = "";
-  switch (category) {
+  switch (boatSpeed) {
     case "fast":
       labelText = "Nopea";
       break;
@@ -18,6 +24,11 @@ const label = (id, category) => {
       labelText = "Hidas";
       break;
   }
+  return labelText;
+};
+
+const label = (id, boatSpeed) => {
+  const labelText = getFinnishBoatSPeedText(boatSpeed);
   return (
     <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
       {labelText}
@@ -25,7 +36,7 @@ const label = (id, category) => {
   );
 };
 
-const input = (id, formik) => {
+const input = (id, formik, helperText = "") => {
   return (
     <>
       <Tooltip
@@ -42,6 +53,7 @@ const input = (id, formik) => {
             inputProps={{
               step: "0.01",
             }}
+            helperText={helperText}
             type="number"
             value={formik.values[formikValueCategory][id]}
             onChange={(e) => {
@@ -57,26 +69,26 @@ const input = (id, formik) => {
   );
 };
 
-const cell = (edge, category, formik) => {
-  const id = `${formikValuePrefix}_${edge}_${category}`;
+const cell = (edge, boatSpeed, formik) => {
+  const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
   return (
     <Grid item xs={4} key={id}>
-      {label(id, category)}
+      {label(id, boatSpeed)}
       {input(id, formik)}
     </Grid>
   );
 };
-const row = (edges, category, formik) => {
+const row = (edges, boatSpeed, formik) => {
   return (
     <Grid
       container
       item
       alignItems="flex-end"
       spacing={1}
-      key={`${formikValueCategory}.${category}`}
+      key={`${formikValueCategory}.${boatSpeed}`}
     >
       {edges.map((edge) => {
-        return cell(edge, category, formik);
+        return cell(edge, boatSpeed, formik);
       })}
     </Grid>
   );
@@ -85,9 +97,41 @@ const row = (edges, category, formik) => {
 export const table = (formik) => {
   return (
     <Grid container item spacing={1} paddingBottom={2}>
-      {categorys.map((category) => {
-        return row(edges, category, formik);
+      {boatSpeedOptions.map((boatSpeed) => {
+        return row(edgeOptions, boatSpeed, formik);
       })}
+    </Grid>
+  );
+};
+
+export const simpleInput = (formik) => {
+  const boatSpeed = formik.values.boat.speed;
+  const selectedChannelEdge =
+    formik.values.navline.calculation_params.channel_edge;
+  let edge = "";
+  switch (selectedChannelEdge) {
+    case "gentle_slope":
+      edge = edgeOptions[0];
+      break;
+    case "sloping_edges":
+      edge = edgeOptions[1];
+      break;
+    case "steep_and_hard":
+      edge = edgeOptions[2];
+      break;
+  }
+
+  const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
+  return (
+    <Grid item xs={6}>
+      <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
+        Reunan painokerroin
+      </InputLabel>
+      {input(
+        id,
+        formik,
+        `Valittu aluksen nopeusluokka: ${getFinnishBoatSPeedText(boatSpeed)}`
+      )}
     </Grid>
   );
 };
