@@ -35,7 +35,8 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "build": "cross-env CI=false react-scripts build",
+    "build": "cross-env react-scripts build",
+    "build-e2e": "cross-env CI=false react-scripts build && mv build ./build-frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
