@@ -1,6 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import WindComponent from "./WindComponent";
 import CrossCurrentCmponent from "./CrossCurrentCmponent";
+import LongitudialCurrentComponent from "./LongitudialCurrentComponent";
 
 export default function WayareaConditionsComponent(props) {
   const { formik } = props;
@@ -18,6 +19,7 @@ export default function WayareaConditionsComponent(props) {
       </Grid>
       <WindComponent formik={formik} />
       <CrossCurrentCmponent formik={formik} />
+      <LongitudialCurrentComponent formik={formik} />
     </Grid>
   );
 }
