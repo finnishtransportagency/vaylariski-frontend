@@ -36,9 +36,9 @@ jobs:
       - name: Save frontend build folder
         uses: actions/upload-artifact@v3
         with:
-          name: build-frontend
+          name: build
           if-no-files-found: error
-          path: build-frontend
+          path: build
 
   cypress-run:
     runs-on: ubuntu-22.04
@@ -64,8 +64,8 @@ jobs:
       - name: Download the frontend build folder
         uses: actions/download-artifact@v3
         with:
-          name: build-frontend
-          path: build-frontend
+          name: build
+          path: build
 
       - name: Test if backend is running
         run: |
@@ -76,4 +76,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: npm start
+          record: false
           browser: chrome
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
