@@ -9,15 +9,12 @@ import {
 export default function WeightFactorsComponent(props) {
   const { formik } = props;
   const inputIdsAndNAmes = [
-    ["WF_channel", "Väylä (WF channel)"],
-    ["WF_bend", "Mutka (WF bend)"],
-    ["WF_s_bend", "S-mutka (WF S-bend)"],
-    [
-      "WF_traffic_complexity",
-      "Liikenteen monimutkaisuus (WF traffic complexity)",
-    ],
-    ["WF_reduced_visibility", "Heikentynyt näkyvyys (WF reduced visibility)"],
-    ["WF_light_pollution", "Taustavalon voimakkuus (WF light pollution) "],
+    ["WF_channel", "Väylä"],
+    ["WF_bend", "Mutka"],
+    ["WF_s_bend", "S-mutka"],
+    ["WF_traffic_complexity", "Liikenteen monimutkaisuus"],
+    ["WF_reduced_visibility", "Heikentynyt näkyvyys"],
+    ["WF_light_pollution", "Taustavalon voimakkuus"],
   ];
 
   const input = (id) => {
