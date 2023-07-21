@@ -42,7 +42,7 @@ jobs:
 
   cypress-run:
     runs-on: ubuntu-22.04
-    container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+    # container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
     needs: install
     steps:
       - name: Checkout backend
@@ -53,7 +53,7 @@ jobs:
           path: tree/ANALPA-2925_e2e_docker # TODO change this
 
       - name: Run backend with docker compose
-        run: docker-compose -f "docker-compose.e2e.yaml" up -d --build
+        run: docker-compose -f "docker-compose.e2e.yaml" up --build
 
       - name: Checkout frontend
         uses: actions/checkout@v3
