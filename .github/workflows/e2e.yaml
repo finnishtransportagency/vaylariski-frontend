@@ -21,6 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node 16.15
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.18
+
       - name: Cypress install
         uses: cypress-io/github-action@v5
         with:
@@ -51,6 +56,7 @@ jobs:
 
   cypress-run:
     runs-on: ubuntu-22.04
+    container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
     needs: install
     steps:
       - name: Checkout backend
