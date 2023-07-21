@@ -1,4 +1,4 @@
-name: Cypress Tests with Dependency and Artifact Caching
+name: CI-pipeline for running E2E tests
 
 on:
   push:
