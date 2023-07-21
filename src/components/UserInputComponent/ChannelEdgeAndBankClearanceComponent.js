@@ -7,15 +7,19 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  FormLabel,
+  Switch,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
 
-import { table } from "utils/bankClearanceWFHelpers";
+import { table, simpleInput } from "utils/bankClearanceWFHelpers";
 
 export default function ChannelEdgeAndBankClearanceComponent(props) {
   const { formik } = props;
   const [open, setOpen] = useState(false);
+  const [showOld, setShowOld] = useState(false);
+
   const handleTooltipClose = () => {
     setOpen(false);
   };
@@ -67,6 +71,9 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
+        <FormLabel id={`navline.calculation_params.channel_edge-group-label`}>
+          Reunan tyyppi
+        </FormLabel>
         <RadioGroup
           row
           aria-labelledby={`navline.calculation_params.channel_edge-group-label`}
@@ -101,7 +108,31 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
           />
         </RadioGroup>
       </Grid>
-      {table(formik)}
+      {simpleInput(formik)}
+      <Grid
+        item
+        xs={6}
+        justifyContent="center"
+        sx={{ display: "flex", alignItems: "center" }}
+      >
+        <Typography
+          style={{
+            fontSize: 14,
+            fontWeight: 275,
+          }}
+          color="textSecondary"
+          gutterBottom
+        >
+          Näytä vanha
+          <Switch
+            size="small"
+            checked={showOld}
+            onChange={(e) => setShowOld(e.target.checked)}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        </Typography>
+      </Grid>
+      {showOld ? table(formik) : null}
     </Grid>
   );
 }
