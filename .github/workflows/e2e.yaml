@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node 16.15
+      - name: Setup Node 16.1
         uses: actions/setup-node@v3
         with:
           node-version: 16.18
@@ -45,6 +45,11 @@ jobs:
     # container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
     needs: install
     steps:
+      - name: Setup Node 16.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.18
+
       - name: Checkout backend
         uses: actions/checkout@v3
         with:
