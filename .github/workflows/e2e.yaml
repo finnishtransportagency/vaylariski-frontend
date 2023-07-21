@@ -55,6 +55,7 @@ jobs:
       - name: Run backend with docker compose and conduct a healthcheck
         run: |
           docker-compose -f "docker-compose.e2e.yaml" up --build -d
+          docker ps
           timeout 60s sh -c 'until docker ps | grep vaylariski-backend | grep -q healthy; do echo "Waiting for container to be healthy..."; sleep 2; done'
 
       - name: Checkout frontend
