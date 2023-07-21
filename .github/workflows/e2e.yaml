@@ -15,35 +15,9 @@ on:
       - ANALPA-2924_github_actions_e2e # TODO REMEMBER TO REMOVE THIS!
 
 jobs:
-  install:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node 16.18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.18
-
-      - name: Cypress install
-        uses: cypress-io/github-action@v5
-        with:
-          # Disable running of tests within install job
-          runTests: false
-          build: npm run build-e2e
-
-      - name: Save frontend build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: build
-
   cypress-run:
     runs-on: ubuntu-22.04
     # container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-    needs: install
     steps:
       - name: Setup Node 16.18
         uses: actions/setup-node@v3
@@ -60,23 +34,10 @@ jobs:
       - name: Run backend with docker compose and conduct a healthcheck
         run: |
           docker-compose -f "docker-compose.e2e.yaml" up --build -d
-          docker ps
-          timeout 60s sh -c 'until docker ps | grep backend | grep -q healthy; do echo "Waiting for container to be healthy..."; docker ps; sleep 2; done'
+          timeout 60s sh -c 'until docker ps | grep backend | grep -q healthy; do echo "Waiting for container to be healthy..."; sleep 2; done'
 
       - name: Checkout frontend
         uses: actions/checkout@v3
-
-      - name: Download the frontend build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-
-      - name: Test if backend is running
-        run: |
-          docker ps
-          curl http://localhost:8000
-          curl http://localhost:8000/vaylariski/rest/wayarea_names
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
