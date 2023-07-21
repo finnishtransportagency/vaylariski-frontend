@@ -16,6 +16,7 @@ import BoatSpeedComponent from "./BoatSpeedComponent";
 import PFBendComponent from "./PFBendComponent";
 import WayareaParameterComponent from "./WayareaParameterComponent";
 import WayareaDepthWFComponent from "./WayareaDepthWFComponent";
+import WayareaConditionsComponent from "./WayareaConditionsComponent";
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
@@ -762,6 +763,7 @@ function UserInputForm(props) {
                 paddingRight={1}
                 paddingLeft={2}
               >
+                <WayareaConditionsComponent formik={formik} />
                 {/* Tuuli */}
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={12}>
