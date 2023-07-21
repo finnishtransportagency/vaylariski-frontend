@@ -1,10 +1,4 @@
-import {
-  TextField,
-  Grid,
-  Tooltip,
-  InputLabel,
-  Typography,
-} from "@mui/material";
+import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
 
 const formikValueCategory = "bank_clearance_wf";
 const formikValuePrefix = "edge_category";
