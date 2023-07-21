@@ -76,6 +76,7 @@ jobs:
         run: |
           docker ps
           curl http://localhost:8000
+          curl http://localhost:8000/vaylariski/rest/wayarea_names
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
