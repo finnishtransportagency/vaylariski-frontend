@@ -52,8 +52,8 @@ jobs:
           token: ${{ secrets.E2E_PRIVATE_KEY }}
           path: tree/ANALPA-2925_e2e_docker # TODO
 
-      - name: Run backend
-        run: "docker-compose -f docker-compose.e2e.yaml up --build"
+      - name: Run backend with docker compose
+        run: docker-compose -f "docker-compose.e2e.yaml" up --build
 
       - name: Checkout frontend
         uses: actions/checkout@v3
@@ -69,3 +69,7 @@ jobs:
         with:
           start: npm start
           browser: chrome
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.e2e.yaml" down
