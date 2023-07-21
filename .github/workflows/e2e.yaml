@@ -54,13 +54,6 @@ jobs:
 
       - name: Run backend with docker compose and conduct a healthcheck
         run: |
-          ENVIRONMENT="e2e"
-          CONTAINER_NAME=${{ secrets.CONTAINER_NAME }}
-          DATABASE=${{ secrets.DATABASE }}
-          SCHEMA=${{ secrets.SCHEMA }}
-          PORT=5432
-          USERNAME=${{ secrets.USERNAME }}
-          PASSWORD=${{ secrets.PASSWORD }}
           docker-compose -f "docker-compose.e2e.yaml" up --build -d
           docker ps
           timeout 60s sh -c 'until docker ps | grep backend | grep -q healthy; do echo "Waiting for container to be healthy..."; docker ps; sleep 2; done'
