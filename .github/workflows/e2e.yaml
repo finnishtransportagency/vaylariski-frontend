@@ -67,6 +67,9 @@ jobs:
           name: build-frontend
           path: build-frontend
 
+      - name: Test if backend is running
+        run: docker ps
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
