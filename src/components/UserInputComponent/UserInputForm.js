@@ -1,9 +1,15 @@
 import { useState, useContext } from "react";
 
-import { Button, Divider, Grid, Tooltip, IconButton } from "@mui/material";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { Field } from "formik";
+import {
+  Button,
+  Divider,
+  Grid,
+  Tooltip,
+  ClickAwayListener,
+  IconButton,
+} from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Field } from "formik";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Typography from "@mui/material/Typography";
 import BoatMenuComponent from "./BoatMenuComponent";
@@ -43,7 +49,6 @@ function UserInputForm(props) {
 
   const tooltips = {
     edge: createTooltipFunctions(),
-    wind: createTooltipFunctions(),
   };
 
   return (
