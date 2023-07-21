@@ -7,7 +7,6 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  FormLabel,
   Switch,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
