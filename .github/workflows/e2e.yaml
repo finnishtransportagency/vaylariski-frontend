@@ -45,7 +45,7 @@ jobs:
         with:
           repository: finnishtransportagency/vaylariski
           token: ${{ secrets.E2E_PRIVATE_KEY }}
-          path: ANALPA-2925_e2e_docker # TODO CHANGE THIS
+          path: tree/ANALPA-2925_e2e_docker # TODO CHANGE THIS
 
       - name: Save backend folder
         uses: actions/upload-artifact@v3
