@@ -43,7 +43,7 @@ jobs:
           path: $GITHUB_HEAD_REF
 
       - name: Save backend folder
-        uses: build/backend
+        uses: actions/upload-artifact@v3
         with:
           name: build/backend
           if-no-files-found: error
