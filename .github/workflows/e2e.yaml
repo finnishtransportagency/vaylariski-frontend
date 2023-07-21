@@ -40,20 +40,6 @@ jobs:
           if-no-files-found: error
           path: build-frontend
 
-      - name: Checkout backend
-        uses: actions/checkout@v3
-        with:
-          repository: finnishtransportagency/vaylariski
-          token: ${{ secrets.E2E_PRIVATE_KEY }}
-          path: tree/ANALPA-2925_e2e_docker # TODO CHANGE THIS
-
-      - name: Save backend folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-backend
-          if-no-files-found: error
-          path: build-backend
-
   cypress-run:
     runs-on: ubuntu-22.04
     container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
@@ -64,14 +50,10 @@ jobs:
         with:
           repository: finnishtransportagency/vaylariski
           token: ${{ secrets.E2E_PRIVATE_KEY }}
-          path: $GITHUB_HEAD_REF
+          path: tree/ANALPA-2925_e2e_docker # TODO
 
-      - name: Download the backend folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build-backend
-          path: build-backend
-          run: "docker-compose -f docker-compose.e2e.yaml up --build"
+      - name: Run backend
+        run: "docker-compose -f docker-compose.e2e.yaml up --build"
 
       - name: Checkout frontend
         uses: actions/checkout@v3
