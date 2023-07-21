@@ -5,24 +5,43 @@ const formikValuePrefix = "edge_category";
 const boatSpeedOptions = ["fast", "moderate", "slow"];
 const edgeOptions = ["gentle", "sloping", "steep"];
 
-const getFinnishBoatSPeedText = (boatSpeed) => {
-  let labelText = "";
+const getFinnishBoatSpeedText = (boatSpeed) => {
+  let result = "";
   switch (boatSpeed) {
-    case "fast":
-      labelText = "Nopea";
+    case boatSpeedOptions[0]:
+      result = "Nopea";
       break;
-    case "moderate":
-      labelText = "Keskiverto";
+    case boatSpeedOptions[1]:
+      result = "Keskiverto";
       break;
-    case "slow":
-      labelText = "Hidas";
+    case boatSpeedOptions[2]:
+      result = "Hidas";
       break;
   }
-  return labelText;
+  return result;
 };
 
-const label = (id, boatSpeed) => {
-  const labelText = getFinnishBoatSPeedText(boatSpeed);
+const getFinnishEdgeText = (edge) => {
+  let result = "";
+  switch (edge) {
+    case edgeOptions[0]:
+      result = "Loiva kaltevuus";
+      break;
+    case edgeOptions[1]:
+      result = "Viistot reunat";
+      break;
+    case edgeOptions[2]:
+      result = "Jyrkkä ja kova";
+      break;
+  }
+  return result;
+};
+
+const label = (id, boatSpeed, edge = "") => {
+  const labelText = `${getFinnishEdgeText(edge)}, ${getFinnishBoatSpeedText(
+    boatSpeed
+  )}`;
+
   return (
     <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
       {labelText}
@@ -67,7 +86,7 @@ const cell = (edge, boatSpeed, formik) => {
   const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
   return (
     <Grid item xs={4} key={id}>
-      {label(id, boatSpeed)}
+      {label(id, boatSpeed, edge)}
       {input(id, formik)}
     </Grid>
   );
@@ -124,7 +143,7 @@ export const simpleInput = (formik) => {
       {input(
         id,
         formik,
-        `Valittu aluksen nopeusluokka: ${getFinnishBoatSPeedText(boatSpeed)}`
+        `Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(boatSpeed)}`
       )}
     </Grid>
   );
