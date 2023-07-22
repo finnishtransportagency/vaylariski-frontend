@@ -109,7 +109,6 @@ export default function WayareaComponent(props) {
             onInputChange={(ev, newInputValue, reason) => {
               if (reason === "input") setWayareaInputString(newInputValue);
             }}
-            sx={{ width: "99%" }}
             size="small"
             renderInput={(params) => (
               <TextField
