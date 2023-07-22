@@ -88,7 +88,7 @@ export default function WayareaComponent(props) {
           Valitse väylä
         </Typography>
         <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
-          VAYLAT id/nimi:
+          VAYLAT id/nimi
         </InputLabel>
         <Tooltip
           placement="right"
