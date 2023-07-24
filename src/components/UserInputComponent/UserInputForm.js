@@ -82,16 +82,6 @@ function UserInputForm(props) {
                 <WayareaConditionsComponent formik={formik} />
               </Grid>
             </Grid>
-            <Grid item xs={3.99}>
-              <Grid
-                id="abba"
-                container
-                spacing={1}
-                paddingBottom={2}
-                paddingRight={2}
-                paddingLeft={2}
-              ></Grid>
-            </Grid>
             <Divider orientation="vertical" flexItem></Divider>
           </Grid>
           <Grid item xs={12}>
