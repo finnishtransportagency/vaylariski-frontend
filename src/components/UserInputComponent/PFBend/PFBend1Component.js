@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import { table, headerAndTooltip } from "../../utils/PFBendParameterHelpers";
+import { table, headerAndTooltip } from "../../../utils/PFBendParameterHelpers";
 
 export default function PFBend1Component(props) {
   const { formik } = props;
