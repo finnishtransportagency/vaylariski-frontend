@@ -78,97 +78,101 @@ export default function WayareaComponent(props) {
   };
 
   return (
-    <Form.Group>
+    <Grid container spacing={1} paddingBottom={2}>
       <Grid item xs={12}>
-        <Typography
-          style={{ fontSize: 16, fontWeight: 550 }}
-          color="textSecondary"
-          gutterBottom
-        >
-          Valitse väylä
-        </Typography>
-        <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
-          VAYLAT id/nimi
-        </InputLabel>
-        <Tooltip
-          placement="right"
-          arrow
-          title={meta.error}
-          id="wayarea-tooltip"
-        >
-          <Autocomplete
-            id="navline.VAYLAT"
-            data-cy-id="navline.VAYLAT.id"
-            disablePortal
-            options={allWayareas}
-            getOptionLabel={(option) =>
-              option ? formatInputString(option) : ""
-            }
-            onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-            inputValue={wayareaInputString}
-            onInputChange={(ev, newInputValue, reason) => {
-              if (reason === "input") setWayareaInputString(newInputValue);
-            }}
-            size="small"
-            renderInput={(params) => (
-              <TextField
-                error={!!meta.error}
-                style={{ backgroundColor: "white" }}
-                {...params}
-                required
-              />
-            )}
-          />
-        </Tooltip>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography
-          id={"calculation_interval"}
-          component="span"
-          style={{
-            fontSize: 14,
-            verticalAlign: "middle",
-          }}
-          color="textSecondary"
-        >
-          Pisteiden väli (m)
-          <ClickAwayListener onClickAway={handleTooltipClose}>
+        <Form.Group>
+          <Grid item xs={12}>
+            <Typography
+              style={{ fontSize: 16, fontWeight: 550 }}
+              color="textSecondary"
+              gutterBottom
+            >
+              Valitse väylä
+            </Typography>
+            <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
+              VAYLAT id/nimi
+            </InputLabel>
             <Tooltip
               placement="right"
               arrow
-              title={
-                <label style={{ fontSize: 14 }}>
-                  Valitse laskentapisteiden välinen etäisyys navigointilinjalla.
-                  Oletusarvo on 10 m.
-                </label>
-              }
-              PopperProps={{
-                disablePortal: true,
-              }}
-              onClose={handleTooltipClose}
-              open={open}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
+              title={meta.error}
+              id="wayarea-tooltip"
             >
-              <IconButton onClick={handleTooltipOpen}>
-                <InfoOutlinedIcon fontSize="small" />
-              </IconButton>
+              <Autocomplete
+                id="navline.VAYLAT"
+                data-cy-id="navline.VAYLAT.id"
+                disablePortal
+                options={allWayareas}
+                getOptionLabel={(option) =>
+                  option ? formatInputString(option) : ""
+                }
+                onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+                inputValue={wayareaInputString}
+                onInputChange={(ev, newInputValue, reason) => {
+                  if (reason === "input") setWayareaInputString(newInputValue);
+                }}
+                size="small"
+                renderInput={(params) => (
+                  <TextField
+                    error={!!meta.error}
+                    style={{ backgroundColor: "white" }}
+                    {...params}
+                    required
+                  />
+                )}
+              />
             </Tooltip>
-          </ClickAwayListener>
-        </Typography>
-        <Select
-          required
-          size={"small"}
-          sx={{ width: "100%", height: 40 }}
-          style={{ backgroundColor: "white" }}
-          id={"calculation_interval"}
-          value={calculationInterval}
-          onChange={handleChange}
-        >
-          {MenuOptions()}
-        </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography
+              id={"calculation_interval"}
+              component="span"
+              style={{
+                fontSize: 14,
+                verticalAlign: "middle",
+              }}
+              color="textSecondary"
+            >
+              Pisteiden väli (m)
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+                <Tooltip
+                  placement="right"
+                  arrow
+                  title={
+                    <label style={{ fontSize: 14 }}>
+                      Valitse laskentapisteiden välinen etäisyys
+                      navigointilinjalla. Oletusarvo on 10 m.
+                    </label>
+                  }
+                  PopperProps={{
+                    disablePortal: true,
+                  }}
+                  onClose={handleTooltipClose}
+                  open={open}
+                  disableFocusListener
+                  disableHoverListener
+                  disableTouchListener
+                >
+                  <IconButton onClick={handleTooltipOpen}>
+                    <InfoOutlinedIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </ClickAwayListener>
+            </Typography>
+            <Select
+              required
+              size={"small"}
+              sx={{ width: "100%", height: 40 }}
+              style={{ backgroundColor: "white" }}
+              id={"calculation_interval"}
+              value={calculationInterval}
+              onChange={handleChange}
+            >
+              {MenuOptions()}
+            </Select>
+          </Grid>
+        </Form.Group>
       </Grid>
-    </Form.Group>
+    </Grid>
   );
 }
