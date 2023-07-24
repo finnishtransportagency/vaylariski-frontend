@@ -49,9 +49,7 @@ function UserInputForm(props) {
                 />
                 <BoatMenuComponent name="boat" formik={formik} />
                 <BoatManoeuvrabilityComponent formik={formik} />
-                <Grid container spacing={1} paddingBottom={2}>
-                  <BoatSpeedComponent formik={formik} name="boat.speed" />
-                </Grid>
+                <BoatSpeedComponent formik={formik} name="boat.speed" />
                 <Grid container spacing={1} paddingBottom={2}>
                   <PFBendComponent formik={formik} />
                 </Grid>
