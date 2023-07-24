@@ -75,18 +75,18 @@ function row(n, formik, isBend1) {
   const lim = isBend1 ? "ratio" : "angle";
   return (
     <Grid container item alignItems="flex-end" spacing={1} key={n}>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         {input(`PF_bend_${bend}_${n}`, formik)}
       </Grid>
-      <Grid item xs={2} />
-      <Grid item xs={2} />
-      <Grid item xs={2}>
+      <Grid item xs={1} />
+      {/* <Grid item xs={2} /> */}
+      <Grid item xs={3}>
         {n > 1 ? input(`bend_${lim}_lim_${n - 1}`, formik) : null}
       </Grid>
       <Grid item xs={2} paddingBottom={0.5}>
         {limText(n, symbol)}
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         {n < 5 ? input(`bend_${lim}_lim_${n}`, formik) : null}
       </Grid>
     </Grid>
@@ -116,7 +116,7 @@ export function headerAndTooltip(
 ) {
   return (
     <Grid item xs={12} container alignItems="center">
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         <Typography
           style={{ fontSize: 14, fontWeight: 550 }}
           color="textSecondary"
