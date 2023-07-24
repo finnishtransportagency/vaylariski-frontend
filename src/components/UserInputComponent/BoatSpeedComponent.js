@@ -12,7 +12,7 @@ export default function BoatSpeedComponent(props) {
   const [selected, setSelected] = useState("moderate");
 
   return (
-    <>
+    <Grid container spacing={1} paddingBottom={2}>
       <Grid item xs={12}>
         <Typography
           style={{ fontSize: 16, fontWeight: 550 }}
@@ -91,6 +91,6 @@ export default function BoatSpeedComponent(props) {
           />
         </RadioGroup>
       </Grid>
-    </>
+    </Grid>
   );
 }
