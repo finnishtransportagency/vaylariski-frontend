@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import BoatMenuComponent from "./BoatMenuComponent";
@@ -44,7 +43,6 @@ function UserInputForm(props) {
                 paddingLeft={2}
               >
                 <Grid container spacing={1} paddingBottom={2}>
-                  {/*väylämenu*/}
                   <Grid item xs={12}>
                     <WayareaComponent name="navline.VAYLAT" formik={formik} />
                   </Grid>
@@ -57,15 +55,11 @@ function UserInputForm(props) {
                     />
                   </Grid>
                 </Grid>
-                {/*Laivamenu */}
                 <BoatMenuComponent name="boat" formik={formik} />
-                {/* Ctr and Cm parameters */}
                 <Grid container spacing={1} paddingBottom={2}>
-                  {/* Ohjailtavuus */}
                   <BoatManoeuvrabilityComponent formik={formik} />
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
-                  {/* Nopeusluokka */}
                   <BoatSpeedComponent formik={formik} name="boat.speed" />
                 </Grid>
                 <Grid container spacing={1} paddingBottom={2}>
@@ -76,7 +70,6 @@ function UserInputForm(props) {
 
             <Divider orientation="vertical" flexItem></Divider>
             <Grid item xs={3.99}>
-              {/* Väylän parametrit */}
               <Grid
                 container
                 spacing={1}
