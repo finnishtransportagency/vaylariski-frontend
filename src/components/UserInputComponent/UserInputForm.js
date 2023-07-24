@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import BoatSpeedComponent from "./BoatSpeedComponent";
-import PFBendComponent from "./PFBendComponent";
+import PFBendComponent from "./PFBend/PFBendComponent";
 import WayareaParameterComponent from "./WayareaParameterComponent";
 import WayareaDepthWFComponent from "./WayareaDepthWFComponent";
 import WayareaConditionsComponent from "./WayareaConditionsComponent";
