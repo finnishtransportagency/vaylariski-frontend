@@ -43,12 +43,10 @@ function UserInputForm(props) {
                 paddingLeft={2}
               >
                 <WayareaComponent name="navline.VAYLAT" formik={formik} />
-
                 <GDOGIDMenuComponent
                   formik={formik}
                   name="navline.starting_gdo_gid"
                 />
-
                 <BoatMenuComponent name="boat" formik={formik} />
                 <Grid container spacing={1} paddingBottom={2}>
                   <BoatManoeuvrabilityComponent formik={formik} />
