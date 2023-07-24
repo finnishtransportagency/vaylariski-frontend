@@ -42,11 +42,7 @@ function UserInputForm(props) {
                 paddingRight={2}
                 paddingLeft={2}
               >
-                <Grid container spacing={1} paddingBottom={2}>
-                  <Grid item xs={12}>
-                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
-                  </Grid>
-                </Grid>
+                <WayareaComponent name="navline.VAYLAT" formik={formik} />
                 <Grid container spacing={1} paddingBottom={2}>
                   <Grid item xs={12}>
                     <GDOGIDMenuComponent
