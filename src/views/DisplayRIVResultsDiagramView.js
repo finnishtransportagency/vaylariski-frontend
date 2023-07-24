@@ -120,6 +120,10 @@ export default function DisplayRIVResultsDiagramView(props) {
     setSelectedRowIndex(data.activePayload[0].payload.point_index);
   };
 
+  const maxDataValue = Math.ceil(
+    Math.max(...displayRowResults.map((entry) => entry.RISK_INDEX_SUM)) + 2
+  );
+
   return (
     <div
       role="TabPanelComponent"
@@ -142,20 +146,18 @@ export default function DisplayRIVResultsDiagramView(props) {
             <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
             <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"} />
-            <YAxis />
+            <YAxis domain={[0, maxDataValue]} />
             <Tooltip trigger="click" content={<CustomTooltipRender />} />
             <ReferenceArea
               y1={0}
-              y2={RIVTrafficLight.green}
-              label="Green"
+              y2={Math.min(maxDataValue, RIVTrafficLight.green)}
               stroke="Green"
               fill="green"
               fillOpacity={0.1}
             />
             <ReferenceArea
               y1={RIVTrafficLight.green}
-              y2={RIVTrafficLight.yellow}
-              label="Yellow"
+              y2={Math.min(maxDataValue, RIVTrafficLight.yellow)}
               stroke="yellow"
               fill="yellow"
               fillOpacity={0.1}
@@ -163,7 +165,6 @@ export default function DisplayRIVResultsDiagramView(props) {
             <ReferenceArea
               y1={RIVTrafficLight.yellow}
               y2={RIVTrafficLight.red}
-              label="Red"
               stroke="red"
               fill="red"
               fillOpacity={0.1}
