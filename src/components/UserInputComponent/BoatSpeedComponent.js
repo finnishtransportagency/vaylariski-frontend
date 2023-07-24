@@ -45,7 +45,13 @@ export default function BoatSpeedComponent(props) {
               <>
                 Hidas
                 <br />
-                {"5 ≤ v < 8"}
+                <Typography
+                  style={{ fontSize: 14 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  {"5 ≤ v < 8"}
+                </Typography>
               </>
             }
           />
@@ -56,7 +62,13 @@ export default function BoatSpeedComponent(props) {
               <>
                 Keskiverto
                 <br />
-                {"8 ≤ v < 12"}
+                <Typography
+                  style={{ fontSize: 14 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  {"8 ≤ v < 12"}
+                </Typography>
               </>
             }
           />
@@ -67,7 +79,13 @@ export default function BoatSpeedComponent(props) {
               <>
                 Nopea
                 <br />
-                {"v ≥ 12"}
+                <Typography
+                  style={{ fontSize: 14 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  {"v ≥ 12"}
+                </Typography>
               </>
             }
           />
