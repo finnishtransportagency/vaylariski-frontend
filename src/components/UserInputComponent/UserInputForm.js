@@ -48,9 +48,7 @@ function UserInputForm(props) {
                   name="navline.starting_gdo_gid"
                 />
                 <BoatMenuComponent name="boat" formik={formik} />
-                <Grid container spacing={1} paddingBottom={2}>
-                  <BoatManoeuvrabilityComponent formik={formik} />
-                </Grid>
+                <BoatManoeuvrabilityComponent formik={formik} />
                 <Grid container spacing={1} paddingBottom={2}>
                   <BoatSpeedComponent formik={formik} name="boat.speed" />
                 </Grid>
