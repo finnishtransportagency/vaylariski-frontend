@@ -20,6 +20,7 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
 export default function WayareaComponent(props) {
   const { name, formik } = props;
+  // eslint-disable-next-line no-unused-vars
   const [field, meta] = useField(name);
   const [allWayareas, setAllWayareas] = useState([]);
   const [open, setOpen] = useState(false);
