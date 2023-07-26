@@ -16,7 +16,7 @@ export default function PFBendComponent(props) {
   };
   const tooltiptTitle = (
     <label style={{ fontSize: 14 }}>
-      Kulman jyrkkyyden painokerroin lasketaan summasta PF
+      Mutkan jyrkkyyden painokerroin lasketaan summasta PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> = PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+ PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>

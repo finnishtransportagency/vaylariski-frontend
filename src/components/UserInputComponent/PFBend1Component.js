@@ -22,8 +22,8 @@ export default function PFBend1Component(props) {
     <label style={{ fontSize: 14 }}>
       PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> on
-      painokerroin mutkan jyrkkyydelle suhteessa säteeseen, aluksen
-      kääntösäteeseen ja alukseen pituuteen.
+      painokerroin mutkan jyrkkyydelle suhteessa mutkan säteeseen, aluksen
+      kääntösäteeseen sekä aluksen pituuteen.
     </label>
   );
   const PFBendTitle = (
@@ -36,7 +36,10 @@ export default function PFBend1Component(props) {
     <label style={{ fontSize: 14 }}>
       BSI = R<span style={{ verticalAlign: "sub", fontSize: 12 }}>b</span> / C
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span> * L, kun R
-      on säde, C<span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span>{" "}
+      <span style={{ verticalAlign: "sub", fontSize: 12 }}>b </span>
+      on säde, C<span style={{ verticalAlign: "sub", fontSize: 12 }}>
+        tr
+      </span>{" "}
       on kerroin, joka ilmaisee aluksen kääntösäteen ja L on aluksen pituus.{" "}
     </label>
   );
