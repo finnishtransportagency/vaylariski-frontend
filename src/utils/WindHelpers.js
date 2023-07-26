@@ -8,13 +8,13 @@ const getFinnishBoatSpeedText = (boatSpeed) => {
   let result = "";
   switch (boatSpeed) {
     case boatSpeedOptions[0]:
-      result = "Nopea";
+      result = "nopea";
       break;
     case boatSpeedOptions[1]:
-      result = "Keskiverto";
+      result = "keskiverto";
       break;
     case boatSpeedOptions[2]:
-      result = "Hidas";
+      result = "hidas";
       break;
   }
   return result;
@@ -66,6 +66,9 @@ const input = (id, formik, helperText = "") => {
               step: "0.01",
             }}
             helperText={helperText}
+            FormHelperTextProps={{
+              style: { fontSize: 14 },
+            }}
             type="number"
             value={formik.values[formikValueCategory][id]}
             onChange={(e) => {
@@ -123,7 +126,7 @@ export const simpleInput = (formik) => {
 
   const id = `${selectedWindSpeed}_wind_${boatSpeed}_vessel`;
   return (
-    <Grid item xs={6}>
+    <Grid item xs={7}>
       <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
         Tuulen painokerroin
       </InputLabel>

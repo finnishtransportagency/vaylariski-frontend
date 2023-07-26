@@ -52,7 +52,7 @@ export default function WeightFactorsComponent(props) {
   };
   const cell = (id, name) => {
     return (
-      <Grid item xs={4} key={`weightfactors.${id}`}>
+      <Grid item xs={6} key={`weightfactors.${id}`}>
         {label(id, name)}
         {input(id)}
       </Grid>

@@ -114,10 +114,11 @@ export default function GDOGIDMenuComponent(props) {
             arrow
             title={
               <label style={{ fontSize: 14 }}>
-                Jos halutaan laskea s-mutkan suora, annetaan navigointilinjan
-                ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen
-                GDO_GID on 227903 ja Turun väylällä (3255) ensimmäinen GDO_GID
-                on 204344.
+                Jotta voidaan laskea S-mutka, eli kahden peräkkäisen
+                erisuuntaisen mutkan välinen etäisyys, on annettava GDO_GID:ien
+                järjestämistä varten navigointilinjan ensimmäinen GDO_GID. Esim.
+                Oulun väylällä (100) ensimmäinen GDO_GID on 227903 ja Turun
+                väylällä (3255) ensimmäinen GDO_GID on 204344.
               </label>
             }
             PopperProps={{

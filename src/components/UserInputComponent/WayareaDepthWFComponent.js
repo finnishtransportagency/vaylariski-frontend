@@ -50,10 +50,12 @@ export default function WayareaDepthWFComponent(props) {
               arrow
               title={
                 <label style={{ fontSize: 14 }}>
-                  Syvyyden painokerroin kerrotaan aluksen leveydellä alla
-                  näkyvien määritysten perusteella, joihin vaikuttaa väylän
-                  syvyys ja aluksen syväys. Laskennassa voi käyttää oletusarvoja
-                  tai määrittää uudet painokertoimet.
+                  Alla olevissa kentissä määritetään kertoimet, jotka
+                  kerrottaessa aluksen leveydellä määrittävät syvyyden
+                  painokertoimen. Kerroin eri navigointilinjan osille määräytyy
+                  alla olevista vaihtoehdoista väylän tyypin, väylän syvyyden ja
+                  aluksen syväyksen perusteella. Laskennassa voi käyttää
+                  oletusarvoja tai määrittää uudet kertoimet kenttiin.
                   <br />
                   <em>
                     S

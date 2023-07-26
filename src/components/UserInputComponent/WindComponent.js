@@ -30,6 +30,8 @@ export default function WindComponent(props) {
       tuulen painokertoimet joihin vaikuttaa tuulen nopeusluokka sekä aluksen
       nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa.
       Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
+      Klikkaamalla Näytä kaikki voi tarkastella ja muokata kertoimia eri tuulen
+      ja aluksen nopeusluokka yhdistelmille.
     </label>
   );
 
@@ -143,7 +145,7 @@ export default function WindComponent(props) {
       {simpleInput(formik)}
       <Grid
         item
-        xs={6}
+        xs={5}
         justifyContent="center"
         sx={{ display: "flex", alignItems: "center" }}
       >
@@ -155,7 +157,7 @@ export default function WindComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Näytä vanha
+          Näytä kaikki
           <Switch
             size="small"
             checked={showOld}
