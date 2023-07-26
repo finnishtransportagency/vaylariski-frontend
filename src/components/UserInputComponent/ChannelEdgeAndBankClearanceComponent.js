@@ -113,7 +113,7 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
       {simpleInput(formik)}
       <Grid
         item
-        xs={5}
+        xs={4}
         justifyContent="center"
         sx={{ display: "flex", alignItems: "center" }}
       >

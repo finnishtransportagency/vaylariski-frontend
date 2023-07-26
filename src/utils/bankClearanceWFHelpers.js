@@ -139,7 +139,7 @@ export const simpleInput = (formik) => {
 
   const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
   return (
-    <Grid item xs={7}>
+    <Grid item xs={8}>
       <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
         Reunan painokerroin
       </InputLabel>

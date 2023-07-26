@@ -126,7 +126,7 @@ export const simpleInput = (formik) => {
 
   const id = `${selectedWindSpeed}_wind_${boatSpeed}_vessel`;
   return (
-    <Grid item xs={7}>
+    <Grid item xs={8}>
       <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
         Tuulen painokerroin
       </InputLabel>
