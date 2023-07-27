@@ -19,7 +19,7 @@ import {
  *  }} props
  * @returns {JSX.Element}
  */
-export const RadioButtons = ({
+export const CustomRadio = ({
   formik,
   formikName,
   defaultValue,
