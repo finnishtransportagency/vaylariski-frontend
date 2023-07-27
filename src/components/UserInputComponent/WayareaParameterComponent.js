@@ -1,11 +1,6 @@
-import {
-  Grid,
-  Typography,
-  Tooltip,
-  InputLabel,
-  TextField,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import CustomMultipleSelect from "components/customInputs/CustomMultipleSelect";
+import CustomNumber from "components/customInputs/CustomNumber";
 
 export default function WayareaParameterComponent(props) {
   const { formik } = props;
@@ -65,38 +60,14 @@ export default function WayareaParameterComponent(props) {
         </Typography>
       </Grid>
       <CustomMultipleSelect formik={formik} selectProps={selectProps} />
-      <Grid item xs={6}>
-        <InputLabel id="navline.calculation_params.other.visibility">
-          Näkyvyys (m)
-        </InputLabel>
-        <Tooltip
-          placement="right"
-          arrow
-          title={formik.errors?.navline?.calculation_params?.other?.visibility}
-        >
-          <span>
-            <TextField
-              id="navline.calculation_params.visibility"
-              error={
-                !!formik.errors?.navline?.calculation_params?.other?.visibility
-              }
-              inputProps={{
-                step: "0.1",
-              }}
-              size="small"
-              fullWidth
-              type="number"
-              value={formik.values.navline.calculation_params.other.visibility}
-              onChange={(e) => {
-                formik.setFieldValue(
-                  "navline.calculation_params.other.visibility",
-                  e.target.value
-                );
-              }}
-            />
-          </span>
-        </Tooltip>
-      </Grid>
+      <CustomNumber
+        formik={formik}
+        formikName={"navline.calculation_params.other.visibility"}
+        label={"Näkyvyys (m)"}
+        xs={6}
+        step={0.1}
+        size="small"
+      />
     </Grid>
   );
 }
