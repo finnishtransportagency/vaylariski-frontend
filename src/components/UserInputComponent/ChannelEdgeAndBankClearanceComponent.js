@@ -4,16 +4,13 @@ import {
   Tooltip,
   IconButton,
   ClickAwayListener,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  FormLabel,
   Switch,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
 
 import { table, simpleInput } from "utils/bankClearanceWFHelpers";
+import CustomRadio from "components/customInputs/CustomRadio";
 
 export default function ChannelEdgeAndBankClearanceComponent(props) {
   const { formik } = props;
@@ -36,6 +33,21 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
       nopeusluokka ja reunan tyyppi yhdistelmille.
     </label>
   );
+
+  const RadioButtonPropsArr = [
+    {
+      value: "gentle_slope",
+      label: "Loiva kaltevuus",
+    },
+    {
+      value: "sloping_edges",
+      label: "Viistot reunat",
+    },
+    {
+      value: "steep_and_hard",
+      label: "Jyrkkä ja kova",
+    },
+  ];
 
   return (
     <Grid container spacing={1} paddingBottom={2}>
@@ -72,44 +84,13 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
           </ClickAwayListener>
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <FormLabel id={`navline.calculation_params.channel_edge-group-label`}>
-          Reunan tyyppi
-        </FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby={`navline.calculation_params.channel_edge-group-label`}
-          name={"navline.calculation_params.channel_edge"}
-          sx={{
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-          value={formik.values.navline.calculation_params.channel_edge}
-          defaultValue="gentle_slope"
-          onChange={(e) => {
-            formik.setFieldValue(
-              "navline.calculation_params.channel_edge",
-              e.target.value
-            );
-          }}
-        >
-          <FormControlLabel
-            value="gentle_slope"
-            control={<Radio />}
-            label={"Loiva kaltevuus"}
-          />
-          <FormControlLabel
-            value="sloping_edges"
-            control={<Radio />}
-            label={" Viistot reunat"}
-          />
-          <FormControlLabel
-            value="steep_and_hard"
-            control={<Radio />}
-            label={"Jyrkkä ja kova"}
-          />
-        </RadioGroup>
-      </Grid>
+      <CustomRadio
+        formik={formik}
+        formikName={"navline.calculation_params.channel_edge"}
+        formLabelText="Reunan tyyppi"
+        defaultValue={RadioButtonPropsArr[1].value}
+        buttonPropsArr={RadioButtonPropsArr}
+      />
       {simpleInput(formik)}
       <Grid
         item
