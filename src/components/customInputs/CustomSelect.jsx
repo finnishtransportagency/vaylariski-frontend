@@ -23,12 +23,15 @@ export default function CustomSelect({
 }) {
   return (
     <Grid item xs={xs}>
-      <InputLabel id={formikName}>{label}</InputLabel>
+      <InputLabel id={formikName} style={{ fontSize: 14 }}>
+        {label}
+      </InputLabel>
       <Select
         labelId={formikName}
         id={formikName}
         value={formikName.split(".").reduce((a, b) => a[b], formik.values)}
         size="small"
+        style={{ fontSize: 14 }}
         fullWidth
         onChange={(e) => {
           formik.setFieldValue(formikName, e.target.value);
