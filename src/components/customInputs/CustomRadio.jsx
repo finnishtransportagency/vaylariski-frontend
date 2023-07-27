@@ -4,6 +4,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Typography,
+  FormLabel,
 } from "@mui/material";
 
 /**
@@ -15,20 +16,27 @@ import {
  *  buttonPropsArr: {
  *    value: string | number,
  *    label: string,
- *    labelHelperText?: string | null }[]
+ *    labelHelperText?: string}[],
+ *  formLabelText?: string,
  *  }} props
  * @returns {JSX.Element}
  */
 export const CustomRadio = ({
   formik,
   formikName,
+  formLabelText = null,
   defaultValue,
   buttonPropsArr,
 }) => {
   return (
     <Grid item xs={12}>
+      {formLabelText ? (
+        <FormLabel id={`${formikName}-group-label`}>{formLabelText}</FormLabel>
+      ) : null}
+
       <RadioGroup
         row
+        aria-labelledby={`${formikName}-group-label`}
         name={formikName}
         sx={{
           width: "100%",
