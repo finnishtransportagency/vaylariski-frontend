@@ -1,5 +1,5 @@
-import { CustomNumber } from "components/CustomNumber";
-import { CustomText } from "components/CustomText";
+import { CustomNumber } from "components/customInputs/CustomNumber";
+import { CustomText } from "components/customInputs/CustomText";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import { Button } from "react-bootstrap";
