@@ -21,13 +21,13 @@ import {
  *  }} props
  * @returns {JSX.Element}
  */
-export const CustomRadio = ({
+export default function CustomRadio({
   formik,
   formikName,
   formLabelText = null,
   defaultValue,
   buttonPropsArr,
-}) => {
+}) {
   return (
     <Grid item xs={12}>
       {formLabelText ? (
@@ -77,4 +77,4 @@ export const CustomRadio = ({
       </RadioGroup>
     </Grid>
   );
-};
+}
