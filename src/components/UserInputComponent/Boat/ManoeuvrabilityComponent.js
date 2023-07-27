@@ -1,44 +1,36 @@
-import { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Form from "react-bootstrap/Form";
-import Select from "@mui/material/Select";
+import CustomSelect from "components/customInputs/CustomSelect";
 
 export default function ManoeuvrabilityComponent(props) {
-  const [C_manoeuvrability, SetC_manoeuvrability] = useState(1.5);
+  const { formik } = props;
   const options = [
-    ["Hyvä", "Twin-propeller ships, RoPax ships, and cruise ships", 1.3],
-    [
-      "Keskiverto",
-      "Container ships, car carriers, RoRo ships, LNG ships, and LPG ships",
-      1.5,
-    ],
-    ["Heikko", "Tankers, bulk carriers", 1.8],
+    {
+      value: 1.3,
+      label:
+        "1.3 - (Hyvä) - (Twin-propeller ships, RoPax ships, and cruise ships)",
+    },
+    {
+      value: 1.5,
+      label:
+        "1.5 - (Keskiverto) - (Container ships, car carriers, RoRo ships, LNG ships, and LPG ships)",
+    },
+    {
+      value: 1.8,
+      label: "1.8 - (Heikko) - (Tankers, bulk carriers)",
+    },
   ];
 
-  const handleChange = (event) => {
-    SetC_manoeuvrability(event.target.value);
-    props.formik.setFieldValue("boat.C_manoeuvrability", event.target.value);
-  };
-  const MenuOptions = () => {
-    return options.map((e) => (
-      <MenuItem
-        key={e[2]}
-        value={e[2]}
-      >{`${e[2]} - (${e[0]}) - (${e[1]})`}</MenuItem>
-    ));
-  };
-
   return (
-    <Form.Group>
-      <Select
-        sx={{ width: "100%", height: 40 }}
-        style={{ backgroundColor: "white" }}
-        id={props.name}
-        value={C_manoeuvrability}
-        onChange={handleChange}
-      >
-        {MenuOptions()}
-      </Select>
-    </Form.Group>
+    <CustomSelect
+      formik={formik}
+      formikName={"boat.C_manoeuvrability"}
+      label={
+        <>
+          Aluksen ohjailtavuusparametri C
+          <span style={{ verticalAlign: "sub", fontSize: 12 }}>M</span>
+        </>
+      }
+      options={options}
+      xs={12}
+    />
   );
 }
