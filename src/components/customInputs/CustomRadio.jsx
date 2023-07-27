@@ -31,7 +31,9 @@ export default function CustomRadio({
   return (
     <Grid item xs={12}>
       {formLabelText ? (
-        <FormLabel id={`${formikName}-group-label`}>{formLabelText}</FormLabel>
+        <FormLabel style={{ fontSize: 16 }} id={`${formikName}-group-label`}>
+          {formLabelText}
+        </FormLabel>
       ) : null}
 
       <RadioGroup
@@ -55,7 +57,7 @@ export default function CustomRadio({
               value={p.value}
               control={<Radio />}
               label={
-                <>
+                <span style={{ fontSize: 14 }}>
                   {p.label}
                   {p.labelHelperText ? (
                     <>
@@ -69,7 +71,7 @@ export default function CustomRadio({
                       </Typography>
                     </>
                   ) : null}
-                </>
+                </span>
               }
             />
           );
