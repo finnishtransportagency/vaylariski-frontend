@@ -3,8 +3,6 @@ import {
   TextField,
   Typography,
   Grid,
-  Tooltip,
-  InputLabel,
   Switch,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
@@ -13,13 +11,11 @@ import NotificationContext from "contexts/NotificationContext";
 import Form from "react-bootstrap/Form";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import userInputDefault from "constants/UserInputDefault";
+import CustomNumber from "components/customInputs/CustomNumber";
 
 export default function BoatMenuComponent(props) {
   const { formik } = props;
   const [defaultBoats, setDefaultBoats] = useState([]);
-  const [length, setLength] = useState(formik.values.boat.length);
-  const [beam, setBeam] = useState(formik.values.boat.beam);
-  const [draft, setDraft] = useState(formik.values.boat.draft);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
   const [boatInputString, setBoatInputString] = useState("");
@@ -44,18 +40,8 @@ export default function BoatMenuComponent(props) {
     `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.PITUUS}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`;
 
   function handleMenuItemClick(event, newValue) {
-    // Calls parent component's (UserInputForm) function with new boat
     setChosenBoatFormikValue(newValue);
     setSelectedBoat(newValue);
-    if (newValue) {
-      setLength(newValue.PITUUS ? newValue.PITUUS : "");
-      setBeam(newValue.LEVEYS ? newValue.LEVEYS : "");
-      setDraft(newValue.SYVAYS ? newValue.SYVAYS : "");
-    } else {
-      setLength(userInputDefault.boat.length);
-      setBeam(userInputDefault.boat.beam);
-      setDraft(userInputDefault.boat.draft);
-    }
 
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setBoatInputString(newValue ? formatInputString(newValue) : "");
@@ -96,7 +82,6 @@ export default function BoatMenuComponent(props) {
           >
             Valitse alus
           </Typography>
-          {/* Menu selector for default boat values */}
           <Form.Group>
             <Typography
               style={{ fontSize: 14 }}
@@ -126,79 +111,24 @@ export default function BoatMenuComponent(props) {
         </Grid>
       </Grid>
       <Grid container spacing={1} paddingBottom={2}>
-        {/* Laivan koko*/}
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"boat.length"}>
-            Pituus (m)
-          </InputLabel>
-          <Tooltip placement="right" arrow title={formik.errors?.boat?.length}>
-            <span>
-              <TextField
-                fullWidth
-                id="boat.length"
-                error={!!formik.errors?.boat?.length}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.1",
-                }}
-                type="number"
-                value={length}
-                onChange={(e) => {
-                  setLength(String(e.target.value));
-                  formik.setFieldValue("boat.length", Number(e.target.value));
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"boat.beam"}>
-            Leveys (m)
-          </InputLabel>
-          <Tooltip placement="right" arrow title={formik.errors?.boat?.beam}>
-            <span>
-              <TextField
-                id="boat.beam"
-                error={!!formik.errors?.boat?.beam}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.1",
-                }}
-                fullWidth
-                type="number"
-                value={beam}
-                onChange={(e) => {
-                  setBeam(String(e.target.value));
-                  formik.setFieldValue("boat.beam", Number(e.target.value));
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel style={{ fontSize: 14 }} id={"boat.draft"}>
-            Syväys (m)
-          </InputLabel>
-          <Tooltip placement="right" arrow title={formik.errors?.boat?.draft}>
-            <span>
-              <TextField
-                fullWidth
-                id="boat.draft"
-                error={!!formik.errors?.boat?.draft}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.1",
-                }}
-                type="number"
-                value={draft}
-                onChange={(e) => {
-                  setDraft(String(e.target.value));
-                  formik.setFieldValue("boat.draft", Number(e.target.value));
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
+        <CustomNumber
+          formik={formik}
+          formikName={"boat.length"}
+          label={"Pituus (m)"}
+          step={0.1}
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"boat.beam"}
+          label={"Leveys (m)"}
+          step={0.1}
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"boat.draft"}
+          label={"Syväys (m)"}
+          step={0.1}
+        />
       </Grid>
       <Grid paddingBottom={2}>
         <Typography
@@ -220,67 +150,41 @@ export default function BoatMenuComponent(props) {
         </Typography>
         {showOld ? (
           <Grid container spacing={1}>
-            {/*Laivan tiedot*/}
-            <Grid item xs={4}>
-              <InputLabel style={{ fontSize: 14 }} id={"Väylän_tunnus"}>
-                Väylän tunnus:
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="Väylän_tunnus"
-                InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat?.["JNRO"] || ""}
-                disabled
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <InputLabel style={{ fontSize: 14 }} id={"Väylän_nimi"}>
-                Väylän nimi:
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="Väylän_nimi"
-                InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat?.["VAY_NIMISU"] || ""}
-                disabled
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <InputLabel style={{ fontSize: 14 }} id={"Selite"}>
-                Selite:
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="Selite"
-                InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat?.["SELITE"] || ""}
-                disabled
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <InputLabel style={{ fontSize: 14 }} id={"Koko"}>
-                Koko:
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="Koko"
-                InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat?.["KOKO"] || ""}
-                disabled
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <InputLabel style={{ fontSize: 14 }} id={"Runko_kerroin"}>
-                Runko kerroin:
-              </InputLabel>
-              <TextField
-                fullWidth
-                id="Runko_kerroin"
-                InputProps={{ sx: { height: 30 } }}
-                value={selectedBoat?.["RUNKO_TKERROIN"] || ""}
-                disabled
-              />
-            </Grid>
+            <CustomNumber
+              formik={formik}
+              formikName="test"
+              label={"Väylän tunnus"}
+              value={selectedBoat?.["JNRO"] || ""}
+              disabled={true}
+            />
+            <CustomNumber
+              formik={formik}
+              formikName="test"
+              label={"Väylän nimi"}
+              value={selectedBoat?.["VAY_NIMISU"] || ""}
+              disabled={true}
+            />
+            <CustomNumber
+              formik={formik}
+              formikName="test"
+              label={"Selite"}
+              value={selectedBoat?.["SELITE"] || ""}
+              disabled={true}
+            />
+            <CustomNumber
+              formik={formik}
+              formikName="test"
+              label={"Koko"}
+              value={selectedBoat?.["KOKO"] || ""}
+              disabled={true}
+            />
+            <CustomNumber
+              formik={formik}
+              formikName="test"
+              label={"Runko kerroin"}
+              value={selectedBoat?.["RUNKO_TKERROIN"] || ""}
+              disabled={true}
+            />
           </Grid>
         ) : null}
       </Grid>
