@@ -1,44 +1,40 @@
-import { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Form from "react-bootstrap/Form";
-import Select from "@mui/material/Select";
+import CustomSelect from "components/customInputs/CustomSelect";
 
 export default function TurningRadiusComponent(props) {
-  const [C_turning_radius, SetC_turning_radius] = useState(5);
+  const { formik } = props;
   const options = [
-    ["LNG ships, passenger ships", 4],
-    [
-      "Cargo ships, small bulk carriers, VLCCs, small tankers, refrigerated cargo carriers, ferry boats",
-      5,
-    ],
-    [
-      "Small cargo ships, Panamax container ships, very large bulk carriers, Panamax bulk carriers",
-      6,
-    ],
-    ["Post-Panamax container ships", 7],
+    {
+      value: 4,
+      label: "4 - (LNG ships, passenger ships)",
+    },
+    {
+      value: 5,
+      label:
+        "5 - (Cargo ships, small bulk carriers, VLCCs, small tankers, refrigerated cargo carriers, ferry boats)",
+    },
+    {
+      value: 6,
+      label:
+        "6 - (Small cargo ships, Panamax container ships, very large bulk carriers, Panamax bulk carriers)",
+    },
+    {
+      value: 7,
+      label: "7 - (Post-Panamax container ships)",
+    },
   ];
 
-  const handleChange = (event) => {
-    SetC_turning_radius(event.target.value);
-    props.formik.setFieldValue("boat.C_turning_radius", event.target.value);
-  };
-  const MenuOptions = () => {
-    return options.map((e) => (
-      <MenuItem key={e[1]} value={e[1]}>{`${e[1]} - (${e[0]})`}</MenuItem>
-    ));
-  };
-
   return (
-    <Form.Group>
-      <Select
-        sx={{ width: "100%", height: 40 }}
-        style={{ backgroundColor: "white" }}
-        id={props.name}
-        value={C_turning_radius}
-        onChange={handleChange}
-      >
-        {MenuOptions()}
-      </Select>
-    </Form.Group>
+    <CustomSelect
+      formik={formik}
+      formikName={"boat.C_turning_radius"}
+      label={
+        <>
+          Aluksen kääntösädettä kuvaava parametri C
+          <span style={{ verticalAlign: "sub", fontSize: 12 }}>tr</span>
+        </>
+      }
+      options={options}
+      xs={12}
+    />
   );
 }
