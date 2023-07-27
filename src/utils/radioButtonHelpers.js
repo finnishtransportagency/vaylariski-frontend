@@ -7,18 +7,24 @@ import {
 } from "@mui/material";
 
 /**
- * @param {*} formik
- * @param {string} formikName
- * @param {*} defaultValue
- * @param {{ value: *, label: string, labelHelperText: string | null }[]} buttonPropsArr
+ *
+ * @param {{
+ *  formik: any,
+ *  formikName: string,
+ *  defaultValue: string | number,
+ *  buttonPropsArr: {
+ *    value: string | number,
+ *    label: string,
+ *    labelHelperText?: string | null }[]
+ *  }} props
  * @returns {JSX.Element}
  */
-export default function radioButtons(
+export const RadioButtons = ({
   formik,
   formikName,
   defaultValue,
-  buttonPropsArr
-) {
+  buttonPropsArr,
+}) => {
   return (
     <Grid item xs={12}>
       <RadioGroup
@@ -28,7 +34,7 @@ export default function radioButtons(
           width: "100%",
           justifyContent: "space-between",
         }}
-        value={formik.values[formikName]}
+        value={formikName.split(".").reduce((a, b) => a[b], formik.values)}
         defaultValue={defaultValue}
         onChange={(e) => {
           formik.setFieldValue(formikName, e.target.value);
@@ -63,4 +69,4 @@ export default function radioButtons(
       </RadioGroup>
     </Grid>
   );
-}
+};
