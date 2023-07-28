@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 16.18
 
-      - name: ECHO
-        run: echo ${{ github.base_ref || github.ref_name }}
-
       - name: Checkout backend
         uses: actions/checkout@v3
         with:
