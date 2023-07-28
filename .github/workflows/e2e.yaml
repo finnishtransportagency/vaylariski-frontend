@@ -42,7 +42,7 @@ jobs:
         with:
           build: npm run build-e2e
           record: false
-          start: npm start
+          start: npm run start-e2e
           wait-on: "http://localhost:3000"
           browser: chrome
         env:
