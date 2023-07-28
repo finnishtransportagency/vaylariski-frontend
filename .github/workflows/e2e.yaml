@@ -12,6 +12,11 @@ on:
       - test
       - prod
 
+env:
+  BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
+  # base_ref = target branch (pull requests)
+  # ref_name = branch that triggered the workflow (push)
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -27,7 +32,7 @@ jobs:
         with:
           repository: finnishtransportagency/vaylariski
           token: ${{ secrets.E2E_PRIVATE_KEY }}
-          ref: ANALPA-2925_e2e_docker # TODO change this
+          ref: $BRANCH_NAME
 
       - name: Run backend with docker compose and conduct a healthcheck
         run: |
