@@ -1,0 +1,51 @@
+name: CI-pipeline for running E2E tests
+
+on:
+  push:
+    branches:
+      - dev
+      - test
+      - prod
+  pull_request:
+    branches:
+      - dev
+      - test
+      - prod
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    # container: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+    steps:
+      - name: Setup Node 16.18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.18
+
+      - name: Checkout backend
+        uses: actions/checkout@v3
+        with:
+          repository: finnishtransportagency/vaylariski
+          token: ${{ secrets.E2E_PRIVATE_KEY }}
+          ref: ${{ github.base_ref || github.ref_name }}
+          # base_ref = target branch (pull requests)
+          # ref_name = branch that triggered the workflow (push)
+
+      - name: Run backend with docker compose and conduct a healthcheck
+        run: |
+          docker-compose -f "docker-compose.e2e.yaml" up --build -d
+          timeout 60s sh -c 'until docker ps | grep backend | grep -q healthy; do echo "Waiting for container to be healthy..."; sleep 2; done'
+
+      - name: Checkout frontend
+        uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build-e2e
+          record: false
+          start: npm start
+          wait-on: "http://localhost:3000"
+          browser: chrome
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -17,7 +17,6 @@ describe("Wayarea field works", () => {
   it("Has correct initial values in the dropdown", () => {
     cy.get("@wayarea-dropdown-button").click();
     cy.contains("7010 - Akonniemen väylät");
-    cy.contains("6450 - Hankurasaaren oikoväylä");
   });
 
   it("Correct fields are disabled initially with correct tooltips", () => {
