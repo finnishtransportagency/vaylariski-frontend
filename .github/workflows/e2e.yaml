@@ -12,11 +12,6 @@ on:
       - test
       - prod
 
-env:
-  BRANCH_NAME: ${{ github.base_ref || github.ref_name }}
-  # base_ref = target branch (pull requests)
-  # ref_name = branch that triggered the workflow (push)
-
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -28,14 +23,16 @@ jobs:
           node-version: 16.18
 
       - name: ECHO
-        run: echo $BRANCH_NAME
+        run: echo ${{ github.base_ref || github.ref_name }}
 
       - name: Checkout backend
         uses: actions/checkout@v3
         with:
           repository: finnishtransportagency/vaylariski
           token: ${{ secrets.E2E_PRIVATE_KEY }}
-          ref: $BRANCH_NAME
+          ref: ${{ github.base_ref || github.ref_name }}
+          # base_ref = target branch (pull requests)
+          # ref_name = branch that triggered the workflow (push)
 
       - name: Run backend with docker compose and conduct a healthcheck
         run: |
