@@ -1,4 +1,5 @@
 import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
+import CustomNumber from "components/customInputs/CustomNumber";
 
 const formikValueCategory = "wind_wf";
 const boatSpeedOptions = ["fast", "moderate", "slow"];
@@ -86,11 +87,17 @@ const input = (id, formik, helperText = "") => {
 
 const cell = (edge, boatSpeed, formik) => {
   const id = `${edge}_wind_${boatSpeed}_vessel`;
+  const labelText = `${getFinnishEdgeText(edge)}, ${getFinnishBoatSpeedText(
+    boatSpeed
+  )} alus`;
   return (
-    <Grid item xs={4} key={id}>
-      {label(id, boatSpeed, edge)}
-      {input(id, formik)}
-    </Grid>
+    <CustomNumber
+      key={id}
+      formik={formik}
+      formikName={`${formikValueCategory}.${id}`}
+      label={labelText}
+      xs={4}
+    />
   );
 };
 const row = (windOptions, boatSpeed, formik) => {
@@ -126,15 +133,14 @@ export const simpleInput = (formik) => {
 
   const id = `${selectedWindSpeed}_wind_${boatSpeed}_vessel`;
   return (
-    <Grid item xs={8}>
-      <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
-        Tuulen painokerroin
-      </InputLabel>
-      {input(
-        id,
-        formik,
-        `Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(boatSpeed)}`
-      )}
-    </Grid>
+    <CustomNumber
+      formik={formik}
+      formikName={`${formikValueCategory}.${id}`}
+      label={"Tuulen painokerroin"}
+      helperText={`Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(
+        boatSpeed
+      )}`}
+      xs={8}
+    />
   );
 };

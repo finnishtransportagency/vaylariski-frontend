@@ -19,9 +19,11 @@ export default function WayareaConditionsComponent(props) {
         </Typography>
       </Grid>
       <WindComponent formik={formik} />
-      <CrossCurrentCmponent formik={formik} />
-      <LongitudialCurrentComponent formik={formik} />
-      <WaveHeightComponent formik={formik} />
+      <Grid container item spacing={2}>
+        <CrossCurrentCmponent formik={formik} />
+        <LongitudialCurrentComponent formik={formik} />
+        <WaveHeightComponent formik={formik} />
+      </Grid>
     </Grid>
   );
 }

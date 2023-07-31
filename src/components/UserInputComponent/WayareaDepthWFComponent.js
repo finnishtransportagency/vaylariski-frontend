@@ -2,13 +2,12 @@ import {
   Grid,
   Typography,
   Tooltip,
-  InputLabel,
-  TextField,
   IconButton,
   ClickAwayListener,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
+import CustomNumber from "components/customInputs/CustomNumber";
 
 export default function WayareaDepthWFComponent(props) {
   const { formik } = props;
@@ -86,217 +85,69 @@ export default function WayareaDepthWFComponent(props) {
         <Grid item xs={12}>
           <Typography color="textSecondary">Väylän sisäosa</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.deep_inner_channel"}
-          >
-            {wayareaDepth}
-            {" ≥ 1.5 × "}
-            {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.deep_inner_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.deep_inner_channel"
-                error={!!formik.errors?.channel_depth_wf?.deep_inner_channel}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.deep_inner_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.deep_inner_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.medium_deep_inner_channel"}
-          >
-            1.15 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.medium_deep_inner_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.medium_deep_inner_channel"
-                error={
-                  !!formik.errors?.channel_depth_wf?.medium_deep_inner_channel
-                }
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.medium_deep_inner_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.medium_deep_inner_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.shallow_inner_channel"}
-          >
-            {wayareaDepth} {"<"} 1.15 × {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.shallow_inner_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.shallow_inner_channel"
-                error={!!formik.errors?.channel_depth_wf?.shallow_inner_channel}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.shallow_inner_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.shallow_inner_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.deep_inner_channel"}
+          label={
+            <>
+              {wayareaDepth}
+              {" ≥ 1.5 × "}
+              {boatDepth}
+            </>
+          }
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.medium_deep_inner_channel"}
+          label={
+            <>
+              1.15 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
+            </>
+          }
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.shallow_inner_channel"}
+          label={
+            <>
+              {wayareaDepth} {"<"} 1.15 × {boatDepth}
+            </>
+          }
+        />
       </Grid>
       <Grid item container spacing={1}>
         <Grid item xs={12}>
           <Typography color="textSecondary">Väylän ulko-osa</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.deep_outer_channel"}
-          >
-            {wayareaDepth}
-            {" ≥ 1.5 × "}
-            {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.deep_outer_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.deep_outer_channel"
-                error={!!formik.errors?.channel_depth_wf?.deep_outer_channel}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.deep_outer_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.deep_outer_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.medium_deep_outer_channel"}
-          >
-            1.25 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.medium_deep_outer_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.medium_deep_outer_channel"
-                error={
-                  !!formik.errors?.channel_depth_wf?.medium_deep_outer_channel
-                }
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.medium_deep_outer_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.medium_deep_outer_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
-        <Grid item xs={4}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id={"channel_depth_wf.shallow_outer_channel"}
-          >
-            {wayareaDepth} {"<"} 1.25 × {boatDepth}
-          </InputLabel>
-          <Tooltip
-            placement="right"
-            arrow
-            title={formik.errors?.channel_depth_wf?.shallow_outer_channel}
-          >
-            <span>
-              <TextField
-                fullWidth
-                id="channel_depth_wf.shallow_outer_channel"
-                error={!!formik.errors?.channel_depth_wf?.shallow_outer_channel}
-                InputProps={{ sx: { height: 30 } }}
-                inputProps={{
-                  step: "0.01",
-                }}
-                type="number"
-                value={formik.values.channel_depth_wf.shallow_outer_channel}
-                onChange={(e) => {
-                  formik.setFieldValue(
-                    "channel_depth_wf.shallow_outer_channel",
-                    e.target.value
-                  );
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Grid>
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.deep_outer_channel"}
+          label={
+            <>
+              {wayareaDepth}
+              {" ≥ 1.5 × "}
+              {boatDepth}
+            </>
+          }
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.medium_deep_outer_channel"}
+          label={
+            <>
+              1.25 × {boatDepth} ≤ {wayareaDepth} {"<"} 1.5 × {boatDepth}
+            </>
+          }
+        />
+        <CustomNumber
+          formik={formik}
+          formikName={"channel_depth_wf.shallow_outer_channel"}
+          label={
+            <>
+              {wayareaDepth} {"<"} 1.25 × {boatDepth}
+            </>
+          }
+        />
       </Grid>
     </Grid>
   );

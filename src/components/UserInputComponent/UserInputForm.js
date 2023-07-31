@@ -1,18 +1,17 @@
 import { useContext } from "react";
-
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import BoatMenuComponent from "./BoatMenuComponent";
+import BoatMenuComponent from "./Boat/BoatMenuComponent";
 import WayareaComponent from "./WayareaComponent";
-import BoatManoeuvrabilityComponent from "./BoatManoeuvrabilityComponent";
+import BoatManoeuvrabilityComponent from "./Boat/BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
-import BoatSpeedComponent from "./BoatSpeedComponent";
-import PFBendComponent from "./PFBendComponent";
+import BoatSpeedComponent from "./Boat/BoatSpeedComponent";
+import PFBendComponent from "./PFBend/PFBendComponent";
 import WayareaParameterComponent from "./WayareaParameterComponent";
 import WayareaDepthWFComponent from "./WayareaDepthWFComponent";
-import WayareaConditionsComponent from "./WayareaConditionsComponent";
+import WayareaConditionsComponent from "./WayareaConditions/WayareaConditionsComponent";
 import WeightFactorsComponent from "./WeightFactorsComponent";
 import TrafficFactorsComponent from "./TrafficFactorsComponent";
 import ChannelEdgeAndBankClearanceComponent from "./ChannelEdgeAndBankClearanceComponent";
@@ -43,40 +42,20 @@ function UserInputForm(props) {
                 paddingRight={2}
                 paddingLeft={2}
               >
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/*väylämenu*/}
-                  <Grid item xs={12}>
-                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  <Grid item xs={12}>
-                    <GDOGIDMenuComponent
-                      formik={formik}
-                      name="navline.starting_gdo_gid"
-                    />
-                  </Grid>
-                </Grid>
-                {/*Laivamenu */}
+                <WayareaComponent name="navline.VAYLAT" formik={formik} />
+                <GDOGIDMenuComponent
+                  formik={formik}
+                  name="navline.starting_gdo_gid"
+                />
                 <BoatMenuComponent name="boat" formik={formik} />
-                {/* Ctr and Cm parameters */}
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/* Ohjailtavuus */}
-                  <BoatManoeuvrabilityComponent formik={formik} />
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  {/* Nopeusluokka */}
-                  <BoatSpeedComponent formik={formik} name="boat.speed" />
-                </Grid>
-                <Grid container spacing={1} paddingBottom={2}>
-                  <PFBendComponent formik={formik} />
-                </Grid>
+                <BoatManoeuvrabilityComponent formik={formik} />
+                <BoatSpeedComponent formik={formik} name="boat.speed" />
+                <PFBendComponent formik={formik} />
               </Grid>
             </Grid>
 
             <Divider orientation="vertical" flexItem></Divider>
             <Grid item xs={3.99}>
-              {/* Väylän parametrit */}
               <Grid
                 container
                 spacing={1}
@@ -102,16 +81,6 @@ function UserInputForm(props) {
               >
                 <WayareaConditionsComponent formik={formik} />
               </Grid>
-            </Grid>
-            <Grid item xs={3.99}>
-              <Grid
-                id="abba"
-                container
-                spacing={1}
-                paddingBottom={2}
-                paddingRight={2}
-                paddingLeft={2}
-              ></Grid>
             </Grid>
             <Divider orientation="vertical" flexItem></Divider>
           </Grid>

@@ -4,13 +4,11 @@ import {
   Tooltip,
   IconButton,
   ClickAwayListener,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
   Switch,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
+import CustomRadio from "components/customInputs/CustomRadio";
 
 import { table, simpleInput } from "utils/WindHelpers";
 
@@ -34,9 +32,26 @@ export default function WindComponent(props) {
       ja aluksen nopeusluokka yhdistelmille.
     </label>
   );
+  const RadioButtonPropsArr = [
+    {
+      value: "mild",
+      label: "Heikko",
+      labelHelperText: "< 7 m/s",
+    },
+    {
+      value: "moderate",
+      label: "Keskiverto",
+      labelHelperText: "7 -17 m/s",
+    },
+    {
+      value: "strong",
+      label: "Voimakas",
+      labelHelperText: "> 17 m/s",
+    },
+  ];
 
   return (
-    <>
+    <Grid item container spacing={1} paddingBottom={1}>
       <Grid item xs={12}>
         <Typography
           style={{
@@ -69,79 +84,14 @@ export default function WindComponent(props) {
           </ClickAwayListener>
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <RadioGroup
-          row
-          name={"navline.calculation_params.operating_conditions.wind_speed"}
-          sx={{
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-          value={
-            formik.values.navline.calculation_params.operating_conditions
-              .wind_speed
-          }
-          defaultValue="gentle_slope"
-          onChange={(e) => {
-            formik.setFieldValue(
-              "navline.calculation_params.operating_conditions.wind_speed",
-              e.target.value
-            );
-          }}
-        >
-          <FormControlLabel
-            value="mild"
-            control={<Radio />}
-            label={
-              <>
-                Heikko
-                <br />
-                <Typography
-                  style={{ fontSize: 14 }}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  {"< 7 m/s"}
-                </Typography>
-              </>
-            }
-          />
-          <FormControlLabel
-            value="moderate"
-            control={<Radio />}
-            label={
-              <>
-                Keskiverto
-                <br />
-                <Typography
-                  style={{ fontSize: 14 }}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  {"7 -17 m/s"}
-                </Typography>
-              </>
-            }
-          />
-          <FormControlLabel
-            value="strong"
-            control={<Radio />}
-            label={
-              <>
-                Voimakas
-                <br />
-                <Typography
-                  style={{ fontSize: 14 }}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  {"> 17 m/s"}
-                </Typography>
-              </>
-            }
-          />
-        </RadioGroup>
-      </Grid>
+      <CustomRadio
+        formik={formik}
+        formikName={
+          "navline.calculation_params.operating_conditions.wind_speed"
+        }
+        defaultValue={RadioButtonPropsArr[1].value}
+        buttonPropsArr={RadioButtonPropsArr}
+      />
       {simpleInput(formik)}
       <Grid
         item
@@ -167,6 +117,6 @@ export default function WindComponent(props) {
         </Typography>
       </Grid>
       {showOld ? table(formik) : null}
-    </>
+    </Grid>
   );
 }
