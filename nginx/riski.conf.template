@@ -15,8 +15,11 @@ http {
       index index.html;
     }
 
-    location /${REACT_APP_BASE_REST_URL} {
-      proxy_pass ${PROXY_URL};
+    resolver !NAMESERVER!;
+    set $upstream !PROXY_URL!;
+
+    location /!REACT_APP_BASE_REST_URL! {
+      proxy_pass $upstream;
       proxy_connect_timeout 300s;
       proxy_send_timeout 300;
       proxy_read_timeout 300s;
