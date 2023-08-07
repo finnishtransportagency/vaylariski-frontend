@@ -1,39 +1,7 @@
-import {
-  TextField,
-  Typography,
-  Grid,
-  Tooltip,
-  IconButton,
-} from "@mui/material";
+import { Typography, Grid, Tooltip, IconButton } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-
-const input = (id, formik) => {
-  return (
-    <Tooltip
-      placement="right"
-      arrow
-      title={formik.errors?.PF_bend_parameters?.[id]}
-    >
-      <span>
-        <TextField
-          id={"PF_bend_parameters." + id}
-          error={!!formik.errors?.PF_bend_parameters?.[id]}
-          InputProps={{ sx: { height: 30 } }}
-          fullWidth
-          inputProps={{
-            step: "0.1",
-          }}
-          type="number"
-          value={formik.values.PF_bend_parameters[id]}
-          onChange={(e) => {
-            formik.setFieldValue("PF_bend_parameters." + id, e.target.value);
-          }}
-        />
-      </span>
-    </Tooltip>
-  );
-};
+import CustomNumber from "components/customInputs/CustomNumber";
 
 const limText = (n, symbol) => {
   let whitespaceFront = false;
@@ -75,20 +43,36 @@ function row(n, formik, isBend1) {
   const lim = isBend1 ? "ratio" : "angle";
   return (
     <Grid container item alignItems="flex-end" spacing={1} key={n}>
-      <Grid item xs={3}>
-        {input(`PF_bend_${bend}_${n}`, formik)}
-      </Grid>
+      <CustomNumber
+        formik={formik}
+        formikName={`PF_bend_parameters.PF_bend_${bend}_${n}`}
+        xs={3}
+        step={0.1}
+      />
       <Grid item xs={1} />
-      {/* <Grid item xs={2} /> */}
-      <Grid item xs={3}>
-        {n > 1 ? input(`bend_${lim}_lim_${n - 1}`, formik) : null}
-      </Grid>
+      {n > 1 ? (
+        <CustomNumber
+          formik={formik}
+          formikName={`PF_bend_parameters.bend_${lim}_lim_${n - 1}`}
+          xs={3}
+          step={0.1}
+        />
+      ) : (
+        <Grid item xs={3} />
+      )}
       <Grid item xs={2} paddingBottom={0.5}>
         {limText(n, symbol)}
       </Grid>
-      <Grid item xs={3}>
-        {n < 5 ? input(`bend_${lim}_lim_${n}`, formik) : null}
-      </Grid>
+      {n < 5 ? (
+        <CustomNumber
+          formik={formik}
+          formikName={`PF_bend_parameters.bend_${lim}_lim_${n}`}
+          xs={3}
+          step={0.1}
+        />
+      ) : (
+        <Grid item xs={3} />
+      )}
     </Grid>
   );
 }

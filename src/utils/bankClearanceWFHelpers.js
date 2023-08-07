@@ -1,4 +1,5 @@
-import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
+import { Grid } from "@mui/material";
+import CustomNumber from "components/customInputs/CustomNumber";
 
 const formikValueCategory = "bank_clearance_wf";
 const formikValuePrefix = "edge_category";
@@ -37,61 +38,19 @@ const getFinnishEdgeText = (edge) => {
   return result;
 };
 
-const label = (id, boatSpeed, edge = "") => {
+const cell = (edge, boatSpeed, formik) => {
+  const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
   const labelText = `${getFinnishEdgeText(edge)}, ${getFinnishBoatSpeedText(
     boatSpeed
   )}`;
-
   return (
-    <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
-      {labelText}
-    </InputLabel>
-  );
-};
-
-const input = (id, formik, helperText = "") => {
-  return (
-    <>
-      <Tooltip
-        placement="right"
-        arrow
-        title={formik.errors?.[formikValueCategory]?.[id]}
-      >
-        <span>
-          <TextField
-            id={`${formikValueCategory}.${id}`}
-            error={!!formik.errors?.[formikValueCategory]?.[id]}
-            InputProps={{ sx: { height: 30 } }}
-            fullWidth
-            inputProps={{
-              step: "0.01",
-            }}
-            helperText={helperText}
-            FormHelperTextProps={{
-              style: { fontSize: 14 },
-            }}
-            type="number"
-            value={formik.values[formikValueCategory][id]}
-            onChange={(e) => {
-              formik.setFieldValue(
-                `${formikValueCategory}.${id}`,
-                e.target.value
-              );
-            }}
-          />
-        </span>
-      </Tooltip>
-    </>
-  );
-};
-
-const cell = (edge, boatSpeed, formik) => {
-  const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
-  return (
-    <Grid item xs={4} key={id}>
-      {label(id, boatSpeed, edge)}
-      {input(id, formik)}
-    </Grid>
+    <CustomNumber
+      key={id}
+      formik={formik}
+      formikName={`${formikValueCategory}.${id}`}
+      label={labelText}
+      xs={4}
+    />
   );
 };
 const row = (edges, boatSpeed, formik) => {
@@ -139,15 +98,14 @@ export const simpleInput = (formik) => {
 
   const id = `${formikValuePrefix}_${edge}_${boatSpeed}`;
   return (
-    <Grid item xs={8}>
-      <InputLabel style={{ fontSize: 14 }} id={`${formikValueCategory}.${id}`}>
-        Reunan painokerroin
-      </InputLabel>
-      {input(
-        id,
-        formik,
-        `Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(boatSpeed)}`
-      )}
-    </Grid>
+    <CustomNumber
+      formik={formik}
+      formikName={`${formikValueCategory}.${id}`}
+      label={"Reunan painokerroin"}
+      helperText={`Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(
+        boatSpeed
+      )}`}
+      xs={8}
+    />
   );
 };
