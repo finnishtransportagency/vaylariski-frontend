@@ -3,8 +3,8 @@ export default function BendAngleIconSelected() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      width="150px"
-      height="100px"
+      width="120px"
+      height="75px"
       viewBox="-0.5 -0.5 264 141"
     >
       <g>
