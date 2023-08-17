@@ -37,9 +37,11 @@ export default function GDOGIDMenuComponent(props) {
   const handleTooltipClose = () => {
     setOpen(false);
   };
+
   const handleTooltipOpen = () => {
     setOpen((prevValue) => !prevValue);
   };
+
   function setChosenGDOGIDFormikValue(gdo_gid) {
     formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
   }
@@ -83,6 +85,7 @@ export default function GDOGIDMenuComponent(props) {
   }, [selectedWayarea]);
 
   const handleMenuItemClick = (event, newValue) => {
+    setInvalidFieldInput(false);
     setChosenGDOGIDFormikValue(newValue || "");
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setSelectedGDOGIDString(newValue?.toString() ?? "");
@@ -119,10 +122,11 @@ export default function GDOGIDMenuComponent(props) {
                 title={
                   <label style={{ fontSize: 14 }}>
                     Jotta voidaan laskea S-mutka, eli kahden peräkkäisen
-                    erisuuntaisen mutkan välinen etäisyys, on annettava GDO_GID:ien
-                    järjestämistä varten navigointilinjan ensimmäinen GDO_GID. Esim.
-                    Oulun väylällä (100) ensimmäinen GDO_GID on 227903 ja Turun
-                    väylällä (3255) ensimmäinen GDO_GID on 204344.
+                    erisuuntaisen mutkan välinen etäisyys, on annettava
+                    GDO_GID:ien järjestämistä varten navigointilinjan
+                    ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen
+                    GDO_GID on 227903 ja Turun väylällä (3255) ensimmäinen
+                    GDO_GID on 204344.
                   </label>
                 }
                 PopperProps={{

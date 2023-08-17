@@ -19,14 +19,21 @@ import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 
 export default function WayareaComponent(props) {
+  const formatInputString = (wayarea) =>
+    wayarea ? `${wayarea.VAYLAT} - ${wayarea.Nimi}` : "";
+
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
   const [field, meta] = useField(name);
   const [allWayareas, setAllWayareas] = useState([]);
   const [open, setOpen] = useState(false);
   const { setNotificationStatus } = useContext(NotificationContext);
-  const { setSelectedWayarea } = useContext(SelectedWayareaContext);
-  const [wayareaInputString, setWayareaInputString] = useState("");
+  const { selectedWayarea, setSelectedWayarea } = useContext(
+    SelectedWayareaContext
+  );
+  const [wayareaInputString, setWayareaInputString] = useState(
+    formatInputString(selectedWayarea)
+  );
   const [calculationInterval, setCalculationInterval] = useState(10);
   const calculationIntervalOptions = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
@@ -55,6 +62,7 @@ export default function WayareaComponent(props) {
     setCalculationInterval(event.target.value);
     formik.setFieldValue("calculation_interval", event.target.value);
   };
+
   const MenuOptions = () => {
     return calculationIntervalOptions.map((e) => (
       <MenuItem key={e} value={e}>
@@ -62,14 +70,22 @@ export default function WayareaComponent(props) {
       </MenuItem>
     ));
   };
+
   const handleTooltipClose = () => {
     setOpen(false);
   };
+
   const handleTooltipOpen = () => {
     setOpen((prevValue) => !prevValue);
   };
 
-  const formatInputString = (wayarea) => `${wayarea.VAYLAT} - ${wayarea.Nimi}`;
+  const handleWayareaInputStringChange = (value) => {
+    setWayareaInputString(value);
+    if (value === "") {
+      setChosenWayareaFormikValue(null);
+      setSelectedWayarea(null);
+    }
+  };
 
   const handleMenuItemClick = (event, newValue) => {
     setChosenWayareaFormikValue(newValue);
@@ -110,7 +126,8 @@ export default function WayareaComponent(props) {
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={wayareaInputString}
                 onInputChange={(ev, newInputValue, reason) => {
-                  if (reason === "input") setWayareaInputString(newInputValue);
+                  if (reason === "input")
+                    handleWayareaInputStringChange(newInputValue);
                 }}
                 size="small"
                 renderInput={(params) => (
