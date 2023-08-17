@@ -188,7 +188,7 @@ export default function UserDefinedAngleParamsComponent(props) {
                         ) : (
                           <BendRadiusIcon />
                         )}
-                        <Grid>
+                        <Grid paddingLeft={5}>
                           <InputLabel style={{ fontSize: 14 }}>
                             Suuntakulma
                           </InputLabel>
@@ -217,7 +217,7 @@ export default function UserDefinedAngleParamsComponent(props) {
                         ) : (
                           <BendAngleIcon />
                         )}
-                        <Grid>
+                        <Grid paddingLeft={5}>
                           <InputLabel style={{ fontSize: 14 }}>
                             S-mutkan pituus
                           </InputLabel>
