@@ -260,7 +260,7 @@ export default function UserDefinedAngleParamsComponent(props) {
                     ))}
                   <Button
                     variant="contained"
-                    style={{ marginBottom: 3 }}
+                    style={{ marginBottom: 10 }}
                     onClick={() => push(newAngle)}
                   >
                     <AddCircleOutlineIcon style={{ marginRight: 3 }} />
