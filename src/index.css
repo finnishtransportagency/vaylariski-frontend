@@ -1,11 +1,11 @@
 :root {
   --color-background-white: #ffffff;
-  --color-header: #bebebe;
+  --color-header: #63d0fc;
   --color-submit-button: #bebebe;
-  --color-tab: #d8d8d8;
+  --color-tab: #a4e1f8;
   --color-tab-text: #565656;
-  --color-container: #f1f1f1;
-  --color-table-container: #f6f6f6;
+  --color-container: #c9edfb;
+  --color-table-container: #c9edfb;
 }
 
 body {
