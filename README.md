@@ -24,3 +24,17 @@ Step-by-step guide on how to run the E2E tests:
 5. Choose "E2E Testing"
 6. Choose your browser. **NOTE!** If you cannot see any other browser execpt for Electron, you might not have the desired browser installed. This can happen e.g. when running the cypress command from a WSL-terminal, which doesn't have e.g. Chrome or Firefox pre-installed. So, to get your browser you want to test against you need to download and install that browser. Example for installing Chrome for WSL have be found [here](https://shouv.medium.com/how-to-run-cypress-on-wsl2-989b83795fb6)
 7. You can find the E2E tests under the cypress/e2e folder in the newly opened window. Run your desired tests
+
+## Deployment to test and prod
+
+When we want to deploy to test and prod, we only need to merge our changes to the relevant branches. However, we must **FIRST MERGE TO THE BACKEND** before the frontend. This is due to the CI-pipeline that is run on the frontend branch.
+
+Thus, do the following:
+
+- Create a pull request on the **backend** from the branch dev -> test (update to test) or test -> prod (update to production)
+  - When the pull request is okay, merge the pull request
+- Create a pull request on the **frontend** from the branch dev -> test (update to test) or test -> prod (update to production)
+  - Check that the tests in the pipeline are okay
+  - When the pull request is okay, merge the pull request
+
+As our AWS-pipeline checks for changes on the branches _test_ and _prod_, automatic deployment happens after merging to either of these branches. Thus, no more action is needed by the developer to complete the deployment.
