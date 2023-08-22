@@ -1,0 +1,51 @@
+.main-tabs {
+  background-color: var(--color-tab);
+}
+
+.main-tab {
+  font-size: 1rem !important;
+  text-transform: none !important;
+}
+
+.main-tab-active {
+  background-color: var(--color-container) !important;
+}
+
+.main-tab-container {
+  background-color: var(--color-container);
+  padding: 1rem;
+  padding-top: 1.5rem;
+}
+
+.main-tab-content {
+  background-color: var(--color-background-white);
+}
+
+.riv-tabs-box {
+  background-color: var(--color-container);
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.riv-tabs {
+  background-color: var(--color-tab);
+}
+
+.riv-tab {
+  font-size: 1rem !important;
+  text-transform: none !important;
+}
+
+.riv-tab-active {
+  background-color: var(--color-background-white) !important;
+}
+
+.riv-tab-container {
+  background-color: var(--color-background-white);
+  padding: 1rem;
+  padding-top: 0.5rem;
+}
+
+.riv-tab-content {
+  background-color: var(--color-background-white);
+}

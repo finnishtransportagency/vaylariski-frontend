@@ -270,12 +270,6 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
-    key: "point_index",
-    name: "point_index",
-    resizable: true,
-    sortable: true,
-  },
-  {
     key: "vessel_speed_category",
     name: "vessel_speed_category",
     resizable: true,

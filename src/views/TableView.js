@@ -17,6 +17,9 @@ import SelectedIndexContext from "contexts/SelectedIndexContext";
 import { TableViewColumns as columns } from "constants/TableViewColumns";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
+import ViewWeekIcon from "@mui/icons-material/ViewWeek";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const style = {
   position: "absolute",
@@ -231,24 +234,24 @@ function TableView(props, { direction }) {
     >
       <div>
         {/* Export CSV */}
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#ced6d8", margin: 1 }}
-        >
+        <Button variant="contained" style={{ marginRight: 3, marginBottom: 3 }}>
           <CSVLink
             data={csvData}
             filename={"vaylakohtainen_riski.csv"}
             separator={";"}
+            style={{ color: "white" }}
           >
+            <DownloadIcon />
             Lataa CSV
           </CSVLink>
         </Button>
         {/* Select column */}
         <Button
           variant="contained"
-          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
+          style={{ marginRight: 3, marginBottom: 3 }}
           onClick={handleOpen}
         >
+          <ViewWeekIcon style={{ marginRight: 3 }} />
           Valitse sarakkeet
         </Button>
         <Modal
@@ -286,10 +289,11 @@ function TableView(props, { direction }) {
         {/* Add filters */}
         <Button
           variant="contained"
-          style={{ backgroundColor: "#ced6d8", color: "black", margin: 1 }}
+          style={{ marginRight: 3, marginBottom: 3 }}
           onClick={handleAddFilterClick}
         >
-          Lisää filtteri
+          <FilterAltIcon />
+          Lisää suodatus
         </Button>
         {showForm && (
           <Formik
@@ -367,7 +371,7 @@ function TableView(props, { direction }) {
       <DataGrid
         style={{
           height: "550px",
-          width: "97%",
+          width: "100%",
         }}
         ref={gridRef}
         columns={visibleData}

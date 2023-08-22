@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export const CustomNumber = ({ label, name, readOnly }) => {
+export const CustomNumberOld = ({ label, name, readOnly }) => {
   const [field, meta] = useField(name);
 
   return (

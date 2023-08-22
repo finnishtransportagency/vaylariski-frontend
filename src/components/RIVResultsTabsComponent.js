@@ -20,19 +20,41 @@ export default function RIVResultsTabsComponent() {
   };
 
   return (
-    <Box sx={{ width: "100%", margin: "5px" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box sx={{ width: "100%" }} className="riv-tabs-box">
+      <Box>
         <Tabs
           value={value}
           onChange={handleTabChange}
           aria-label="basic tabs example"
+          className="riv-tabs"
+          sx={{
+            ".Mui-selected": {
+              color: "var(--color-tab-text) !important",
+              fontWeight: "bold !important",
+            },
+          }}
+          TabIndicatorProps={{
+            style: { background: "var(--color-background-white)" },
+          }}
         >
-          <Tab label="RIV taulukko" {...a11yProps(0)} />
-          <Tab label="RIV diagrammi" {...a11yProps(1)} />
+          <Tab
+            label="RIV taulukko"
+            {...a11yProps(0)}
+            className={`riv-tab ${value === 0 ? "riv-tab-active" : ""}`}
+          />
+          <Tab
+            label="RIV diagrammi"
+            {...a11yProps(1)}
+            className={`riv-tab ${value === 1 ? "riv-tab-active" : ""}`}
+          />
         </Tabs>
       </Box>
-      <TableView tabValue={value} tabIndex={0} />
-      <DisplayRIVResultsDiagramView tabValue={value} tabIndex={1} />
+      <div className="riv-tab-container">
+        <div className="riv-tab-content">
+          <TableView tabValue={value} tabIndex={0} />
+          <DisplayRIVResultsDiagramView tabValue={value} tabIndex={1} />
+        </div>
+      </div>
     </Box>
   );
 }
