@@ -62,4 +62,5 @@ export const cssColorCodes = {
   GREEN: "#207a43",
   YELLOW: "#ffc300",
   RED: "#ff5100",
+  BLACK: "#000000",
 };
