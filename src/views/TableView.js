@@ -21,7 +21,7 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DownloadIcon from "@mui/icons-material/Download";
 import { sortTableStringOfNumbersWithInf } from "utils/sorting";
-import resultRowsEnums from "constants/enums";
+import { resultRowsEnums } from "constants/enums";
 
 const style = {
   position: "absolute",

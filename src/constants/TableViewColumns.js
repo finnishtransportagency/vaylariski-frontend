@@ -1,4 +1,4 @@
-import resultRowsEnums from "./enums";
+import { resultRowsEnums } from "./enums";
 
 export const TableViewColumns = [
   {
