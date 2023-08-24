@@ -130,14 +130,6 @@ function TableView(props, { direction }) {
     const { columnKey, direction } = sortColumns[0];
 
     let sortedRows = [...displayRowResults];
-    // console.log(
-    //   "!!!!!!!!!!!!!!!!!!",
-    //   columnKey,
-    //   sortedRows[0][columnKey],
-    //   typeof sortedRows[0][columnKey]
-    // );
-
-    console.log("!!!!", sortedRows[0]);
 
     switch (columnKey) {
       case resultRowsEnums.BEND_S_LENGTH:
