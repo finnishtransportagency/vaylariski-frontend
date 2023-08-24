@@ -5,7 +5,10 @@
   --color-tab: #a4e1f8;
   --color-tab-text: #565656;
   --color-container: #c9edfb;
-  --color-table-container: #c9edfb;
+  --color-green: #207a43;
+  --color-yellow: #ffc300;
+  --color-red: #ff5100;
+  --color-black: #000000;
 }
 
 body {
