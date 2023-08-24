@@ -1,4 +1,4 @@
-const resultRowsEnums = {
+export const resultRowsEnums = {
   POINT_INDEX: "point_index",
   GDO_GID: "GDO_GID",
   VAYLAT: "VAYLAT",
@@ -51,4 +51,15 @@ const resultRowsEnums = {
   MID_POINT: "MID_POINT",
 };
 
-export default resultRowsEnums;
+export const cssColorCodes = {
+  BACKGROUND_WHITE: "#ffffff",
+  HEADER: "#63d0fc",
+  SUBMIT_BUTTON: "#bebebe",
+  TAB: "#a4e1f8",
+  TAB_TEXT: "#565656",
+  CONTAINER: "#c9edfb",
+  TABLE_CONTAINER: "#c9edfb",
+  GREEN: "#207a43",
+  YELLOW: "#ffc300",
+  RED: "#ff5100",
+};
