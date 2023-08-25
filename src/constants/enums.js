@@ -52,18 +52,6 @@ export const resultRowsEnums = {
 };
 
 export const cssColorCodes = {
-  // BACKGROUND_WHITE: ""#",fffff",
-  // HEADER: ""#",3d0fc",
-  // SUBMIT_BUTTON: ""#",ebebe",
-  // TAB: ""#",4e1f8",
-  // TAB_TEXT: ""#",65656",
-  // CONTAINER: ""#",9edfb",
-  // TABLE_CONTAINER: ""#",9edfb",
-  // GREEN: ""#",07a43",
-  // YELLOW: ""#",fc300",
-  // RED: ""#",73f00",
-  // BLACK: ""#",00000",
-
   WHITE: "#ffffff",
 
   BLACK_100: "#000000",
