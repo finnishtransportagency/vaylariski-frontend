@@ -15,7 +15,7 @@ export const Header = () => (
           </p>
         </Col>
         <Col className="version-col">
-          <h5>Versio 1.1.0</h5>
+          <h5>Versio 1.1.1</h5>
         </Col>
       </Row>
     </Container>
