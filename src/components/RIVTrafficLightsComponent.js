@@ -17,6 +17,7 @@ import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useState } from "react";
 import { useContext } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { cssColorCodes } from "constants/enums";
 
 export default function RIVTrafficLightsComponent() {
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(
@@ -128,7 +129,7 @@ export default function RIVTrafficLightsComponent() {
             xs
             justifyContent="space-evenly"
             sx={{
-              bgcolor: "green",
+              bgcolor: cssColorCodes.GREEN_100,
               color: "success.contrastText",
               p: 1,
             }}
@@ -161,7 +162,11 @@ export default function RIVTrafficLightsComponent() {
             item
             xs
             justifyContent="space-evenly"
-            sx={{ bgcolor: "yellow", color: "black", p: 1 }}
+            sx={{
+              bgcolor: cssColorCodes.YELLOW_100,
+              color: cssColorCodes.BLACK_100,
+              p: 1,
+            }}
           >
             <Box>
               <TextField
@@ -210,7 +215,7 @@ export default function RIVTrafficLightsComponent() {
             item
             xs
             justifyContent="space-evenly"
-            sx={{ bgcolor: "red", color: "white", p: 1 }}
+            sx={{ bgcolor: cssColorCodes.RED_100, color: "white", p: 1 }}
           >
             <Box>
               <TextField
@@ -243,21 +248,27 @@ export default function RIVTrafficLightsComponent() {
               width: 500,
               height: 10,
               "& .MuiSlider-rail": {
-                background: `linear-gradient(90deg, green ${
-                  (tempRIVTrafficLight.green / maxSliderValue) * 100
-                }%, red ${
-                  (tempRIVTrafficLight.green / maxSliderValue) * 100
-                }%);`,
+                background: `linear-gradient(90deg, ${
+                  cssColorCodes.GREEN_100
+                } ${(tempRIVTrafficLight.green / maxSliderValue) * 100}%, ${
+                  cssColorCodes.RED_100
+                } ${(tempRIVTrafficLight.green / maxSliderValue) * 100}%);`,
                 opacity: 1,
               },
               "& .MuiSlider-track": {
-                color: "yellow",
+                color: cssColorCodes.YELLOW_100,
+              },
+              "& .MuiSlider-thumb:nth-child(odd)": {
+                color: cssColorCodes.YELLOW_100,
+              },
+              "& .MuiSlider-thumb:nth-child(even)": {
+                color: cssColorCodes.RED_100,
               },
               "& .MuiSlider-mark": {
-                color: "black",
+                color: cssColorCodes.BLACK_100,
               },
               "& .MuiSlider-markLabel": {
-                color: "black",
+                color: cssColorCodes.BLACK_100,
               },
             }}
             valueLabelDisplay="auto"

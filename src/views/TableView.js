@@ -20,6 +20,8 @@ import TableRowClickedContext from "contexts/TableRowClickedContext";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DownloadIcon from "@mui/icons-material/Download";
+import { sortTableStringOfNumbersWithInf } from "utils/sorting";
+import { resultRowsEnums } from "constants/enums";
 
 const style = {
   position: "absolute",
@@ -130,8 +132,18 @@ function TableView(props, { direction }) {
     let sortedRows = [...displayRowResults];
 
     switch (columnKey) {
-      // case "GDO_GID":
-      // case "RISK_INDEX_SUM":"RISK_INDEX_SUM"
+      case resultRowsEnums.BEND_S_LENGTH:
+        sortedRows = sortTableStringOfNumbersWithInf(
+          sortedRows,
+          resultRowsEnums.BEND_S_LENGTH
+        );
+        break;
+      case resultRowsEnums.BEND_RADIUS:
+        sortedRows = sortTableStringOfNumbersWithInf(
+          sortedRows,
+          resultRowsEnums.BEND_RADIUS
+        );
+        break;
       default:
         sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey]);
         break;
