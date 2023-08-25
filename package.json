@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-leaflet": "^4.2.0",
+    "react-new-window": "^1.0.1",
     "react-scripts": "^5.0.1",
     "recharts": "^2.6.2",
     "serve": "^14.1.0",

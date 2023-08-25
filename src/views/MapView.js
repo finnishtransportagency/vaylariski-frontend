@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-
 import RIVResultContext from "../contexts/RIVResult";
 import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
 import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
@@ -12,6 +11,9 @@ import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
+import { Button } from "@mui/material";
+import CustomNewWindow from "components/CustomNewWindow";
+import "leaflet/dist/leaflet.css";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -47,6 +49,37 @@ const geojsonMarkerOptionsGray = {
 };
 function GeoJSONMarkers() {
   const map = useMap();
+  // console.log(
+  //   "!!!!!!!!!!!!!!",
+  //   map.getContainer(),
+  //   map.getContainer().parentElement,
+  //   map.getContainer().parentElement.parentElement,
+  //   map.getContainer().parentElement.parentElement.parentElement
+  // );
+
+  // map.on("dragstart", (e) => {
+  //   console.log("!!!!!!!!!!!!!!!!!!!", e);
+  // });
+
+  // map.getContainer().addEventListener("mouseover", () => {
+  //   console.log("MOUSEOVER");
+  // });
+  // map.getContainer().addEventListener("dragstart", () => {
+  //   console.log("DRAGSTART");
+  //   map.dragging.enable();
+  // });
+  // map.getContainer().addEventListener("dragend", () => {
+  //   console.log("DRAGEND");
+  //   map.dragging.disable();
+  // });
+  // map.getContainer().addEventListener("mousedown", () => {
+  //   console.log("MOSUEDOWN");
+  //   map.dragging.enable();
+  // });
+  // map.getContainer().addEventListener("mouseout", () => {
+  //   console.log("MOUSEOUT");
+  //   // map.dragging.disable();
+  // });
   const { RIVResults } = useContext(RIVResultContext);
   const { RIVTrafficLight } = useContext(RIVTrafficLightContext);
   const [geojsonFeatGroup, setGeojsonFeatGroup] = useState(
@@ -166,6 +199,7 @@ function MapView() {
   const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
+  const [openMap, setOpenMap] = useState(false);
 
   useEffect(() => {
     if (mapRef.current) {
@@ -191,24 +225,55 @@ function MapView() {
       </div>
       <div className="map-view-container">
         <div className="map-view-content">
-          <MapContainer
-            // whenReady={ instance => {mapRef.current = instance} }
-            ref={mapRef}
-            center={coords}
-            zoom={9}
-            scrollWheelZoom={true}
-            style={{
-              height: "800px",
-              width: "75%",
-              backgroundColor: "white",
-            }}
+          <Button
+            onClick={() => setOpenMap((r) => !r)}
+            type="submit"
+            variant="contained"
+            sx={{ marginLeft: "1rem" }}
           >
-            <GeoJSONMarkers />
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          </MapContainer>
+            {openMap
+              ? "Sulje kartta v2 (Custom New Window)"
+              : "Näytä kartta v2 (Custom New Window)"}
+          </Button>
+          {openMap && (
+            <CustomNewWindow title="Väyläriski kartta">
+              <MapContainer
+                whenReady={(e) => {
+                  // const map = e.target;
+                  // const draggable = new L.Draggable(
+                  //   map.getContainer(),
+                  //   map.getContainer()
+                  // );
+                  // console.log(map);
+                  // draggable.enable();
+                  // TODO: resize main window so that the map renders correctly
+                  // document.body.style.height = `${
+                  //   document.body.clientHeight + 1
+                  // }`;
+                  // window.outerWidth = window.outerWidth - 1;
+                  // window.outerWidth = window.outerWidth + 1;
+                  // console.log(window.innerHeight);
+                  // console.log(window.outerHeight);
+                  // console.log(window.innerWidth);
+                  // console.log(window.outerWidth);
+                }}
+                center={coords}
+                zoom={9}
+                scrollWheelZoom={true}
+                style={{
+                  height: "800px",
+                  width: "100%",
+                  backgroundColor: "white",
+                }}
+              >
+                <GeoJSONMarkers />
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+              </MapContainer>
+            </CustomNewWindow>
+          )}
         </div>
       </div>
     </>
