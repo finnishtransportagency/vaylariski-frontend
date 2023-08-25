@@ -12,31 +12,35 @@ import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
+import { cssColorCodes } from "constants/enums";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
-  fillColor: "#00FF00",
-  color: "#00FF00",
+  fillColor: cssColorCodes.GREEN_100,
+  color: cssColorCodes.GREEN_100,
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8,
 };
+
 const geojsonMarkerOptionsYellow = {
   radius: 4,
-  fillColor: "#ffff00",
-  color: "#ffff00",
+  fillColor: cssColorCodes.YELLOW_100,
+  color: cssColorCodes.YELLOW_100,
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8,
 };
+
 const geojsonMarkerOptionsRed = {
   radius: 4,
-  fillColor: "#ff0000",
-  color: "#ff0000",
+  fillColor: cssColorCodes.RED_100,
+  color: cssColorCodes.RED_100,
   weight: 1,
   opacity: 1,
   fillOpacity: 0.8,
 };
+
 const geojsonMarkerOptionsGray = {
   radius: 4,
   fillColor: "#83888a",
@@ -45,6 +49,7 @@ const geojsonMarkerOptionsGray = {
   opacity: 1,
   fillOpacity: 0.8,
 };
+
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults } = useContext(RIVResultContext);
