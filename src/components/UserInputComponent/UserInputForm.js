@@ -51,7 +51,6 @@ function UserInputForm(props) {
                 <BoatMenuComponent name="boat" formik={formik} />
                 <BoatManoeuvrabilityComponent formik={formik} />
                 <BoatSpeedComponent formik={formik} name="boat.speed" />
-                <PFBendComponent formik={formik} />
               </Grid>
             </Grid>
 
@@ -64,11 +63,10 @@ function UserInputForm(props) {
                 paddingRight={1}
                 paddingLeft={2}
               >
+                <PFBendComponent formik={formik} />
                 <WayareaParameterComponent formik={formik} />
                 <WayareaDepthWFComponent formik={formik} />
                 <ChannelEdgeAndBankClearanceComponent formik={formik} />
-                <TrafficFactorsComponent formik={formik} />
-                <WeightFactorsComponent formik={formik} />
               </Grid>
             </Grid>
             <Divider orientation="vertical" flexItem></Divider>
@@ -80,6 +78,8 @@ function UserInputForm(props) {
                 paddingRight={1}
                 paddingLeft={2}
               >
+                <TrafficFactorsComponent formik={formik} />
+                <WeightFactorsComponent formik={formik} />
                 <WayareaConditionsComponent formik={formik} />
               </Grid>
             </Grid>

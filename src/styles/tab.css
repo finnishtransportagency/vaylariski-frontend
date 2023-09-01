@@ -12,18 +12,21 @@
 }
 
 .main-tab-formik {
-  max-height: 100%;
+  flex: 1;
 }
 
 .main-tab-wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-tab-container {
   background-color: var(--color-container);
   padding: 1rem;
   padding-top: 1.5rem;
+  padding-bottom: 0;
   height: 100%;
 }
 
@@ -64,7 +67,6 @@
 .user-input-wrapper {
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
 }
