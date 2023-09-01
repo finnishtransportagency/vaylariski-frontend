@@ -30,10 +30,11 @@ function UserInputForm(props) {
       id={`simple-tabpanel-${tabIndex}`}
       aria-labelledby={`simple-tab-${tabIndex}`}
       {...other}
+      className="user-input-wrapper"
     >
       {tabValue === tabIndex && (
         <>
-          <Grid container spacing={1} style={{ padding: 20 }}>
+          <Grid container spacing={1} className="user-input-grid">
             <Grid item xs={3.99}>
               <Grid
                 container

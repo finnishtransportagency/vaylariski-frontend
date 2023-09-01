@@ -60,3 +60,35 @@ li {
   align-items: center;
   justify-content: right;
 }
+
+.parameter-and-map-wrapper {
+  display: flex;
+  align-items: stretch;
+  padding-bottom: 1rem;
+  background-color: var(--color-light-blue-30);
+}
+
+.parameter-wrapper {
+  width: 66%;
+  max-height: 100%;
+}
+
+.map-wrapper {
+  background-color: var(--color-light-blue-30);
+  /* padding-top: 3rem; */
+  width: 34%;
+  /* max-height: 100%; */
+  display: flex;
+  flex-direction: column;
+}
+
+.map-wrapper-empty-space {
+  background-color: var(--color-light-blue-50);
+  padding-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
