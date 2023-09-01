@@ -110,9 +110,10 @@ export default function UserDefinedAngleParamsComponent(props) {
       id={`simple-tabpanel-${tabIndex}`}
       aria-labelledby={`simple-tab-${tabIndex}`}
       {...other}
+      className="user-input-wrapper"
     >
       {tabValue === tabIndex && (
-        <Grid container spacing={1} style={{ padding: 20 }}>
+        <Grid container spacing={1} className="user-input-parameters">
           <Grid item xs={12}>
             <div
               role="TabPanelComponent"
@@ -120,18 +121,19 @@ export default function UserDefinedAngleParamsComponent(props) {
               id={`simple-tabpanel-${tabIndex}`}
               aria-labelledby={`simple-tab-${tabIndex}`}
               {...other}
+              className="user-input-grid-inner"
             >
-              <Typography
-                style={{ fontSize: 16 }}
-                color="textSecondary"
-                gutterBottom
-              >
-                Voit muokata laskentaa varten navigointilinjojen mutkan sädettä,
-                suuntakulmaa ja/tai S-mutkan pituutta. Tee valitulle
-                navigointilinjalle (GDO_GID) kaikki haluamasi muutokset samalle
-                riville.
-              </Typography>
-              {tabValue === tabIndex && (
+              <div className="user-input-new-parameters">
+                <Typography
+                  style={{ fontSize: 16 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Voit muokata laskentaa varten navigointilinjojen mutkan
+                  sädettä, suuntakulmaa ja/tai S-mutkan pituutta. Tee valitulle
+                  navigointilinjalle (GDO_GID) kaikki haluamasi muutokset
+                  samalle riville.
+                </Typography>
                 <FieldArray name="navline_angle_params">
                   {({ remove, push }) => (
                     <div>
@@ -278,30 +280,30 @@ export default function UserDefinedAngleParamsComponent(props) {
                         <AddCircleOutlineIcon style={{ marginRight: 3 }} />
                         Lisää uusi mutkan parametri
                       </Button>
-                      <span>
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          size="large"
-                          sx={{ minWidth: "1" }}
-                          style={{ marginTop: 3 }}
-                          disabled={
-                            !(formik.isValid && formik.dirty) ||
-                            selectedWayareaWithNoGDOGID
-                          } //formik.dirty is needed to disable on initial load
-                          data-cy-id="submit-button"
-                        >
-                          <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                          {!(formik.isValid && formik.dirty) ||
-                          selectedWayareaWithNoGDOGID ? (
-                            <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
-                          ) : null}
-                        </Button>
-                      </span>
                     </div>
                   )}
                 </FieldArray>
-              )}
+              </div>
+              <span>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  sx={{ minWidth: "1" }}
+                  style={{ marginTop: 3 }}
+                  disabled={
+                    !(formik.isValid && formik.dirty) ||
+                    selectedWayareaWithNoGDOGID
+                  } //formik.dirty is needed to disable on initial load
+                  data-cy-id="submit-button"
+                >
+                  <span style={{ marginRight: "0.2em" }}>Lähetä</span>
+                  {!(formik.isValid && formik.dirty) ||
+                  selectedWayareaWithNoGDOGID ? (
+                    <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
+                  ) : null}
+                </Button>
+              </span>
             </div>
           </Grid>
         </Grid>
