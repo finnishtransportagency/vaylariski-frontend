@@ -1,17 +1,78 @@
 :root {
-  --color-black-100: rgba(0, 0, 0, 1);
-  --color-black-80: rgba(0, 0, 0, 0.8);
-  --color-black-50: rgba(0, 0, 0, 0.5);
-  --color-black-20: rgba(0, 0, 0, 0.2);
-  --color-black-10: rgba(0, 0, 0, 0.1);
+  --color-white: #ffffff;
 
-  --color-white-100: rgba(256, 256, 256, 100);
+  --color-black-100: #000000;
+  --color-black-70: #58595b;
+  --color-black-50: #939598;
+  --color-black-30: #d1d3d4;
+
+  --color-dark-blue-100: #0064af;
+  --color-dark-blue-70: #4d93c7;
+  --color-dark-blue-50: #80b2d7;
+  --color-dark-blue-30: #b3d1e7;
+
+  --color-blue-100: #0099ff;
+  --color-blue-70: #4db9ea;
+  --color-blue-50: #80cdf0;
+  --color-blue-30: #b3e1f6;
+
+  --color-light-blue-100: #49c2f1;
+  --color-light-blue-70: #80d4f5;
+  --color-light-blue-50: #a4e1f8;
+  --color-light-blue-30: #c9edfb;
+
+  --color-turquoise-100: #00b0cc;
+  --color-turquoise-70: #4dc8db;
+  --color-turquoise-50: #80d7e6;
+  --color-turquoise-30: #b3e7f0;
+
+  --color-green-100: #207a43;
+  --color-green-70: #63a27b;
+  --color-green-50: #8fbca1;
+  --color-green-30: #bcd7c6;
+
+  --color-light-green-100: #8dcb6d;
+  --color-light-green-70: #afdb99;
+  --color-light-green-50: #c6e5b6;
+  --color-light-green-30: #ddefd3;
+
+  --color-yellow-100: #ffc300;
+  --color-yellow-70: #ffd54d;
+  --color-yellow-50: #ffe180;
+  --color-yellow-30: #ffedb3;
+
+  --color-purple-100: #910aa3;
+  --color-purple-70: #ab5dba;
+  --color-purple-50: #c38bce;
+  --color-purple-30: #dbbae1;
+
+  --color-red-100: #c73f00;
+  --color-red-70: #d7784d;
+  --color-red-50: #e39f80;
+  --color-red-30: #eec5b3;
+
+  --color-orange-100: #ff5100;
+  --color-orange-70: #ff854d;
+  --color-orange-50: #ffa880;
+  --color-orange-30: #ffcbb3;
+
+  --color-magenta-100: #e50083;
+  --color-magenta-70: #e7389e;
+  --color-magenta-50: #f083c2;
+  --color-magenta-30: #f9cee7;
+
+  --color-background-white: var(--color-white);
+  --color-header: #63d0fc;
+  --color-tab: var(--color-light-blue-50);
+  --color-tab-text: var(--color-black-70);
+  --color-container: var(--color-light-blue-30);
 }
 
 body {
   background-color: white;
   color: #282c34;
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;

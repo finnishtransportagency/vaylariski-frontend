@@ -27,6 +27,7 @@ export default function NotificationComponent() {
           severity={notificationStatus.severity}
           onClose={handleClose}
           sx={{ width: "100%" }}
+          data-cy-id="alert-id"
         >
           {notificationStatus.message}
         </MuiAlert>

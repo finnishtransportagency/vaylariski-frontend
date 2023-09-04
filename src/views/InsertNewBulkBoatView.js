@@ -1,5 +1,5 @@
-import { CustomNumber } from "components/CustomNumber";
-import { CustomText } from "components/CustomText";
+import { CustomNumberOld } from "components/customInputs/CustomNumberOld";
+import { CustomText } from "components/customInputs/CustomText";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import { Button } from "react-bootstrap";
@@ -93,28 +93,32 @@ export default function InsertNewBulkBoatComponent(props) {
         >
           {(formik) => (
             <FForm onSubmit={formik.handleSubmit}>
-              <CustomNumber
+              <CustomNumberOld
                 label="Laivan pituus"
                 name="PITUUS"
                 readOnly={false}
               />
-              <CustomNumber
+              <CustomNumberOld
                 label="Laivan leveys"
                 name="LEVEYS"
                 readOnly={false}
               />
-              <CustomNumber
+              <CustomNumberOld
                 label="Laivan syväys"
                 name="SYVAYS"
                 readOnly={false}
               />
-              <CustomNumber
+              <CustomNumberOld
                 label="Väylän tunnus"
                 name="JNRO"
                 readOnly={false}
               />
-              <CustomNumber label="Laivan koko" name="KOKO" readOnly={false} />
-              <CustomNumber
+              <CustomNumberOld
+                label="Laivan koko"
+                name="KOKO"
+                readOnly={false}
+              />
+              <CustomNumberOld
                 label="RUNKO_TKERROIN"
                 name="RUNKO_TKERROIN"
                 readOnly={false}
@@ -125,6 +129,7 @@ export default function InsertNewBulkBoatComponent(props) {
                 name="VAY_NIMISU"
                 readOnly={false}
               />
+              {/* TODO: Refactor to use MUI-Button */}
               <Button
                 type="submit"
                 disabled={formik.isSubmitting || !formik.isValid}
