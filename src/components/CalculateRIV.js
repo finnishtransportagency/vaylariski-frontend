@@ -92,15 +92,19 @@ function CalculateRIV() {
                               >
                                 <NotificationComponent />
                                 <LoadingSpinner />
-                                <div className="parameter-and-map-wrapper">
-                                  <div className="parameter-wrapper">
-                                    <ParameterTabsComponent />
+                                <div className="main-wrapper">
+                                  <div className="parameter-and-riv-wrapper">
+                                    <div className="parameter-wrapper">
+                                      <ParameterTabsComponent />
+                                    </div>
+                                    <div className="riv-wrapper">
+                                      <RIVResultsTabsComponent />
+                                    </div>
                                   </div>
                                   <div className="map-wrapper ">
                                     <MapView />
                                   </div>
                                 </div>
-                                <RIVResultsTabsComponent />
                               </DiagramPointClickedContext.Provider>
                             </TableRowClickedContext.Provider>
                           </MapPointClickedContext.Provider>

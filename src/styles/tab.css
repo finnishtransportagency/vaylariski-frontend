@@ -1,14 +1,23 @@
-.main-tabs {
+.main-tabs,
+.riv-tabs,
+.inner-tabs {
   background-color: var(--color-tab);
 }
 
-.main-tab {
+.main-tab,
+.riv-tab,
+.inner-tab {
   font-size: 1rem !important;
   text-transform: none !important;
 }
 
 .main-tab-active {
   background-color: var(--color-container) !important;
+}
+
+.riv-tab-active,
+.inner-tab-active {
+  background-color: var(--color-background-white) !important;
 }
 
 .main-tab-formik {
@@ -39,29 +48,25 @@
   background-color: var(--color-container);
   padding: 1rem;
   padding-top: 0;
-}
-
-.riv-tabs {
-  background-color: var(--color-tab);
-}
-
-.riv-tab {
-  font-size: 1rem !important;
-  text-transform: none !important;
-}
-
-.riv-tab-active {
-  background-color: var(--color-background-white) !important;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .riv-tab-container {
   background-color: var(--color-background-white);
   padding: 1rem;
-  padding-top: 0.5rem;
+  flex-grow: 1;
+  min-height: 0;
 }
 
 .riv-tab-content {
+  height: 100%;
   background-color: var(--color-background-white);
+}
+
+.riv-diagram-tab-component {
+  height: 100%;
 }
 
 .user-input-wrapper {

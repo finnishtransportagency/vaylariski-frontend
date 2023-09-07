@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import BoatMenuComponent from "./Boat/BoatMenuComponent";
@@ -15,9 +15,19 @@ import WayareaConditionsComponent from "./WayareaConditions/WayareaConditionsCom
 import WeightFactorsComponent from "./WeightFactorsComponent";
 import TrafficFactorsComponent from "./TrafficFactorsComponent";
 import ChannelEdgeAndBankClearanceComponent from "./ChannelEdgeAndBankClearanceComponent";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 function UserInputForm(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
+  const [innerTabValue, setInnerTabValue] = useState(0);
 
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
@@ -34,56 +44,166 @@ function UserInputForm(props) {
     >
       {tabValue === tabIndex && (
         <>
+          <Tabs
+            value={innerTabValue}
+            onChange={(e, value) => setInnerTabValue(value)}
+            aria-label="basic tabs example inner"
+            className="inner-tabs"
+            sx={{
+              ".Mui-selected": {
+                color: "var(--color-tab-text) !important",
+                fontWeight: "bold !important",
+              },
+            }}
+            TabIndicatorProps={{
+              style: { background: "var(--color-background-white)" },
+            }}
+          >
+            <Tab
+              label="Väylä"
+              {...a11yProps(0)}
+              className={`inner-tab ${
+                innerTabValue === 0 ? "inner-tab-active" : ""
+              }`}
+            />
+            <Tab
+              label="Alus"
+              {...a11yProps(1)}
+              className={`inner-tab ${
+                innerTabValue === 1 ? "inner-tab-active" : ""
+              }`}
+            />
+            <Tab
+              label="Olosuhteet ja vaikuttavat tekijät"
+              {...a11yProps(2)}
+              className={`inner-tab ${
+                innerTabValue === 2 ? "inner-tab-active" : ""
+              }`}
+            />
+            <Tab
+              label="Painokertoimet"
+              {...a11yProps(3)}
+              className={`inner-tab ${
+                innerTabValue === 3 ? "inner-tab-active" : ""
+              }`}
+            />
+          </Tabs>
           <Grid container spacing={1} className="user-input-grid">
-            <Grid item xs={3.99}>
-              <Grid
-                container
-                spacing={1}
-                paddingBottom={2}
-                paddingRight={2}
-                paddingLeft={2}
-              >
-                <WayareaComponent name="navline.VAYLAT" formik={formik} />
-                <GDOGIDMenuComponent
-                  formik={formik}
-                  name="navline.starting_gdo_gid"
-                />
-                <BoatMenuComponent name="boat" formik={formik} />
-                <BoatManoeuvrabilityComponent formik={formik} />
-                <BoatSpeedComponent formik={formik} name="boat.speed" />
-                <TrafficFactorsComponent formik={formik} />
-                <WeightFactorsComponent formik={formik} />
+            {innerTabValue === 0 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={2}
+                    paddingLeft={2}
+                  >
+                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
+                    <GDOGIDMenuComponent
+                      formik={formik}
+                      name="navline.starting_gdo_gid"
+                    />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={2}
+                    paddingLeft={2}
+                  >
+                    <WayareaParameterComponent formik={formik} />
+                  </Grid>
+                </Grid>
               </Grid>
-            </Grid>
-
-            <Divider orientation="vertical" flexItem></Divider>
-            <Grid item xs={3.99}>
-              <Grid
-                container
-                spacing={1}
-                paddingBottom={2}
-                paddingRight={1}
-                paddingLeft={2}
-              >
-                <PFBendComponent formik={formik} />
-                <WayareaParameterComponent formik={formik} />
-                <WayareaDepthWFComponent formik={formik} />
-                <ChannelEdgeAndBankClearanceComponent formik={formik} />
+            )}
+            {innerTabValue === 1 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <BoatMenuComponent name="boat" formik={formik} />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <BoatManoeuvrabilityComponent formik={formik} />
+                    <BoatSpeedComponent formik={formik} name="boat.speed" />
+                  </Grid>
+                </Grid>
               </Grid>
-            </Grid>
-            <Divider orientation="vertical" flexItem></Divider>
-            <Grid item xs={3.99}>
-              <Grid
-                container
-                spacing={1}
-                paddingBottom={2}
-                paddingRight={1}
-                paddingLeft={2}
-              >
-                <WayareaConditionsComponent formik={formik} />
+            )}
+            {innerTabValue === 2 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <WayareaConditionsComponent formik={formik} />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <TrafficFactorsComponent formik={formik} />
+                  </Grid>
+                </Grid>
               </Grid>
-            </Grid>
-            <Divider orientation="vertical" flexItem></Divider>
+            )}
+            {innerTabValue === 3 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <WayareaDepthWFComponent formik={formik} />
+                    <ChannelEdgeAndBankClearanceComponent formik={formik} />
+                    <WeightFactorsComponent formik={formik} />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <PFBendComponent formik={formik} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Tooltip
