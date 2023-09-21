@@ -17,6 +17,7 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedGDOGIDContext from "contexts/SelectedGDOGIDContext";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
+import FairwayWidth from "./FairwayWidth";
 
 export default function GDOGIDMenuComponent(props) {
   const { name, formik } = props;
@@ -192,6 +193,7 @@ export default function GDOGIDMenuComponent(props) {
           </Tooltip>
         </Form.Group>
       </Grid>
+      <FairwayWidth name="test" formik={formik} />
     </Grid>
   );
 }
