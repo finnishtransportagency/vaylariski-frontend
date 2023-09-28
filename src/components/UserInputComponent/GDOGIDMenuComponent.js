@@ -193,7 +193,7 @@ export default function GDOGIDMenuComponent(props) {
           </Tooltip>
         </Form.Group>
       </Grid>
-      <FairwayWidth name="test" formik={formik} />
+      <FairwayWidth formik={formik} />
     </Grid>
   );
 }
