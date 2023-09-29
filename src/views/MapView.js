@@ -50,7 +50,7 @@ const geojsonMarkerOptionsGray = {
   fillOpacity: 0.8,
 };
 
-function GeoJSONMarkers() {
+function GeoJSONMarkers({ sliderValue }) {
   const map = useMap();
   const { RIVResults } = useContext(RIVResultContext);
   const { RIVTrafficLight } = useContext(RIVTrafficLightContext);
@@ -82,6 +82,10 @@ function GeoJSONMarkers() {
       layer.bindPopup(layerBindPopupString(feature));
     }
   }
+
+  useEffect(() => {
+    map.invalidateSize();
+  }, [sliderValue]);
 
   useEffect(() => {
     setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
@@ -167,7 +171,7 @@ function GeoJSONMarkers() {
   return null;
 }
 
-function MapView() {
+function MapView({ sliderValue }) {
   const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
@@ -199,7 +203,7 @@ function MapView() {
             zoom={9}
             scrollWheelZoom={true}
           >
-            <GeoJSONMarkers />
+            <GeoJSONMarkers sliderValue={sliderValue} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -19,6 +19,7 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
+import { Slider } from "@mui/material";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
@@ -44,6 +45,11 @@ function CalculateRIV() {
   const [mapPointClicked, setMapPointClicked] = useState(false);
   const [tableRowClicked, setTableRowClicked] = useState(false);
   const [diagramPointClicked, setDiagramPointClicked] = useState(false);
+
+  const [sliderValue, setSliderValue] = useState(50);
+  const handleChange = (event, newValue) => {
+    setSliderValue(newValue);
+  };
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -92,8 +98,16 @@ function CalculateRIV() {
                               >
                                 <NotificationComponent />
                                 <LoadingSpinner />
+                                <Slider
+                                  size="small"
+                                  value={sliderValue}
+                                  onChange={handleChange}
+                                />
                                 <div className="main-wrapper">
-                                  <div className="parameter-and-riv-wrapper">
+                                  <div
+                                    className="parameter-and-riv-wrapper"
+                                    style={{ width: `${sliderValue}%` }}
+                                  >
                                     <div className="parameter-wrapper">
                                       <ParameterTabsComponent />
                                     </div>
@@ -101,8 +115,11 @@ function CalculateRIV() {
                                       <RIVResultsTabsComponent />
                                     </div>
                                   </div>
-                                  <div className="map-wrapper ">
-                                    <MapView />
+                                  <div
+                                    className="map-wrapper "
+                                    style={{ width: `${100 - sliderValue}%` }}
+                                  >
+                                    <MapView sliderValue={sliderValue} />
                                   </div>
                                 </div>
                               </DiagramPointClickedContext.Provider>
