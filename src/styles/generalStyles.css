@@ -60,3 +60,47 @@ li {
   align-items: center;
   justify-content: right;
 }
+
+.main-wrapper {
+  display: flex;
+  align-items: stretch;
+  height: 1650px;
+  padding-bottom: 1rem;
+  background-color: var(--color-light-blue-30);
+}
+
+.parameter-and-riv-wrapper {
+  width: 50%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.riv-wrapper {
+  display: flex;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.parameter-wrapper {
+  max-height: 60%;
+}
+
+.map-wrapper {
+  background-color: var(--color-light-blue-30);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-wrapper-empty-space {
+  background-color: var(--color-light-blue-50);
+  padding-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

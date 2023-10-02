@@ -242,6 +242,7 @@ function TableView(props, { direction }) {
       hidden={tabValue !== tabIndex}
       id={`simple-tabpanel-${tabIndex}`}
       aria-labelledby={`simple-tab-${tabIndex}`}
+      className="riv-diagram-tab-component"
       {...other}
     >
       <div>
@@ -382,7 +383,7 @@ function TableView(props, { direction }) {
       </div>
       <DataGrid
         style={{
-          height: "550px",
+          height: "95%",
           width: "100%",
         }}
         ref={gridRef}

@@ -104,195 +104,211 @@ export default function UserDefinedAngleParamsComponent(props) {
     });
   };
   return (
-    <Grid container spacing={1} style={{ padding: 20 }}>
-      <Grid item xs={12}>
-        <div
-          role="TabPanelComponent"
-          hidden={tabValue !== tabIndex}
-          id={`simple-tabpanel-${tabIndex}`}
-          aria-labelledby={`simple-tab-${tabIndex}`}
-          {...other}
-        >
-          <Typography
-            style={{ fontSize: 16 }}
-            color="textSecondary"
-            gutterBottom
-          >
-            Voit muokata laskentaa varten navigointilinjojen mutkan sädettä,
-            suuntakulmaa ja/tai S-mutkan pituutta. Tee valitulle
-            navigointilinjalle (GDO_GID) kaikki haluamasi muutokset samalle
-            riville.
-          </Typography>
-          {tabValue === tabIndex && (
-            <FieldArray name="navline_angle_params">
-              {({ remove, push }) => (
-                <div>
-                  {formik.values.navline_angle_params.length > 0 &&
-                    formik.values.navline_angle_params.map((el, index) => (
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        key={index}
-                        paddingBottom={1}
-                      >
-                        <Grid>
-                          <InputLabel style={{ fontSize: 14 }}>
-                            GDO_GID
-                          </InputLabel>
-                          <Autocomplete
-                            fullWidth
-                            id={`navline_angle_params.${index}.GDO_GID`}
-                            options={allGDOGIDs}
-                            getOptionLabel={(option) => option.toString() ?? ""}
-                            value={selectedGDO_GIDs[index] || null}
-                            onChange={(ev, newValue) =>
-                              handleMenuItemClick(ev, newValue, index)
-                            }
-                            size="small"
-                            renderInput={(params) => (
-                              <TextField
-                                required
-                                style={{
-                                  width: 220,
-                                }}
-                                {...params}
+    <div
+      role="TabPanelComponent"
+      hidden={tabValue !== tabIndex}
+      id={`simple-tabpanel-${tabIndex}`}
+      aria-labelledby={`simple-tab-${tabIndex}`}
+      {...other}
+      className="user-input-wrapper"
+    >
+      {tabValue === tabIndex && (
+        <Grid container spacing={1} className="user-input-parameters">
+          <Grid item xs={12}>
+            <div
+              role="TabPanelComponent"
+              hidden={tabValue !== tabIndex}
+              id={`simple-tabpanel-${tabIndex}`}
+              aria-labelledby={`simple-tab-${tabIndex}`}
+              {...other}
+              className="user-input-grid-inner"
+            >
+              <div className="user-input-new-parameters">
+                <Typography
+                  style={{ fontSize: 16 }}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Voit muokata laskentaa varten navigointilinjojen mutkan
+                  sädettä, suuntakulmaa ja/tai S-mutkan pituutta. Tee valitulle
+                  navigointilinjalle (GDO_GID) kaikki haluamasi muutokset
+                  samalle riville.
+                </Typography>
+                <FieldArray name="navline_angle_params">
+                  {({ remove, push }) => (
+                    <div>
+                      {formik.values.navline_angle_params.length > 0 &&
+                        formik.values.navline_angle_params.map((el, index) => (
+                          <Stack
+                            direction="row"
+                            spacing={1}
+                            key={index}
+                            paddingBottom={1}
+                          >
+                            <Grid>
+                              <InputLabel style={{ fontSize: 14 }}>
+                                GDO_GID
+                              </InputLabel>
+                              <Autocomplete
+                                fullWidth
+                                id={`navline_angle_params.${index}.GDO_GID`}
+                                options={allGDOGIDs}
+                                getOptionLabel={(option) =>
+                                  option.toString() ?? ""
+                                }
+                                value={selectedGDO_GIDs[index] || null}
+                                onChange={(ev, newValue) =>
+                                  handleMenuItemClick(ev, newValue, index)
+                                }
+                                size="small"
+                                renderInput={(params) => (
+                                  <TextField
+                                    required
+                                    style={{
+                                      width: 220,
+                                    }}
+                                    {...params}
+                                  />
+                                )}
                               />
+                            </Grid>
+
+                            <Grid>
+                              <InputLabel style={{ fontSize: 14 }}>
+                                Säde
+                              </InputLabel>
+
+                              <TextField
+                                fullWidth
+                                InputProps={{ sx: { height: 40 } }}
+                                name={`navline_angle_params.${index}.SADE`}
+                                value={
+                                  formik.values.navline_angle_params[index]
+                                    ?.SADE || ""
+                                }
+                                onChange={(e) => {
+                                  formik.handleChange(e);
+                                  handleTextFieldChange(
+                                    index,
+                                    "SADE",
+                                    e.target.value
+                                  );
+                                }}
+                                type="float"
+                              />
+                            </Grid>
+                            {textFieldHasContent[index]?.SADE ? (
+                              <BendRadiusIconSelected />
+                            ) : (
+                              <BendRadiusIcon />
                             )}
-                          />
-                        </Grid>
+                            <Grid paddingLeft={5}>
+                              <InputLabel style={{ fontSize: 14 }}>
+                                Suuntakulma
+                              </InputLabel>
 
-                        <Grid>
-                          <InputLabel style={{ fontSize: 14 }}>Säde</InputLabel>
+                              <TextField
+                                fullWidth
+                                InputProps={{ sx: { height: 40 } }}
+                                name={`navline_angle_params.${index}.BEND_ANGLE`}
+                                value={
+                                  formik.values.navline_angle_params[index]
+                                    ?.BEND_ANGLE || ""
+                                }
+                                onChange={(e) => {
+                                  formik.handleChange(e);
+                                  handleTextFieldChange(
+                                    index,
+                                    "BEND_ANGLE",
+                                    e.target.value
+                                  );
+                                }}
+                                type="float"
+                              />
+                            </Grid>
+                            {textFieldHasContent[index]?.BEND_ANGLE ? (
+                              <BendAngleIconSelected />
+                            ) : (
+                              <BendAngleIcon />
+                            )}
+                            <Grid paddingLeft={5}>
+                              <InputLabel style={{ fontSize: 14 }}>
+                                S-mutkan pituus
+                              </InputLabel>
 
-                          <TextField
-                            fullWidth
-                            InputProps={{ sx: { height: 40 } }}
-                            name={`navline_angle_params.${index}.SADE`}
-                            value={
-                              formik.values.navline_angle_params[index]?.SADE ||
-                              ""
-                            }
-                            onChange={(e) => {
-                              formik.handleChange(e);
-                              handleTextFieldChange(
-                                index,
-                                "SADE",
-                                e.target.value
-                              );
-                            }}
-                            type="float"
-                          />
-                        </Grid>
-                        {textFieldHasContent[index]?.SADE ? (
-                          <BendRadiusIconSelected />
-                        ) : (
-                          <BendRadiusIcon />
-                        )}
-                        <Grid paddingLeft={5}>
-                          <InputLabel style={{ fontSize: 14 }}>
-                            Suuntakulma
-                          </InputLabel>
-
-                          <TextField
-                            fullWidth
-                            InputProps={{ sx: { height: 40 } }}
-                            name={`navline_angle_params.${index}.BEND_ANGLE`}
-                            value={
-                              formik.values.navline_angle_params[index]
-                                ?.BEND_ANGLE || ""
-                            }
-                            onChange={(e) => {
-                              formik.handleChange(e);
-                              handleTextFieldChange(
-                                index,
-                                "BEND_ANGLE",
-                                e.target.value
-                              );
-                            }}
-                            type="float"
-                          />
-                        </Grid>
-                        {textFieldHasContent[index]?.BEND_ANGLE ? (
-                          <BendAngleIconSelected />
-                        ) : (
-                          <BendAngleIcon />
-                        )}
-                        <Grid paddingLeft={5}>
-                          <InputLabel style={{ fontSize: 14 }}>
-                            S-mutkan pituus
-                          </InputLabel>
-
-                          <TextField
-                            fullWidth
-                            InputProps={{ sx: { height: 40 } }}
-                            name={`navline_angle_params.${index}.S_BEND`}
-                            value={
-                              formik.values.navline_angle_params[index]
-                                ?.S_BEND || ""
-                            }
-                            onChange={(e) => {
-                              formik.handleChange(e);
-                              handleTextFieldChange(
-                                index,
-                                "S_BEND",
-                                e.target.value
-                              );
-                            }}
-                            type="float"
-                          />
-                        </Grid>
-                        {textFieldHasContent[index]?.S_BEND ? (
-                          <SBendIconSelected />
-                        ) : (
-                          <SBendIcon />
-                        )}
-                        <Button
-                          onClick={() => {
-                            remove(index);
-                            handleRemoveRow(index);
-                          }}
-                          style={{ marginTop: 12 }}
-                        >
-                          <RemoveCircleOutlineIcon style={{ margin: 3 }} />
-                          Poista
-                        </Button>
-                      </Stack>
-                    ))}
-                  <Button
-                    variant="contained"
-                    style={{ marginBottom: 10 }}
-                    onClick={() => push(newAngle)}
-                  >
-                    <AddCircleOutlineIcon style={{ marginRight: 3 }} />
-                    Lisää uusi mutkan parametri
-                  </Button>
-                  <span>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      size="large"
-                      sx={{ minWidth: "1" }}
-                      style={{ marginTop: 3 }}
-                      disabled={
-                        !(formik.isValid && formik.dirty) ||
-                        selectedWayareaWithNoGDOGID
-                      } //formik.dirty is needed to disable on initial load
-                      data-cy-id="submit-button"
-                    >
-                      <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                      {!(formik.isValid && formik.dirty) ||
-                      selectedWayareaWithNoGDOGID ? (
-                        <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
-                      ) : null}
-                    </Button>
-                  </span>
-                </div>
-              )}
-            </FieldArray>
-          )}
-        </div>
-      </Grid>
-    </Grid>
+                              <TextField
+                                fullWidth
+                                InputProps={{ sx: { height: 40 } }}
+                                name={`navline_angle_params.${index}.S_BEND`}
+                                value={
+                                  formik.values.navline_angle_params[index]
+                                    ?.S_BEND || ""
+                                }
+                                onChange={(e) => {
+                                  formik.handleChange(e);
+                                  handleTextFieldChange(
+                                    index,
+                                    "S_BEND",
+                                    e.target.value
+                                  );
+                                }}
+                                type="float"
+                              />
+                            </Grid>
+                            {textFieldHasContent[index]?.S_BEND ? (
+                              <SBendIconSelected />
+                            ) : (
+                              <SBendIcon />
+                            )}
+                            <Button
+                              onClick={() => {
+                                remove(index);
+                                handleRemoveRow(index);
+                              }}
+                              style={{ marginTop: 12 }}
+                            >
+                              <RemoveCircleOutlineIcon style={{ margin: 3 }} />
+                              Poista
+                            </Button>
+                          </Stack>
+                        ))}
+                      <Button
+                        variant="contained"
+                        style={{ marginBottom: 10 }}
+                        onClick={() => push(newAngle)}
+                      >
+                        <AddCircleOutlineIcon style={{ marginRight: 3 }} />
+                        Lisää uusi mutkan parametri
+                      </Button>
+                    </div>
+                  )}
+                </FieldArray>
+              </div>
+              <span>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  sx={{ minWidth: "1" }}
+                  style={{ marginTop: 3 }}
+                  disabled={
+                    !(formik.isValid && formik.dirty) ||
+                    selectedWayareaWithNoGDOGID
+                  } //formik.dirty is needed to disable on initial load
+                  data-cy-id="submit-button"
+                >
+                  <span style={{ marginRight: "0.2em" }}>Lähetä</span>
+                  {!(formik.isValid && formik.dirty) ||
+                  selectedWayareaWithNoGDOGID ? (
+                    <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
+                  ) : null}
+                </Button>
+              </span>
+            </div>
+          </Grid>
+        </Grid>
+      )}
+    </div>
   );
 }
 

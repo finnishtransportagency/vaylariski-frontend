@@ -1,9 +1,21 @@
-.map-view-container {
+.map-view-container,
+.traffic-light-container {
   background-color: var(--color-container);
   padding: 1rem;
-  padding-top: 0;
+  padding-bottom: 0;
 }
 
-.map-view-content {
+.map-view-container {
+  padding-top: 0rem;
+  height: 81%;
+}
+
+.map-view-content,
+.traffic-light-content {
   background-color: var(--color-background-white);
+  height: 100%;
+}
+
+.traffic-light-container {
+  flex-grow: 1;
 }

@@ -245,7 +245,7 @@ export default function RIVTrafficLightsComponent() {
         <Grid>
           <Slider
             sx={{
-              width: 500,
+              width: "100%",
               height: 10,
               "& .MuiSlider-rail": {
                 background: `linear-gradient(90deg, ${

@@ -49,7 +49,7 @@ function row(n, formik, isBend1) {
         xs={3}
         step={0.1}
       />
-      <Grid item xs={1} />
+      {/* <Grid item xs={1} /> */}
       {n > 1 ? (
         <CustomNumber
           formik={formik}
@@ -60,7 +60,7 @@ function row(n, formik, isBend1) {
       ) : (
         <Grid item xs={3} />
       )}
-      <Grid item xs={2} paddingBottom={0.5}>
+      <Grid item xs={3} paddingBottom={0.5} paddingLeft={"0 !important"}>
         {limText(n, symbol)}
       </Grid>
       {n < 5 ? (

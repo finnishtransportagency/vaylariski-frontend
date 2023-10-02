@@ -63,7 +63,7 @@ export default function ParameterTabsComponent() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box className="main-tab-wrapper">
       <Box>
         <Tabs
           value={value}
@@ -101,7 +101,7 @@ export default function ParameterTabsComponent() {
         validationSchema={parametersValidationSchema}
       >
         {(formik) => (
-          <FForm>
+          <FForm className="main-tab-formik">
             <div className="main-tab-container">
               <div className="main-tab-content">
                 <UserInputForm tabValue={value} tabIndex={0} formik={formik} />

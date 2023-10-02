@@ -189,11 +189,7 @@ function MapView() {
 
   return (
     <>
-      <div className="map-view-container">
-        <div className="map-view-content">
-          <RIVTrafficLightsComponent />
-        </div>
-      </div>
+      <div className="map-wrapper-empty-space" />
       <div className="map-view-container">
         <div className="map-view-content">
           <MapContainer
@@ -202,11 +198,6 @@ function MapView() {
             center={coords}
             zoom={9}
             scrollWheelZoom={true}
-            style={{
-              height: "800px",
-              width: "75%",
-              backgroundColor: "white",
-            }}
           >
             <GeoJSONMarkers />
             <TileLayer
@@ -214,6 +205,11 @@ function MapView() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </MapContainer>
+        </div>
+      </div>
+      <div className="traffic-light-container">
+        <div className="traffic-light-content">
+          <RIVTrafficLightsComponent />
         </div>
       </div>
     </>

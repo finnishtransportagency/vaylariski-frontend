@@ -130,10 +130,11 @@ export default function DisplayRIVResultsDiagramView(props) {
       hidden={tabValue !== tabIndex}
       id={`simple-tabpanel-${tabIndex}`}
       aria-labelledby={`simple-tab-${tabIndex}`}
+      className="riv-diagram-tab-component"
       {...other}
     >
       {tabValue === tabIndex && (
-        <ResponsiveContainer width="75%" height={500}>
+        <ResponsiveContainer width="100%" height="95%">
           <LineChart
             data={displayRowResults}
             height={400}
