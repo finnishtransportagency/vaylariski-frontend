@@ -7,9 +7,22 @@ import {
   useRef,
 } from "react";
 import DataGrid from "react-data-grid";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import "react-data-grid/lib/styles.css";
-import { Box, Modal, Button } from "@mui/material";
+import {
+  Box,
+  Modal,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 import { CSVLink } from "react-csv";
 import RIVResultContext from "../contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
@@ -247,7 +260,7 @@ function TableView(props, { direction }) {
     >
       <div>
         {/* Export CSV */}
-        <Button variant="contained" style={{ marginRight: 3, marginBottom: 3 }}>
+        <Button variant="contained" sx={{ mb: 1, mt: 1, ml: 1 }}>
           <CSVLink
             data={csvData}
             filename={"vaylakohtainen_riski.csv"}
@@ -261,7 +274,7 @@ function TableView(props, { direction }) {
         {/* Select column */}
         <Button
           variant="contained"
-          style={{ marginRight: 3, marginBottom: 3 }}
+          sx={{ mb: 1, mt: 1, ml: 1 }}
           onClick={handleOpen}
         >
           <ViewWeekIcon style={{ marginRight: 3 }} />
@@ -302,7 +315,7 @@ function TableView(props, { direction }) {
         {/* Add filters */}
         <Button
           variant="contained"
-          style={{ marginRight: 3, marginBottom: 3 }}
+          sx={{ mb: 1, mt: 1, ml: 1 }}
           onClick={handleAddFilterClick}
         >
           <FilterAltIcon />
@@ -317,47 +330,82 @@ function TableView(props, { direction }) {
             }}
             onSubmit={handleFilterSubmit}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, handleChange, values }) => (
               <Form>
-                <label htmlFor="filterConstant">Parametri:</label>
-                <Field
-                  as="select"
-                  id="filterConstant"
-                  name="filterConstant"
+                <FormControl
                   required
+                  sx={{ mt: 1, mb: 1, minWidth: 250, fontSize: 14 }}
+                  size="small"
                 >
-                  <option value="">Valitse parametri</option>
-                  {columns.map((column) => (
-                    <option key={column.key} value={column.key}>
-                      {column.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="filterConstant" component="div" />
-
-                <label htmlFor="filterOperator"></label>
-                <Field as="select" id="filterOperator" name="filterOperator">
-                  <option value="≤">≤</option>
-                  <option value="≥">≥</option>
-                  <option value="=">=</option>
-                </Field>
-                <ErrorMessage name="filterOperator" component="div" />
-
-                <label htmlFor="filterValue">Arvo:</label>
-                <Field
-                  type="text"
-                  id="filterValue"
-                  name="filterValue"
+                  <InputLabel
+                    id="filterConstant"
+                    style={{ backgroundColor: "white" }}
+                  >
+                    Valitse parametri
+                  </InputLabel>
+                  <Select
+                    labelId="filterConstant"
+                    id="filterConstant"
+                    name="filterConstant"
+                    value={values.filterConstant}
+                    onChange={handleChange}
+                  >
+                    {columns.map((column) => (
+                      <MenuItem key={column.key} value={column.key}>
+                        {column.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <ErrorMessage name="filterConstant" component="div" />
+                </FormControl>
+                <FormControl
                   required
-                />
-                <ErrorMessage name="filterValue" component="div" />
-
-                <button type="submit" disabled={isSubmitting}>
+                  sx={{ ml: 1, mt: 1, mb: 1, minWidth: 50, fontSize: 14 }}
+                  size="small"
+                >
+                  <Select
+                    labelId="filterOperator"
+                    id="filterOperator"
+                    name="filterOperator"
+                    value={values.filterOperator}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="≤">≤</MenuItem>
+                    <MenuItem value="≥">≥</MenuItem>
+                    <MenuItem value="=">=</MenuItem>
+                  </Select>
+                  <ErrorMessage name="filterOperator" component="div" />
+                </FormControl>
+                <FormControl
+                  required
+                  sx={{ ml: 1, mt: 1, mb: 1, minWidth: 50, fontSize: 14 }}
+                >
+                  <TextField
+                    label="Arvo *"
+                    id="filterValue"
+                    name="filterValue"
+                    variant="outlined"
+                    value={values.filterValue}
+                    onChange={handleChange}
+                    size="small"
+                  />
+                  <ErrorMessage name="filterValue" component="div" />
+                </FormControl>
+                <Button
+                  variant="contained"
+                  sx={{ ml: 1, mt: 1, mb: 1 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
                   Käytä
-                </button>
-                <button type="button" onClick={handleCancelClick}>
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{ ml: 1, mt: 1, mb: 1 }}
+                  onClick={handleCancelClick}
+                >
                   Poista
-                </button>
+                </Button>
               </Form>
             )}
           </Formik>
@@ -366,16 +414,28 @@ function TableView(props, { direction }) {
           <div>
             {filters.map((filter, index) => (
               <div key={index}>
-                <span>
-                  {filter.filterConstant} {filter.filterOperator}{" "}
-                  {filter.filterValue}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveFilterClick(index)}
+                <List
+                  sx={{
+                    maxWidth: 500,
+                    bgcolor: "background.paper",
+                  }}
                 >
-                  Poista
-                </button>
+                  <ListItem>
+                    <ListItemText
+                      primary=<span>
+                        {filter.filterConstant} {filter.filterOperator}{" "}
+                        {filter.filterValue}
+                      </span>
+                    />
+                    <Button
+                      variant="contained"
+                      onClick={() => handleRemoveFilterClick(index)}
+                    >
+                      Poista suodatus
+                    </Button>
+                  </ListItem>
+                  <Divider light />
+                </List>
               </div>
             ))}
           </div>
