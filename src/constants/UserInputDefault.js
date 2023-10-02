@@ -37,6 +37,7 @@ const userInputDefault = {
       bend_radius: "inf",
       bend_angle: 0,
       distance_between_bends: "inf",
+      use_new_width_calculation: false,
     },
   },
   weightfactors: {
