@@ -98,11 +98,35 @@ function CalculateRIV() {
                               >
                                 <NotificationComponent />
                                 <LoadingSpinner />
-                                <Slider
-                                  size="small"
-                                  value={sliderValue}
-                                  onChange={handleChange}
-                                />
+                                <div
+                                  style={{
+                                    backgroundColor: "var(--color-header)",
+                                    display: "flex",
+                                    padding: "0px",
+                                  }}
+                                >
+                                  <Slider
+                                    sx={{
+                                      color: "var(--color-header)",
+                                      "& .MuiSlider-thumb": {
+                                        backgroundColor: "white",
+                                        //borderRadius: "1px",
+                                        //width: "5px",
+                                        //height: "50px",
+                                      },
+                                      "& .MuiSlider-rail": {
+                                        color: "var(--color-header)",
+                                        opacity: 1,
+                                      },
+                                    }}
+                                    style={{
+                                      padding: "0px",
+                                      height: "0px",
+                                    }}
+                                    value={sliderValue}
+                                    onChange={handleChange}
+                                  />
+                                </div>
                                 <div className="main-wrapper">
                                   <div
                                     className="parameter-and-riv-wrapper"

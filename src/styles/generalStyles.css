@@ -95,7 +95,7 @@ li {
 }
 
 .map-wrapper-empty-space {
-  background-color: var(--color-light-blue-50);
+  background-color: var(--color-light-blue-30);
   padding-top: 3rem;
   margin-bottom: 1.5rem;
 }

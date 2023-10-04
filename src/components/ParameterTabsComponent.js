@@ -64,7 +64,12 @@ export default function ParameterTabsComponent() {
 
   return (
     <Box className="main-tab-wrapper">
-      <Box>
+      <Box
+        style={{
+          paddingRight: "1rem",
+          paddingBottom: 0,
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleTabChange}
