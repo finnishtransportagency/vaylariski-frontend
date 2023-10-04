@@ -66,7 +66,6 @@ export default function ParameterTabsComponent() {
     <Box className="main-tab-wrapper">
       <Box
         style={{
-          paddingRight: "1rem",
           paddingBottom: 0,
         }}
       >

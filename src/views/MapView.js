@@ -85,6 +85,7 @@ function GeoJSONMarkers({ sliderValue }) {
 
   useEffect(() => {
     map.invalidateSize();
+    console.log(sliderValue);
   }, [sliderValue]);
 
   useEffect(() => {

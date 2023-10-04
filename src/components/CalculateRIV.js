@@ -20,6 +20,8 @@ import SelectedBoatContext from "contexts/SelectedBoatContext";
 import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import { Slider } from "@mui/material";
+import { Allotment } from "allotment";
+import "allotment/dist/style.css";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
@@ -98,53 +100,34 @@ function CalculateRIV() {
                               >
                                 <NotificationComponent />
                                 <LoadingSpinner />
-                                <div
-                                  style={{
-                                    backgroundColor: "var(--color-header)",
-                                    display: "flex",
-                                    padding: "0px",
-                                  }}
-                                >
-                                  <Slider
-                                    sx={{
-                                      color: "var(--color-header)",
-                                      "& .MuiSlider-thumb": {
-                                        backgroundColor: "white",
-                                        //borderRadius: "1px",
-                                        //width: "5px",
-                                        //height: "50px",
-                                      },
-                                      "& .MuiSlider-rail": {
-                                        color: "var(--color-header)",
-                                        opacity: 1,
-                                      },
-                                    }}
-                                    style={{
-                                      padding: "0px",
-                                      height: "0px",
-                                    }}
-                                    value={sliderValue}
-                                    onChange={handleChange}
-                                  />
-                                </div>
                                 <div className="main-wrapper">
-                                  <div
-                                    className="parameter-and-riv-wrapper"
-                                    style={{ width: `${sliderValue}%` }}
+                                  <Allotment
+                                    onDragEnd={() => {
+                                      setSliderValue(Math.random());
+                                    }}
                                   >
-                                    <div className="parameter-wrapper">
-                                      <ParameterTabsComponent />
+                                    <div
+                                      className="parameter-and-riv-wrapper"
+                                      style={{
+                                        height: `${100}%`,
+                                      }}
+                                    >
+                                      <div className="parameter-wrapper">
+                                        <ParameterTabsComponent />
+                                      </div>
+                                      <div className="riv-wrapper">
+                                        <RIVResultsTabsComponent />
+                                      </div>
                                     </div>
-                                    <div className="riv-wrapper">
-                                      <RIVResultsTabsComponent />
+                                    <div
+                                      className="map-wrapper "
+                                      style={{
+                                        height: "100%",
+                                      }}
+                                    >
+                                      <MapView sliderValue={sliderValue} />
                                     </div>
-                                  </div>
-                                  <div
-                                    className="map-wrapper "
-                                    style={{ width: `${100 - sliderValue}%` }}
-                                  >
-                                    <MapView sliderValue={sliderValue} />
-                                  </div>
+                                  </Allotment>
                                 </div>
                               </DiagramPointClickedContext.Provider>
                             </TableRowClickedContext.Provider>
