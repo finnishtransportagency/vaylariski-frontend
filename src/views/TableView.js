@@ -381,9 +381,10 @@ function TableView(props, { direction }) {
           </div>
         )}
       </div>
+
       <DataGrid
         style={{
-          height: "95%",
+          height: "80%",
           width: "100%",
         }}
         ref={gridRef}

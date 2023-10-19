@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -19,7 +19,6 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
-import { Slider } from "@mui/material";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
 
@@ -48,10 +47,7 @@ function CalculateRIV() {
   const [tableRowClicked, setTableRowClicked] = useState(false);
   const [diagramPointClicked, setDiagramPointClicked] = useState(false);
 
-  const [sliderValue, setSliderValue] = useState(50);
-  const handleChange = (event, newValue) => {
-    setSliderValue(newValue);
-  };
+  const mapRef = useRef();
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -102,16 +98,11 @@ function CalculateRIV() {
                                 <LoadingSpinner />
                                 <div className="main-wrapper">
                                   <Allotment
-                                    onDragEnd={() => {
-                                      setSliderValue(Math.random());
+                                    onChange={() => {
+                                      mapRef.current.invalidateMapSize();
                                     }}
                                   >
-                                    <div
-                                      className="parameter-and-riv-wrapper"
-                                      style={{
-                                        height: `${100}%`,
-                                      }}
-                                    >
+                                    <div className="parameter-and-riv-wrapper">
                                       <div className="parameter-wrapper">
                                         <ParameterTabsComponent />
                                       </div>
@@ -119,13 +110,8 @@ function CalculateRIV() {
                                         <RIVResultsTabsComponent />
                                       </div>
                                     </div>
-                                    <div
-                                      className="map-wrapper "
-                                      style={{
-                                        height: "100%",
-                                      }}
-                                    >
-                                      <MapView sliderValue={sliderValue} />
+                                    <div className="map-wrapper">
+                                      <MapView ref={mapRef} />
                                     </div>
                                   </Allotment>
                                 </div>
