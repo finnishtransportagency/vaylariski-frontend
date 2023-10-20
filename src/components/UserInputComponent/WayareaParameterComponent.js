@@ -24,11 +24,11 @@ export default function WayareaParameterComponent(props) {
       label: "Kaistat",
       options: [
         {
-          value: 1,
+          value: 2,
           label: "Kaksisuuntainen väylä",
         },
         {
-          value: 2,
+          value: 1,
           label: "Yksisuuntainen väylä",
         },
       ],
