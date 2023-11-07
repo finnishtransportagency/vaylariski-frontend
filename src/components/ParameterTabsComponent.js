@@ -41,6 +41,7 @@ export default function ParameterTabsComponent() {
     // Empty previous results
     setRIVResults([]);
     setWayareaPolygons([]);
+    console.log(values);
     try {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
