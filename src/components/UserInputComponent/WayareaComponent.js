@@ -17,6 +17,8 @@ import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
+import CalculationIntervalContext from "../../contexts/CalculationIntervalContext";
+import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
@@ -31,10 +33,15 @@ export default function WayareaComponent(props) {
   const { selectedWayarea, setSelectedWayarea } = useContext(
     SelectedWayareaContext
   );
+  const { setSelectedWayareaChanged } = useContext(
+    SelectedWayareaChangedContext
+  );
   const [wayareaInputString, setWayareaInputString] = useState(
     formatInputString(selectedWayarea)
   );
-  const [calculationInterval, setCalculationInterval] = useState(10);
+  const { calculationInterval, setCalculationInterval } = useContext(
+    CalculationIntervalContext
+  );
   const calculationIntervalOptions = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
   ];
@@ -84,12 +91,14 @@ export default function WayareaComponent(props) {
     if (value === "") {
       setChosenWayareaFormikValue(null);
       setSelectedWayarea(null);
+      setSelectedWayareaChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
     setChosenWayareaFormikValue(newValue);
     setSelectedWayarea(newValue);
+    setSelectedWayareaChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setWayareaInputString(newValue ? formatInputString(newValue) : "");
   };
