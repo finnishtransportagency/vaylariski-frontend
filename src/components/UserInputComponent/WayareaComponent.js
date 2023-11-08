@@ -121,7 +121,7 @@ export default function WayareaComponent(props) {
             <Tooltip
               placement="right"
               arrow
-              title={meta.error}
+              title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
               id="wayarea-tooltip"
             >
               <Autocomplete
@@ -141,7 +141,7 @@ export default function WayareaComponent(props) {
                 size="small"
                 renderInput={(params) => (
                   <TextField
-                    error={!!meta.error}
+                    error={!!meta.error || !formik.dirty}
                     style={{ backgroundColor: "white" }}
                     {...params}
                     required
