@@ -14,11 +14,18 @@ import userInputDefault from "constants/UserInputDefault";
 import CustomNumber from "components/customInputs/CustomNumber";
 
 export default function BoatMenuComponent(props) {
+  const formatInputString = (boat) =>
+    boat
+      ? `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.PITUUS}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`
+      : "";
+
   const { formik } = props;
   const [defaultBoats, setDefaultBoats] = useState([]);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedBoat, setSelectedBoat } = useContext(SelectedBoatContext);
-  const [boatInputString, setBoatInputString] = useState("");
+  const [boatInputString, setBoatInputString] = useState(
+    formatInputString(selectedBoat)
+  );
   const [showOld, setShowOld] = useState(false);
 
   useEffect(() => {
@@ -35,9 +42,6 @@ export default function BoatMenuComponent(props) {
         });
       });
   }, []);
-
-  const formatInputString = (boat) =>
-    `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.PITUUS}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`;
 
   function handleMenuItemClick(event, newValue) {
     setChosenBoatFormikValue(newValue);
