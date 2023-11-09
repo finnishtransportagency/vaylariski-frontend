@@ -383,10 +383,6 @@ function TableView(props, { direction }) {
       </div>
 
       <DataGrid
-        style={{
-          height: "80%",
-          width: "100%",
-        }}
         ref={gridRef}
         columns={visibleData}
         rows={filteredRows}
