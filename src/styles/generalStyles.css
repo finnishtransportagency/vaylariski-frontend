@@ -70,6 +70,7 @@ li {
 }
 
 .parameter-and-riv-wrapper {
+  height: 100%;
   gap: 1rem;
   display: flex;
   flex-direction: column;
@@ -82,10 +83,8 @@ li {
   min-height: 50vh;
 }
 
-.parameter-wrapper {
-}
-
 .map-wrapper {
+  height: 100%;
   background-color: var(--color-light-blue-30);
   display: flex;
   flex-direction: column;

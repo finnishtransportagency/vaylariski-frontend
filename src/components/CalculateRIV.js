@@ -96,14 +96,15 @@ function CalculateRIV() {
                               >
                                 <NotificationComponent />
                                 <LoadingSpinner />
-                                <div className="main-wrapper">
+                                <div>
                                   <Allotment
                                     onChange={() => {
                                       mapRef.current.invalidateMapSize();
                                     }}
+                                    className="main-wrapper"
                                   >
                                     <div className="parameter-and-riv-wrapper">
-                                      <div className="parameter-wrapper">
+                                      <div>
                                         <ParameterTabsComponent />
                                       </div>
                                       <div className="riv-wrapper">
