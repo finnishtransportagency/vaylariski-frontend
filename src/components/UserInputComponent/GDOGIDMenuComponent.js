@@ -17,6 +17,9 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedGDOGIDContext from "contexts/SelectedGDOGIDContext";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
+import FairwayWidth from "./FairwayWidth";
+import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
+import AllGDOGIDSContext from "../../contexts/AllGDOGIDSContext";
 
 export default function GDOGIDMenuComponent(props) {
   const { name, formik } = props;
@@ -24,8 +27,11 @@ export default function GDOGIDMenuComponent(props) {
   const [field, meta] = useField(name);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
-  const [allGDOGIDs, setAllGDOGIDs] = useState([]);
+  const { allGDOGIDs, setAllGDOGIDs } = useContext(AllGDOGIDSContext);
   const { selectedWayarea } = useContext(SelectedWayareaContext);
+  const { selectedWayareaChanged, setSelectedWayareaChanged } = useContext(
+    SelectedWayareaChangedContext
+  );
   const { selectedGDOGIDString, setSelectedGDOGIDString } = useContext(
     SelectedGDOGIDContext
   );
@@ -47,9 +53,9 @@ export default function GDOGIDMenuComponent(props) {
   }
 
   useEffect(() => {
-    setChosenGDOGIDFormikValue("");
-    setSelectedGDOGIDString("");
-    if (selectedWayarea) {
+    if (selectedWayarea && selectedWayareaChanged) {
+      setChosenGDOGIDFormikValue("");
+      setSelectedGDOGIDString("");
       setSpinnerVisible(true);
 
       const path = "gdo_gids_for_vaylat";
@@ -80,9 +86,10 @@ export default function GDOGIDMenuComponent(props) {
         })
         .finally(() => {
           setSpinnerVisible(false);
+          setSelectedWayareaChanged(false);
         });
     }
-  }, [selectedWayarea]);
+  }, [selectedWayarea, selectedWayareaChanged]);
 
   const handleMenuItemClick = (event, newValue) => {
     setInvalidFieldInput(false);
@@ -192,6 +199,7 @@ export default function GDOGIDMenuComponent(props) {
           </Tooltip>
         </Form.Group>
       </Grid>
+      <FairwayWidth formik={formik} />
     </Grid>
   );
 }

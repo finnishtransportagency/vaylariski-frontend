@@ -38,3 +38,34 @@ Thus, do the following:
   - When the pull request is okay, merge the pull request
 
 As our AWS-pipeline checks for changes on the branches _test_ and _prod_, automatic deployment happens after merging to either of these branches. Thus, no more action is needed by the developer to complete the deployment.
+
+## VSCode extensions
+
+Need to have:
+EJS language support
+ESLint
+Prettier (9.14.0)
+Pylance
+Python
+
+Good to have:
+Docker
+Git Graph
+GitLens
+Snowflake
+
+Nice to have:
+Black Formatter
+Console Ninja
+env-cmd-file
+GitHub Actions
+Image preview
+indent-preview
+Jupyter
+Markdown All in One
+markdownlint
+Todo Tree
+Random Everything
+vscode-pdf
+vscode-pets
+WSL (if you're using WSL)
