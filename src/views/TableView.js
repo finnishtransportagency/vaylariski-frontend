@@ -80,9 +80,11 @@ function TableView(props, { direction }) {
     setOpen(false);
   };
 
+  let num = 4 // num is the number of columns visible by default
+  // The columns visible by default are the columns: 1 to num
   // Columns that are selected visible in table
   const [visibleColumns, setVisibleColumns] = useState(
-    columns.map((c) => c.key)
+    columns.map((c) => c.key).slice(0,num)
   );
 
   // Toggle selection for columns (in modal)
