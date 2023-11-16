@@ -1,4 +1,11 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -166,8 +173,8 @@ function GeoJSONMarkers() {
 
   return null;
 }
-
-function MapView() {
+// eslint-disable-next-line react/display-name
+const MapView = forwardRef((props, refs) => {
   const { RIVResults } = useContext(RIVResultContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
@@ -177,6 +184,16 @@ function MapView() {
       mapRef.current.setView(coords, 9);
     }
   }, [coords]);
+
+  const invalidateMapSize = () => {
+    if (mapRef.current) {
+      mapRef.current.invalidateSize();
+    }
+  };
+
+  useImperativeHandle(refs, () => {
+    return { invalidateMapSize };
+  });
 
   useEffect(() => {
     if (typeof RIVResults.features !== "undefined") {
@@ -214,6 +231,6 @@ function MapView() {
       </div>
     </>
   );
-}
+});
 
 export default MapView;
