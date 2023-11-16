@@ -442,10 +442,7 @@ function TableView(props, { direction }) {
         )}
       </div>
       <DataGrid
-        style={{
-          height: "95%",
-          width: "100%",
-        }}
+        className="riv-table"
         ref={gridRef}
         columns={visibleData}
         rows={filteredRows}

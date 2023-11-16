@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import RIVResultContext from "../contexts/RIVResult";
 import UserInputContext from "../contexts/UserInput";
 import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
@@ -19,9 +19,11 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
+import { Allotment } from "allotment";
 import CalculationIntervalContext from "../contexts/CalculationIntervalContext";
 import SelectedWayareaChangedContext from "../contexts/SelectedWayareaChangedContext";
 import AllGDOGIDSContext from "../contexts/AllGDOGIDSContext";
+import "allotment/dist/style.css";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
@@ -50,6 +52,8 @@ function CalculateRIV() {
   const [mapPointClicked, setMapPointClicked] = useState(false);
   const [tableRowClicked, setTableRowClicked] = useState(false);
   const [diagramPointClicked, setDiagramPointClicked] = useState(false);
+
+  const mapRef = useRef();
 
   return (
     <RIVResultContext.Provider value={{ RIVResults, setRIVResults }}>
@@ -125,18 +129,25 @@ function CalculateRIV() {
                                     >
                                       <NotificationComponent />
                                       <LoadingSpinner />
-                                      <div className="main-wrapper">
-                                        <div className="parameter-and-riv-wrapper">
-                                          <div className="parameter-wrapper">
-                                            <ParameterTabsComponent />
+                                      <div>
+                                        <Allotment
+                                          onChange={() => {
+                                            mapRef.current.invalidateMapSize();
+                                          }}
+                                          className="main-wrapper"
+                                        >
+                                          <div className="parameter-and-riv-wrapper">
+                                            <div>
+                                              <ParameterTabsComponent />
+                                            </div>
+                                            <div className="riv-wrapper">
+                                              <RIVResultsTabsComponent />
+                                            </div>
                                           </div>
-                                          <div className="riv-wrapper">
-                                            <RIVResultsTabsComponent />
+                                          <div className="map-wrapper">
+                                            <MapView ref={mapRef} />
                                           </div>
-                                        </div>
-                                        <div className="map-wrapper ">
-                                          <MapView />
-                                        </div>
+                                        </Allotment>
                                       </div>
                                     </DiagramPointClickedContext.Provider>
                                   </TableRowClickedContext.Provider>
