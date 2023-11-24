@@ -123,7 +123,7 @@ function TableView(props, { direction }) {
       let props = el.properties;
       const lon = el.geometry.coordinates[0];
       const lat = el.geometry.coordinates[1];
-      props = { ...props, MID_POINT: `POINT (${lon} ${lat})` };
+      props = { ...props, mid_point: `POINT (${lon} ${lat})` };
 
       rowResults.push(props);
     });

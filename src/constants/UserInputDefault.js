@@ -8,7 +8,7 @@ const userInputDefault = {
     C_turning_radius: 5,
   },
   navline: {
-    VAYLAT: "",
+    vaylat: "",
     starting_gdo_gid: "",
     navline: [
       {

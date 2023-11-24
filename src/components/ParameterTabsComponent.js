@@ -45,7 +45,7 @@ export default function ParameterTabsComponent() {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
         apiClient.get(path_wayarea, {
-          params: { VAYLAT: values.navline.VAYLAT },
+          params: { vaylat: values.navline.vaylat },
         }),
       ]);
       setRIVResults(response.data);

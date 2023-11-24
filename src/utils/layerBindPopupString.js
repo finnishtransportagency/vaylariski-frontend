@@ -1,10 +1,10 @@
 export const layerBindPopupString = (feature) =>
   "<pre>" +
-  "GDO_GID: " +
-  JSON.stringify(feature.properties.GDO_GID) +
+  "gdo_gid: " +
+  JSON.stringify(feature.properties.gdo_gid) +
   "\n" +
-  "VAYLAT: " +
-  JSON.stringify(feature.properties.VAYLAT) +
+  "vaylat: " +
+  JSON.stringify(feature.properties.vaylat) +
   "\n" +
   "RIV_SUM: " +
   JSON.stringify(feature.properties.RISK_INDEX_SUM) +

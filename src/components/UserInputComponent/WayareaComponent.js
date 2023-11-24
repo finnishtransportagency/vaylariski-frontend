@@ -22,7 +22,7 @@ import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChanged
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
-    wayarea ? `${wayarea.VAYLAT} - ${wayarea.Nimi}` : "";
+    wayarea ? `${wayarea.vaylat} - ${wayarea.Nimi}` : "";
 
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
@@ -47,7 +47,7 @@ export default function WayareaComponent(props) {
   ];
 
   function setChosenWayareaFormikValue(wayarea) {
-    formik.setFieldValue("navline.VAYLAT", wayarea?.VAYLAT || "");
+    formik.setFieldValue("navline.vaylat", wayarea?.vaylat || "");
   }
 
   useEffect(() => {
@@ -115,18 +115,18 @@ export default function WayareaComponent(props) {
             >
               Valitse väylä
             </Typography>
-            <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
-              VAYLAT id/nimi
+            <InputLabel style={{ fontSize: 14 }} id={"navline.vaylat.id"}>
+              vaylat id/nimi
             </InputLabel>
             <Tooltip
               placement="right"
               arrow
-              title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
+              title={!formik.dirty ? "vaylat id vaaditaan" : meta.error}
               id="wayarea-tooltip"
             >
               <Autocomplete
-                id="navline.VAYLAT"
-                data-cy-id="navline.VAYLAT.id"
+                id="navline.vaylat"
+                data-cy-id="navline.vaylat.id"
                 disablePortal
                 options={allWayareas}
                 getOptionLabel={(option) =>

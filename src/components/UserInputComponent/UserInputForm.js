@@ -107,7 +107,7 @@ function UserInputForm(props) {
                     paddingRight={2}
                     paddingLeft={2}
                   >
-                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
+                    <WayareaComponent name="navline.vaylat" formik={formik} />
                     <GDOGIDMenuComponent
                       formik={formik}
                       name="navline.starting_gdo_gid"
@@ -227,7 +227,7 @@ function UserInputForm(props) {
                       <br />
                       {!formik.dirty ? (
                         <>
-                          - VAYLAT id vaaditaan
+                          - vaylat id vaaditaan
                           <br />
                         </>
                       ) : (

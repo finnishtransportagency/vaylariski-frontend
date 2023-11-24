@@ -28,10 +28,10 @@ const CustomTooltipRender = (props) => {
         </p>
         <ul className="recharts-tooltip-item-list recharts-tooltip-item-list-style">
           <li className="recharts-tooltip-item recharts-tooltip-item-style">
-            <span className="recharts-tooltip-item-name">GDO_GID</span>
+            <span className="recharts-tooltip-item-name">gdo_gid</span>
             <span className="recharts-tooltip-item-separator">: </span>
             <span className="recharts-tooltip-item-value">
-              {payload[0].payload.GDO_GID}
+              {payload[0].payload.gdo_gid}
             </span>
             <span className="recharts-tooltip-item-unit" />
           </li>
@@ -146,7 +146,7 @@ export default function DisplayRIVResultsDiagramView(props) {
           >
             <Line type="monotone" dataKey="RISK_INDEX_SUM" stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-            <XAxis dataKey="GDO_GID" angle={-45} textAnchor={"end"} />
+            <XAxis dataKey="gdo_gid" angle={-45} textAnchor={"end"} />
             <YAxis domain={[0, maxDataValue]} />
             <Tooltip trigger="click" content={<CustomTooltipRender />} />
             <ReferenceArea

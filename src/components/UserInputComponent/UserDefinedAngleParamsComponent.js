@@ -24,13 +24,13 @@ import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import apiClient from "http-common";
 
 {
-  /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
+  /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut sade, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (gdo_gid) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
   const { tabValue, tabIndex, formik, ...other } = props;
   const newAngle = {
-    GDO_GID: "",
-    SADE: "",
+    gdo_gid: "",
+    sade: "",
     S_BEND: "",
     BEND_ANGLE: "",
   };
@@ -44,7 +44,7 @@ export default function UserDefinedAngleParamsComponent(props) {
   const [allGDOGIDs, setAllGDOGIDs] = useState([]);
 
   const handleMenuItemClick = (event, newValue, index) => {
-    formik.setFieldValue(`navline_angle_params.${index}.GDO_GID`, newValue);
+    formik.setFieldValue(`navline_angle_params.${index}.gdo_gid`, newValue);
     setSelectedGDO_GIDs((prevSelectedGDO_GIDs) => {
       const updatedSelectedGDO_GIDs = [...prevSelectedGDO_GIDs];
       updatedSelectedGDO_GIDs[index] = newValue;
@@ -52,7 +52,7 @@ export default function UserDefinedAngleParamsComponent(props) {
     });
   };
   const handleRemoveRow = (index) => {
-    formik.setFieldValue(`navline_angle_params.${index}.GDO_GID`, null); // Reset the GDO_GID value
+    formik.setFieldValue(`navline_angle_params.${index}.gdo_gid`, null); // Reset the gdo_gid value
     setSelectedGDO_GIDs((prevSelectedGDO_GIDs) => {
       const updatedSelectedGDO_GIDs = [...prevSelectedGDO_GIDs];
       updatedSelectedGDO_GIDs[index] = null;
@@ -69,14 +69,14 @@ export default function UserDefinedAngleParamsComponent(props) {
       apiClient
         .get(path, {
           params: {
-            VAYLAT: selectedWayarea.VAYLAT,
+            vaylat: selectedWayarea.vaylat,
           },
         })
         .then((response) => {
-          if (!response.data.GDO_GID.length) {
+          if (!response.data.gdo_gid.length) {
             setSelectedWayareaWithNoGDOGID(true);
           } else setSelectedWayareaWithNoGDOGID(false);
-          setAllGDOGIDs(response.data.GDO_GID);
+          setAllGDOGIDs(response.data.gdo_gid);
         })
         .catch((err) => {
           console.log(err);
@@ -88,7 +88,7 @@ export default function UserDefinedAngleParamsComponent(props) {
     // Initialize the state with an array of objects, each representing a TextField
     setTextFieldHasContent(
       formik.values.navline_angle_params.map((el) => ({
-        SADE: el.SADE !== "",
+        sade: el.sade !== "",
         BEND_ANGLE: el.BEND_ANGLE !== "",
         S_BEND: el.S_BEND !== "",
       }))
@@ -131,7 +131,7 @@ export default function UserDefinedAngleParamsComponent(props) {
                 >
                   Voit muokata laskentaa varten navigointilinjojen mutkan
                   sädettä, suuntakulmaa ja/tai S-mutkan pituutta. Tee valitulle
-                  navigointilinjalle (GDO_GID) kaikki haluamasi muutokset
+                  navigointilinjalle (gdo_gid) kaikki haluamasi muutokset
                   samalle riville.
                 </Typography>
                 <FieldArray name="navline_angle_params">
@@ -147,11 +147,11 @@ export default function UserDefinedAngleParamsComponent(props) {
                           >
                             <Grid>
                               <InputLabel style={{ fontSize: 14 }}>
-                                GDO_GID
+                                gdo_gid
                               </InputLabel>
                               <Autocomplete
                                 fullWidth
-                                id={`navline_angle_params.${index}.GDO_GID`}
+                                id={`navline_angle_params.${index}.gdo_gid`}
                                 options={allGDOGIDs}
                                 getOptionLabel={(option) =>
                                   option.toString() ?? ""
@@ -181,23 +181,23 @@ export default function UserDefinedAngleParamsComponent(props) {
                               <TextField
                                 fullWidth
                                 InputProps={{ sx: { height: 40 } }}
-                                name={`navline_angle_params.${index}.SADE`}
+                                name={`navline_angle_params.${index}.sade`}
                                 value={
                                   formik.values.navline_angle_params[index]
-                                    ?.SADE || ""
+                                    ?.sade || ""
                                 }
                                 onChange={(e) => {
                                   formik.handleChange(e);
                                   handleTextFieldChange(
                                     index,
-                                    "SADE",
+                                    "sade",
                                     e.target.value
                                   );
                                 }}
                                 type="float"
                               />
                             </Grid>
-                            {textFieldHasContent[index]?.SADE ? (
+                            {textFieldHasContent[index]?.sade ? (
                               <BendRadiusIconSelected />
                             ) : (
                               <BendRadiusIcon />

@@ -16,7 +16,7 @@ import CustomNumber from "components/customInputs/CustomNumber";
 export default function BoatMenuComponent(props) {
   const formatInputString = (boat) =>
     boat
-      ? `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.PITUUS}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`
+      ? `${boat.JNRO} - ${boat.VAY_NIMISU}, pituus: ${boat.pituus}, leveys: ${boat.LEVEYS},  syväys: ${boat.SYVAYS}`
       : "";
 
   const { formik } = props;
@@ -57,7 +57,7 @@ export default function BoatMenuComponent(props) {
         ...formik.values,
         boat: {
           ...formik.values.boat,
-          length: newBoat.PITUUS ? newBoat.PITUUS : "",
+          length: newBoat.pituus ? newBoat.pituus : "",
           beam: newBoat.LEVEYS ? newBoat.LEVEYS : "",
           draft: newBoat.SYVAYS ? newBoat.SYVAYS : "",
         },

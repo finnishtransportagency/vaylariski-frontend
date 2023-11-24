@@ -198,12 +198,12 @@ const MapView = forwardRef((props, refs) => {
   });
 
   useEffect(() => {
-    // This is true when the user changed the VAYLAT to a different value
+    // This is true when the user changed the vaylat to a different value
     // before clicking the submit-button, or clicked it for the fist time
     if (
       typeof RIVResults.features !== "undefined" &&
-      previousRIVResults?.features?.[0].properties.VAYLAT !=
-        RIVResults.features[0].properties.VAYLAT
+      previousRIVResults?.features?.[0].properties.vaylat !=
+        RIVResults.features[0].properties.vaylat
     )
       setCoords({
         lat: RIVResults.features[0].geometry.coordinates[1],

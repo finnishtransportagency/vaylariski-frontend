@@ -62,19 +62,19 @@ export default function GDOGIDMenuComponent(props) {
       apiClient
         .get(path, {
           params: {
-            VAYLAT: selectedWayarea.VAYLAT,
+            vaylat: selectedWayarea.vaylat,
           },
         })
         .then((response) => {
-          if (!response.data.GDO_GID.length) {
+          if (!response.data.gdo_gid.length) {
             setSelectedWayareaWithNoGDOGID(true);
             setNotificationStatus({
               severity: "info",
-              message: `Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä ${selectedWayarea.VAYLAT}`,
+              message: `Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä ${selectedWayarea.vaylat}`,
               visible: true,
             });
           } else setSelectedWayareaWithNoGDOGID(false);
-          setAllGDOGIDs(response.data.GDO_GID);
+          setAllGDOGIDs(response.data.gdo_gid);
         })
         .catch((err) => {
           console.log(err);
@@ -130,10 +130,10 @@ export default function GDOGIDMenuComponent(props) {
                   <label style={{ fontSize: 14 }}>
                     Jotta voidaan laskea S-mutka, eli kahden peräkkäisen
                     erisuuntaisen mutkan välinen etäisyys, on annettava
-                    GDO_GID:ien järjestämistä varten navigointilinjan
-                    ensimmäinen GDO_GID. Esim. Oulun väylällä (100) ensimmäinen
-                    GDO_GID on 227903 ja Turun väylällä (3255) ensimmäinen
-                    GDO_GID on 204344.
+                    gdo_gid:ien järjestämistä varten navigointilinjan
+                    ensimmäinen gdo_gid. Esim. Oulun väylällä (100) ensimmäinen
+                    gdo_gid on 227903 ja Turun väylällä (3255) ensimmäinen
+                    gdo_gid on 204344.
                   </label>
                 }
                 PopperProps={{
@@ -156,7 +156,7 @@ export default function GDOGIDMenuComponent(props) {
             color="textSecondary"
             gutterBottom
           >
-            Ensimmäinen navigointilinjan tunnus (GDO_GID)
+            Ensimmäinen navigointilinjan tunnus (gdo_gid)
           </Typography>
           <Tooltip
             placement="right"

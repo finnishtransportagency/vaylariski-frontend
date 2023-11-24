@@ -10,7 +10,7 @@ import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import { useContext } from "react";
 
 const validationSchema = Yup.object().shape({
-  PITUUS: Yup.number()
+  pituus: Yup.number()
     .min(1, "Pituus ei voi olla negatiivinen")
     .typeError("Pituus tulee olla numero")
     .required("Pituus vaaditaan"),
@@ -75,7 +75,7 @@ export default function InsertNewBulkBoatComponent(props) {
       {tabValue === tabIndex && (
         <Formik
           initialValues={{
-            PITUUS: "",
+            pituus: "",
             LEVEYS: "",
             SYVAYS: "",
             JNRO: "",
@@ -95,7 +95,7 @@ export default function InsertNewBulkBoatComponent(props) {
             <FForm onSubmit={formik.handleSubmit}>
               <CustomNumberOld
                 label="Laivan pituus"
-                name="PITUUS"
+                name="pituus"
                 readOnly={false}
               />
               <CustomNumberOld

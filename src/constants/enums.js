@@ -1,7 +1,7 @@
 export const resultRowsEnums = {
   POINT_INDEX: "point_index",
-  GDO_GID: "GDO_GID",
-  VAYLAT: "VAYLAT",
+  gdo_gid: "gdo_gid",
+  vaylat: "vaylat",
   RISK_INDEX_SUM: "RISK_INDEX_SUM",
   RIV_1_CHANNEL: "RIV_1_channel",
   RIV_2_BEND: "RIV_2_bend",
@@ -48,7 +48,7 @@ export const resultRowsEnums = {
   VISIBILITY: "visibility",
   WAVE_HEIGHT_CATEGORY: "wave_height_category",
   WIND_SPEED_CATEGORY: "wind_speed_category",
-  MID_POINT: "MID_POINT",
+  mid_point: "mid_point",
 };
 
 export const cssColorCodes = {

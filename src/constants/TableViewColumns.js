@@ -8,14 +8,14 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
-    key: resultRowsEnums.GDO_GID,
-    name: "GDO_GID",
+    key: resultRowsEnums.gdo_gid,
+    name: "gdo_gid",
     resizable: true,
     sortable: true,
   },
   {
-    key: resultRowsEnums.VAYLAT,
-    name: "VAYLAT",
+    key: resultRowsEnums.vaylat,
+    name: "vaylat",
     resizable: true,
     sortable: true,
   },
@@ -296,7 +296,7 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
-    key: resultRowsEnums.MID_POINT,
+    key: resultRowsEnums.mid_point,
     name: "point_coordinate",
     resizable: true,
     sortable: true,
