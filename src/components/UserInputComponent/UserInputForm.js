@@ -17,6 +17,8 @@ import TrafficFactorsComponent from "./TrafficFactorsComponent";
 import ChannelEdgeAndBankClearanceComponent from "./ChannelEdgeAndBankClearanceComponent";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import RIVResultContext from "contexts/RIVResult";
+import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 
 function a11yProps(index) {
   return {
@@ -32,6 +34,12 @@ function UserInputForm(props) {
   const { selectedWayareaWithNoGDOGID } = useContext(
     SelectedWayareaWithNoGDOGIDContext
   );
+  const { RIVResults } = useContext(RIVResultContext);
+  const { setPreviousRIVResults } = useContext(PreviousRIVResultsContext);
+
+  const submitButtonClicked = () => {
+    setPreviousRIVResults(RIVResults);
+  };
 
   return (
     <div
@@ -255,6 +263,7 @@ function UserInputForm(props) {
                     selectedWayareaWithNoGDOGID
                   } //formik.dirty is needed to disable on initial load
                   data-cy-id="submit-button"
+                  onClick={submitButtonClicked}
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
                   {!(formik.isValid && formik.dirty) ||
