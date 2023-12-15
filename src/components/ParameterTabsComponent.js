@@ -61,6 +61,33 @@ export default function ParameterTabsComponent() {
       setSpinnerVisible(false);
     }
   };
+  const fetchReittiviivaRiskValue = async (values) => {
+    const path =
+      "reittiviiva/calculate_risk?routename=FIORR-FIKHA (via Ruotsinsalmi)";
+    // const path_wayarea = "reittiviiva/wayarea_polygons";
+    // Set spinner
+    setSpinnerVisible(true);
+    // Empty previous results
+    setRIVResults([]);
+    setWayareaPolygons([]);
+    try {
+      const [response, response_wayarea] = await Promise.all([
+        apiClient.post(path, values),
+        // apiClient.get(path_wayarea),
+      ]);
+      setRIVResults(response.data);
+      setWayareaPolygons(response_wayarea.data);
+    } catch (err) {
+      console.log(err);
+      setNotificationStatus({
+        severity: "error",
+        message: err.response.data.detail,
+        visible: true,
+      });
+    } finally {
+      setSpinnerVisible(false);
+    }
+  };
 
   return (
     <Box className="main-tab-wrapper">
@@ -99,7 +126,8 @@ export default function ParameterTabsComponent() {
       </Box>
       <Formik
         onSubmit={(values) => {
-          fetchRiskValue(values);
+          // console.log("lol");
+          fetchReittiviivaRiskValue(values);
         }}
         initialValues={userInput}
         validationSchema={parametersValidationSchema}

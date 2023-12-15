@@ -19,6 +19,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
+import ReittiviivaComponent from "./ReittiviivaComponent";
+import FairwayWidth from "./FairwayWidth";
 
 function a11yProps(index) {
   return {
@@ -112,6 +114,11 @@ function UserInputForm(props) {
                       formik={formik}
                       name="navline.starting_gdo_gid"
                     />
+                    <ReittiviivaComponent
+                      name="reittiviiva.name"
+                      formik={formik}
+                    />
+                    <FairwayWidth formik={formik} />
                   </Grid>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
@@ -273,6 +280,18 @@ function UserInputForm(props) {
                 </Button>
               </span>
             </Tooltip>
+            {/* <span>
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                sx={{ minWidth: "1" }}
+                data-cy-id="submit-reittiviiva-button"
+                onClick={submitButtonClicked}
+              >
+                <span style={{ marginRight: "0.2em" }}>Lähetä reittiviiva</span>
+              </Button>
+            </span> */}
           </Grid>
         </>
       )}

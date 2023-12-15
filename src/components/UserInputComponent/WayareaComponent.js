@@ -113,10 +113,10 @@ export default function WayareaComponent(props) {
               color="textSecondary"
               gutterBottom
             >
-              Valitse väylä
+              Valitse navigointilinja
             </Typography>
             <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
-              VAYLAT id/nimi
+              VAYLAT id - nimi
             </InputLabel>
             <Tooltip
               placement="right"
@@ -144,7 +144,7 @@ export default function WayareaComponent(props) {
                     error={!!meta.error || !formik.dirty}
                     style={{ backgroundColor: "white" }}
                     {...params}
-                    required
+                    // required
                   />
                 )}
               />
