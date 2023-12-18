@@ -21,6 +21,7 @@ import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import ReittiviivaComponent from "./ReittiviivaComponent";
 import FairwayWidth from "./FairwayWidth";
+import ChooseCalculationType from "./ChooseCalculationType";
 
 function a11yProps(index) {
   return {
@@ -109,6 +110,7 @@ function UserInputForm(props) {
                     paddingRight={2}
                     paddingLeft={2}
                   >
+                    <ChooseCalculationType />
                     <WayareaComponent name="navline.VAYLAT" formik={formik} />
                     <GDOGIDMenuComponent
                       formik={formik}
@@ -225,39 +227,39 @@ function UserInputForm(props) {
               placement="bottom"
               arrow
               id="submit-button-tooltip"
-              title={
-                !(formik.isValid && formik.dirty) ||
-                selectedWayareaWithNoGDOGID ? (
-                  <label style={{ fontSize: 14 }}>
-                    <span data-cy-id="submit-button-tooltip-span">
-                      Korjaa seuraavat asiat lähettääksesi arvot:
-                      <br />
-                      {!formik.dirty ? (
-                        <>
-                          - VAYLAT id vaaditaan
-                          <br />
-                        </>
-                      ) : (
-                        Object.values(formik.errors).map((obj) => {
-                          let msg = null;
-                          Object.values(obj).forEach((err_msg) => {
-                            msg = (
-                              <span key={err_msg}>
-                                - {err_msg}
-                                <br />
-                              </span>
-                            );
-                          });
-                          return msg;
-                        })
-                      )}
-                      {selectedWayareaWithNoGDOGID && (
-                        <>- Valitulle väylälle ei löydy navigointilinjoja</>
-                      )}
-                    </span>
-                  </label>
-                ) : null
-              }
+              // title={
+              //   !(formik.isValid && formik.dirty) ||
+              //   selectedWayareaWithNoGDOGID ? (
+              //     <label style={{ fontSize: 14 }}>
+              //       <span data-cy-id="submit-button-tooltip-span">
+              //         Korjaa seuraavat asiat lähettääksesi arvot:
+              //         <br />
+              //         {!formik.dirty ? (
+              //           <>
+              //             - VAYLAT id vaaditaan
+              //             <br />
+              //           </>
+              //         ) : (
+              //           Object.values(formik.errors).map((obj) => {
+              //             let msg = null;
+              //             Object.values(obj).forEach((err_msg) => {
+              //               msg = (
+              //                 <span key={err_msg}>
+              //                   - {err_msg}
+              //                   <br />
+              //                 </span>
+              //               );
+              //             });
+              //             return msg;
+              //           })
+              //         )}
+              //         {selectedWayareaWithNoGDOGID && (
+              //           <>- Valitulle väylälle ei löydy navigointilinjoja</>
+              //         )}
+              //       </span>
+              //     </label>
+              //   ) : null
+              // }
             >
               <span>
                 <Button
@@ -265,33 +267,21 @@ function UserInputForm(props) {
                   variant="contained"
                   size="large"
                   sx={{ minWidth: "1" }}
-                  disabled={
-                    !(formik.isValid && formik.dirty) ||
-                    selectedWayareaWithNoGDOGID
-                  } //formik.dirty is needed to disable on initial load
+                  // disabled={
+                  //   !(formik.isValid && formik.dirty) ||
+                  //   selectedWayareaWithNoGDOGID
+                  // } //formik.dirty is needed to disable on initial load
                   data-cy-id="submit-button"
                   onClick={submitButtonClicked}
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {!(formik.isValid && formik.dirty) ||
+                  {/* {!(formik.isValid && formik.dirty) ||
                   selectedWayareaWithNoGDOGID ? (
                     <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
-                  ) : null}
+                  ) : null} */}
                 </Button>
               </span>
             </Tooltip>
-            {/* <span>
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                sx={{ minWidth: "1" }}
-                data-cy-id="submit-reittiviiva-button"
-                onClick={submitButtonClicked}
-              >
-                <span style={{ marginRight: "0.2em" }}>Lähetä reittiviiva</span>
-              </Button>
-            </span> */}
           </Grid>
         </>
       )}

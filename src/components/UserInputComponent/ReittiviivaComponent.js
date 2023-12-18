@@ -35,10 +35,9 @@ export default function ReittiviivaComponent(props) {
     formatInputString(selectedReittiviiva)
   );
 
-  function setChosenReittiviivaFormikValue(reittiviiva) {
-    formik.setFieldValue("reittiviiva.name", reittiviiva?.name || "");
-  }
-
+  // function setChosenReittiviivaFormikValue(reittiviiva) {
+  //   formik.setFieldValue("reittiviiva.name", reittiviiva?.name || "");
+  // }
   useEffect(() => {
     const path = "reittiviiva/reittiviiva_names";
     apiClient
@@ -57,14 +56,13 @@ export default function ReittiviivaComponent(props) {
   const handleReittiviivaInputStringChange = (value) => {
     setReittiviivaInputString(value);
     if (value === "") {
-      setChosenReittiviivaFormikValue(null);
+      // setChosenReittiviivaFormikValue(null);
       setSelectedReittiviiva(null);
       setSelectedReittiviivaChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
-    setChosenReittiviivaFormikValue(newValue);
     setSelectedReittiviiva(newValue);
     setSelectedReittiviivaChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
@@ -86,37 +84,36 @@ export default function ReittiviivaComponent(props) {
             <InputLabel style={{ fontSize: 14 }} id={"reittiviiva.name.id"}>
               Reitin nimi
             </InputLabel>
-            <Tooltip
+            {/* <Tooltip
               placement="right"
               arrow
               title={!formik.dirty ? "Reitti vaaditaan" : meta.error}
               id="reittiviiva-tooltip"
-            >
-              <Autocomplete
-                id="reittiviiva.name"
-                data-cy-id="reittiviiva.name.id"
-                disablePortal
-                options={allReittiviiva}
-                getOptionLabel={(option) =>
-                  option ? formatInputString(option) : ""
-                }
-                onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-                inputValue={reittiviivaInputString}
-                onInputChange={(ev, newInputValue, reason) => {
-                  if (reason === "input")
-                    handleReittiviivaInputStringChange(newInputValue);
-                }}
-                size="small"
-                renderInput={(params) => (
-                  <TextField
-                    error={!!meta.error || !formik.dirty}
-                    style={{ backgroundColor: "white" }}
-                    {...params}
-                    required
-                  />
-                )}
-              />
-            </Tooltip>
+            > */}
+            <Autocomplete
+              id="reittiviiva.name"
+              data-cy-id="reittiviiva.name.id"
+              disablePortal
+              options={allReittiviiva}
+              getOptionLabel={(option) =>
+                option ? formatInputString(option) : ""
+              }
+              onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+              inputValue={reittiviivaInputString}
+              onInputChange={(ev, newInputValue, reason) => {
+                if (reason === "input")
+                  handleReittiviivaInputStringChange(newInputValue);
+              }}
+              size="small"
+              renderInput={(params) => (
+                <TextField
+                  // error={!!meta.error || !formik.dirty}
+                  style={{ backgroundColor: "white" }}
+                  {...params}
+                />
+              )}
+            />
+            {/* </Tooltip> */}
           </Grid>
         </Form.Group>
       </Grid>

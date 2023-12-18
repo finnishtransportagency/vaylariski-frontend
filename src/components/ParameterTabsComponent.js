@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import UserInputForm from "./UserInputComponent/UserInputForm";
+import SelectedReittiviivaContext from "contexts/SelectedReittiviivaContext";
 import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import RIVResultContext from "contexts/RIVResult";
@@ -27,6 +28,7 @@ export default function ParameterTabsComponent() {
   const { userInput } = useContext(UserInputContext);
   const { setRIVResults } = useContext(RIVResultContext);
   const { setNotificationStatus } = useContext(NotificationContext);
+  const { selectedReittiviiva } = useContext(SelectedReittiviivaContext);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -62,9 +64,13 @@ export default function ParameterTabsComponent() {
     }
   };
   const fetchReittiviivaRiskValue = async (values) => {
-    const path =
-      "reittiviiva/calculate_risk?routename=FIORR-FIKHA (via Ruotsinsalmi)";
-    // const path_wayarea = "reittiviiva/wayarea_polygons";
+    const path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
+      selectedReittiviiva
+    )}`;
+
+    const path_wayarea = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
+      selectedReittiviiva
+    )}`;
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
@@ -73,7 +79,7 @@ export default function ParameterTabsComponent() {
     try {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
-        // apiClient.get(path_wayarea),
+        apiClient.get(path_wayarea),
       ]);
       setRIVResults(response.data);
       setWayareaPolygons(response_wayarea.data);
@@ -126,11 +132,14 @@ export default function ParameterTabsComponent() {
       </Box>
       <Formik
         onSubmit={(values) => {
-          // console.log("lol");
-          fetchReittiviivaRiskValue(values);
+          if (selectedReittiviiva !== null) {
+            fetchReittiviivaRiskValue(values);
+          } else {
+            fetchRiskValue(values);
+          }
         }}
         initialValues={userInput}
-        validationSchema={parametersValidationSchema}
+        // validationSchema={parametersValidationSchema}
       >
         {(formik) => (
           <FForm className="main-tab-formik">

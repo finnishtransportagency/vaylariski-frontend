@@ -118,37 +118,37 @@ export default function WayareaComponent(props) {
             <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
               VAYLAT id - nimi
             </InputLabel>
-            <Tooltip
+            {/* <Tooltip
               placement="right"
               arrow
               title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
               id="wayarea-tooltip"
-            >
-              <Autocomplete
-                id="navline.VAYLAT"
-                data-cy-id="navline.VAYLAT.id"
-                disablePortal
-                options={allWayareas}
-                getOptionLabel={(option) =>
-                  option ? formatInputString(option) : ""
-                }
-                onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-                inputValue={wayareaInputString}
-                onInputChange={(ev, newInputValue, reason) => {
-                  if (reason === "input")
-                    handleWayareaInputStringChange(newInputValue);
-                }}
-                size="small"
-                renderInput={(params) => (
-                  <TextField
-                    error={!!meta.error || !formik.dirty}
-                    style={{ backgroundColor: "white" }}
-                    {...params}
-                    // required
-                  />
-                )}
-              />
-            </Tooltip>
+            > */}
+            <Autocomplete
+              id="navline.VAYLAT"
+              data-cy-id="navline.VAYLAT.id"
+              disablePortal
+              options={allWayareas}
+              getOptionLabel={(option) =>
+                option ? formatInputString(option) : ""
+              }
+              onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+              inputValue={wayareaInputString}
+              onInputChange={(ev, newInputValue, reason) => {
+                if (reason === "input")
+                  handleWayareaInputStringChange(newInputValue);
+              }}
+              size="small"
+              renderInput={(params) => (
+                <TextField
+                  error={!!meta.error || !formik.dirty}
+                  style={{ backgroundColor: "white" }}
+                  {...params}
+                  // required
+                />
+              )}
+            />
+            {/* </Tooltip> */}
           </Grid>
           <Grid item xs={12}>
             <Typography
