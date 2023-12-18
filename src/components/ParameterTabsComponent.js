@@ -36,8 +36,20 @@ export default function ParameterTabsComponent() {
   const { setWayareaPolygons } = useContext(WayareaPolygonContext);
 
   const fetchRiskValue = async (values) => {
-    const path = "fairway/calculate_risk";
-    const path_wayarea = "wayarea";
+    let path = "", path_wayarea = "";
+    console.log("sdöfj",values.navline.VAYLAT)
+    console.log("sdöfj",values.reittiviiva.name)
+    if (selectedReittiviiva !== null) {
+      path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
+        selectedReittiviiva
+      )}`;
+      path_wayarea = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
+        selectedReittiviiva
+      )}`;
+    } else {
+      path = "fairway/calculate_risk";
+      path_wayarea = "wayarea";
+    }
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
@@ -49,37 +61,6 @@ export default function ParameterTabsComponent() {
         apiClient.get(path_wayarea, {
           params: { VAYLAT: values.navline.VAYLAT },
         }),
-      ]);
-      setRIVResults(response.data);
-      setWayareaPolygons(response_wayarea.data);
-    } catch (err) {
-      console.log(err);
-      setNotificationStatus({
-        severity: "error",
-        message: err.response.data.detail,
-        visible: true,
-      });
-    } finally {
-      setSpinnerVisible(false);
-    }
-  };
-  const fetchReittiviivaRiskValue = async (values) => {
-    const path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
-      selectedReittiviiva
-    )}`;
-
-    const path_wayarea = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
-      selectedReittiviiva
-    )}`;
-    // Set spinner
-    setSpinnerVisible(true);
-    // Empty previous results
-    setRIVResults([]);
-    setWayareaPolygons([]);
-    try {
-      const [response, response_wayarea] = await Promise.all([
-        apiClient.post(path, values),
-        apiClient.get(path_wayarea),
       ]);
       setRIVResults(response.data);
       setWayareaPolygons(response_wayarea.data);
@@ -132,11 +113,7 @@ export default function ParameterTabsComponent() {
       </Box>
       <Formik
         onSubmit={(values) => {
-          if (selectedReittiviiva !== null) {
-            fetchReittiviivaRiskValue(values);
-          } else {
             fetchRiskValue(values);
-          }
         }}
         initialValues={userInput}
         // validationSchema={parametersValidationSchema}

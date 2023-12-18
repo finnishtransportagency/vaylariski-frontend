@@ -35,9 +35,12 @@ export default function ReittiviivaComponent(props) {
     formatInputString(selectedReittiviiva)
   );
 
-  // function setChosenReittiviivaFormikValue(reittiviiva) {
-  //   formik.setFieldValue("reittiviiva.name", reittiviiva?.name || "");
-  // }
+  useEffect(() => {console.log(reittiviivaInputString)}, [reittiviivaInputString])
+
+  function setChosenReittiviivaFormikValue(value) {
+    formik.setFieldValue("reittiviiva.name", value || "");
+  }
+
   useEffect(() => {
     const path = "reittiviiva/reittiviiva_names";
     apiClient
@@ -56,13 +59,15 @@ export default function ReittiviivaComponent(props) {
   const handleReittiviivaInputStringChange = (value) => {
     setReittiviivaInputString(value);
     if (value === "") {
-      // setChosenReittiviivaFormikValue(null);
+      setChosenReittiviivaFormikValue(null);
       setSelectedReittiviiva(null);
       setSelectedReittiviivaChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
+    console.log("newValue", newValue)
+    setChosenReittiviivaFormikValue(newValue);
     setSelectedReittiviiva(newValue);
     setSelectedReittiviivaChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
@@ -107,7 +112,7 @@ export default function ReittiviivaComponent(props) {
               size="small"
               renderInput={(params) => (
                 <TextField
-                  // error={!!meta.error || !formik.dirty}
+                  error={!!meta.error || !formik.dirty}
                   style={{ backgroundColor: "white" }}
                   {...params}
                 />
