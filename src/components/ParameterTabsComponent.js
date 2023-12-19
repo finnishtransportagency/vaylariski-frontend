@@ -38,7 +38,7 @@ export default function ParameterTabsComponent() {
   const fetchRiskValue = async (values) => {
     let path = "", path_wayarea = "";
     console.log("sdöfj",values.navline.VAYLAT)
-    console.log("sdöfj",values.reittiviiva.name)
+    console.log("sdöfj",values.routename)
     if (selectedReittiviiva !== null) {
       path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
         selectedReittiviiva
@@ -68,7 +68,7 @@ export default function ParameterTabsComponent() {
       console.log(err);
       setNotificationStatus({
         severity: "error",
-        message: err.response.data.detail,
+        message: JSON.stringify(err.response.data.detail),
         visible: true,
       });
     } finally {
@@ -116,7 +116,7 @@ export default function ParameterTabsComponent() {
             fetchRiskValue(values);
         }}
         initialValues={userInput}
-        // validationSchema={parametersValidationSchema}
+        validationSchema={parametersValidationSchema}
       >
         {(formik) => (
           <FForm className="main-tab-formik">

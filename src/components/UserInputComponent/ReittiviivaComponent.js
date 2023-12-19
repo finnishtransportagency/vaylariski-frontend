@@ -38,7 +38,7 @@ export default function ReittiviivaComponent(props) {
   useEffect(() => {console.log(reittiviivaInputString)}, [reittiviivaInputString])
 
   function setChosenReittiviivaFormikValue(value) {
-    formik.setFieldValue("reittiviiva.name", value || "");
+    formik.setFieldValue("routename", value || "");
   }
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function ReittiviivaComponent(props) {
             >
               Valitse reitti
             </Typography>
-            <InputLabel style={{ fontSize: 14 }} id={"reittiviiva.name.id"}>
+            <InputLabel style={{ fontSize: 14 }} id={"routename.id"}>
               Reitin nimi
             </InputLabel>
             {/* <Tooltip
@@ -96,8 +96,8 @@ export default function ReittiviivaComponent(props) {
               id="reittiviiva-tooltip"
             > */}
             <Autocomplete
-              id="reittiviiva.name"
-              data-cy-id="reittiviiva.name.id"
+              id="routename"
+              data-cy-id="routename.id"
               disablePortal
               options={allReittiviiva}
               getOptionLabel={(option) =>

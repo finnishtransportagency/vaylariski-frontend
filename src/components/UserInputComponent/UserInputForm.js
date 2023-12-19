@@ -117,7 +117,7 @@ function UserInputForm(props) {
                       name="navline.starting_gdo_gid"
                     />
                     <ReittiviivaComponent
-                      name="reittiviiva.name"
+                      name="routename"
                       formik={formik}
                     />
                     <FairwayWidth formik={formik} />

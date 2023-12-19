@@ -2,12 +2,12 @@ import * as Yup from "yup";
 
 const parametersValidationSchema = Yup.object().shape({
   navline: Yup.object().shape({
-    VAYLAT: Yup.number().when("reittiviiva.name", {
-      is: true,
-      then: (schema) => schema.number()
+    VAYLAT: Yup.number().when("routename", {
+      is: "",
+      then: () => Yup.number()
       .min(1, "VAYLAT id ei voi olla negatiivinen")
       .required("VAYLAT id vaaditaan"),
-      otherwise: (schema) => schema.number()
+      otherwise: () => Yup.number()
       .min(1, "VAYLAT id ei voi olla negatiivinen")
     }),
 
@@ -19,13 +19,20 @@ const parametersValidationSchema = Yup.object().shape({
       }),
     }),
   }),
-  reittiviiva: Yup.object().shape({
-    name: Yup.string().when("navline.VAYLAT", {
+  // reittiviiva: Yup.object().shape({
+  //   name: Yup.string().when("navline.VAYLAT", {
+  //     is: true,
+  //     then: () => Yup.string(),
+  //     otherwise: () => Yup.string()
+  //     .required("tarvitaan"),
+  //   })
+  // }),
+    routename: Yup.string().when("navline.VAYLAT", {
       is: true,
-      then: (schema) => schema.string().required("tarvitaan"),
-      otherwise: (schema) =>  schema.string()
-    })
-  }),
+      then: () => Yup.string(),
+      otherwise: () => Yup.string()
+      .required("tarvitaan"),
+    }),
   boat: Yup.object().shape({
     length: Yup.number()
       .moreThan(0, "Pituus ei voi olla negatiivinen")
