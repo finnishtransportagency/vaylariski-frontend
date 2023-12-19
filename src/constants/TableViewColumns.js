@@ -303,3 +303,10 @@ export const TableViewColumns = [
     sortable: true,
   },
 ];
+
+export const defaultTableViewColumns = [
+  resultRowsEnums.POINT_INDEX,
+  resultRowsEnums.GDO_GID,
+  resultRowsEnums.VAYLAT,
+  resultRowsEnums.RISK_INDEX_SUM,
+];

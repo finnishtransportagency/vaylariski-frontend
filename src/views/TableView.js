@@ -27,7 +27,10 @@ import { CSVLink } from "react-csv";
 import RIVResultContext from "../contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
 import SelectedIndexContext from "contexts/SelectedIndexContext";
-import { TableViewColumns as columns } from "constants/TableViewColumns";
+import {
+  TableViewColumns as columns,
+  defaultTableViewColumns as defaultColumns,
+} from "constants/TableViewColumns";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
@@ -80,11 +83,10 @@ function TableView(props, { direction }) {
     setOpen(false);
   };
 
-  let num = 4; // num is the number of columns visible by default
-  // The columns visible by default are the columns: 1 to num
-  // Columns that are selected visible in table
+  // Columns that are selected visible in table.
+  // The columns visible by default are defined in defaultColumns.
   const [visibleColumns, setVisibleColumns] = useState(
-    columns.map((c) => c.key).slice(0, num)
+    columns.map((c) => c.key).filter((key) => defaultColumns.includes(key))
   );
 
   // Toggle selection for columns (in modal)
