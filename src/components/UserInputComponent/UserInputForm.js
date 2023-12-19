@@ -111,7 +111,7 @@ function UserInputForm(props) {
                     paddingLeft={2}
                   >
                     <ChooseCalculationType />
-                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
+                    <WayareaComponent name="vaylat" formik={formik} />
                     <GDOGIDMenuComponent
                       formik={formik}
                       name="navline.starting_gdo_gid"

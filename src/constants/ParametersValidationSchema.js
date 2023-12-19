@@ -1,16 +1,22 @@
 import * as Yup from "yup";
 
 const parametersValidationSchema = Yup.object().shape({
-  navline: Yup.object().shape({
-    VAYLAT: Yup.number().when("routename", {
-      is: "",
-      then: () => Yup.number()
+  vaylat: Yup.number().when("routename", {
+    is: (val) => !!val,
+    then: () => Yup.number()
+      .min(1, "VAYLAT id ei voi olla negatiivinen"),
+    otherwise: () => Yup.number()
       .min(1, "VAYLAT id ei voi olla negatiivinen")
       .required("VAYLAT id vaaditaan"),
-      otherwise: () => Yup.number()
-      .min(1, "VAYLAT id ei voi olla negatiivinen")
-    }),
-
+  }),
+  // vaylat: Yup.number(),
+  // routename: Yup.string(),
+  // vaylat_or_route: Yup.bool().when(["vaylat, routename"], {
+  //   is: (a, b) => (!a && !b) || (!!a && !!b),
+  //   then: Yup.bool().required("some error msg"),
+  //   otherwise: Yup.bool()
+  // }),
+  navline: Yup.object().shape({
     calculation_params: Yup.object().shape({
       other: Yup.object().shape({
         visibility: Yup.number()
@@ -19,20 +25,14 @@ const parametersValidationSchema = Yup.object().shape({
       }),
     }),
   }),
-  // reittiviiva: Yup.object().shape({
-  //   name: Yup.string().when("navline.VAYLAT", {
-  //     is: true,
-  //     then: () => Yup.string(),
-  //     otherwise: () => Yup.string()
-  //     .required("tarvitaan"),
-  //   })
-  // }),
-    routename: Yup.string().when("navline.VAYLAT", {
-      is: true,
+  reittiviiva: Yup.object().shape({
+    name: Yup.string().when("vaylat", {
+      is: (val) => !!val,
       then: () => Yup.string(),
       otherwise: () => Yup.string()
       .required("tarvitaan"),
-    }),
+    })
+  }),
   boat: Yup.object().shape({
     length: Yup.number()
       .moreThan(0, "Pituus ei voi olla negatiivinen")
@@ -253,6 +253,6 @@ const parametersValidationSchema = Yup.object().shape({
       .min(0, "strong_wind_slow_vessel ei voi olla negatiivinen")
       .required("strong_wind_slow_vessel vaaditaan"),
   }),
-});
+}, [["vaylat", "routename"]]);
 
 export default parametersValidationSchema;

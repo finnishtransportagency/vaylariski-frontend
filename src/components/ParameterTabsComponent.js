@@ -37,7 +37,7 @@ export default function ParameterTabsComponent() {
 
   const fetchRiskValue = async (values) => {
     let path = "", path_wayarea = "";
-    console.log("sdöfj",values.navline.VAYLAT)
+    console.log("sdöfj",values.vaylat)
     console.log("sdöfj",values.routename)
     if (selectedReittiviiva !== null) {
       path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
@@ -47,8 +47,8 @@ export default function ParameterTabsComponent() {
         selectedReittiviiva
       )}`;
     } else {
-      path = "fairway/calculate_risk";
-      path_wayarea = "wayarea";
+      path = `fairway/calculate_risk?vaylat=${encodeURIComponent(values.vaylat)}`;
+      path_wayarea = `wayarea?vaylat=${encodeURIComponent(values.vaylat)}`;
     }
     // Set spinner
     setSpinnerVisible(true);
@@ -58,9 +58,7 @@ export default function ParameterTabsComponent() {
     try {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
-        apiClient.get(path_wayarea, {
-          params: { VAYLAT: values.navline.VAYLAT },
-        }),
+        apiClient.get(path_wayarea),
       ]);
       setRIVResults(response.data);
       setWayareaPolygons(response_wayarea.data);
@@ -116,7 +114,7 @@ export default function ParameterTabsComponent() {
             fetchRiskValue(values);
         }}
         initialValues={userInput}
-        validationSchema={parametersValidationSchema}
+        // validationSchema={parametersValidationSchema}
       >
         {(formik) => (
           <FForm className="main-tab-formik">

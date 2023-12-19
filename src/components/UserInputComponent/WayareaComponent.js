@@ -47,7 +47,7 @@ export default function WayareaComponent(props) {
   ];
 
   function setChosenWayareaFormikValue(wayarea) {
-    formik.setFieldValue("navline.VAYLAT", wayarea?.VAYLAT || "");
+    formik.setFieldValue("vaylat", wayarea?.VAYLAT || "");
   }
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function WayareaComponent(props) {
             >
               Valitse navigointilinja
             </Typography>
-            <InputLabel style={{ fontSize: 14 }} id={"navline.VAYLAT.id"}>
+            <InputLabel style={{ fontSize: 14 }} id={"vaylat.id"}>
               VAYLAT id - nimi
             </InputLabel>
             {/* <Tooltip
@@ -125,8 +125,8 @@ export default function WayareaComponent(props) {
               id="wayarea-tooltip"
             > */}
             <Autocomplete
-              id="navline.VAYLAT"
-              data-cy-id="navline.VAYLAT.id"
+              id="vaylat"
+              data-cy-id="vaylat.id"
               disablePortal
               options={allWayareas}
               getOptionLabel={(option) =>

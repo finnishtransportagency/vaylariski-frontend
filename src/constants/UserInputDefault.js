@@ -8,7 +8,6 @@ const userInputDefault = {
     C_turning_radius: 5,
   },
   navline: {
-    VAYLAT: null,
     starting_gdo_gid: "",
     navline: [
       {
@@ -104,7 +103,8 @@ const userInputDefault = {
     PF_bend_angle_5: 2.0,
   },
   calculation_interval: 10,
-  routename: ""
+  routename: "",
+  vaylat: null,
 };
 
 export default userInputDefault;
