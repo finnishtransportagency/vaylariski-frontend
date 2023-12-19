@@ -1,4 +1,11 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import RIVResultContext from "../contexts/RIVResult";
@@ -13,6 +20,7 @@ import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import { cssColorCodes } from "constants/enums";
+import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -166,9 +174,10 @@ function GeoJSONMarkers() {
 
   return null;
 }
-
-function MapView() {
+// eslint-disable-next-line react/display-name
+const MapView = forwardRef((props, refs) => {
   const { RIVResults } = useContext(RIVResultContext);
+  const { previousRIVResults } = useContext(PreviousRIVResultsContext);
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
 
@@ -178,13 +187,28 @@ function MapView() {
     }
   }, [coords]);
 
+  const invalidateMapSize = () => {
+    if (mapRef.current) {
+      mapRef.current.invalidateSize();
+    }
+  };
+
+  useImperativeHandle(refs, () => {
+    return { invalidateMapSize };
+  });
+
   useEffect(() => {
-    if (typeof RIVResults.features !== "undefined") {
+    // This is true when the user changed the VAYLAT to a different value
+    // before clicking the submit-button, or clicked it for the fist time
+    if (
+      typeof RIVResults.features !== "undefined" &&
+      previousRIVResults?.features?.[0].properties.VAYLAT !=
+        RIVResults.features[0].properties.VAYLAT
+    )
       setCoords({
         lat: RIVResults.features[0].geometry.coordinates[1],
         lng: RIVResults.features[0].geometry.coordinates[0],
       });
-    }
   }, [RIVResults]);
 
   return (
@@ -214,6 +238,6 @@ function MapView() {
       </div>
     </>
   );
-}
+});
 
 export default MapView;
