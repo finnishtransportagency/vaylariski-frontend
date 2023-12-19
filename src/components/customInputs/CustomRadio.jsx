@@ -6,6 +6,9 @@ import {
   Typography,
   FormLabel,
 } from "@mui/material";
+import { useContext } from "react";
+import UserInputContext from "../../contexts/UserInput";
+import assign from "utils/objectAssign";
 
 /**
  *
@@ -28,6 +31,7 @@ export default function CustomRadio({
   defaultValue,
   buttonPropsArr,
 }) {
+  const { userInput } = useContext(UserInputContext);
   return (
     <Grid item xs={12}>
       {formLabelText ? (
@@ -47,6 +51,9 @@ export default function CustomRadio({
         value={formikName.split(".").reduce((a, b) => a[b], formik.values)}
         defaultValue={defaultValue}
         onChange={(e) => {
+          const newDefaults = userInput;
+          assign(newDefaults, formikName, e.target.value);
+          window.localStorage.setItem("userInput", JSON.stringify(newDefaults));
           formik.setFieldValue(formikName, e.target.value);
         }}
       >

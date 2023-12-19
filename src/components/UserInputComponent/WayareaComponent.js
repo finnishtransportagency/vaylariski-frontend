@@ -17,8 +17,8 @@ import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import CalculationIntervalContext from "../../contexts/CalculationIntervalContext";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
+import UserInputContext from "../../contexts/UserInput";
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
@@ -39,12 +39,10 @@ export default function WayareaComponent(props) {
   const [wayareaInputString, setWayareaInputString] = useState(
     formatInputString(selectedWayarea)
   );
-  const { calculationInterval, setCalculationInterval } = useContext(
-    CalculationIntervalContext
-  );
   const calculationIntervalOptions = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
   ];
+  const { userInput } = useContext(UserInputContext);
 
   function setChosenWayareaFormikValue(wayarea) {
     formik.setFieldValue("navline.VAYLAT", wayarea?.VAYLAT || "");
@@ -66,7 +64,9 @@ export default function WayareaComponent(props) {
   }, []);
 
   const handleChange = (event) => {
-    setCalculationInterval(event.target.value);
+    const newDefaults = userInput;
+    newDefaults.calculation_interval = event.target.value;
+    window.localStorage.setItem("userInput", JSON.stringify(newDefaults));
     formik.setFieldValue("calculation_interval", event.target.value);
   };
 
@@ -192,7 +192,7 @@ export default function WayareaComponent(props) {
               sx={{ width: "100%", height: 40 }}
               style={{ backgroundColor: "white" }}
               id={"calculation_interval"}
-              value={calculationInterval}
+              value={formik.values.calculation_interval}
               onChange={handleChange}
             >
               {MenuOptions()}

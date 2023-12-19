@@ -1,4 +1,7 @@
 import { InputLabel, Tooltip, TextField, Grid } from "@mui/material";
+import { useContext } from "react";
+import UserInputContext from "../../contexts/UserInput";
+import assign from "utils/objectAssign";
 
 /**
  *
@@ -26,6 +29,7 @@ export default function CustomNumber({
   disabled = false,
   size = "small",
 }) {
+  const { userInput } = useContext(UserInputContext);
   return (
     <Grid item xs={xs}>
       {label ? (
@@ -59,6 +63,12 @@ export default function CustomNumber({
             type={disabled ? "text" : "number"}
             value={value}
             onChange={(e) => {
+              const newDefaults = userInput;
+              assign(newDefaults, formikName, e.target.value);
+              window.localStorage.setItem(
+                "userInput",
+                JSON.stringify(newDefaults)
+              );
               formik.setFieldValue(formikName, e.target.value);
             }}
           />

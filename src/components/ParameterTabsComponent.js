@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -24,9 +24,22 @@ function a11yProps(index) {
 export default function ParameterTabsComponent() {
   const [value, setValue] = useState(0);
   const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
-  const { userInput } = useContext(UserInputContext);
+  const { userInput, setUserInput } = useContext(UserInputContext);
   const { setRIVResults } = useContext(RIVResultContext);
   const { setNotificationStatus } = useContext(NotificationContext);
+
+  useEffect(() => {
+    console.log("hello");
+    const userInputJSON = window.localStorage.getItem("userInput");
+    if (userInputJSON) {
+      //todoo noification
+      if (window.confirm("Käytä tallennetut arvot?")) {
+        const oldUserInput = JSON.parse(userInputJSON);
+        setUserInput(oldUserInput);
+        console.log("defaults updated");
+      }
+    }
+  }, []);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -98,6 +111,7 @@ export default function ParameterTabsComponent() {
         {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
       </Box>
       <Formik
+        enableReinitialize={true}
         onSubmit={(values) => {
           fetchRiskValue(values);
         }}
