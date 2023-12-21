@@ -22,8 +22,10 @@ RUN npm i
 #build the app
 RUN npm run build
 
-#prouction environment
-FROM nginx:1.23.2-alpine
+# production environment
+FROM nginx:1.25.3-alpine
+
+RUN ["apk", "upgrade", "--no-cache"]
 
 # Used by nginx
 ARG PROXY_URL
