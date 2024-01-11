@@ -35,7 +35,9 @@ export default function ReittiviivaComponent(props) {
     formatInputString(selectedReittiviiva)
   );
 
-  useEffect(() => {console.log(reittiviivaInputString)}, [reittiviivaInputString])
+  // useEffect(() => {
+  //   console.log(reittiviivaInputString);
+  // }, [reittiviivaInputString]);
 
   function setChosenReittiviivaFormikValue(value) {
     formik.setFieldValue("routename", value || "");
@@ -66,7 +68,6 @@ export default function ReittiviivaComponent(props) {
   };
 
   const handleMenuItemClick = (event, newValue) => {
-    console.log("newValue", newValue)
     setChosenReittiviivaFormikValue(newValue);
     setSelectedReittiviiva(newValue);
     setSelectedReittiviivaChanged(true);

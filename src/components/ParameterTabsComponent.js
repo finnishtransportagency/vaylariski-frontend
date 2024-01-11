@@ -14,6 +14,7 @@ import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
+import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
 function a11yProps(index) {
   return {
@@ -34,39 +35,96 @@ export default function ParameterTabsComponent() {
     setValue(newValue);
   };
   const { setWayareaPolygons } = useContext(WayareaPolygonContext);
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
 
   const fetchRiskValue = async (values) => {
-    let path = "", path_wayarea = "";
-    console.log("sdöfj",values.vaylat)
-    console.log("sdöfj",values.routename)
-    if (selectedReittiviiva !== null) {
+    let path = "",
+      path_wayarea = "",
+      path_navigationline = "",
+      path_wayarea_navigationline = "",
+      path_reittiviiva = "",
+      path_wayarea_reittiviiva = "";
+
+    console.log("sdöfj", values.vaylat);
+    console.log("sdöfj", values.routename);
+    if (selectedCalculationType == "reittiviiva") {
       path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
         selectedReittiviiva
       )}`;
       path_wayarea = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
         selectedReittiviiva
       )}`;
-    } else {
-      path = `fairway/calculate_risk?vaylat=${encodeURIComponent(values.vaylat)}`;
+    } else if (selectedCalculationType == "navigationline") {
+      path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
+        values.vaylat
+      )}`;
       path_wayarea = `wayarea?vaylat=${encodeURIComponent(values.vaylat)}`;
+    } else if (selectedCalculationType == "compare") {
+      path_navigationline = `fairway/calculate_risk?vaylat=${encodeURIComponent(
+        values.vaylat
+      )}`;
+      path_wayarea_navigationline = `wayarea?vaylat=${encodeURIComponent(
+        values.vaylat
+      )}`;
+      path_reittiviiva = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
+        selectedReittiviiva
+      )}`;
+      path_wayarea_reittiviiva = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
+        selectedReittiviiva
+      )}`;
     }
+
     // Set spinner
     setSpinnerVisible(true);
     // Empty previous results
     setRIVResults([]);
     setWayareaPolygons([]);
     try {
-      const [response, response_wayarea] = await Promise.all([
-        apiClient.post(path, values),
-        apiClient.get(path_wayarea),
-      ]);
-      setRIVResults(response.data);
-      setWayareaPolygons(response_wayarea.data);
+      if (selectedCalculationType == "compare") {
+        const [
+          response_navigationline,
+          response_wayarea_navigationline,
+          response_reittiviiva,
+          response_wayarea_reittiviiva,
+        ] = await Promise.all([
+          apiClient.post(path_navigationline, values),
+          apiClient.get(path_wayarea_navigationline),
+          apiClient.post(path_reittiviiva, values),
+          apiClient.get(path_wayarea_reittiviiva),
+        ]);
+        // const [response_reittiviiva, response_wayarea_reittiviiva] =
+        //   await Promise.all([
+        //     apiClient.post(path_reittiviiva, values),
+        //     apiClient.get(path_wayarea_reittiviiva),
+        //   ]);
+        const concated_response = response_navigationline.data.concat(
+          response_reittiviiva.data
+        );
+        const concated_response_wayarea =
+          response_wayarea_navigationline.data.concat(
+            response_wayarea_reittiviiva.data
+          );
+
+        setRIVResults(concated_response);
+        setWayareaPolygons(concated_response_wayarea);
+
+        console.log(concated_response);
+        console.log(response_reittiviiva);
+      } else {
+        const [response, response_wayarea] = await Promise.all([
+          apiClient.post(path, values),
+          apiClient.get(path_wayarea),
+        ]);
+        setRIVResults(response.data);
+        setWayareaPolygons(response_wayarea.data);
+      }
     } catch (err) {
       console.log(err);
       setNotificationStatus({
         severity: "error",
-        message: JSON.stringify(err.response.data.detail),
+        // message: JSON.stringify(err.response.data.detail),
         visible: true,
       });
     } finally {
@@ -111,7 +169,7 @@ export default function ParameterTabsComponent() {
       </Box>
       <Formik
         onSubmit={(values) => {
-            fetchRiskValue(values);
+          fetchRiskValue(values);
         }}
         initialValues={userInput}
         // validationSchema={parametersValidationSchema}

@@ -21,7 +21,7 @@ import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import ReittiviivaComponent from "./ReittiviivaComponent";
 import FairwayWidth from "./FairwayWidth";
-import ChooseCalculationType from "./ChooseCalculationType";
+import SelectCalculationType from "./SelectCalculationType";
 
 function a11yProps(index) {
   return {
@@ -110,16 +110,7 @@ function UserInputForm(props) {
                     paddingRight={2}
                     paddingLeft={2}
                   >
-                    <ChooseCalculationType />
-                    <WayareaComponent name="vaylat" formik={formik} />
-                    <GDOGIDMenuComponent
-                      formik={formik}
-                      name="navline.starting_gdo_gid"
-                    />
-                    <ReittiviivaComponent
-                      name="routename"
-                      formik={formik}
-                    />
+                    <SelectCalculationType formik={formik} />
                     <FairwayWidth formik={formik} />
                   </Grid>
                 </Grid>
