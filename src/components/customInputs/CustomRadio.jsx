@@ -5,7 +5,9 @@ import {
   FormControlLabel,
   Typography,
   FormLabel,
+  Tooltip,
 } from "@mui/material";
+import ConditionalWrapper from "components/ConditionalWrapper";
 
 /**
  *
@@ -52,28 +54,38 @@ export default function CustomRadio({
       >
         {buttonPropsArr.map((p) => {
           return (
-            <FormControlLabel
+            <ConditionalWrapper
+              condition={p.disabled}
+              wrapper={(children) => (
+                <Tooltip placement="right" arrow title={p.tooltip}>
+                  {children}
+                </Tooltip>
+              )}
               key={`${formikName}.${p.value}`}
-              value={p.value}
-              control={<Radio />}
-              label={
-                <span style={{ fontSize: 14 }}>
-                  {p.label}
-                  {p.labelHelperText ? (
-                    <>
-                      <br />
-                      <Typography
-                        style={{ fontSize: 14 }}
-                        color="textSecondary"
-                        gutterBottom
-                      >
-                        {p.labelHelperText}
-                      </Typography>
-                    </>
-                  ) : null}
-                </span>
-              }
-            />
+            >
+              <FormControlLabel
+                value={p.value}
+                disabled={p.disabled}
+                control={<Radio />}
+                label={
+                  <span style={{ fontSize: 14 }}>
+                    {p.label}
+                    {p.labelHelperText ? (
+                      <>
+                        <br />
+                        <Typography
+                          style={{ fontSize: 14 }}
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          {p.labelHelperText}
+                        </Typography>
+                      </>
+                    ) : null}
+                  </span>
+                }
+              />
+            </ConditionalWrapper>
           );
         })}
       </RadioGroup>

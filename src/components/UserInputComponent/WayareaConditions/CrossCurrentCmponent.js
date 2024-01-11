@@ -22,6 +22,11 @@ export default function CrossCurrentCmponent(props) {
       value: "strong",
       label: "Voimakas",
       labelHelperText: "1.5 ≤ v < 2",
+      disabled: formik.values.navline.calculation_params.type == "inner",
+      tooltip:
+        formik.values.navline.calculation_params.type == "inner"
+          ? "Voimakasta poikkivirtausta ei voi valita, jos väylän tyypi on asetettu arvolla 'Väylän sisäosa'"
+          : null,
     },
   ];
 
