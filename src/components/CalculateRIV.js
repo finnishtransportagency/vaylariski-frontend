@@ -45,7 +45,7 @@ function CalculateRIV() {
   const [selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID] =
     useState(true);
   const [allGDOGIDs, setAllGDOGIDs] = useState([]);
-  const [calculationInterval, setCalculationInterval] = useState(10);
+  const [calculationInterval, setCalculationInterval] = useState(50);
 
   const [RIVTrafficLight, setRIVTraffiLight] = useState({
     green: 10,
