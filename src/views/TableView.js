@@ -74,6 +74,7 @@ function TableView(props, { direction }) {
     MapPointClickedContext
   );
   const { setTableRowClicked } = useContext(TableRowClickedContext);
+  console.log(RIVResults);
 
   // Open and close modal where columns are selected
   const handleOpen = () => {

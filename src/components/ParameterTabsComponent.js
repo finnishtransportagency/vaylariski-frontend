@@ -94,24 +94,22 @@ export default function ParameterTabsComponent() {
           apiClient.post(path_reittiviiva, values),
           apiClient.get(path_wayarea_reittiviiva),
         ]);
-        // const [response_reittiviiva, response_wayarea_reittiviiva] =
-        //   await Promise.all([
-        //     apiClient.post(path_reittiviiva, values),
-        //     apiClient.get(path_wayarea_reittiviiva),
-        //   ]);
-        const concated_response = response_navigationline.data.concat(
-          response_reittiviiva.data
-        );
-        const concated_response_wayarea =
-          response_wayarea_navigationline.data.concat(
-            response_wayarea_reittiviiva.data
-          );
+        console.log(response_navigationline);
+        console.log(response_reittiviiva);
+
+        const concated_response = {
+          features: response_navigationline.data.features.concat(
+            response_reittiviiva.data.features
+          ),
+        };
+        const concated_wayarea_response = {
+          features: response_wayarea_navigationline.data.features.concat(
+            response_wayarea_reittiviiva.data.features
+          ),
+        };
 
         setRIVResults(concated_response);
-        setWayareaPolygons(concated_response_wayarea);
-
-        console.log(concated_response);
-        console.log(response_reittiviiva);
+        setWayareaPolygons(concated_wayarea_response);
       } else {
         const [response, response_wayarea] = await Promise.all([
           apiClient.post(path, values),
@@ -124,7 +122,7 @@ export default function ParameterTabsComponent() {
       console.log(err);
       setNotificationStatus({
         severity: "error",
-        // message: JSON.stringify(err.response.data.detail),
+        message: JSON.stringify(err.response.data.detail),
         visible: true,
       });
     } finally {
