@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ReittiviivaComponent from "./ReittiviivaComponent";
 import WayareaComponent from "./WayareaComponent";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-import { Button, Divider, Grid, Tooltip } from "@mui/material";
+import FairwayWidth from "./FairwayWidth";
+import CalculationIntervalComponent from "./CalculationIntervalComponent";
+
+import { InputLabel, Grid, Select, MenuItem, Typography } from "@mui/material";
 
 const SelectCalculationType = (props) => {
   const { formik } = props;
@@ -13,24 +14,36 @@ const SelectCalculationType = (props) => {
     SelectedCalculationTypeContext
   );
 
-  const handleChoiceChange = (event, newChoice) => {
-    setSelectedCalculationType(newChoice === null ? null : newChoice);
+  const handleSelectChange = (event) => {
+    setSelectedCalculationType(event.target.value);
   };
 
   return (
     <Grid item xs={12}>
-      <ToggleButtonGroup
-        value={selectedCalculationType}
-        exclusive
-        onChange={handleChoiceChange}
-        aria-label="Choose an option"
-        orientation="vertical"
+      <Typography
+        style={{ fontSize: 16, fontWeight: 550 }}
+        color="textSecondary"
+        gutterBottom
       >
-        <ToggleButton value="navigationline">Navigointilinja</ToggleButton>
-        <ToggleButton value="reittiviiva">Reittiviiva</ToggleButton>
-        <ToggleButton value="compare">Vertaa</ToggleButton>
-      </ToggleButtonGroup>
-
+        Valitse riskin laskentatapa
+      </Typography>
+      <InputLabel style={{ fontSize: 14 }}>
+        {"Valitse millaiselle reitille haluat laskea riskin"}
+      </InputLabel>
+      <Select
+        required
+        size={"small"}
+        sx={{ width: "100%", height: 40 }}
+        value={selectedCalculationType}
+        onChange={handleSelectChange}
+      >
+        <MenuItem value="navigationline">Navigointilinja</MenuItem>
+        <MenuItem value="reittiviiva">Reittiviiva</MenuItem>
+        <MenuItem value="compare">
+          Vertaa navigointilinjaa ja reittiviivaa
+        </MenuItem>
+      </Select>
+      <Grid container spacing></Grid>
       {selectedCalculationType === "navigationline" && (
         <div>
           <WayareaComponent name="vaylat" formik={formik} />
@@ -38,12 +51,16 @@ const SelectCalculationType = (props) => {
             formik={formik}
             name="navline.starting_gdo_gid"
           />
+          <CalculationIntervalComponent formik={formik} />
+          <FairwayWidth formik={formik} />
         </div>
       )}
 
       {selectedCalculationType === "reittiviiva" && (
         <div>
           <ReittiviivaComponent name="reittiviiva.name" formik={formik} />
+          <CalculationIntervalComponent formik={formik} />
+          <FairwayWidth formik={formik} />
         </div>
       )}
 
@@ -55,6 +72,8 @@ const SelectCalculationType = (props) => {
             name="navline.starting_gdo_gid"
           />
           <ReittiviivaComponent name="reittiviiva.name" formik={formik} />
+          <CalculationIntervalComponent formik={formik} />
+          <FairwayWidth formik={formik} />
         </div>
       )}
     </Grid>

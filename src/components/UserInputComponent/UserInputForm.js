@@ -2,10 +2,8 @@ import { useContext, useState } from "react";
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import BoatMenuComponent from "./Boat/BoatMenuComponent";
-import WayareaComponent from "./WayareaComponent";
 import BoatManoeuvrabilityComponent from "./Boat/BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
-import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import BoatSpeedComponent from "./Boat/BoatSpeedComponent";
 import PFBendComponent from "./PFBend/PFBendComponent";
@@ -19,8 +17,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
-import ReittiviivaComponent from "./ReittiviivaComponent";
-import FairwayWidth from "./FairwayWidth";
 import SelectCalculationType from "./SelectCalculationType";
 
 function a11yProps(index) {
@@ -111,7 +107,6 @@ function UserInputForm(props) {
                     paddingLeft={2}
                   >
                     <SelectCalculationType formik={formik} />
-                    <FairwayWidth formik={formik} />
                   </Grid>
                 </Grid>
                 <Divider orientation="vertical" flexItem />

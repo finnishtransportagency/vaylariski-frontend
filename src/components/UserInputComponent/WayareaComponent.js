@@ -9,15 +9,12 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import CalculationIntervalContext from "../../contexts/CalculationIntervalContext";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
 
 export default function WayareaComponent(props) {
@@ -28,7 +25,6 @@ export default function WayareaComponent(props) {
   // eslint-disable-next-line no-unused-vars
   const [field, meta] = useField(name);
   const [allWayareas, setAllWayareas] = useState([]);
-  const [open, setOpen] = useState(false);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedWayarea, setSelectedWayarea } = useContext(
     SelectedWayareaContext
@@ -39,12 +35,6 @@ export default function WayareaComponent(props) {
   const [wayareaInputString, setWayareaInputString] = useState(
     formatInputString(selectedWayarea)
   );
-  const { calculationInterval, setCalculationInterval } = useContext(
-    CalculationIntervalContext
-  );
-  const calculationIntervalOptions = [
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
-  ];
 
   function setChosenWayareaFormikValue(wayarea) {
     formik.setFieldValue("vaylat", wayarea?.VAYLAT || "");
@@ -65,27 +55,6 @@ export default function WayareaComponent(props) {
       });
   }, []);
 
-  const handleChange = (event) => {
-    setCalculationInterval(event.target.value);
-    formik.setFieldValue("calculation_interval", event.target.value);
-  };
-
-  const MenuOptions = () => {
-    return calculationIntervalOptions.map((e) => (
-      <MenuItem key={e} value={e}>
-        {e}
-      </MenuItem>
-    ));
-  };
-
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = () => {
-    setOpen((prevValue) => !prevValue);
-  };
-
   const handleWayareaInputStringChange = (value) => {
     setWayareaInputString(value);
     if (value === "") {
@@ -104,7 +73,7 @@ export default function WayareaComponent(props) {
   };
 
   return (
-    <Grid container spacing={1} paddingBottom={2}>
+    <Grid container spacing={1} paddingTop={2}>
       <Grid item xs={12}>
         <Form.Group>
           <Grid item xs={12}>
@@ -118,85 +87,37 @@ export default function WayareaComponent(props) {
             <InputLabel style={{ fontSize: 14 }} id={"vaylat.id"}>
               VAYLAT id - nimi
             </InputLabel>
-            {/* <Tooltip
+            <Tooltip
               placement="right"
               arrow
               title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
               id="wayarea-tooltip"
-            > */}
-            <Autocomplete
-              id="vaylat"
-              data-cy-id="vaylat.id"
-              disablePortal
-              options={allWayareas}
-              getOptionLabel={(option) =>
-                option ? formatInputString(option) : ""
-              }
-              onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-              inputValue={wayareaInputString}
-              onInputChange={(ev, newInputValue, reason) => {
-                if (reason === "input")
-                  handleWayareaInputStringChange(newInputValue);
-              }}
-              size="small"
-              renderInput={(params) => (
-                <TextField
-                  error={!!meta.error || !formik.dirty}
-                  style={{ backgroundColor: "white" }}
-                  {...params}
-                  // required
-                />
-              )}
-            />
-            {/* </Tooltip> */}
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              id={"calculation_interval"}
-              component="span"
-              style={{
-                fontSize: 14,
-                verticalAlign: "middle",
-              }}
-              color="textSecondary"
             >
-              Pisteiden väli (m)
-              <ClickAwayListener onClickAway={handleTooltipClose}>
-                <Tooltip
-                  placement="right"
-                  arrow
-                  title={
-                    <label style={{ fontSize: 14 }}>
-                      Valitse laskentapisteiden välinen etäisyys
-                      navigointilinjalla. Oletusarvo on 10 m.
-                    </label>
-                  }
-                  PopperProps={{
-                    disablePortal: true,
-                  }}
-                  onClose={handleTooltipClose}
-                  open={open}
-                  disableFocusListener
-                  disableHoverListener
-                  disableTouchListener
-                >
-                  <IconButton onClick={handleTooltipOpen}>
-                    <InfoOutlinedIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </ClickAwayListener>
-            </Typography>
-            <Select
-              required
-              size={"small"}
-              sx={{ width: "100%", height: 40 }}
-              style={{ backgroundColor: "white" }}
-              id={"calculation_interval"}
-              value={calculationInterval}
-              onChange={handleChange}
-            >
-              {MenuOptions()}
-            </Select>
+              <Autocomplete
+                id="vaylat"
+                data-cy-id="vaylat.id"
+                disablePortal
+                options={allWayareas}
+                getOptionLabel={(option) =>
+                  option ? formatInputString(option) : ""
+                }
+                onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+                inputValue={wayareaInputString}
+                onInputChange={(ev, newInputValue, reason) => {
+                  if (reason === "input")
+                    handleWayareaInputStringChange(newInputValue);
+                }}
+                size="small"
+                renderInput={(params) => (
+                  <TextField
+                    error={!!meta.error || !formik.dirty}
+                    style={{ backgroundColor: "white" }}
+                    {...params}
+                    // required
+                  />
+                )}
+              />
+            </Tooltip>
           </Grid>
         </Form.Group>
       </Grid>

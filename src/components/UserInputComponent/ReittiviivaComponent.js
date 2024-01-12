@@ -35,10 +35,6 @@ export default function ReittiviivaComponent(props) {
     formatInputString(selectedReittiviiva)
   );
 
-  // useEffect(() => {
-  //   console.log(reittiviivaInputString);
-  // }, [reittiviivaInputString]);
-
   function setChosenReittiviivaFormikValue(value) {
     formik.setFieldValue("routename", value || "");
   }
@@ -76,7 +72,7 @@ export default function ReittiviivaComponent(props) {
   };
 
   return (
-    <Grid container spacing={1} paddingBottom={2}>
+    <Grid container spacing={1} paddingTop={2}>
       <Grid item xs={12}>
         <Form.Group>
           <Grid item xs={12}>
@@ -90,36 +86,36 @@ export default function ReittiviivaComponent(props) {
             <InputLabel style={{ fontSize: 14 }} id={"routename.id"}>
               Reitin nimi
             </InputLabel>
-            {/* <Tooltip
+            <Tooltip
               placement="right"
               arrow
               title={!formik.dirty ? "Reitti vaaditaan" : meta.error}
               id="reittiviiva-tooltip"
-            > */}
-            <Autocomplete
-              id="routename"
-              data-cy-id="routename.id"
-              disablePortal
-              options={allReittiviiva}
-              getOptionLabel={(option) =>
-                option ? formatInputString(option) : ""
-              }
-              onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-              inputValue={reittiviivaInputString}
-              onInputChange={(ev, newInputValue, reason) => {
-                if (reason === "input")
-                  handleReittiviivaInputStringChange(newInputValue);
-              }}
-              size="small"
-              renderInput={(params) => (
-                <TextField
-                  error={!!meta.error || !formik.dirty}
-                  style={{ backgroundColor: "white" }}
-                  {...params}
-                />
-              )}
-            />
-            {/* </Tooltip> */}
+            >
+              <Autocomplete
+                id="routename"
+                data-cy-id="routename.id"
+                disablePortal
+                options={allReittiviiva}
+                getOptionLabel={(option) =>
+                  option ? formatInputString(option) : ""
+                }
+                onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
+                inputValue={reittiviivaInputString}
+                onInputChange={(ev, newInputValue, reason) => {
+                  if (reason === "input")
+                    handleReittiviivaInputStringChange(newInputValue);
+                }}
+                size="small"
+                renderInput={(params) => (
+                  <TextField
+                    error={!!meta.error || !formik.dirty}
+                    style={{ backgroundColor: "white" }}
+                    {...params}
+                  />
+                )}
+              />
+            </Tooltip>
           </Grid>
         </Form.Group>
       </Grid>
