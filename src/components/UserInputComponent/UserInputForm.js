@@ -18,6 +18,7 @@ import Tab from "@mui/material/Tab";
 import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
+import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
 function a11yProps(index) {
   return {
@@ -35,7 +36,9 @@ function UserInputForm(props) {
   );
   const { RIVResults } = useContext(RIVResultContext);
   const { setPreviousRIVResults } = useContext(PreviousRIVResultsContext);
-
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
   const submitButtonClicked = () => {
     setPreviousRIVResults(RIVResults);
   };
@@ -213,39 +216,61 @@ function UserInputForm(props) {
               placement="bottom"
               arrow
               id="submit-button-tooltip"
-              // title={
-              //   !(formik.isValid && formik.dirty) ||
-              //   selectedWayareaWithNoGDOGID ? (
-              //     <label style={{ fontSize: 14 }}>
-              //       <span data-cy-id="submit-button-tooltip-span">
-              //         Korjaa seuraavat asiat lähettääksesi arvot:
-              //         <br />
-              //         {!formik.dirty ? (
-              //           <>
-              //             - VAYLAT id vaaditaan
-              //             <br />
-              //           </>
-              //         ) : (
-              //           Object.values(formik.errors).map((obj) => {
-              //             let msg = null;
-              //             Object.values(obj).forEach((err_msg) => {
-              //               msg = (
-              //                 <span key={err_msg}>
-              //                   - {err_msg}
-              //                   <br />
-              //                 </span>
-              //               );
-              //             });
-              //             return msg;
-              //           })
-              //         )}
-              //         {selectedWayareaWithNoGDOGID && (
-              //           <>- Valitulle väylälle ei löydy navigointilinjoja</>
-              //         )}
-              //       </span>
-              //     </label>
-              //   ) : null
-              // }
+              title={
+                selectedCalculationType == "" ||
+                (selectedCalculationType == "navigationline" &&
+                  (formik.values.vaylat == null ||
+                    formik.values.vaylat == "" ||
+                    selectedWayareaWithNoGDOGID)) ||
+                (selectedCalculationType == "reittiviiva" &&
+                  formik.values.routename == "") ||
+                (selectedCalculationType == "compare" &&
+                  (formik.values.routename == "" ||
+                    formik.values.vaylat == null ||
+                    formik.values.vaylat == "" ||
+                    selectedWayareaWithNoGDOGID)) ? (
+                  <label style={{ fontSize: 14 }}>
+                    <span data-cy-id="submit-button-tooltip-span">
+                      Korjaa seuraavat asiat lähettääksesi arvot:
+                      <br />
+                      {/* When calculation type is not selected */}
+                      {selectedCalculationType == "" && (
+                        <>- Laskentatapa täytyy valita</>
+                      )}
+                      {/* When calculation type is reittiviiva and reittiviiva is not selected*/}
+                      {selectedCalculationType == "reittiviiva" &&
+                        formik.values.routename == "" && <>- Valitse reitti</>}
+                      {/* When calculation type is navigationline and navigationline is no selected  */}
+                      {selectedCalculationType == "navigationline" &&
+                        (formik.values.vaylat == null ||
+                          formik.values.vaylat == "") && (
+                          <>- Valitse navigointilinja</>
+                        )}
+                      {/* When calculationtype is navigationline and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
+                      {selectedCalculationType == "navigationline" &&
+                        formik.values.vaylat !== null &&
+                        formik.values.vaylat !== "" &&
+                        selectedWayareaWithNoGDOGID && (
+                          <>- Valitulle väylälle ei löydy navigointilinjoja</>
+                        )}
+                      {/* When calculation type is compare and either route name or reittiviiva is not selected */}
+                      {selectedCalculationType == "compare" &&
+                        (formik.values.routename == "" ||
+                          formik.values.vaylat == null ||
+                          formik.values.vaylat == "") && (
+                          <>- Valitse navigointilinja ja reitti</>
+                        )}
+                      {/* When calculationtype is compare and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
+                      {selectedCalculationType == "compare" &&
+                        formik.values.vaylat !== null &&
+                        formik.values.vaylat !== "" &&
+                        selectedWayareaWithNoGDOGID && (
+                          <>- Valitulle väylälle ei löydy navigointilinjoja</>
+                        )}
+                    </span>
+                  </label>
+                ) : null
+              }
             >
               <span>
                 <Button
@@ -253,18 +278,38 @@ function UserInputForm(props) {
                   variant="contained"
                   size="large"
                   sx={{ minWidth: "1" }}
-                  // disabled={
-                  //   !(formik.isValid && formik.dirty) ||
-                  //   selectedWayareaWithNoGDOGID
-                  // } //formik.dirty is needed to disable on initial load
+                  disabled={
+                    selectedCalculationType == "" ||
+                    (selectedCalculationType == "navigationline" &&
+                      (formik.values.vaylat == null ||
+                        formik.values.vaylat == "" ||
+                        selectedWayareaWithNoGDOGID)) ||
+                    (selectedCalculationType == "reittiviiva" &&
+                      formik.values.routename == "") ||
+                    (selectedCalculationType == "compare" &&
+                      (formik.values.routename == "" ||
+                        formik.values.vaylat == null ||
+                        formik.values.vaylat == "" ||
+                        selectedWayareaWithNoGDOGID))
+                  } //formik.dirty is needed to disable on initial load
                   data-cy-id="submit-button"
                   onClick={submitButtonClicked}
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {/* {!(formik.isValid && formik.dirty) ||
-                  selectedWayareaWithNoGDOGID ? (
+                  {selectedCalculationType == "" ||
+                  (selectedCalculationType == "navigationline" &&
+                    (formik.values.vaylat == null ||
+                      formik.values.vaylat == "" ||
+                      selectedWayareaWithNoGDOGID)) ||
+                  (selectedCalculationType == "reittiviiva" &&
+                    formik.values.routename == "") ||
+                  (selectedCalculationType == "compare" &&
+                    (formik.values.routename == "" ||
+                      formik.values.vaylat == null ||
+                      formik.values.vaylat == "" ||
+                      selectedWayareaWithNoGDOGID)) ? (
                     <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
-                  ) : null} */}
+                  ) : null}
                 </Button>
               </span>
             </Tooltip>

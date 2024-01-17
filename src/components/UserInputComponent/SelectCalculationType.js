@@ -16,6 +16,7 @@ const SelectCalculationType = (props) => {
 
   const handleSelectChange = (event) => {
     setSelectedCalculationType(event.target.value);
+    console.log(formik.values);
   };
 
   return (
@@ -34,7 +35,7 @@ const SelectCalculationType = (props) => {
         required
         size={"small"}
         sx={{ width: "100%", height: 40 }}
-        value={selectedCalculationType}
+        value={selectedCalculationType || ""}
         onChange={handleSelectChange}
       >
         <MenuItem value="navigationline">Navigointilinja</MenuItem>
@@ -43,7 +44,6 @@ const SelectCalculationType = (props) => {
           Vertaa navigointilinjaa ja reittiviivaa
         </MenuItem>
       </Select>
-      <Grid container spacing></Grid>
       {selectedCalculationType === "navigationline" && (
         <div>
           <WayareaComponent name="vaylat" formik={formik} />

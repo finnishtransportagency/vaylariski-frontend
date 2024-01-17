@@ -47,8 +47,6 @@ export default function ParameterTabsComponent() {
       path_reittiviiva = "",
       path_wayarea_reittiviiva = "";
 
-    console.log("sdöfj", values.vaylat);
-    console.log("sdöfj", values.routename);
     if (selectedCalculationType == "reittiviiva") {
       path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
         selectedReittiviiva
@@ -94,8 +92,6 @@ export default function ParameterTabsComponent() {
           apiClient.post(path_reittiviiva, values),
           apiClient.get(path_wayarea_reittiviiva),
         ]);
-        console.log(response_navigationline);
-        console.log(response_reittiviiva);
 
         const concated_response = {
           features: response_navigationline.data.features.concat(

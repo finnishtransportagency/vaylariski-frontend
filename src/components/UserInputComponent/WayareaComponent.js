@@ -113,7 +113,6 @@ export default function WayareaComponent(props) {
                     error={!!meta.error || !formik.dirty}
                     style={{ backgroundColor: "white" }}
                     {...params}
-                    // required
                   />
                 )}
               />
