@@ -94,6 +94,7 @@
 
 .user-input-parameters {
   flex-grow: 1;
+  min-width: 400px;
 }
 
 .user-input-grid-inner {
