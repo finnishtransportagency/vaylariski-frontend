@@ -55,9 +55,9 @@
 
 .riv-tab-container {
   background-color: var(--color-background-white);
-  padding: 1rem;
   flex-grow: 1;
   min-height: 0;
+  overflow: hidden;
 }
 
 .riv-table {
@@ -68,6 +68,8 @@
 .riv-tab-content {
   height: 100%;
   background-color: var(--color-background-white);
+  margin: 1rem;
+  min-width: 400px;
 }
 
 .riv-diagram-tab-component {
@@ -79,6 +81,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-x: hidden;
 }
 
 .user-input-grid {
@@ -86,6 +89,7 @@
   padding-top: 1.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  min-width: 400px;
 }
 
 .user-input-parameters {
