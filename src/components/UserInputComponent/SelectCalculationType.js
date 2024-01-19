@@ -16,7 +16,6 @@ const SelectCalculationType = (props) => {
 
   const handleSelectChange = (event) => {
     setSelectedCalculationType(event.target.value);
-    console.log(formik.values);
   };
 
   return (
