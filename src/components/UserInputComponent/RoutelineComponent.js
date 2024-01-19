@@ -12,38 +12,37 @@ import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
-import SelectedReittiviivaContext from "contexts/SelectedReittiviivaContext";
-import SelectedReittiviivaChangedContext from "../../contexts/SelectedReittiviivaChangedContext";
+import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
+import SelectedRoutelineChangedContext from "../../contexts/SelectedRoutelineChangedContext";
 
-export default function ReittiviivaComponent(props) {
-  const formatInputString = (reittiviiva) =>
-    reittiviiva ? `${reittiviiva}` : "";
+export default function RoutelineComponent(props) {
+  const formatInputString = (routeline) => (routeline ? `${routeline}` : "");
 
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
   const [field, meta] = useField(name);
-  const [allReittiviiva, setAllReittiviiva] = useState([]);
+  const [allRouteline, setAllRouteline] = useState([]);
 
   const { setNotificationStatus } = useContext(NotificationContext);
-  const { selectedReittiviiva, setSelectedReittiviiva } = useContext(
-    SelectedReittiviivaContext
+  const { selectedRouteline, setSelectedRouteline } = useContext(
+    SelectedRoutelineContext
   );
-  const { setSelectedReittiviivaChanged } = useContext(
-    SelectedReittiviivaChangedContext
+  const { setSelectedRoutelineChanged } = useContext(
+    SelectedRoutelineChangedContext
   );
-  const [reittiviivaInputString, setReittiviivaInputString] = useState(
-    formatInputString(selectedReittiviiva)
+  const [routelineInputString, setRoutelineInputString] = useState(
+    formatInputString(selectedRouteline)
   );
 
-  function setChosenReittiviivaFormikValue(value) {
+  function setChosenRoutelineFormikValue(value) {
     formik.setFieldValue("routename", value || "");
   }
 
   useEffect(() => {
-    const path = "reittiviiva/reittiviiva_names";
+    const path = "routeline/routeline_names";
     apiClient
       .get(path)
-      .then((response) => setAllReittiviiva(response.data))
+      .then((response) => setAllRouteline(response.data))
       .catch((err) => {
         console.log(err);
         setNotificationStatus({
@@ -54,21 +53,21 @@ export default function ReittiviivaComponent(props) {
       });
   }, []);
 
-  const handleReittiviivaInputStringChange = (value) => {
-    setReittiviivaInputString(value);
+  const handleRoutelineInputStringChange = (value) => {
+    setRoutelineInputString(value);
     if (value === "") {
-      setChosenReittiviivaFormikValue(null);
-      setSelectedReittiviiva(null);
-      setSelectedReittiviivaChanged(true);
+      setChosenRoutelineFormikValue(null);
+      setSelectedRouteline(null);
+      setSelectedRoutelineChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
-    setChosenReittiviivaFormikValue(newValue);
-    setSelectedReittiviiva(newValue);
-    setSelectedReittiviivaChanged(true);
+    setChosenRoutelineFormikValue(newValue);
+    setSelectedRouteline(newValue);
+    setSelectedRoutelineChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
-    setReittiviivaInputString(newValue ? formatInputString(newValue) : "");
+    setRoutelineInputString(newValue ? formatInputString(newValue) : "");
   };
 
   return (
@@ -90,21 +89,21 @@ export default function ReittiviivaComponent(props) {
               placement="right"
               arrow
               title={!formik.dirty ? "Reitti vaaditaan" : meta.error}
-              id="reittiviiva-tooltip"
+              id="routeline-tooltip"
             >
               <Autocomplete
                 id="routename"
                 data-cy-id="routename.id"
                 disablePortal
-                options={allReittiviiva}
+                options={allRouteline}
                 getOptionLabel={(option) =>
                   option ? formatInputString(option) : ""
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-                inputValue={reittiviivaInputString}
+                inputValue={routelineInputString}
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
-                    handleReittiviivaInputStringChange(newInputValue);
+                    handleRoutelineInputStringChange(newInputValue);
                 }}
                 size="small"
                 renderInput={(params) => (

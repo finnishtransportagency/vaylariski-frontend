@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import ReittiviivaComponent from "./ReittiviivaComponent";
+import RoutelineComponent from "./RoutelineComponent";
 import WayareaComponent from "./WayareaComponent";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
@@ -39,7 +39,7 @@ const SelectCalculationType = (props) => {
         onChange={handleSelectChange}
       >
         <MenuItem value="navigationline">Navigointilinja</MenuItem>
-        <MenuItem value="reittiviiva">Reittiviiva</MenuItem>
+        <MenuItem value="routeline">Reittiviiva</MenuItem>
         <MenuItem value="compare">
           Vertaa navigointilinjaa ja reittiviivaa
         </MenuItem>
@@ -56,9 +56,9 @@ const SelectCalculationType = (props) => {
         </div>
       )}
 
-      {selectedCalculationType === "reittiviiva" && (
+      {selectedCalculationType === "routeline" && (
         <div>
-          <ReittiviivaComponent name="reittiviiva.name" formik={formik} />
+          <RoutelineComponent name="routeline.name" formik={formik} />
           <CalculationIntervalComponent formik={formik} />
           <FairwayWidth formik={formik} />
         </div>
@@ -71,7 +71,7 @@ const SelectCalculationType = (props) => {
             formik={formik}
             name="navline.starting_gdo_gid"
           />
-          <ReittiviivaComponent name="reittiviiva.name" formik={formik} />
+          <RoutelineComponent name="routeline.name" formik={formik} />
           <CalculationIntervalComponent formik={formik} />
           <FairwayWidth formik={formik} />
         </div>

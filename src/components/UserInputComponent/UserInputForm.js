@@ -222,7 +222,7 @@ function UserInputForm(props) {
                   (formik.values.vaylat == null ||
                     formik.values.vaylat == "" ||
                     selectedWayareaWithNoGDOGID)) ||
-                (selectedCalculationType == "reittiviiva" &&
+                (selectedCalculationType == "routeline" &&
                   formik.values.routename == "") ||
                 (selectedCalculationType == "compare" &&
                   (formik.values.routename == "" ||
@@ -237,8 +237,8 @@ function UserInputForm(props) {
                       {selectedCalculationType == "" && (
                         <>- Laskentatapa täytyy valita</>
                       )}
-                      {/* When calculation type is reittiviiva and reittiviiva is not selected*/}
-                      {selectedCalculationType == "reittiviiva" &&
+                      {/* When calculation type is routeline and routeline is not selected*/}
+                      {selectedCalculationType == "routeline" &&
                         formik.values.routename == "" && <>- Valitse reitti</>}
                       {/* When calculation type is navigationline and navigationline is no selected  */}
                       {selectedCalculationType == "navigationline" &&
@@ -253,7 +253,7 @@ function UserInputForm(props) {
                         selectedWayareaWithNoGDOGID && (
                           <>- Valitulle väylälle ei löydy navigointilinjoja</>
                         )}
-                      {/* When calculation type is compare and either route name or reittiviiva is not selected */}
+                      {/* When calculation type is compare and either route name or routeline is not selected */}
                       {selectedCalculationType == "compare" &&
                         (formik.values.routename == "" ||
                           formik.values.vaylat == null ||
@@ -284,7 +284,7 @@ function UserInputForm(props) {
                       (formik.values.vaylat == null ||
                         formik.values.vaylat == "" ||
                         selectedWayareaWithNoGDOGID)) ||
-                    (selectedCalculationType == "reittiviiva" &&
+                    (selectedCalculationType == "routeline" &&
                       formik.values.routename == "") ||
                     (selectedCalculationType == "compare" &&
                       (formik.values.routename == "" ||
@@ -301,7 +301,7 @@ function UserInputForm(props) {
                     (formik.values.vaylat == null ||
                       formik.values.vaylat == "" ||
                       selectedWayareaWithNoGDOGID)) ||
-                  (selectedCalculationType == "reittiviiva" &&
+                  (selectedCalculationType == "routeline" &&
                     formik.values.routename == "") ||
                   (selectedCalculationType == "compare" &&
                     (formik.values.routename == "" ||

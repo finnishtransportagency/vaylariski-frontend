@@ -16,14 +16,14 @@ import TableRowClickedContext from "contexts/TableRowClickedContext";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
 import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import SelectedReittiviivaContext from "contexts/SelectedReittiviivaContext";
+import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import GDOGIDListContext from "contexts/SelectedGDOGIDContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import { Allotment } from "allotment";
 import CalculationIntervalContext from "../contexts/CalculationIntervalContext";
 import SelectedWayareaChangedContext from "../contexts/SelectedWayareaChangedContext";
-import SelectedReittiviivaChangedContext from "../contexts/SelectedReittiviivaChangedContext";
+import SelectedRoutelineChangedContext from "../contexts/SelectedRoutelineChangedContext";
 import AllGDOGIDSContext from "../contexts/AllGDOGIDSContext";
 import "allotment/dist/style.css";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
@@ -35,10 +35,10 @@ function CalculateRIV() {
   const [userInput, setUserInput] = useState(userInputDefault);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [selectedWayarea, setSelectedWayarea] = useState(null);
-  const [selectedReittiviiva, setSelectedReittiviiva] = useState(null);
+  const [selectedRouteline, setSelectedRouteline] = useState(null);
   const [selectedWayareaChanged, setSelectedWayareaChanged] = useState(false);
   const [selectedCalculationType, setSelectedCalculationType] = useState(false);
-  const [selectedReittiviivaChanged, setSelectedReittiviivaChanged] =
+  const [selectedRoutelineChanged, setSelectedRoutelineChanged] =
     useState(false);
   const [selectedBoat, setSelectedBoat] = useState(null);
   const [selectedGDOGIDString, setSelectedGDOGIDString] = useState("");
@@ -88,8 +88,8 @@ function CalculateRIV() {
                   <SelectedWayareaContext.Provider
                     value={{ selectedWayarea, setSelectedWayarea }}
                   >
-                    <SelectedReittiviivaContext.Provider
-                      value={{ selectedReittiviiva, setSelectedReittiviiva }}
+                    <SelectedRoutelineContext.Provider
+                      value={{ selectedRouteline, setSelectedRouteline }}
                     >
                       <PreviousRIVResultsContext.Provider
                         value={{ previousRIVResults, setPreviousRIVResults }}
@@ -103,10 +103,10 @@ function CalculateRIV() {
                               setSelectedWayareaChanged,
                             }}
                           >
-                            <SelectedReittiviivaChangedContext.Provider
+                            <SelectedRoutelineChangedContext.Provider
                               value={{
-                                selectedReittiviivaChanged,
-                                setSelectedReittiviivaChanged,
+                                selectedRoutelineChanged,
+                                setSelectedRoutelineChanged,
                               }}
                             >
                               <SelectedWayareaWithNoGDOGIDContext.Provider
@@ -184,11 +184,11 @@ function CalculateRIV() {
                                   </GDOGIDListContext.Provider>
                                 </CalculationIntervalContext.Provider>
                               </SelectedWayareaWithNoGDOGIDContext.Provider>
-                            </SelectedReittiviivaChangedContext.Provider>
+                            </SelectedRoutelineChangedContext.Provider>
                           </SelectedWayareaChangedContext.Provider>
                         </AllGDOGIDSContext.Provider>
                       </PreviousRIVResultsContext.Provider>
-                    </SelectedReittiviivaContext.Provider>
+                    </SelectedRoutelineContext.Provider>
                   </SelectedWayareaContext.Provider>
                 </SelectedCalculationType.Provider>
               </WayareaPolygonContext.Provider>

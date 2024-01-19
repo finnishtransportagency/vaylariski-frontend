@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import UserInputForm from "./UserInputComponent/UserInputForm";
-import SelectedReittiviivaContext from "contexts/SelectedReittiviivaContext";
+import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
 import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent";
 import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import RIVResultContext from "contexts/RIVResult";
@@ -29,7 +29,7 @@ export default function ParameterTabsComponent() {
   const { userInput } = useContext(UserInputContext);
   const { setRIVResults } = useContext(RIVResultContext);
   const { setNotificationStatus } = useContext(NotificationContext);
-  const { selectedReittiviiva } = useContext(SelectedReittiviivaContext);
+  const { selectedRouteline } = useContext(SelectedRoutelineContext);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -44,15 +44,15 @@ export default function ParameterTabsComponent() {
       path_wayarea = "",
       path_navigationline = "",
       path_wayarea_navigationline = "",
-      path_reittiviiva = "",
-      path_wayarea_reittiviiva = "";
+      path_routeline = "",
+      path_wayarea_routeline = "";
 
-    if (selectedCalculationType == "reittiviiva") {
-      path = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
-        selectedReittiviiva
+    if (selectedCalculationType == "routeline") {
+      path = `routeline/calculate_risk?routename=${encodeURIComponent(
+        selectedRouteline
       )}`;
-      path_wayarea = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
-        selectedReittiviiva
+      path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
+        selectedRouteline
       )}`;
     } else if (selectedCalculationType == "navigationline") {
       path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
@@ -66,11 +66,11 @@ export default function ParameterTabsComponent() {
       path_wayarea_navigationline = `wayarea?vaylat=${encodeURIComponent(
         values.vaylat
       )}`;
-      path_reittiviiva = `reittiviiva/calculate_risk?routename=${encodeURIComponent(
-        selectedReittiviiva
+      path_routeline = `routeline/calculate_risk?routename=${encodeURIComponent(
+        selectedRouteline
       )}`;
-      path_wayarea_reittiviiva = `reittiviiva/wayarea_polygons?routename=${encodeURIComponent(
-        selectedReittiviiva
+      path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
+        selectedRouteline
       )}`;
     }
 
@@ -84,23 +84,23 @@ export default function ParameterTabsComponent() {
         const [
           response_navigationline,
           response_wayarea_navigationline,
-          response_reittiviiva,
-          response_wayarea_reittiviiva,
+          response_routeline,
+          response_wayarea_routeline,
         ] = await Promise.all([
           apiClient.post(path_navigationline, values),
           apiClient.get(path_wayarea_navigationline),
-          apiClient.post(path_reittiviiva, values),
-          apiClient.get(path_wayarea_reittiviiva),
+          apiClient.post(path_routeline, values),
+          apiClient.get(path_wayarea_routeline),
         ]);
 
         const concated_response = {
           features: response_navigationline.data.features.concat(
-            response_reittiviiva.data.features
+            response_routeline.data.features
           ),
         };
         const concated_wayarea_response = {
           features: response_wayarea_navigationline.data.features.concat(
-            response_wayarea_reittiviiva.data.features
+            response_wayarea_routeline.data.features
           ),
         };
 
