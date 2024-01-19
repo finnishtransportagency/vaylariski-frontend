@@ -27,37 +27,37 @@ export const layerBindPopupString = (feature) =>
   "RIV taustavalon voimakkuus: " +
   JSON.stringify(feature.properties.RIV_6_light_pollution) +
   "\n" +
-  "väylän vaikuttavuus: " +
+  "Väylän vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_1_channel) +
   "\n" +
-  "mutkan vaikuttavuus: " +
+  "Mutkan vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_2_bend) +
   "\n" +
   "S-mutkan vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_3_s_bend) +
   "\n" +
-  "liikenteen vaikuttavuus: " +
+  "Liikenteen vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_4_traffic_complexity) +
   "\n" +
-  "heikentyneen näkyvyyden vaikuttavuus: " +
+  "Heikentyneen näkyvyyden vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_5_reduced_visibility) +
   "\n" +
-  "taustavalon vaikuttavuus: " +
+  "Taustavalon vaikuttavuus: " +
   JSON.stringify(feature.properties.PF_6_light_pollution_value) +
   "\n" +
-  "väylän leveys [m]: " +
+  "Väylän leveys [m]: " +
   JSON.stringify(feature.properties.W_channel) +
   "\n" +
-  "väylän syvyys [m]: " +
+  "Väylän syvyys [m]: " +
   JSON.stringify(feature.properties.channel_depth_value) +
   "\n" +
   "S-mutka [m]: " +
   JSON.stringify(feature.properties.bend_S_length) +
   "\n" +
-  "mutkan suuntakulma [°]: " +
+  "Mutkan suuntakulma [°]: " +
   JSON.stringify(feature.properties.bend_angle) +
   "\n" +
-  "mutkan säde [m]: " +
+  "Mutkan säde [m]: " +
   JSON.stringify(feature.properties.bend_radius) +
   "\n" +
   "PF_bend1: " +
@@ -72,34 +72,34 @@ export const layerBindPopupString = (feature) =>
   "ATN painokerroin: " +
   JSON.stringify(feature.properties.W_atn) +
   "\n" +
-  "reunan painokerroin: " +
+  "Reunan painokerroin: " +
   JSON.stringify(feature.properties.W_bank_clearance) +
   "\n" +
-  "pohjan painokerroin: " +
+  "Pohjan painokerroin: " +
   JSON.stringify(feature.properties.W_bottom_surface) +
   "\n" +
-  "syvyyden painokerroin: " +
+  "Syvyyden painokerroin: " +
   JSON.stringify(feature.properties.W_channel_depth) +
   "\n" +
-  "poikkivirtauksen painokerroin: " +
+  "Poikkivirtauksen painokerroin: " +
   JSON.stringify(feature.properties.W_cross_current) +
   "\n" +
-  "pitkittäisvirtauksen painokerroin: " +
+  "Pitkittäisvirtauksen painokerroin: " +
   JSON.stringify(feature.properties.W_longitudinal_current) +
   "\n" +
-  "ohjailtavuuden painokerroin: " +
+  "Ohjailtavuuden painokerroin: " +
   JSON.stringify(feature.properties.W_manoeuvrability) +
   "\n" +
-  "nopeuden painokerroin: " +
+  "Nopeuden painokerroin: " +
   JSON.stringify(feature.properties.W_speed) +
   "\n" +
-  "aallon painokerroin: " +
+  "Aallon painokerroin: " +
   JSON.stringify(feature.properties.W_wave_height) +
   "\n" +
-  "tuulen painokerroin: " +
+  "Tuulen painokerroin: " +
   JSON.stringify(feature.properties.W_wind) +
   "\n" +
-  "indeksi: " +
+  "Indeksi: " +
   JSON.stringify(feature.properties.point_index) +
   "\n" +
   "</pre>";

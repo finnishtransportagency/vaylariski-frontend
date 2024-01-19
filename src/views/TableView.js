@@ -299,7 +299,7 @@ function TableView(props, { direction }) {
                   checked={visibleColumns.length === columns.length}
                   onChange={handleSelectAllColumns}
                 />
-                Valitse kaikki
+                &nbsp;Valitse kaikki
               </label>
               {columns.map((column) => (
                 <div key={column.key}>
@@ -309,7 +309,7 @@ function TableView(props, { direction }) {
                       checked={visibleColumns.includes(column.key)}
                       onChange={() => handleToggleColumn(column.key)}
                     />
-                    {column.name}
+                    &nbsp;{column.name}
                   </label>
                 </div>
               ))}
