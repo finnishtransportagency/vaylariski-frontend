@@ -1,5 +1,5 @@
 const { createContext } = require("react");
 
-const SelectedCalculationType = createContext(null);
+const SelectedCalculationTypeContext = createContext(null);
 
-export default SelectedCalculationType;
+export default SelectedCalculationTypeContext;

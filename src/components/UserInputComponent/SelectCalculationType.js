@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import RoutelineComponent from "./RoutelineComponent";
 import WayareaComponent from "./WayareaComponent";
 import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import FairwayWidth from "./FairwayWidth";
 import CalculationIntervalComponent from "./CalculationIntervalComponent";
+import { calculationTypeEnums } from "constants/enums";
 
 import { InputLabel, Grid, Select, MenuItem, Typography } from "@mui/material";
 
@@ -37,13 +38,15 @@ const SelectCalculationType = (props) => {
         value={selectedCalculationType || ""}
         onChange={handleSelectChange}
       >
-        <MenuItem value="navigationline">Navigointilinja</MenuItem>
-        <MenuItem value="routeline">Reittiviiva</MenuItem>
-        <MenuItem value="compare">
+        <MenuItem value={calculationTypeEnums.NAVIGATIONLINE}>
+          Navigointilinja
+        </MenuItem>
+        <MenuItem value={calculationTypeEnums.ROUTELINE}>Reittiviiva</MenuItem>
+        <MenuItem value={calculationTypeEnums.COMPARE}>
           Vertaa navigointilinjaa ja reittiviivaa
         </MenuItem>
       </Select>
-      {selectedCalculationType === "navigationline" && (
+      {selectedCalculationType === calculationTypeEnums.NAVIGATIONLINE && (
         <div>
           <WayareaComponent name="vaylat" formik={formik} />
           <GDOGIDMenuComponent
@@ -55,7 +58,7 @@ const SelectCalculationType = (props) => {
         </div>
       )}
 
-      {selectedCalculationType === "routeline" && (
+      {selectedCalculationType === calculationTypeEnums.ROUTELINE && (
         <div>
           <RoutelineComponent name="routeline.name" formik={formik} />
           <CalculationIntervalComponent formik={formik} />
@@ -63,7 +66,7 @@ const SelectCalculationType = (props) => {
         </div>
       )}
 
-      {selectedCalculationType === "compare" && (
+      {selectedCalculationType === calculationTypeEnums.COMPARE && (
         <div>
           <WayareaComponent name="vaylat" formik={formik} />
           <GDOGIDMenuComponent

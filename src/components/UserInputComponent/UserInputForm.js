@@ -19,6 +19,7 @@ import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
+import { calculationTypeEnums } from "constants/enums";
 
 function a11yProps(index) {
   return {
@@ -218,13 +219,14 @@ function UserInputForm(props) {
               id="submit-button-tooltip"
               title={
                 selectedCalculationType == "" ||
-                (selectedCalculationType == "navigationline" &&
+                (selectedCalculationType ==
+                  calculationTypeEnums.NAVIGATIONLINE &&
                   (formik.values.vaylat == null ||
                     formik.values.vaylat == "" ||
                     selectedWayareaWithNoGDOGID)) ||
-                (selectedCalculationType == "routeline" &&
+                (selectedCalculationType == calculationTypeEnums.ROUTELINE &&
                   formik.values.routename == "") ||
-                (selectedCalculationType == "compare" &&
+                (selectedCalculationType == calculationTypeEnums.COMPARE &&
                   (formik.values.routename == "" ||
                     formik.values.vaylat == null ||
                     formik.values.vaylat == "" ||
@@ -238,30 +240,35 @@ function UserInputForm(props) {
                         <>- Laskentatapa täytyy valita</>
                       )}
                       {/* When calculation type is routeline and routeline is not selected*/}
-                      {selectedCalculationType == "routeline" &&
+                      {selectedCalculationType ==
+                        calculationTypeEnums.ROUTELINE &&
                         formik.values.routename == "" && <>- Valitse reitti</>}
                       {/* When calculation type is navigationline and navigationline is no selected  */}
-                      {selectedCalculationType == "navigationline" &&
+                      {selectedCalculationType ==
+                        calculationTypeEnums.NAVIGATIONLINE &&
                         (formik.values.vaylat == null ||
                           formik.values.vaylat == "") && (
                           <>- Valitse navigointilinja</>
                         )}
                       {/* When calculationtype is navigationline and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
-                      {selectedCalculationType == "navigationline" &&
+                      {selectedCalculationType ==
+                        calculationTypeEnums.NAVIGATIONLINE &&
                         formik.values.vaylat !== null &&
                         formik.values.vaylat !== "" &&
                         selectedWayareaWithNoGDOGID && (
                           <>- Valitulle väylälle ei löydy navigointilinjoja</>
                         )}
                       {/* When calculation type is compare and either route name or routeline is not selected */}
-                      {selectedCalculationType == "compare" &&
+                      {selectedCalculationType ==
+                        calculationTypeEnums.COMPARE &&
                         (formik.values.routename == "" ||
                           formik.values.vaylat == null ||
                           formik.values.vaylat == "") && (
                           <>- Valitse navigointilinja ja reitti</>
                         )}
                       {/* When calculationtype is compare and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
-                      {selectedCalculationType == "compare" &&
+                      {selectedCalculationType ==
+                        calculationTypeEnums.COMPARE &&
                         formik.values.vaylat !== null &&
                         formik.values.vaylat !== "" &&
                         selectedWayareaWithNoGDOGID && (
@@ -280,13 +287,15 @@ function UserInputForm(props) {
                   sx={{ minWidth: "1" }}
                   disabled={
                     selectedCalculationType == "" ||
-                    (selectedCalculationType == "navigationline" &&
+                    (selectedCalculationType ==
+                      calculationTypeEnums.NAVIGATIONLINE &&
                       (formik.values.vaylat == null ||
                         formik.values.vaylat == "" ||
                         selectedWayareaWithNoGDOGID)) ||
-                    (selectedCalculationType == "routeline" &&
+                    (selectedCalculationType ==
+                      calculationTypeEnums.ROUTELINE &&
                       formik.values.routename == "") ||
-                    (selectedCalculationType == "compare" &&
+                    (selectedCalculationType == calculationTypeEnums.COMPARE &&
                       (formik.values.routename == "" ||
                         formik.values.vaylat == null ||
                         formik.values.vaylat == "" ||
@@ -297,13 +306,14 @@ function UserInputForm(props) {
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
                   {selectedCalculationType == "" ||
-                  (selectedCalculationType == "navigationline" &&
+                  (selectedCalculationType ==
+                    calculationTypeEnums.NAVIGATIONLINE &&
                     (formik.values.vaylat == null ||
                       formik.values.vaylat == "" ||
                       selectedWayareaWithNoGDOGID)) ||
-                  (selectedCalculationType == "routeline" &&
+                  (selectedCalculationType == calculationTypeEnums.ROUTELINE &&
                     formik.values.routename == "") ||
-                  (selectedCalculationType == "compare" &&
+                  (selectedCalculationType == calculationTypeEnums.COMPARE &&
                     (formik.values.routename == "" ||
                       formik.values.vaylat == null ||
                       formik.values.vaylat == "" ||

@@ -15,6 +15,7 @@ import { Form as FForm } from "formik";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
+import { calculationTypeEnums } from "constants/enums";
 
 function a11yProps(index) {
   return {
@@ -47,19 +48,19 @@ export default function ParameterTabsComponent() {
       path_routeline = "",
       path_wayarea_routeline = "";
 
-    if (selectedCalculationType == "routeline") {
+    if (selectedCalculationType == calculationTypeEnums.ROUTELINE) {
       path = `routeline/calculate_risk?routename=${encodeURIComponent(
         selectedRouteline
       )}`;
       path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
         selectedRouteline
       )}`;
-    } else if (selectedCalculationType == "navigationline") {
+    } else if (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE) {
       path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
         values.vaylat
       )}`;
       path_wayarea = `wayarea?vaylat=${encodeURIComponent(values.vaylat)}`;
-    } else if (selectedCalculationType == "compare") {
+    } else if (selectedCalculationType == calculationTypeEnums.COMPARE) {
       path_navigationline = `fairway/calculate_risk?vaylat=${encodeURIComponent(
         values.vaylat
       )}`;
@@ -80,7 +81,7 @@ export default function ParameterTabsComponent() {
     setRIVResults([]);
     setWayareaPolygons([]);
     try {
-      if (selectedCalculationType == "compare") {
+      if (selectedCalculationType == calculationTypeEnums.COMPARE) {
         const [
           response_navigationline,
           response_wayarea_navigationline,
@@ -93,6 +94,7 @@ export default function ParameterTabsComponent() {
           apiClient.get(path_wayarea_routeline),
         ]);
 
+        // Do not change the order the concat is made! As the map zoom in MapView is dependent on it.
         const concated_response = {
           features: response_navigationline.data.features.concat(
             response_routeline.data.features

@@ -27,7 +27,7 @@ import SelectedRoutelineChangedContext from "../contexts/SelectedRoutelineChange
 import AllGDOGIDSContext from "../contexts/AllGDOGIDSContext";
 import "allotment/dist/style.css";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
-import SelectedCalculationType from "contexts/SelectedCalculationTypeContext";
+import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
@@ -79,7 +79,7 @@ function CalculateRIV() {
               <WayareaPolygonContext.Provider
                 value={{ wayareaPolygons, setWayareaPolygons }}
               >
-                <SelectedCalculationType.Provider
+                <SelectedCalculationTypeContext.Provider
                   value={{
                     selectedCalculationType,
                     setSelectedCalculationType,
@@ -190,7 +190,7 @@ function CalculateRIV() {
                       </PreviousRIVResultsContext.Provider>
                     </SelectedRoutelineContext.Provider>
                   </SelectedWayareaContext.Provider>
-                </SelectedCalculationType.Provider>
+                </SelectedCalculationTypeContext.Provider>
               </WayareaPolygonContext.Provider>
             </NotificationContext.Provider>
           </SpinnerVisibilityContext.Provider>
