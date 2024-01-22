@@ -16,6 +16,7 @@ import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { calculationTypeEnums } from "constants/enums";
+import { GeneratePaths } from "./GeneratePathsComponent";
 
 function a11yProps(index) {
   return {
@@ -41,39 +42,11 @@ export default function ParameterTabsComponent() {
   );
 
   const fetchRiskValue = async (values) => {
-    let path = "",
-      path_wayarea = "",
-      path_navigationline = "",
-      path_wayarea_navigationline = "",
-      path_routeline = "",
-      path_wayarea_routeline = "";
-
-    if (selectedCalculationType == calculationTypeEnums.ROUTELINE) {
-      path = `routeline/calculate_risk?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
-      path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
-    } else if (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE) {
-      path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
-        values.vaylat
-      )}`;
-      path_wayarea = `wayarea?vaylat=${encodeURIComponent(values.vaylat)}`;
-    } else if (selectedCalculationType == calculationTypeEnums.COMPARE) {
-      path_navigationline = `fairway/calculate_risk?vaylat=${encodeURIComponent(
-        values.vaylat
-      )}`;
-      path_wayarea_navigationline = `wayarea?vaylat=${encodeURIComponent(
-        values.vaylat
-      )}`;
-      path_routeline = `routeline/calculate_risk?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
-      path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
-    }
+    const paths = await GeneratePaths(
+      values,
+      selectedCalculationType,
+      selectedRouteline
+    );
 
     // Set spinner
     setSpinnerVisible(true);
@@ -88,10 +61,10 @@ export default function ParameterTabsComponent() {
           response_routeline,
           response_wayarea_routeline,
         ] = await Promise.all([
-          apiClient.post(path_navigationline, values),
-          apiClient.get(path_wayarea_navigationline),
-          apiClient.post(path_routeline, values),
-          apiClient.get(path_wayarea_routeline),
+          apiClient.post(paths.path_navigationline, values),
+          apiClient.get(paths.path_wayarea_navigationline),
+          apiClient.post(paths.path_routeline, values),
+          apiClient.get(paths.path_wayarea_routeline),
         ]);
 
         // Do not change the order the concat is made! As the map zoom in MapView is dependent on it.
@@ -110,8 +83,8 @@ export default function ParameterTabsComponent() {
         setWayareaPolygons(concated_wayarea_response);
       } else {
         const [response, response_wayarea] = await Promise.all([
-          apiClient.post(path, values),
-          apiClient.get(path_wayarea),
+          apiClient.post(paths.path, values),
+          apiClient.get(paths.path_wayarea),
         ]);
         setRIVResults(response.data);
         setWayareaPolygons(response_wayarea.data);
