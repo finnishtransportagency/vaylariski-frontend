@@ -19,6 +19,7 @@ import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
+import { isSubmitDisabled } from "components/ValidateSubmitComponent";
 import { calculationTypeEnums } from "constants/enums";
 
 function a11yProps(index) {
@@ -285,39 +286,20 @@ function UserInputForm(props) {
                   variant="contained"
                   size="large"
                   sx={{ minWidth: "1" }}
-                  disabled={
-                    selectedCalculationType == "" ||
-                    (selectedCalculationType ==
-                      calculationTypeEnums.NAVIGATIONLINE &&
-                      (formik.values.vaylat == null ||
-                        formik.values.vaylat == "" ||
-                        selectedWayareaWithNoGDOGID)) ||
-                    (selectedCalculationType ==
-                      calculationTypeEnums.ROUTELINE &&
-                      formik.values.routename == "") ||
-                    (selectedCalculationType == calculationTypeEnums.COMPARE &&
-                      (formik.values.routename == "" ||
-                        formik.values.vaylat == null ||
-                        formik.values.vaylat == "" ||
-                        selectedWayareaWithNoGDOGID))
-                  } //formik.dirty is needed to disable on initial load
+                  disabled={isSubmitDisabled(
+                    formik,
+                    selectedCalculationType,
+                    selectedWayareaWithNoGDOGID
+                  )} //formik.dirty is needed to disable on initial load
                   data-cy-id="submit-button"
                   onClick={submitButtonClicked}
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {selectedCalculationType == "" ||
-                  (selectedCalculationType ==
-                    calculationTypeEnums.NAVIGATIONLINE &&
-                    (formik.values.vaylat == null ||
-                      formik.values.vaylat == "" ||
-                      selectedWayareaWithNoGDOGID)) ||
-                  (selectedCalculationType == calculationTypeEnums.ROUTELINE &&
-                    formik.values.routename == "") ||
-                  (selectedCalculationType == calculationTypeEnums.COMPARE &&
-                    (formik.values.routename == "" ||
-                      formik.values.vaylat == null ||
-                      formik.values.vaylat == "" ||
-                      selectedWayareaWithNoGDOGID)) ? (
+                  {isSubmitDisabled(
+                    formik,
+                    selectedCalculationType,
+                    selectedWayareaWithNoGDOGID
+                  ) ? (
                     <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
                   ) : null}
                 </Button>
