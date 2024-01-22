@@ -20,7 +20,7 @@ import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { isSubmitDisabled } from "components/ValidateSubmitComponent";
-import { validateSubmitTooltip } from "./ValidateSubmitTooltipTitle";
+import { validateSubmitTooltip } from "../../constants/ValidateSubmitTooltipTitle";
 
 function a11yProps(index) {
   return {
