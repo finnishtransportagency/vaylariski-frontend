@@ -20,10 +20,6 @@ root.render(
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossOrigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Exo+2"
-    />
     <App />
   </React.StrictMode>
 );
