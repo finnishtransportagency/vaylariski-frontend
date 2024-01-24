@@ -183,7 +183,7 @@ export default function ParameterTabsComponent() {
           fetchRiskValue(values);
         }}
         initialValues={userInput}
-        // validationSchema={parametersValidationSchema}
+        validationSchema={parametersValidationSchema}
       >
         {(formik) => (
           <FForm className="main-tab-formik">
