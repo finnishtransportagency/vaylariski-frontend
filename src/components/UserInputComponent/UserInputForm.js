@@ -19,7 +19,7 @@ import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-import { isSubmitDisabled } from "components/ValidateSubmitComponent";
+import { isSubmitDisabled } from "utils/ValidateSubmit";
 import { validateSubmitTooltip } from "../../constants/ValidateSubmitTooltipTitle";
 
 function a11yProps(index) {
