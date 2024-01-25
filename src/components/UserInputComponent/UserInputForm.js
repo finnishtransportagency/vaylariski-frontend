@@ -57,6 +57,7 @@ function UserInputForm(props) {
             onChange={(e, value) => setInnerTabValue(value)}
             aria-label="basic tabs example inner"
             className="inner-tabs"
+            variant="scrollable"
             sx={{
               ".Mui-selected": {
                 color: "var(--color-tab-text) !important",
