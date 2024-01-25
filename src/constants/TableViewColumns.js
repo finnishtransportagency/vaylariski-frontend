@@ -1,6 +1,7 @@
 import { resultRowsEnums } from "./enums";
 
 export const TableViewColumns = [
+  // ID:t
   {
     key: resultRowsEnums.POINT_INDEX,
     name: "Indeksi",
@@ -19,6 +20,7 @@ export const TableViewColumns = [
     resizable: true,
     sortable: true,
   },
+  // Riskiarvot
   {
     key: resultRowsEnums.RISK_INDEX_SUM,
     name: "RIV summa",
@@ -61,42 +63,106 @@ export const TableViewColumns = [
     resizable: true,
     sortable: true,
   },
+  // Toistuvuus
   {
     key: resultRowsEnums.PF_1_CHANNEL,
-    name: "Väylän vaikuttavuus",
+    name: "Väylän toistuvuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.PF_2_BEND,
-    name: "Mutkan vaikuttavuus",
+    name: "Mutkan toistuvuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.PF_3_S_BEND,
-    name: "S-mutkan vaikuttavuus",
+    name: "S-mutkan toistuvuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.PF_4_TRAFFIC_COMPLEXITY,
-    name: "Liikenteen vaikuttavuus",
+    name: "Liikenteen toistuvuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.PF_5_REDUCED_VISIBILITY,
-    name: "Heikentyneen näkyvyyden vaikuttavuus",
+    name: "Heikentyneen näkyvyyden toistuvuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.PF_6_LIGHT_POLLUTION_VALUE,
-    name: "Taustavalon vaikuttavuus",
+    name: "Taustavalon toistuvuus",
     resizable: true,
     sortable: true,
   },
+  // Vaikuttavuus
+  {
+    key: resultRowsEnums.W_WAVE_HEIGHT,
+    name: "Aallon korkeuden vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_ATN,
+    name: "ATN vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_SPEED,
+    name: "Nopeuden vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_MANOEUVRABILITY,
+    name: "Ohjailtavuuden vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_LONGITUDINAL_CURRENT,
+    name: "Pitkittäisvirtauksen vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_BOTTOM_SURFACE,
+    name: "Pohjan vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_CROSS_CURRENT,
+    name: "Poikkivirtauksen vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_BANK_CLEARANCE,
+    name: "Reunan vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+
+  {
+    key: resultRowsEnums.W_CHANNEL_DEPTH,
+    name: "Syvyyden vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.W_WIND,
+    name: "Tuulen vaikuttavuus",
+    resizable: true,
+    sortable: true,
+  },
+  // Väylän tiedot
   {
     key: resultRowsEnums.W_CHANNEL,
     name: "Väylän leveys [m]",
@@ -151,63 +217,10 @@ export const TableViewColumns = [
     resizable: true,
     sortable: true,
   },
+  // Syöteparametrit
   {
-    key: resultRowsEnums.W_ATN,
-    name: "ATN painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_BANK_CLEARANCE,
-    name: "Reunan painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_BOTTOM_SURFACE,
-    name: "Pohjan painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_CHANNEL_DEPTH,
-    name: "Syvyyden painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_CROSS_CURRENT,
-    name: "Poikkivirtauksen painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_LONGITUDINAL_CURRENT,
-    name: "Pitkittäisvirtauksen painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_MANOEUVRABILITY,
-    name: "Ohjailtavuuden painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_SPEED,
-    name: "Nopeuden painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_WAVE_HEIGHT,
-    name: "Aallon korkeuden painokerroin",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.W_WIND,
-    name: "Tuulen painokerroin",
+    key: resultRowsEnums.WAVE_HEIGHT_CATEGORY,
+    name: "Aallon korkeus",
     resizable: true,
     sortable: true,
   },
@@ -218,12 +231,17 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
-    key: resultRowsEnums.PF_6_LIGHT_POLLUTION,
-    name: "Taustavalon voimakkuus",
+    key: resultRowsEnums.VESSEL_SPEED_CATEGORY,
+    name: "Aluksen nopeusluokka",
     resizable: true,
     sortable: true,
   },
-
+  {
+    key: resultRowsEnums.NUMBER_OF_LANES,
+    name: "Kaistat",
+    resizable: true,
+    sortable: true,
+  },
   {
     key: resultRowsEnums.PF_TRAFFIC_COMPLEXITY,
     name: "Liikenteen monimutkaisuus",
@@ -243,20 +261,21 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
+    key: resultRowsEnums.VISIBILITY,
+    name: "Näkyvyys [m]",
+    resizable: true,
+    sortable: true,
+  },
+
+  {
+    key: resultRowsEnums.LONGITUDINAL_CURRENT_CATEGORY,
+    name: "Pitkittäisvirtaus",
+    resizable: true,
+    sortable: true,
+  },
+  {
     key: resultRowsEnums.BOTTOM_SURFACE_CATEGORY,
     name: "Pohja",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.CHANNEL_EDGE_TYPE,
-    name: "Reunan tyyppi",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.CHANNEL_TYPE,
-    name: "Väylän tyyppi",
     resizable: true,
     sortable: true,
   },
@@ -267,38 +286,26 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
-    key: resultRowsEnums.LONGITUDINAL_CURRENT_CATEGORY,
-    name: "Pitkittäisvirtaus",
+    key: resultRowsEnums.CHANNEL_EDGE_TYPE,
+    name: "Reunan tyyppi",
     resizable: true,
     sortable: true,
   },
   {
-    key: resultRowsEnums.NUMBER_OF_LANES,
-    name: "Kaistat",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.VESSEL_SPEED_CATEGORY,
-    name: "Aluksen nopeusluokka",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.VISIBILITY,
-    name: "Näkyvyys [m]",
-    resizable: true,
-    sortable: true,
-  },
-  {
-    key: resultRowsEnums.WAVE_HEIGHT_CATEGORY,
-    name: "Aallon korkeus",
+    key: resultRowsEnums.PF_6_LIGHT_POLLUTION,
+    name: "Taustavalon voimakkuus",
     resizable: true,
     sortable: true,
   },
   {
     key: resultRowsEnums.WIND_SPEED_CATEGORY,
     name: "Tuulen nopeusluokka",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.CHANNEL_TYPE,
+    name: "Väylän tyyppi",
     resizable: true,
     sortable: true,
   },
