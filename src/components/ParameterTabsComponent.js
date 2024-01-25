@@ -164,6 +164,7 @@ export default function ParameterTabsComponent() {
           TabIndicatorProps={{
             style: { background: "var(--color-container)" },
           }}
+          variant="scrollable"
         >
           <Tab
             label="Parametrit"
