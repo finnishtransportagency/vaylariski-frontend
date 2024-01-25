@@ -3,14 +3,19 @@
 describe("Wayarea field works", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
+
+    cy.getByDataCyId("calculation-type-dropdown").as("calculation-type-button");
+    cy.get("@calculation-type-button").click();
+    cy.getByDataCyId("calculation-type-navigationline").click();
+
     cy.get('input[id="vaylat"]').as("wayarea-input");
-    cy.getByDataCyId("vaylat.id")
-      .find("button")
-      .as("wayarea-dropdown-button");
+    cy.getByDataCyId("vaylat.id").find("button").as("wayarea-dropdown-button");
+
     cy.get('input[id="navline.starting_gdo_gid"]').as("gid-input");
     cy.getByDataCyId("navline.starting_gdo_gid.id")
       .find("button")
       .as("gid-dropdown-button");
+
     cy.getByDataCyId("submit-button").as("submit-button");
   });
 
@@ -38,10 +43,7 @@ describe("Wayarea field works", () => {
     cy.get("#submit-button-tooltip").contains(
       "Korjaa seuraavat asiat lähettääksesi arvot:"
     );
-    cy.get("#submit-button-tooltip").contains("- VAYLAT id vaaditaan");
-    cy.get("#submit-button-tooltip").contains(
-      "- Valitulle väylälle ei löydy navigointilinjoja"
-    );
+    cy.get("#submit-button-tooltip").contains("- Valitse navigointilinja");
   });
 
   describe("Selecting a wayarea", () => {

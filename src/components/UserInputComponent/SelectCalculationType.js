@@ -37,12 +37,24 @@ const SelectCalculationType = (props) => {
         sx={{ width: "100%", height: 40 }}
         value={selectedCalculationType || ""}
         onChange={handleSelectChange}
+        data-cy-id="calculation-type-dropdown"
       >
-        <MenuItem value={calculationTypeEnums.NAVIGATIONLINE}>
+        <MenuItem
+          value={calculationTypeEnums.NAVIGATIONLINE}
+          data-cy-id={`calculation-type-${calculationTypeEnums.NAVIGATIONLINE}`}
+        >
           Navigointilinja
         </MenuItem>
-        <MenuItem value={calculationTypeEnums.ROUTELINE}>Reittiviiva</MenuItem>
-        <MenuItem value={calculationTypeEnums.COMPARE}>
+        <MenuItem
+          value={calculationTypeEnums.ROUTELINE}
+          data-cy-id={`calculation-type-${calculationTypeEnums.ROUTELINE}`}
+        >
+          Reittiviiva
+        </MenuItem>
+        <MenuItem
+          value={calculationTypeEnums.COMPARE}
+          data-cy-id={`calculation-type-${calculationTypeEnums.COMPARE}`}
+        >
           Vertaa navigointilinjaa ja reittiviivaa
         </MenuItem>
       </Select>
