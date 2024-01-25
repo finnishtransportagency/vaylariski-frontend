@@ -25,11 +25,11 @@ export default function WindComponent(props) {
   const tooltipTitle = (
     <label style={{ fontSize: 14 }}>
       Riskiarvon laskentaan valitaan tuulen nopeusluokka. Alla on esitetty myös
-      tuulen painokertoimet joihin vaikuttaa tuulen nopeusluokka sekä aluksen
-      nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa.
-      Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
-      Klikkaamalla Näytä kaikki voi tarkastella ja muokata kertoimia eri tuulen
-      ja aluksen nopeusluokka yhdistelmille.
+      tuulen kertoimet, joihin vaikuttaa tuulen nopeusluokka sekä aluksen
+      nopeusluokka. Kerroin ja aluksen leveys kerrotaan laskennassa. Laskennassa
+      voi käyttää oletusarvoja tai määrittää uudet kertoimet. Klikkaamalla Näytä
+      kaikki voi tarkastella ja muokata kertoimia eri tuulen ja aluksen
+      nopeusluokka yhdistelmille.
     </label>
   );
   const RadioButtonPropsArr = [
