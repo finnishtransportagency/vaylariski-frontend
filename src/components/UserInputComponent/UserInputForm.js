@@ -90,7 +90,7 @@ function UserInputForm(props) {
               }`}
             />
             <Tab
-              label="Painokertoimet"
+              label="Kertoimet ja raja-arvot"
               {...a11yProps(3)}
               className={`inner-tab ${
                 innerTabValue === 3 ? "inner-tab-active" : ""

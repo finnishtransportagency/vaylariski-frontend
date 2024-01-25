@@ -33,7 +33,7 @@ export default function WeightFactorsComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Riskiarvojen painokertoimet
+          Riskiarvojen painokertoimet (WF)
         </Typography>
       </Grid>
       {inputIdsAndNAmes.map((e) => {

@@ -38,7 +38,7 @@ export default function CrossCurrentCmponent(props) {
       }
       defaultValue={RadioButtonPropsArr[0].value}
       buttonPropsArr={RadioButtonPropsArr}
-      formLabelText="Poikkivirtaus (v [solmu])"
+      formLabelText="Poikkivirtaus [solmu]"
     />
   );
 }
