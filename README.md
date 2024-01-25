@@ -7,12 +7,12 @@ Npm: 8.5.5
 
 ## Running locally (docker)
 
-First, start the backend container using docker compose.
+First, start the backend container elsewhere using docker compose, with `docker-compose.e2e.yaml`.
 
 Then, build the frontend container with
 
 ```shell
-docker build -t vaylariski-frontend --build-arg PROXY_URL=http://{backend container's service name}:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
+docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
 ```
 
 and run the container with
