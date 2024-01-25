@@ -16,7 +16,7 @@ export default function PFBendComponent(props) {
   };
   const tooltiptTitle = (
     <label style={{ fontSize: 14 }}>
-      Mutkan jyrkkyyden painokerroin lasketaan summasta PF
+      Mutkan jyrkkyyden toistuvuus (PF) lasketaan summasta PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend</span> = PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span>+ PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span>
@@ -31,7 +31,7 @@ export default function PFBendComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Mutkan painokertoimet
+          Mutkan kertoimet ja raja-arvot
           <ClickAwayListener onClickAway={handleClose}>
             <Tooltip
               placement="right"
