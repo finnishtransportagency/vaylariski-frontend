@@ -55,6 +55,7 @@
 
 .riv-tab-container {
   background-color: var(--color-background-white);
+  padding-bottom: 2em;
   flex-grow: 1;
   min-height: 0;
   overflow: hidden;
