@@ -15,7 +15,7 @@ export default function PFBend2Component(props) {
     <label style={{ fontSize: 14 }}>
       PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend2</span> on
-      painokerroin mutkan jyrkkyydelle suhteessa suuntakulmaan (α).
+      kerroin mutkan jyrkkyydelle suhteessa suuntakulmaan (α).
       <br />
     </label>
   );

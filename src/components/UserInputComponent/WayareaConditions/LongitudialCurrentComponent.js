@@ -28,7 +28,7 @@ export default function LongitudialCurrentComponent(props) {
       }
       defaultValue={RadioButtonPropsArr[0].value}
       buttonPropsArr={RadioButtonPropsArr}
-      formLabelText="Pitkittäisvirtaus (v [solmu])"
+      formLabelText="Pitkittäisvirtaus [solmu]"
     />
   );
 }
