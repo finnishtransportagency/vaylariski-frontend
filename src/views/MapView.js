@@ -19,8 +19,9 @@ import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import { layerBindPopupString } from "utils/layerBindPopupString";
 import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
-import { cssColorCodes } from "constants/enums";
+import { calculationTypeEnums, cssColorCodes } from "constants/enums";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
+import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,
@@ -178,6 +179,9 @@ function GeoJSONMarkers() {
 const MapView = forwardRef((props, refs) => {
   const { RIVResults } = useContext(RIVResultContext);
   const { previousRIVResults } = useContext(PreviousRIVResultsContext);
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
   const [coords, setCoords] = useState({ lat: 62, lng: 23.5 });
   const mapRef = useRef(null);
 
@@ -197,18 +201,36 @@ const MapView = forwardRef((props, refs) => {
     return { invalidateMapSize };
   });
 
+  // Checks if the user selected a new routeline when the comparison type is "Routeline"
+  const isNewRouteline = () =>
+    typeof RIVResults.features !== "undefined" &&
+    selectedCalculationType == calculationTypeEnums.ROUTELINE &&
+    previousRIVResults?.features?.[0].properties.ROUTELINE !=
+      RIVResults.features[0].properties.ROUTELINE;
+
+  // Checks if the user selected a new navigationline when the comparison type is "Navigationline"
+  const isNewNavigationline = () =>
+    typeof RIVResults.features !== "undefined" &&
+    selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
+    previousRIVResults?.features?.[0].properties.VAYLAT !=
+      RIVResults.features[0].properties.VAYLAT;
+
+  // Checks if the user selected a new navigationline when the comparison type is "Comparison"
+  const isNewCompare = () =>
+    typeof RIVResults.features !== "undefined" &&
+    selectedCalculationType == calculationTypeEnums.COMPARE &&
+    previousRIVResults?.features?.[0].properties.VAYLAT !=
+      RIVResults.features[0].properties.VAYLAT;
+
   useEffect(() => {
-    // This is true when the user changed the VAYLAT to a different value
-    // before clicking the submit-button, or clicked it for the fist time
-    if (
-      typeof RIVResults.features !== "undefined" &&
-      previousRIVResults?.features?.[0].properties.VAYLAT !=
-        RIVResults.features[0].properties.VAYLAT
-    )
+    // This is true when the user changed the VAYLAT or ROUTELINE to a different value
+    // before clicking the submit-button, or clicked it for the first time
+    if (isNewRouteline() || isNewNavigationline() || isNewCompare()) {
       setCoords({
         lat: RIVResults.features[0].geometry.coordinates[1],
         lng: RIVResults.features[0].geometry.coordinates[0],
       });
+    }
   }, [RIVResults]);
 
   return (

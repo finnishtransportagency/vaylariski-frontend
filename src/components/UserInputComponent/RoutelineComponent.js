@@ -5,46 +5,44 @@ import {
   Tooltip,
   Grid,
   InputLabel,
-  Select,
-  MenuItem,
-  IconButton,
 } from "@mui/material";
+
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
 import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
 import Form from "react-bootstrap/Form";
-import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
+import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
+import SelectedRoutelineChangedContext from "../../contexts/SelectedRoutelineChangedContext";
 
-export default function WayareaComponent(props) {
-  const formatInputString = (wayarea) =>
-    wayarea ? `${wayarea.VAYLAT} - ${wayarea.Nimi}` : "";
+export default function RoutelineComponent(props) {
+  const formatInputString = (routeline) => (routeline ? `${routeline}` : "");
 
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
   const [field, meta] = useField(name);
-  const [allWayareas, setAllWayareas] = useState([]);
+  const [allRouteline, setAllRouteline] = useState([]);
+
   const { setNotificationStatus } = useContext(NotificationContext);
-  const { selectedWayarea, setSelectedWayarea } = useContext(
-    SelectedWayareaContext
+  const { selectedRouteline, setSelectedRouteline } = useContext(
+    SelectedRoutelineContext
   );
-  const { setSelectedWayareaChanged } = useContext(
-    SelectedWayareaChangedContext
+  const { setSelectedRoutelineChanged } = useContext(
+    SelectedRoutelineChangedContext
   );
-  const [wayareaInputString, setWayareaInputString] = useState(
-    formatInputString(selectedWayarea)
+  const [routelineInputString, setRoutelineInputString] = useState(
+    formatInputString(selectedRouteline)
   );
 
-  function setChosenWayareaFormikValue(wayarea) {
-    formik.setFieldValue("vaylat", wayarea?.VAYLAT || "");
+  function setChosenRoutelineFormikValue(value) {
+    formik.setFieldValue("routename", value || "");
   }
 
   useEffect(() => {
-    const path = "wayarea_names";
+    const path = "routeline/routeline_names";
     apiClient
       .get(path)
-      .then((response) => setAllWayareas(response.data))
+      .then((response) => setAllRouteline(response.data))
       .catch((err) => {
         console.log(err);
         setNotificationStatus({
@@ -55,21 +53,21 @@ export default function WayareaComponent(props) {
       });
   }, []);
 
-  const handleWayareaInputStringChange = (value) => {
-    setWayareaInputString(value);
+  const handleRoutelineInputStringChange = (value) => {
+    setRoutelineInputString(value);
     if (value === "") {
-      setChosenWayareaFormikValue(null);
-      setSelectedWayarea(null);
-      setSelectedWayareaChanged(true);
+      setChosenRoutelineFormikValue(null);
+      setSelectedRouteline(null);
+      setSelectedRoutelineChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
-    setChosenWayareaFormikValue(newValue);
-    setSelectedWayarea(newValue);
-    setSelectedWayareaChanged(true);
+    setChosenRoutelineFormikValue(newValue);
+    setSelectedRouteline(newValue);
+    setSelectedRoutelineChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
-    setWayareaInputString(newValue ? formatInputString(newValue) : "");
+    setRoutelineInputString(newValue ? formatInputString(newValue) : "");
   };
 
   return (
@@ -82,30 +80,30 @@ export default function WayareaComponent(props) {
               color="textSecondary"
               gutterBottom
             >
-              Valitse navigointilinja
+              Valitse reitti
             </Typography>
-            <InputLabel style={{ fontSize: 14 }} id={"vaylat.id"}>
-              VAYLAT id - nimi
+            <InputLabel style={{ fontSize: 14 }} id={"routename.id"}>
+              Reitin nimi
             </InputLabel>
             <Tooltip
               placement="right"
               arrow
-              title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
-              id="wayarea-tooltip"
+              title={!formik.dirty ? "Reitti vaaditaan" : meta.error}
+              id="routeline-tooltip"
             >
               <Autocomplete
-                id="vaylat"
-                data-cy-id="vaylat.id"
+                id="routename"
+                data-cy-id="routename.id"
                 disablePortal
-                options={allWayareas}
+                options={allRouteline}
                 getOptionLabel={(option) =>
                   option ? formatInputString(option) : ""
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
-                inputValue={wayareaInputString}
+                inputValue={routelineInputString}
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
-                    handleWayareaInputStringChange(newInputValue);
+                    handleRoutelineInputStringChange(newInputValue);
                 }}
                 size="small"
                 renderInput={(params) => (

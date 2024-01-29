@@ -2,10 +2,8 @@ import { useContext, useState } from "react";
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import BoatMenuComponent from "./Boat/BoatMenuComponent";
-import WayareaComponent from "./WayareaComponent";
 import BoatManoeuvrabilityComponent from "./Boat/BoatManoeuvrabilityComponent";
 import PropTypes from "prop-types";
-import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import BoatSpeedComponent from "./Boat/BoatSpeedComponent";
 import PFBendComponent from "./PFBend/PFBendComponent";
@@ -19,6 +17,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import RIVResultContext from "contexts/RIVResult";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
+import SelectCalculationType from "./SelectCalculationType";
+import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
+import { isSubmitDisabled } from "utils/ValidateSubmit";
+import { calculationTypeEnums } from "constants/enums";
 
 function a11yProps(index) {
   return {
@@ -36,11 +38,68 @@ function UserInputForm(props) {
   );
   const { RIVResults } = useContext(RIVResultContext);
   const { setPreviousRIVResults } = useContext(PreviousRIVResultsContext);
-
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
   const submitButtonClicked = () => {
     setPreviousRIVResults(RIVResults);
   };
-
+  const validateSubmitTooltip = (
+    formik,
+    selectedCalculationType,
+    selectedWayareaWithNoGDOGID
+  ) => {
+    return selectedCalculationType == "" ||
+      (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
+        (formik.values.vaylat == null ||
+          formik.values.vaylat == "" ||
+          selectedWayareaWithNoGDOGID)) ||
+      (selectedCalculationType == calculationTypeEnums.ROUTELINE &&
+        formik.values.routename == "") ||
+      (selectedCalculationType == calculationTypeEnums.COMPARE &&
+        (formik.values.routename == "" ||
+          formik.values.vaylat == null ||
+          formik.values.vaylat == "" ||
+          selectedWayareaWithNoGDOGID)) ? (
+      <label style={{ fontSize: 14 }}>
+        <span data-cy-id="submit-button-tooltip-span">
+          Korjaa seuraavat asiat lähettääksesi arvot:
+          <br />
+          {/* When calculation type is not selected */}
+          {selectedCalculationType == "" && <>- Laskentatapa täytyy valita</>}
+          {/* When calculation type is routeline and routeline is not selected*/}
+          {selectedCalculationType == calculationTypeEnums.ROUTELINE &&
+            formik.values.routename == "" && <>- Valitse reitti</>}
+          {/* When calculation type is navigationline and navigationline is no selected  */}
+          {selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
+            (formik.values.vaylat == null || formik.values.vaylat == "") && (
+              <>- Valitse navigointilinja</>
+            )}
+          {/* When calculationtype is navigationline and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
+          {selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
+            formik.values.vaylat !== null &&
+            formik.values.vaylat !== "" &&
+            selectedWayareaWithNoGDOGID && (
+              <>- Valitulle väylälle ei löydy navigointilinjoja</>
+            )}
+          {/* When calculation type is compare and either route name or routeline is not selected */}
+          {selectedCalculationType == calculationTypeEnums.COMPARE &&
+            (formik.values.routename == "" ||
+              formik.values.vaylat == null ||
+              formik.values.vaylat == "") && (
+              <>- Valitse navigointilinja ja reitti</>
+            )}
+          {/* When calculationtype is compare and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
+          {selectedCalculationType == calculationTypeEnums.COMPARE &&
+            formik.values.vaylat !== null &&
+            formik.values.vaylat !== "" &&
+            selectedWayareaWithNoGDOGID && (
+              <>- Valitulle väylälle ei löydy navigointilinjoja</>
+            )}
+        </span>
+      </label>
+    ) : null;
+  };
   return (
     <div
       role="TabPanelComponent"
@@ -108,11 +167,7 @@ function UserInputForm(props) {
                     paddingRight={2}
                     paddingLeft={2}
                   >
-                    <WayareaComponent name="navline.VAYLAT" formik={formik} />
-                    <GDOGIDMenuComponent
-                      formik={formik}
-                      name="navline.starting_gdo_gid"
-                    />
+                    <SelectCalculationType formik={formik} />
                   </Grid>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
@@ -219,39 +274,11 @@ function UserInputForm(props) {
               placement="bottom"
               arrow
               id="submit-button-tooltip"
-              title={
-                !(formik.isValid && formik.dirty) ||
-                selectedWayareaWithNoGDOGID ? (
-                  <label style={{ fontSize: 14 }}>
-                    <span data-cy-id="submit-button-tooltip-span">
-                      Korjaa seuraavat asiat lähettääksesi arvot:
-                      <br />
-                      {!formik.dirty ? (
-                        <>
-                          - VAYLAT id vaaditaan
-                          <br />
-                        </>
-                      ) : (
-                        Object.values(formik.errors).map((obj) => {
-                          let msg = null;
-                          Object.values(obj).forEach((err_msg) => {
-                            msg = (
-                              <span key={err_msg}>
-                                - {err_msg}
-                                <br />
-                              </span>
-                            );
-                          });
-                          return msg;
-                        })
-                      )}
-                      {selectedWayareaWithNoGDOGID && (
-                        <>- Valitulle väylälle ei löydy navigointilinjoja</>
-                      )}
-                    </span>
-                  </label>
-                ) : null
-              }
+              title={validateSubmitTooltip(
+                formik,
+                selectedCalculationType,
+                selectedWayareaWithNoGDOGID
+              )}
             >
               <span>
                 <Button
@@ -259,16 +286,20 @@ function UserInputForm(props) {
                   variant="contained"
                   size="large"
                   sx={{ minWidth: "1" }}
-                  disabled={
-                    !(formik.isValid && formik.dirty) ||
+                  disabled={isSubmitDisabled(
+                    formik,
+                    selectedCalculationType,
                     selectedWayareaWithNoGDOGID
-                  } //formik.dirty is needed to disable on initial load
+                  )} //formik.dirty is needed to disable on initial load
                   data-cy-id="submit-button"
                   onClick={submitButtonClicked}
                 >
                   <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {!(formik.isValid && formik.dirty) ||
-                  selectedWayareaWithNoGDOGID ? (
+                  {isSubmitDisabled(
+                    formik,
+                    selectedCalculationType,
+                    selectedWayareaWithNoGDOGID
+                  ) ? (
                     <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
                   ) : null}
                 </Button>
