@@ -30,8 +30,6 @@ export default function WayareaNameComponent(props) {
     props.setDefaultWayareaName(newValue);
   }
 
-  console.log(defaultWayarea);
-
   return (
     <Form.Group>
       <Typography
