@@ -30,6 +30,8 @@ export default function WayareaNameComponent(props) {
     props.setDefaultWayareaName(newValue);
   }
 
+  console.log(defaultWayarea);
+
   return (
     <Form.Group>
       <Typography
@@ -49,7 +51,7 @@ export default function WayareaNameComponent(props) {
             disablePortal
             options={defaultWayarea}
             getOptionLabel={(option) =>
-              option ? `${option.VAYLAT} - ${option.Nimi}` : ""
+              option ? `${option.VAYLAT} - ${option.NIMIFI}` : ""
             }
             onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
             inputValue={vaylatInputValue}
