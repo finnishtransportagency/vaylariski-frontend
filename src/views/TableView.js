@@ -27,7 +27,10 @@ import { CSVLink } from "react-csv";
 import RIVResultContext from "../contexts/RIVResult";
 import NotificationContext from "contexts/NotificationContext";
 import SelectedIndexContext from "contexts/SelectedIndexContext";
-import { TableViewColumns as columns } from "constants/TableViewColumns";
+import {
+  TableViewColumns as columns,
+  defaultTableViewColumns as defaultColumns,
+} from "constants/TableViewColumns";
 import MapPointClickedContext from "contexts/MapPointClickedContext";
 import TableRowClickedContext from "contexts/TableRowClickedContext";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
@@ -80,9 +83,10 @@ function TableView(props, { direction }) {
     setOpen(false);
   };
 
-  // Columns that are selected visible in table
+  // Columns that are selected visible in table.
+  // The columns visible by default are defined in defaultColumns.
   const [visibleColumns, setVisibleColumns] = useState(
-    columns.map((c) => c.key)
+    columns.map((c) => c.key).filter((key) => defaultColumns.includes(key))
   );
 
   // Toggle selection for columns (in modal)
@@ -295,7 +299,7 @@ function TableView(props, { direction }) {
                   checked={visibleColumns.length === columns.length}
                   onChange={handleSelectAllColumns}
                 />
-                Valitse kaikki
+                &nbsp;Valitse kaikki
               </label>
               {columns.map((column) => (
                 <div key={column.key}>
@@ -305,7 +309,7 @@ function TableView(props, { direction }) {
                       checked={visibleColumns.includes(column.key)}
                       onChange={() => handleToggleColumn(column.key)}
                     />
-                    {column.name}
+                    &nbsp;{column.name}
                   </label>
                 </div>
               ))}

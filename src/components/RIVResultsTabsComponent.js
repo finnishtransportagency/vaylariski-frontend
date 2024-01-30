@@ -36,6 +36,7 @@ export default function RIVResultsTabsComponent() {
           TabIndicatorProps={{
             style: { background: "var(--color-background-white)" },
           }}
+          variant="scrollable"
         >
           <Tab
             label="RIV taulukko"

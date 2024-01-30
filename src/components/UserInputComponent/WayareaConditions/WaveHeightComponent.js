@@ -27,7 +27,7 @@ export default function WaveHeightComponent(props) {
       formikName={"navline.calculation_params.operating_conditions.wave_height"}
       defaultValue={RadioButtonPropsArr[0].value}
       buttonPropsArr={RadioButtonPropsArr}
-      formLabelText="Aallon korkeus (h [m])"
+      formLabelText="Aallon korkeus [m]"
     />
   );
 }

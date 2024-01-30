@@ -22,7 +22,7 @@ export default function PFBend1Component(props) {
     <label style={{ fontSize: 14 }}>
       PF
       <span style={{ verticalAlign: "sub", fontSize: 12 }}>bend1</span> on
-      painokerroin mutkan jyrkkyydelle suhteessa mutkan säteeseen, aluksen
+      kerroin mutkan jyrkkyydelle suhteessa mutkan säteeseen, aluksen
       kääntösäteeseen sekä aluksen pituuteen.
     </label>
   );

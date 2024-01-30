@@ -26,11 +26,10 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
   const tooltipTitle = (
     <label style={{ fontSize: 14 }}>
       Riskiarvon laskentaan valitaan väylän reunan tyyppi. Alla määritetään myös
-      reunan painokerroin johon vaikuttaa reunan tyyppi sekä aluksen
-      nopeusluokka. Painokerroin ja aluksen leveys kerrotaan laskennassa.
-      Laskennassa voi käyttää oletusarvoja tai määrittää uudet painokertoimet.
-      Klikkaamalla Näytä kaikki voi tarkastella ja muokata kertoimia eri
-      nopeusluokka ja reunan tyyppi yhdistelmille.
+      reunan kerroin, johon vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
+      Kerroin ja aluksen leveys kerrotaan laskennassa ja ne määrittävät reunan
+      vaikuttavuuden. Klikkaamalla Näytä kaikki voi tarkastella ja muokata
+      kertoimia eri nopeusluokka ja reunan tyyppi yhdistelmille.
     </label>
   );
 
@@ -62,7 +61,7 @@ export default function ChannelEdgeAndBankClearanceComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Väylän reuna ja reunan painokerroin
+          Väylän reuna ja reunan kerroin
           <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
               arrow
