@@ -19,7 +19,7 @@ import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChanged
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
-    wayarea ? `${wayarea.VAYLAT} - ${wayarea.Nimi}` : "";
+    wayarea ? `${wayarea.VAYLAT} - ${wayarea.NIMIFI}` : "";
 
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
