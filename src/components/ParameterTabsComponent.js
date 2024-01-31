@@ -34,7 +34,7 @@ export default function ParameterTabsComponent() {
   const { setWayareaPolygons } = useContext(WayareaPolygonContext);
 
   const fetchRiskValue = async (values) => {
-    const path = `fairway/calculate_risk?VAYLAT=${values.navline.VAYLAT}`;
+    const path = `fairway/calculate_risk?vaylat=${values.navline.VAYLAT}`;
     const path_wayarea = "wayarea";
     // Set spinner
     setSpinnerVisible(true);
@@ -45,7 +45,7 @@ export default function ParameterTabsComponent() {
       const [response, response_wayarea] = await Promise.all([
         apiClient.post(path, values),
         apiClient.get(path_wayarea, {
-          params: { VAYLAT: values.navline.VAYLAT },
+          params: { vaylat: values.navline.VAYLAT },
         }),
       ]);
       setRIVResults(response.data);
