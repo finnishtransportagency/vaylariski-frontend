@@ -34,7 +34,7 @@ export default function ParameterTabsComponent() {
   const { setWayareaPolygons } = useContext(WayareaPolygonContext);
 
   const fetchRiskValue = async (values) => {
-    const path = "fairway/calculate_risk";
+    const path = `fairway/calculate_risk?VAYLAT=${values.navline.VAYLAT}`;
     const path_wayarea = "wayarea";
     // Set spinner
     setSpinnerVisible(true);
