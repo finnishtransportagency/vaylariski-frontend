@@ -5,6 +5,22 @@
 Node: 16.15.0
 Npm: 8.5.5
 
+## Running locally (docker)
+
+First, start the backend container elsewhere using docker compose, with `docker-compose.e2e.yaml`.
+
+Then, build the frontend container with
+
+```shell
+docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
+```
+
+and run the container with
+
+```shell
+docker run -p 3000:3000 --network=vaylariski_default vaylariski-frontend:latest
+```
+
 ## End-to-end tests
 
 **NOTE!** The tests can be run locally with a connection to the Snowflake database. HOWEVER, when the tests are in our CI-pipeline, the data that is used comes from a local postgres server (containerized). Since the postgres server only contains a subset of the data found in Snowflake, make sure the tests also work with that data.
