@@ -2,9 +2,6 @@ import * as Yup from "yup";
 
 const parametersValidationSchema = Yup.object().shape({
   navline: Yup.object().shape({
-    VAYLAT: Yup.number()
-      .min(1, "VAYLAT id ei voi olla negatiivinen")
-      .required("VAYLAT id vaaditaan"),
     calculation_params: Yup.object().shape({
       other: Yup.object().shape({
         visibility: Yup.number()

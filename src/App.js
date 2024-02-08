@@ -21,6 +21,11 @@ const theme = createTheme({
       main: cssColorCodes.BLUE_100,
     },
   },
+  typography: {
+    fontFamily: `"Exo 2 Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif`,
+  },
 });
 
 function App() {

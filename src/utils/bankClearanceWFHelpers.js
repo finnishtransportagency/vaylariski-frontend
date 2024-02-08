@@ -101,7 +101,7 @@ export const simpleInput = (formik) => {
     <CustomNumber
       formik={formik}
       formikName={`${formikValueCategory}.${id}`}
-      label={"Reunan painokerroin"}
+      label={"Reunan kerroin"}
       helperText={`Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(
         boatSpeed
       )}`}

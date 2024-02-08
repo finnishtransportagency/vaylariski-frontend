@@ -120,3 +120,9 @@ export const cssColorCodes = {
   TAB_TEXT: "#58595b", // Same as BLACK_70
   CONTAINER: "#c9edfb", // Same as LIGHT_BLUE_30
 };
+
+export const calculationTypeEnums = {
+  NAVIGATIONLINE: "navigationline",
+  ROUTELINE: "routeline",
+  COMPARE: "compare",
+};

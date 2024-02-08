@@ -42,7 +42,7 @@ export default function WayareaDepthWFComponent(props) {
           color="textSecondary"
           gutterBottom
         >
-          Väylän syvyyden painokerroin
+          Väylän syvyyden kerroin
           <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
               placement="right"
@@ -51,10 +51,11 @@ export default function WayareaDepthWFComponent(props) {
                 <label style={{ fontSize: 14 }}>
                   Alla olevissa kentissä määritetään kertoimet, jotka
                   kerrottaessa aluksen leveydellä määrittävät syvyyden
-                  painokertoimen. Kerroin eri navigointilinjan osille määräytyy
-                  alla olevista vaihtoehdoista väylän tyypin, väylän syvyyden ja
-                  aluksen syväyksen perusteella. Laskennassa voi käyttää
-                  oletusarvoja tai määrittää uudet kertoimet kenttiin.
+                  vaikuttavuuden riskiarvoon. Kerroin eri navigointilinjan
+                  osille määräytyy alla olevista vaihtoehdoista väylän tyypin,
+                  väylän syvyyden ja aluksen syväyksen perusteella. Laskennassa
+                  voi käyttää oletusarvoja tai määrittää uudet kertoimet
+                  kenttiin.
                   <br />
                   <em>
                     S
