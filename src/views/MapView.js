@@ -23,6 +23,9 @@ import { calculationTypeEnums, cssColorCodes } from "constants/enums";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
+import ReactDOMServer from "react-dom/server";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+
 const geojsonMarkerOptionsGreen = {
   radius: 4,
   fillColor: cssColorCodes.GREEN_100,
@@ -59,6 +62,50 @@ const geojsonMarkerOptionsGray = {
   fillOpacity: 0.8,
 };
 
+// When comparing routeline and navigationline the cross sign is used instead of circle
+const crossIconRed = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.RED_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default (approx)
+});
+const crossIconYellow = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.YELLOW_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+const crossIconGreen = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.GREEN_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+const crossIconGray = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon style={{ color: "#83888a", fontSize: "0.75rem" }} />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults } = useContext(RIVResultContext);
@@ -79,6 +126,9 @@ function GeoJSONMarkers() {
   const { diagramPointClicked, setDiagramPointClicked } = useContext(
     DiagramPointClickedContext
   );
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
 
   function onEachFeature(feature, layer) {
     // If feature have properties parse all of them and bind to layer
@@ -87,7 +137,6 @@ function GeoJSONMarkers() {
         setMapPointClicked(true);
         setSelectedRowIndex(feature.properties.point_index);
       });
-
       layer.bindPopup(layerBindPopupString(feature));
     }
   }
@@ -105,26 +154,48 @@ function GeoJSONMarkers() {
 
   useEffect(() => {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
-
     const layers = new L.GeoJSON(RIVResults, {
       onEachFeature: onEachFeature,
       pointToLayer: function (feature, latlng) {
         // Initial traffic lights for risk value
         if (
-          feature.properties.W_channel == null ||
-          feature.properties.W_channel_depth == null
+          selectedCalculationType == calculationTypeEnums.COMPARE &&
+          feature.properties.VAYLAT == null // If calculation type is compare and VAYLAT is null crosses are used. VAYLAT null refers that point is routeline while only navigationlines have VAYLAT
         ) {
-          return L.circleMarker(latlng, geojsonMarkerOptionsGray);
-        } else {
-          if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
-          } else if (
-            feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
-            feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+          // return L.marker(latlng, { icon: crossIcon });
+          if (
+            feature.properties.W_channel == null ||
+            feature.properties.W_channel_depth == null
           ) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+            return L.marker(latlng, { icon: crossIconGray });
+          } else {
+            if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+              return L.marker(latlng, { icon: crossIconGreen });
+            } else if (
+              feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+              feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+            ) {
+              return L.marker(latlng, { icon: crossIconYellow });
+            }
+            return L.marker(latlng, { icon: crossIconRed });
           }
-          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+        } else {
+          if (
+            feature.properties.W_channel == null ||
+            feature.properties.W_channel_depth == null
+          ) {
+            return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+          } else {
+            if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+              return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+            } else if (
+              feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+              feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+            ) {
+              return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+            }
+            return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+          }
         }
       },
     });
