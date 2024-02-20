@@ -64,7 +64,6 @@ const geojsonMarkerOptionsGray = {
 
 const highlighMapPoint = {
   radius: 8,
-  // fillColor: "#83888a",
   color: "black",
   weight: 1,
   opacity: 1,
