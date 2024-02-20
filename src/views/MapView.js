@@ -169,6 +169,48 @@ function GeoJSONMarkers() {
     }
   }
 
+  function pointToLayer(feature, latlng) {
+    // Initial traffic lights for risk value
+    if (
+      selectedCalculationType == calculationTypeEnums.COMPARE &&
+      feature.properties.VAYLAT == null // If calculation type is compare and VAYLAT is null crosses are used. VAYLAT null refers that point is routeline while only navigationlines have VAYLAT
+    ) {
+      if (
+        feature.properties.W_channel == null ||
+        feature.properties.W_channel_depth == null
+      ) {
+        return L.marker(latlng, { icon: crossIconGray });
+      }
+      if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+        return L.marker(latlng, { icon: crossIconGreen });
+      }
+      if (
+        feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+        feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+      ) {
+        return L.marker(latlng, { icon: crossIconYellow });
+      }
+      return L.marker(latlng, { icon: crossIconRed });
+    } else {
+      if (
+        feature.properties.W_channel == null ||
+        feature.properties.W_channel_depth == null
+      ) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+      }
+      if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+      }
+      if (
+        feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+        feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+      ) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+      }
+      return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+    }
+  }
+
   useEffect(() => {
     setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
     setGeojsonFeatGroupWay(highlightFeatureGroup.clearLayers());
@@ -185,47 +227,7 @@ function GeoJSONMarkers() {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
     const layers = new L.GeoJSON(RIVResults, {
       onEachFeature: onEachFeature,
-      pointToLayer: function (feature, latlng) {
-        // Initial traffic lights for risk value
-        if (
-          selectedCalculationType == calculationTypeEnums.COMPARE &&
-          feature.properties.VAYLAT == null // If calculation type is compare and VAYLAT is null crosses are used. VAYLAT null refers that point is routeline while only navigationlines have VAYLAT
-        ) {
-          if (
-            feature.properties.W_channel == null ||
-            feature.properties.W_channel_depth == null
-          ) {
-            return L.marker(latlng, { icon: crossIconGray });
-          }
-          if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-            return L.marker(latlng, { icon: crossIconGreen });
-          }
-          if (
-            feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
-            feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
-          ) {
-            return L.marker(latlng, { icon: crossIconYellow });
-          }
-          return L.marker(latlng, { icon: crossIconRed });
-        } else {
-          if (
-            feature.properties.W_channel == null ||
-            feature.properties.W_channel_depth == null
-          ) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsGray);
-          }
-          if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
-          }
-          if (
-            feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
-            feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
-          ) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
-          }
-          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
-        }
-      },
+      pointToLayer: pointToLayer,
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 
