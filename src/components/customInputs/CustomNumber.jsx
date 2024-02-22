@@ -59,7 +59,10 @@ export default function CustomNumber({
             type={disabled ? "text" : "number"}
             value={value}
             onChange={(e) => {
-              formik.setFieldValue(formikName, e.target.value);
+              formik.setFieldValue(
+                formikName,
+                !isNaN(e.target.value) ? Number(e.target.value) : ""
+              );
             }}
           />
         </span>
