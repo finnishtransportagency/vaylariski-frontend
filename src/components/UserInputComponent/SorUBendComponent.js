@@ -59,14 +59,16 @@ export default function SorUBendComponent({ formik, type }) {
           gutterBottom
           component="span"
         >
-          {type}-mutkan kertoimet raja-arvoittain
+          {type == "S" || type == "U" ? type : "??"}-mutkan kertoimet
+          raja-arvoittain
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <Tooltip
               placement="right"
               arrow
               title={
                 <label style={{ fontSize: 14 }}>
-                  {type}-mutkan kertoimet raja-arvoittain
+                  {type == "S" || type == "U" ? type : "??"}-mutkan kertoimet
+                  raja-arvoittain
                 </label>
               }
               PopperProps={{
@@ -86,7 +88,11 @@ export default function SorUBendComponent({ formik, type }) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        {bendItems.map((e) => bendRow(e[0], e[1]))}
+        {type == "S" || type == "U" ? (
+          bendItems.map((e) => bendRow(e[0], e[1]))
+        ) : (
+          <div>Incorrect type passed, set type to either S or U!</div>
+        )}
       </Grid>
     </Grid>
   );
