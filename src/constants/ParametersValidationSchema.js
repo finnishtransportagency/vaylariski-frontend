@@ -144,6 +144,9 @@ const parametersValidationSchema = Yup.object().shape({
     WF_s_bend: Yup.number()
       .min(0, "S-mutka (WF S-bend) ei voi olla negatiivinen")
       .required("S-mutka (WF S-bend) vaaditaan"),
+    WF_u_bend: Yup.number()
+      .min(0, "U-mutka (WF U-bend) ei voi olla negatiivinen")
+      .required("U-mutka (WF U-bend) vaaditaan"),
     WF_traffic_complexity: Yup.number()
       .min(
         0,

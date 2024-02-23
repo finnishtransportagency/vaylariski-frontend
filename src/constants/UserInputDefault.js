@@ -43,6 +43,7 @@ const userInputDefault = {
     WF_channel: 4,
     WF_bend: 4,
     WF_s_bend: 4,
+    WF_u_bend: 4,
     WF_traffic_complexity: 4,
     WF_reduced_visibility: 3,
     WF_light_pollution: 2,
