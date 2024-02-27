@@ -19,10 +19,12 @@ import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
 import UserInputContext from "../../contexts/UserInput";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
-    wayarea ? `${wayarea.VAYLAT} - ${wayarea.Nimi}` : "";
+    wayarea ? `${wayarea.VAYLAT} - ${wayarea.NIMIFI}` : "";
 
   const { name, formik } = props;
   // eslint-disable-next-line no-unused-vars
@@ -39,13 +41,41 @@ export default function WayareaComponent(props) {
   const [wayareaInputString, setWayareaInputString] = useState(
     formatInputString(selectedWayarea)
   );
+  const { selectedWayareaLoaded, setSelectedWayareaLoaded } = useContext(
+    SelectedWayareaLoadedContext
+  );
   const calculationIntervalOptions = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
   ];
   const { userInput } = useContext(UserInputContext);
 
+  useEffect(() => {
+    if (userInput.navline.VAYLAT) {
+      const v = allWayareas.find((v) => v.VAYLAT === userInput.navline.VAYLAT);
+      if (v) {
+        console.log("happenings");
+
+        setWayareaInputString(formatInputString(v));
+        setSelectedWayarea(v);
+        setSelectedWayareaChanged(true);
+        setSelectedWayareaLoaded(true);
+
+        setChosenWayareaFormikValue(v);
+
+        //formik.validateField(name);
+      }
+    }
+  }, [userInput]);
+
+  useEffect(() => {
+    console.log("wayareaInputString changed ", wayareaInputString);
+  }, [wayareaInputString]);
+
   function setChosenWayareaFormikValue(wayarea) {
-    formik.setFieldValue("navline.VAYLAT", wayarea?.VAYLAT || "");
+    const value = String(wayarea?.VAYLAT) || "";
+    setOneLastUsedParameter(userInput, "navline.VAYLAT", value);
+    console.log("navline.VAYLAT", value, typeof value);
+    formik.setFieldValue("navline.VAYLAT", value);
   }
 
   useEffect(() => {
@@ -64,9 +94,11 @@ export default function WayareaComponent(props) {
   }, []);
 
   const handleChange = (event) => {
-    const newDefaults = userInput;
-    newDefaults.calculation_interval = event.target.value;
-    window.localStorage.setItem("userInput", JSON.stringify(newDefaults));
+    setOneLastUsedParameter(
+      userInput,
+      "calculation_interval",
+      event.target.value
+    );
     formik.setFieldValue("calculation_interval", event.target.value);
   };
 

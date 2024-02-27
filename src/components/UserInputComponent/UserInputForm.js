@@ -227,7 +227,9 @@ function UserInputForm(props) {
                       <br />
                       {!formik.dirty ? (
                         <>
-                          - VAYLAT id vaaditaan
+                          - VAYLAT id vaaditaan ({formik.dirty.toString()}) (
+                          {formik.isValid.toString()}) (
+                          {selectedWayareaWithNoGDOGID.toString()})
                           <br />
                         </>
                       ) : (

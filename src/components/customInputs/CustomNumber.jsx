@@ -1,7 +1,7 @@
 import { InputLabel, Tooltip, TextField, Grid } from "@mui/material";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 import { useContext } from "react";
-import UserInputContext from "../../contexts/UserInput";
-import assign from "utils/objectAssign";
+import UserInputContext from "contexts/UserInput";
 
 /**
  *
@@ -63,12 +63,7 @@ export default function CustomNumber({
             type={disabled ? "text" : "number"}
             value={value}
             onChange={(e) => {
-              const newDefaults = userInput;
-              assign(newDefaults, formikName, e.target.value);
-              window.localStorage.setItem(
-                "userInput",
-                JSON.stringify(newDefaults)
-              );
+              setOneLastUsedParameter(userInput, formikName, e.target.value);
               formik.setFieldValue(formikName, e.target.value);
             }}
           />

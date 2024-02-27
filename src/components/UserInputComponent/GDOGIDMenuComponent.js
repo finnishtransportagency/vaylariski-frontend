@@ -20,6 +20,9 @@ import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGD
 import FairwayWidth from "./FairwayWidth";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
 import AllGDOGIDSContext from "../../contexts/AllGDOGIDSContext";
+import UserInputContext from "../../contexts/UserInput";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 
 export default function GDOGIDMenuComponent(props) {
   const { name, formik } = props;
@@ -32,12 +35,16 @@ export default function GDOGIDMenuComponent(props) {
   const { selectedWayareaChanged, setSelectedWayareaChanged } = useContext(
     SelectedWayareaChangedContext
   );
+  const { selectedWayareaLoaded, setSelectedWayareaLoaded } = useContext(
+    SelectedWayareaLoadedContext
+  );
   const { selectedGDOGIDString, setSelectedGDOGIDString } = useContext(
     SelectedGDOGIDContext
   );
   const { selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID } =
     useContext(SelectedWayareaWithNoGDOGIDContext);
   const [invalidFieldInput, setInvalidFieldInput] = useState(false);
+  const { userInput } = useContext(UserInputContext);
 
   const [open, setOpen] = useState(false);
   const handleTooltipClose = () => {
@@ -49,12 +56,23 @@ export default function GDOGIDMenuComponent(props) {
   };
 
   function setChosenGDOGIDFormikValue(gdo_gid) {
+    console.log("gdo_gid", gdo_gid);
+    setOneLastUsedParameter(userInput, "navline.starting_gdo_gid", gdo_gid);
     formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
   }
+  useEffect(() => {
+    //console.log("allGDOGIDs changed: ", allGDOGIDs);
+    if (selectedWayareaLoaded) {
+      setSelectedWayareaLoaded(false);
+      handleInputChange(String(userInput.navline.starting_gdo_gid));
+    }
+  }, [allGDOGIDs]);
 
   useEffect(() => {
     if (selectedWayarea && selectedWayareaChanged) {
-      setChosenGDOGIDFormikValue("");
+      if (!selectedWayareaLoaded) {
+        setChosenGDOGIDFormikValue("");
+      }
       setSelectedGDOGIDString("");
       setSpinnerVisible(true);
 
@@ -100,6 +118,11 @@ export default function GDOGIDMenuComponent(props) {
 
   const handleInputChange = (newValue) => {
     setSelectedGDOGIDString(newValue);
+    console.log(
+      newValue,
+      allGDOGIDs,
+      allGDOGIDs.includes(Number(newValue)) || newValue === ""
+    );
 
     if (allGDOGIDs.includes(Number(newValue)) || newValue === "") {
       setInvalidFieldInput(false);

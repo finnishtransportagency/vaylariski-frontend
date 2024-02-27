@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import UserInputContext from "../../contexts/UserInput";
-import assign from "utils/objectAssign";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 /**
  *
@@ -51,9 +51,7 @@ export default function CustomRadio({
         value={formikName.split(".").reduce((a, b) => a[b], formik.values)}
         defaultValue={defaultValue}
         onChange={(e) => {
-          const newDefaults = userInput;
-          assign(newDefaults, formikName, e.target.value);
-          window.localStorage.setItem("userInput", JSON.stringify(newDefaults));
+          setOneLastUsedParameter(userInput, formikName, e.target.value);
           formik.setFieldValue(formikName, e.target.value);
         }}
       >

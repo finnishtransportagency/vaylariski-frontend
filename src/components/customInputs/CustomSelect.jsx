@@ -1,7 +1,7 @@
 import { Grid, Select, InputLabel, MenuItem } from "@mui/material";
 import { useContext } from "react";
 import UserInputContext from "../../contexts/UserInput";
-import assign from "utils/objectAssign";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 /**
  *
@@ -38,9 +38,7 @@ export default function CustomSelect({
         style={{ fontSize: 14 }}
         fullWidth
         onChange={(e) => {
-          const newDefaults = userInput;
-          assign(newDefaults, formikName, e.target.value);
-          window.localStorage.setItem("userInput", JSON.stringify(newDefaults));
+          setOneLastUsedParameter(userInput, formikName, e.target.value);
           formik.setFieldValue(formikName, e.target.value);
         }}
       >

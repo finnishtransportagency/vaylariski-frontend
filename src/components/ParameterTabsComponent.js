@@ -13,6 +13,8 @@ import { Formik } from "formik";
 import { Form as FForm } from "formik";
 import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
+import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent";
+import { getLastUsedParameters } from "utils/browserStorageHelpers";
 
 function a11yProps(index) {
   return {
@@ -29,14 +31,10 @@ export default function ParameterTabsComponent() {
   const { setNotificationStatus } = useContext(NotificationContext);
 
   useEffect(() => {
-    console.log("hello");
-    const userInputJSON = window.localStorage.getItem("userInput");
-    if (userInputJSON) {
-      //todoo noification
-      if (window.confirm("Käytä tallennetut arvot?")) {
-        const oldUserInput = JSON.parse(userInputJSON);
-        setUserInput(oldUserInput);
-        console.log("defaults updated");
+    const lastUsedParameters = getLastUsedParameters();
+    if (lastUsedParameters) {
+      if (window.confirm("Ladataanko viimeiseksi käytetyt parametrit?")) {
+        setUserInput(lastUsedParameters);
       }
     }
   }, []);
@@ -107,6 +105,11 @@ export default function ParameterTabsComponent() {
             {...a11yProps(1)}
             className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
           />
+          <Tab
+            label="Parametri kokoelmat"
+            {...a11yProps(2)}
+            className={`main-tab ${value === 2 ? "main-tab-active" : ""}`}
+          />
         </Tabs>
         {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
       </Box>
@@ -126,6 +129,11 @@ export default function ParameterTabsComponent() {
                 <UserDefinedAngleParamsComponent
                   tabValue={value}
                   tabIndex={1}
+                  formik={formik}
+                />
+                <DefaultParametersComponent
+                  tabValue={value}
+                  tabIndex={2}
                   formik={formik}
                 />
               </div>
