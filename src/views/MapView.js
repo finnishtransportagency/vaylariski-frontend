@@ -23,6 +23,9 @@ import { calculationTypeEnums, cssColorCodes } from "constants/enums";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 
+import ReactDOMServer from "react-dom/server";
+import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+
 const geojsonMarkerOptionsGreen = {
   radius: 4,
   fillColor: cssColorCodes.GREEN_100,
@@ -59,6 +62,61 @@ const geojsonMarkerOptionsGray = {
   fillOpacity: 0.8,
 };
 
+const highlighMapPoint = {
+  radius: 8,
+  color: "black",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: 0,
+};
+
+// When comparing routeline and navigationline the cross sign is used instead of circle
+const crossIconRed = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.RED_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default (approx)
+});
+
+const crossIconYellow = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.YELLOW_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+
+const crossIconGreen = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon
+        style={{ color: cssColorCodes.GREEN_100, fontSize: "0.75rem" }}
+      />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+
+const crossIconGray = L.divIcon({
+  className: "material-icon",
+  html: ReactDOMServer.renderToString(
+    <div>
+      <CloseSharpIcon style={{ color: "#83888a", fontSize: "0.75rem" }} />
+    </div>
+  ),
+  iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
+});
+
 function GeoJSONMarkers() {
   const map = useMap();
   const { RIVResults } = useContext(RIVResultContext);
@@ -69,6 +127,7 @@ function GeoJSONMarkers() {
   const [geojsonFeatGroupWay, setGeojsonFeatGroupWay] = useState(
     new L.FeatureGroup()
   );
+  const [highlightFeatureGroup] = useState(new L.FeatureGroup());
   const { wayareaPolygons } = useContext(WayareaPolygonContext);
   const { selectedRowIndex, setSelectedRowIndex } =
     useContext(SelectedIndexContext);
@@ -79,21 +138,82 @@ function GeoJSONMarkers() {
   const { diagramPointClicked, setDiagramPointClicked } = useContext(
     DiagramPointClickedContext
   );
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
 
   function onEachFeature(feature, layer) {
-    // If feature have properties parse all of them and bind to layer
+    // If feature has properties, parse them and bind them to the layer
     if (feature.properties) {
       layer.on("click", () => {
         setMapPointClicked(true);
         setSelectedRowIndex(feature.properties.point_index);
+
+        // Clear the existing highlight feature group
+        highlightFeatureGroup.clearLayers();
+
+        // Add a new circle marker to the highlight feature group
+        const highlight = L.circleMarker(layer.getLatLng(), highlighMapPoint);
+        highlightFeatureGroup.addLayer(highlight);
+
+        // Add the highlight feature group to the map
+        highlightFeatureGroup.addTo(map);
+
+        // Original cirle markers to front so the bind popup works in re-clicking
+        if (map.hasLayer(geojsonFeatGroup)) {
+          geojsonFeatGroup.bringToFront();
+        }
       });
 
       layer.bindPopup(layerBindPopupString(feature));
     }
   }
 
+  function pointToLayer(feature, latlng) {
+    // Initial traffic lights for risk value
+    if (
+      selectedCalculationType == calculationTypeEnums.COMPARE &&
+      feature.properties.VAYLAT == null // If calculation type is compare and VAYLAT is null crosses are used. VAYLAT null refers that point is routeline while only navigationlines have VAYLAT
+    ) {
+      if (
+        feature.properties.W_channel == null ||
+        feature.properties.W_channel_depth == null
+      ) {
+        return L.marker(latlng, { icon: crossIconGray });
+      }
+      if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+        return L.marker(latlng, { icon: crossIconGreen });
+      }
+      if (
+        feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+        feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+      ) {
+        return L.marker(latlng, { icon: crossIconYellow });
+      }
+      return L.marker(latlng, { icon: crossIconRed });
+    } else {
+      if (
+        feature.properties.W_channel == null ||
+        feature.properties.W_channel_depth == null
+      ) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+      }
+      if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+      }
+      if (
+        feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
+        feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
+      ) {
+        return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+      }
+      return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+    }
+  }
+
   useEffect(() => {
     setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
+    setGeojsonFeatGroupWay(highlightFeatureGroup.clearLayers());
     const w_layers = new L.GeoJSON(wayareaPolygons, {
       pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptionsGray);
@@ -105,28 +225,9 @@ function GeoJSONMarkers() {
 
   useEffect(() => {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
-
     const layers = new L.GeoJSON(RIVResults, {
       onEachFeature: onEachFeature,
-      pointToLayer: function (feature, latlng) {
-        // Initial traffic lights for risk value
-        if (
-          feature.properties.W_channel == null ||
-          feature.properties.W_channel_depth == null
-        ) {
-          return L.circleMarker(latlng, geojsonMarkerOptionsGray);
-        } else {
-          if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
-          } else if (
-            feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
-            feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
-          ) {
-            return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
-          }
-          return L.circleMarker(latlng, geojsonMarkerOptionsRed);
-        }
-      },
+      pointToLayer: pointToLayer,
     });
     setGeojsonFeatGroup(layers.addTo(geojsonFeatGroup));
 
