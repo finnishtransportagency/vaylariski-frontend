@@ -50,7 +50,7 @@ export default function ParameterTabsComponent() {
     const lastUsedParameters = getLastUsedParameters();
     if (lastUsedParameters) {
       if (window.confirm("Ladataanko viimeiseksi käytetyt parametrit?")) {
-        setUserInput(JSON.parse(JSON.stringify(lastUsedParameters)));
+        setUserInput(lastUsedParameters);
         setSelectedWayareaLoaded(1);
         setSelectedRoutelineLoaded(true);
         setSelectedBoatLoaded(true);

@@ -41,7 +41,7 @@ export default function DefaultParametersComponent(props) {
   const { setSelectedBoatLoaded } = useContext(SelectedBoatLoadedContext);
   const defaults = {
     name: "Oletus parametrit",
-    parameters: { ...userInputDefault },
+    parameters: JSON.parse(JSON.stringify(userInputDefault)),
   };
 
   useEffect(() => {
