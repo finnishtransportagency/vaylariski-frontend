@@ -6,7 +6,14 @@ import {
   Select,
   MenuItem,
   Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import UserInputContext from "contexts/UserInput";
 import { useContext, useState, useEffect } from "react";
 import userInputDefault from "constants/UserInputDefault";
@@ -57,9 +64,9 @@ export default function DefaultParametersComponent(props) {
             formik.values
           );
           const parameterValueTooBeLoaded = _.val;
-          return `${key}: ${parameterValueNow} -> ${parameterValueTooBeLoaded} `;
+          return { key, parameterValueNow, parameterValueTooBeLoaded };
         } else {
-          return "";
+          return null;
         }
       });
       setDiff(dd);
@@ -69,9 +76,7 @@ export default function DefaultParametersComponent(props) {
   };
 
   const handleLoadParameters = (parameters) => {
-    //setUserInput({ ...parameters });
     setUserInput(JSON.parse(JSON.stringify(parameters)));
-    //formik.setValues(JSON.parse(JSON.stringify(parameters))); //await?
     setAllLastUsedParameters(parameters);
     setSelectedWayareaLoaded(1);
     setSelectedRoutelineLoaded(true);
@@ -84,6 +89,38 @@ export default function DefaultParametersComponent(props) {
     const t = saveParameterTemplate(parameters, name);
     setTemplates(t);
     setTemplateName("");
+  };
+
+  const table = (rows) => {
+    return (
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nimi</TableCell>
+              <TableCell align="right">Tämänhetkinen arvo</TableCell>
+              <TableCell align="right">Parametri kokoelman arvo</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.key}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.key}
+                </TableCell>
+                <TableCell align="right">{row.parameterValueNow}</TableCell>
+                <TableCell align="right">
+                  {row.parameterValueTooBeLoaded}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
   };
 
   return (
@@ -217,13 +254,7 @@ export default function DefaultParametersComponent(props) {
                 alignItems: "flex-end",
               }}
             >
-              <div>
-                <ul>
-                  {diff.map((_) => (
-                    <li key={JSON.stringify(_)}>{_}</li>
-                  ))}
-                </ul>
-              </div>
+              <div>{diff.length !== 0 ? table(diff) : null}</div>
             </Grid>
             <Grid item xs={3}>
               <Button
