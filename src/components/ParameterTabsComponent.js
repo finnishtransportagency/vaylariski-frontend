@@ -55,7 +55,7 @@ export default function ParameterTabsComponent() {
         setSelectedRoutelineLoaded(true);
         setSelectedBoatLoaded(true);
       } else {
-        setAllLastUsedParameters({ ...userInputDefault });
+        setAllLastUsedParameters(JSON.parse(JSON.stringify(userInputDefault)));
       }
     }
   }, []);
