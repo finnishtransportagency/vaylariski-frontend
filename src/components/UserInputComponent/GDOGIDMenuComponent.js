@@ -19,6 +19,8 @@ import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
 import AllGDOGIDSContext from "../../contexts/AllGDOGIDSContext";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 
 export default function GDOGIDMenuComponent(props) {
   const { name, formik } = props;
@@ -37,6 +39,9 @@ export default function GDOGIDMenuComponent(props) {
   const { selectedWayareaWithNoGDOGID, setSelectedWayareaWithNoGDOGID } =
     useContext(SelectedWayareaWithNoGDOGIDContext);
   const [invalidFieldInput, setInvalidFieldInput] = useState(false);
+  const { selectedWayareaLoaded, setSelectedWayareaLoaded } = useContext(
+    SelectedWayareaLoadedContext
+  );
 
   const [open, setOpen] = useState(false);
   const handleTooltipClose = () => {
@@ -48,12 +53,25 @@ export default function GDOGIDMenuComponent(props) {
   };
 
   function setChosenGDOGIDFormikValue(gdo_gid) {
-    formik.setFieldValue("navline.starting_gdo_gid", gdo_gid);
+    setOneLastUsedParameter(
+      formik.values,
+      "navline.starting_gdo_gid",
+      String(gdo_gid)
+    );
+    formik.setFieldValue("navline.starting_gdo_gid", String(gdo_gid));
   }
+  useEffect(() => {
+    if (selectedWayareaLoaded === 2) {
+      handleInputChange(String(formik.values.navline.starting_gdo_gid));
+      setSelectedWayareaLoaded(0);
+    }
+  }, [allGDOGIDs]);
 
   useEffect(() => {
     if (selectedWayarea && selectedWayareaChanged) {
-      setChosenGDOGIDFormikValue("");
+      if (selectedWayareaLoaded !== 2) {
+        setChosenGDOGIDFormikValue("");
+      }
       setSelectedGDOGIDString("");
       setSpinnerVisible(true);
 
