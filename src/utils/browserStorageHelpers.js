@@ -23,8 +23,6 @@ export const getLastUsedParameters = () => {
 };
 
 export const setOneLastUsedParameter = (userInput, formikName, value) => {
-  console.log(formikName);
-  //const currentValues = { ...userInput };
   const currentValues = JSON.parse(JSON.stringify(userInput));
   assign(currentValues, formikName, value);
   window.localStorage.setItem(
