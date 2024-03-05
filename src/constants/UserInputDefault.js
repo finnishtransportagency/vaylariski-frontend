@@ -43,6 +43,7 @@ const userInputDefault = {
     WF_channel: 4,
     WF_bend: 4,
     WF_s_bend: 4,
+    WF_u_bend: 4,
     WF_traffic_complexity: 4,
     WF_reduced_visibility: 3,
     WF_light_pollution: 2,
@@ -105,6 +106,21 @@ const userInputDefault = {
   calculation_interval: 50,
   routename: "",
   vaylat: null,
+
+  S_bend_multipliers: {
+    S_bend_multiplier_1: 0,
+    S_bend_multiplier_2: 1,
+    S_bend_multiplier_3: 2,
+    S_bend_multiplier_4: 3,
+    S_bend_multiplier_5: 4,
+  },
+  U_bend_multipliers: {
+    U_bend_multiplier_1: 0,
+    U_bend_multiplier_2: 1,
+    U_bend_multiplier_3: 2,
+    U_bend_multiplier_4: 3,
+    U_bend_multiplier_5: 4,
+  },
 };
 
 export default userInputDefault;

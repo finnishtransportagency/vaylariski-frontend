@@ -7,6 +7,7 @@ export default function WeightFactorsComponent(props) {
     ["WF_channel", "Väylä"],
     ["WF_bend", "Mutka"],
     ["WF_s_bend", "S-mutka"],
+    ["WF_u_bend", "U-mutka"],
     ["WF_traffic_complexity", "Liikenteen monimutkaisuus"],
     ["WF_reduced_visibility", "Heikentynyt näkyvyys"],
     ["WF_light_pollution", "Taustavalon voimakkuus"],
