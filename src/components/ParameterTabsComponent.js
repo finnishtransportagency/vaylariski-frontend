@@ -205,7 +205,7 @@ export default function ParameterTabsComponent() {
             className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
           />
           <Tab
-            label="Parametri kokoelmat"
+            label="Parametrikokoelmat"
             {...a11yProps(2)}
             className={`main-tab ${value === 2 ? "main-tab-active" : ""}`}
           />

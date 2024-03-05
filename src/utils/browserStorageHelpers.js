@@ -9,7 +9,7 @@ const assign = (obj, prop, value) => {
     prop = prop.split(".");
   }
   if (prop.length > 1) {
-    var e = prop.shift();
+    const e = prop.shift();
     assign(
       (obj[e] =
         Object.prototype.toString.call(obj[e]) === "[object Object]"
@@ -26,7 +26,7 @@ const del = (obj, prop) => {
     prop = prop.split(".");
   }
   if (prop.length > 1) {
-    var e = prop.shift();
+    const e = prop.shift();
     del(
       (obj[e] =
         Object.prototype.toString.call(obj[e]) === "[object Object]"

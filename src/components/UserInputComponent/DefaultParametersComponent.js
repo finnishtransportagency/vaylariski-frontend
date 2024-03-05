@@ -40,7 +40,7 @@ export default function DefaultParametersComponent(props) {
   );
   const { setSelectedBoatLoaded } = useContext(SelectedBoatLoadedContext);
   const defaults = {
-    name: "Oletus parametrit",
+    name: "Oletusparametrit",
     parameters: JSON.parse(JSON.stringify(userInputDefault)),
   };
 
@@ -56,14 +56,14 @@ export default function DefaultParametersComponent(props) {
         formik.values,
         JSON.parse(selectedLoadJSONString).parameters
       );
-      const dd = d.map((_) => {
-        if (_.path) {
-          const key = _.path.join("."); //can be replaced with something better
-          const parameterValueNow = _.path.reduce(
-            (o, i) => o[i],
+      const dd = d.map((obj) => {
+        if (obj.path) {
+          const key = obj.path.join("."); //can be replaced with something better
+          const parameterValueNow = obj.path.reduce(
+            (previousValue, currentValue) => previousValue[currentValue],
             formik.values
           );
-          const parameterValueTooBeLoaded = _.val;
+          const parameterValueTooBeLoaded = obj.val;
           return { key, parameterValueNow, parameterValueTooBeLoaded };
         } else {
           return null;
@@ -99,7 +99,7 @@ export default function DefaultParametersComponent(props) {
             <TableRow>
               <TableCell>Nimi</TableCell>
               <TableCell align="right">Tämänhetkinen arvo</TableCell>
-              <TableCell align="right">Parametri kokoelman arvo</TableCell>
+              <TableCell align="right">Parametrikokoelman arvo</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -155,13 +155,13 @@ export default function DefaultParametersComponent(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Parametri kokoelmien tallentaminen
+                  Parametrikokoelmien tallentaminen
                 </Typography>
                 <InputLabel
                   style={{ fontSize: 14 }}
                   id={"default-parameter-name"}
                 >
-                  Anna parametri kokoelmalle nimi
+                  Anna parametrikokoelmalle nimi
                 </InputLabel>
                 <TextField
                   id="default-parameter-name"
@@ -182,7 +182,7 @@ export default function DefaultParametersComponent(props) {
                     handleSave(templateName);
                   }}
                 >
-                  Tallenna parametri kokoelma
+                  Tallenna parametrikokoelma
                 </Button>
               </Grid>
             </Grid>
@@ -201,13 +201,13 @@ export default function DefaultParametersComponent(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Parametri kokoelmien lataaminen
+                  Parametrikokoelmien lataaminen
                 </Typography>
                 <InputLabel
                   style={{ fontSize: 14 }}
                   id={"default-parameter-load-name"}
                 >
-                  Valitse parametri kokoelma
+                  Valitse parametrikokoelma
                 </InputLabel>
                 <Select
                   labelId="default-parameter-load-name"
