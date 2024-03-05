@@ -12,6 +12,8 @@ import Form from "react-bootstrap/Form";
 import SelectedBoatContext from "contexts/SelectedBoatContext";
 import userInputDefault from "constants/UserInputDefault";
 import CustomNumber from "components/customInputs/CustomNumber";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
 
 export default function BoatMenuComponent(props) {
   const formatInputString = (boat) =>
@@ -27,12 +29,36 @@ export default function BoatMenuComponent(props) {
     formatInputString(selectedBoat)
   );
   const [showOld, setShowOld] = useState(false);
+  const { selectedBoatLoaded, setSelectedBoatLoaded } = useContext(
+    SelectedBoatLoadedContext
+  );
+
+  const loadBoat = (data) => {
+    if (selectedBoatLoaded) {
+      const sameBoat = (b) => {
+        return (
+          b.PITUUS === formik.values.boat.length &&
+          b.LEVEYS === formik.values.boat.beam &&
+          b.SYVAYS === formik.values.boat.draft
+        );
+      };
+      const v = data.find((b) => sameBoat(b));
+      setBoatInputString(formatInputString(v));
+      setChosenBoatFormikValue(v);
+      setSelectedBoat(v);
+      // done
+      setSelectedBoatLoaded(false);
+    }
+  };
 
   useEffect(() => {
     const path = "get_all_default_ships";
     apiClient
       .get(path)
-      .then((response) => setDefaultBoats(response.data))
+      .then((response) => {
+        setDefaultBoats(response.data);
+        loadBoat(response.data);
+      })
       .catch((err) => {
         console.log(err);
         setNotificationStatus({
@@ -52,27 +78,27 @@ export default function BoatMenuComponent(props) {
   }
 
   function setChosenBoatFormikValue(newBoat) {
+    let boat;
     if (newBoat) {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: newBoat.PITUUS ? newBoat.PITUUS : "",
-          beam: newBoat.LEVEYS ? newBoat.LEVEYS : "",
-          draft: newBoat.SYVAYS ? newBoat.SYVAYS : "",
-        },
-      });
+      boat = {
+        ...formik.values.boat,
+        length: newBoat.PITUUS ? newBoat.PITUUS : "",
+        beam: newBoat.LEVEYS ? newBoat.LEVEYS : "",
+        draft: newBoat.SYVAYS ? newBoat.SYVAYS : "",
+      };
     } else {
-      formik.setValues({
-        ...formik.values,
-        boat: {
-          ...formik.values.boat,
-          length: userInputDefault.boat.length,
-          beam: userInputDefault.boat.beam,
-          draft: userInputDefault.boat.draft,
-        },
-      });
+      boat = {
+        ...formik.values.boat,
+        length: userInputDefault.boat.length,
+        beam: userInputDefault.boat.beam,
+        draft: userInputDefault.boat.draft,
+      };
     }
+    formik.setValues({
+      ...formik.values,
+      boat,
+    });
+    setOneLastUsedParameter(formik.values, "boat", boat);
   }
 
   return (

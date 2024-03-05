@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import ConditionalWrapper from "components/ConditionalWrapper";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 /**
  *
@@ -49,6 +50,7 @@ export default function CustomRadio({
         value={formikName.split(".").reduce((a, b) => a[b], formik.values)}
         defaultValue={defaultValue}
         onChange={(e) => {
+          setOneLastUsedParameter(formik.values, formikName, e.target.value);
           formik.setFieldValue(formikName, e.target.value);
         }}
       >

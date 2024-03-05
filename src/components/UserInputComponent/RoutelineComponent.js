@@ -14,6 +14,8 @@ import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
 import SelectedRoutelineChangedContext from "../../contexts/SelectedRoutelineChangedContext";
+import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 export default function RoutelineComponent(props) {
   const formatInputString = (routeline) => (routeline ? `${routeline}` : "");
@@ -33,8 +35,30 @@ export default function RoutelineComponent(props) {
   const [routelineInputString, setRoutelineInputString] = useState(
     formatInputString(selectedRouteline)
   );
+  const { selectedRoutelineLoaded, setSelectedRoutelineLoaded } = useContext(
+    SelectedRoutelineLoadedContext
+  );
+
+  const loadRoute = (data) => {
+    if (selectedRoutelineLoaded) {
+      const v = data.find((r) => r === formik.values.routename);
+      setRoutelineInputString(formatInputString(v));
+      if (v) {
+        // wayarea was loaded and found -> setting imput fields
+        setSelectedRouteline(v);
+        setChosenRoutelineFormikValue(v);
+      } else {
+        // was loaded to null/"", or not found -> set imput fields to empty
+        setSelectedRouteline(null);
+        setChosenRoutelineFormikValue(null);
+      }
+      // done
+      setSelectedRoutelineLoaded(false);
+    }
+  };
 
   function setChosenRoutelineFormikValue(value) {
+    setOneLastUsedParameter(formik.values, "routename", value || "");
     formik.setFieldValue("routename", value || "");
   }
 
@@ -42,7 +66,10 @@ export default function RoutelineComponent(props) {
     const path = "routeline/routeline_names";
     apiClient
       .get(path)
-      .then((response) => setAllRouteline(response.data))
+      .then((response) => {
+        setAllRouteline(response.data);
+        loadRoute(response.data);
+      })
       .catch((err) => {
         console.log(err);
         setNotificationStatus({
@@ -58,14 +85,12 @@ export default function RoutelineComponent(props) {
     if (value === "") {
       setChosenRoutelineFormikValue(null);
       setSelectedRouteline(null);
-      setSelectedRoutelineChanged(true);
     }
   };
 
   const handleMenuItemClick = (event, newValue) => {
     setChosenRoutelineFormikValue(newValue);
     setSelectedRouteline(newValue);
-    setSelectedRoutelineChanged(true);
     // Ternary operator needed since when the user clears the field, this is run and newValue is null
     setRoutelineInputString(newValue ? formatInputString(newValue) : "");
   };
@@ -88,7 +113,7 @@ export default function RoutelineComponent(props) {
             <Tooltip
               placement="right"
               arrow
-              title={!formik.dirty ? "Reitti vaaditaan" : meta.error}
+              title={!formik.values.routename ? "Reitti vaaditaan" : meta.error}
               id="routeline-tooltip"
             >
               <Autocomplete
@@ -108,7 +133,7 @@ export default function RoutelineComponent(props) {
                 size="small"
                 renderInput={(params) => (
                   <TextField
-                    error={!!meta.error || !formik.dirty}
+                    error={!!meta.error || !formik.values.routename}
                     style={{ backgroundColor: "white" }}
                     {...params}
                   />
