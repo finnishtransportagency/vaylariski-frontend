@@ -5,9 +5,6 @@ import {
   Tooltip,
   Grid,
   InputLabel,
-  Select,
-  MenuItem,
-  IconButton,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import apiClient from "http-common";
@@ -16,6 +13,8 @@ import { useField } from "formik";
 import Form from "react-bootstrap/Form";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>
@@ -35,16 +34,45 @@ export default function WayareaComponent(props) {
   const [wayareaInputString, setWayareaInputString] = useState(
     formatInputString(selectedWayarea)
   );
+  const { selectedWayareaLoaded, setSelectedWayareaLoaded } = useContext(
+    SelectedWayareaLoadedContext
+  );
+
+  const loadWayarea = (data) => {
+    if (selectedWayareaLoaded === 1) {
+      const v = data.find((v) => v.VAYLAT == formik.values.vaylat);
+      setWayareaInputString(formatInputString(v));
+      if (v) {
+        // wayarea was loaded and found -> setting imput fields
+        setSelectedWayarea(v);
+        setChosenWayareaFormikValue(v);
+      } else {
+        // was loaded to null/"", or not found -> set imput fields to empty
+        setSelectedWayarea(null);
+        setChosenWayareaFormikValue(null);
+      }
+      //both cases changes the field
+      setSelectedWayareaChanged(true);
+
+      // proceed load GDIOOGID
+      setSelectedWayareaLoaded(2);
+    }
+  };
 
   function setChosenWayareaFormikValue(wayarea) {
-    formik.setFieldValue("vaylat", wayarea?.VAYLAT || "");
+    const value = wayarea?.VAYLAT || "";
+    setOneLastUsedParameter(formik.values, "vaylat", value);
+    formik.setFieldValue("vaylat", value);
   }
 
   useEffect(() => {
     const path = "wayarea_names";
     apiClient
       .get(path)
-      .then((response) => setAllWayareas(response.data))
+      .then((response) => {
+        setAllWayareas(response.data);
+        loadWayarea(response.data);
+      })
       .catch((err) => {
         console.log(err);
         setNotificationStatus({
@@ -90,7 +118,7 @@ export default function WayareaComponent(props) {
             <Tooltip
               placement="right"
               arrow
-              title={!formik.dirty ? "VAYLAT id vaaditaan" : meta.error}
+              title={!formik.values.vaylat ? "VAYLAT id vaaditaan" : meta.error}
               id="wayarea-tooltip"
             >
               <Autocomplete
@@ -110,7 +138,7 @@ export default function WayareaComponent(props) {
                 size="small"
                 renderInput={(params) => (
                   <TextField
-                    error={!!meta.error || !formik.dirty}
+                    error={!!meta.error || !formik.values.vaylat}
                     style={{ backgroundColor: "white" }}
                     {...params}
                   />

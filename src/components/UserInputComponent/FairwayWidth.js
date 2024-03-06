@@ -1,6 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 export default function FairwayWidth(props) {
   const { formik } = props;
@@ -15,6 +16,11 @@ export default function FairwayWidth(props) {
               formik.values.navline.calculation_params.use_new_width_calculation
             }
             onChange={(e) => {
+              setOneLastUsedParameter(
+                formik.values,
+                "navline.calculation_params.use_new_width_calculation",
+                e.target.checked
+              );
               formik.setFieldValue(
                 "navline.calculation_params.use_new_width_calculation",
                 e.target.checked

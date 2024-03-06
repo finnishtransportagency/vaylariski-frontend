@@ -1,12 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { useField } from "formik";
+import { useContext, useState } from "react";
 import {
-  Autocomplete,
-  TextField,
   Typography,
   Tooltip,
   Grid,
-  InputLabel,
   Select,
   MenuItem,
   IconButton,
@@ -15,6 +11,7 @@ import {
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CalculationIntervalContext from "../../contexts/CalculationIntervalContext";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 export default function CalculationIntervalComponent(props) {
   const { formik } = props;
@@ -28,6 +25,11 @@ export default function CalculationIntervalComponent(props) {
   ];
 
   const handleChange = (event) => {
+    setOneLastUsedParameter(
+      formik.values,
+      "calculation_interval",
+      event.target.value
+    );
     setCalculationInterval(event.target.value);
     formik.setFieldValue("calculation_interval", event.target.value);
   };
