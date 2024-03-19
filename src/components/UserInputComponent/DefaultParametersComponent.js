@@ -82,6 +82,7 @@ export default function DefaultParametersComponent(props) {
     setSelectedRoutelineLoaded(true);
     setSelectedBoatLoaded(true);
     setSelectedLoadJSONString("");
+    formik.handleReset();
   };
 
   const handleSave = (name) => {
