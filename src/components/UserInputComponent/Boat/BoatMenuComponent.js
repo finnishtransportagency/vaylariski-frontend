@@ -33,31 +33,17 @@ export default function BoatMenuComponent(props) {
     SelectedBoatLoadedContext
   );
 
-  const loadBoat = (data) => {
-    if (selectedBoatLoaded) {
-      const sameBoat = (b) => {
-        return (
-          b.PITUUS === formik.values.boat.length &&
-          b.LEVEYS === formik.values.boat.beam &&
-          b.SYVAYS === formik.values.boat.draft
-        );
-      };
-      const v = data.find((b) => sameBoat(b));
-      setBoatInputString(formatInputString(v));
-      setChosenBoatFormikValue(v);
-      setSelectedBoat(v);
-      // done
-      setSelectedBoatLoaded(false);
-    }
-  };
-
   useEffect(() => {
+    if (selectedBoatLoaded) {
+      setBoatInputString(""); // we only save length beam and draft
+      setSelectedBoat(null); // we only save length beam and draft
+      setSelectedBoatLoaded(false); // done
+    }
     const path = "get_all_default_ships";
     apiClient
       .get(path)
       .then((response) => {
         setDefaultBoats(response.data);
-        loadBoat(response.data);
       })
       .catch((err) => {
         console.log(err);
