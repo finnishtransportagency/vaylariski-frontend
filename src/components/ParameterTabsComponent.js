@@ -103,9 +103,7 @@ export default function ParameterTabsComponent() {
       paths.path_routeline = `routeline/calculate_risk?routename=${encodeURIComponent(
         selectedRouteline
       )}`;
-      paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
+      paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(selectedRouteline)}&draft=${encodeURIComponent(values.boat.draft)}`;
     }
     return paths;
   };
