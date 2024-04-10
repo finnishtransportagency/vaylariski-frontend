@@ -95,11 +95,6 @@ export default function RoutelineComponent(props) {
     setRoutelineInputString(newValue ? formatInputString(newValue) : "");
   };
 
-  const handleBlur = () => {
-    const selecteRoutelineString = formatInputString(selectedRouteline);
-    setRoutelineInputString(selecteRoutelineString);
-  };
-
   return (
     <Grid container spacing={1} paddingTop={2}>
       <Grid item xs={12}>
@@ -131,7 +126,9 @@ export default function RoutelineComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={routelineInputString}
-                onBlur={handleBlur}
+                onBlur={() =>
+                  setRoutelineInputString(formatInputString(selectedRouteline))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleRoutelineInputStringChange(newInputValue);

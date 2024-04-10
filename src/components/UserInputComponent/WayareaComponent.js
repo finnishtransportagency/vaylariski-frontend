@@ -100,11 +100,6 @@ export default function WayareaComponent(props) {
     setWayareaInputString(newValue ? formatInputString(newValue) : "");
   };
 
-  const handleBlur = () => {
-    const selectedWayareaString = formatInputString(selectedWayarea);
-    setWayareaInputString(selectedWayareaString);
-  };
-
   return (
     <Grid container spacing={1} paddingTop={2}>
       <Grid item xs={12}>
@@ -136,7 +131,9 @@ export default function WayareaComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={wayareaInputString}
-                onBlur={handleBlur}
+                onBlur={() =>
+                  setWayareaInputString(formatInputString(selectedWayarea))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleWayareaInputStringChange(newInputValue);
