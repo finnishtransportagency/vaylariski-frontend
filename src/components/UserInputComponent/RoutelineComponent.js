@@ -96,9 +96,8 @@ export default function RoutelineComponent(props) {
   };
 
   const handleBlur = () => {
-    // const selecteRoutelineString = formatInputString(selectedRouteline);
-    // setRoutelineInputString(selecteRoutelineString);
-    console.log("blur happened");
+    const selecteRoutelineString = formatInputString(selectedRouteline);
+    setRoutelineInputString(selecteRoutelineString);
   };
 
   return (
