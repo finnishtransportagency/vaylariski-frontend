@@ -60,7 +60,6 @@ export default function WayareaComponent(props) {
   };
 
   function setChosenWayareaFormikValue(wayarea) {
-    console.log("selected:", wayarea);
     const value = wayarea?.VAYLAT || "";
     setOneLastUsedParameter(formik.values, "vaylat", value);
     formik.setFieldValue("vaylat", value);
