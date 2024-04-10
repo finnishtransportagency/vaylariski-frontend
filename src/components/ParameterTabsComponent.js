@@ -70,7 +70,7 @@ export default function ParameterTabsComponent() {
   const generatePaths = async (
     values,
     selectedCalculationType,
-    selectedRouteline
+    selectedRouteline,
   ) => {
     let paths = {
       path: "",
@@ -85,9 +85,7 @@ export default function ParameterTabsComponent() {
       paths.path = `routeline/calculate_risk?routename=${encodeURIComponent(
         selectedRouteline
       )}`;
-      paths.path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
+      paths.path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(selectedRouteline)}&draft=${encodeURIComponent(values.boat.draft)}`;
     } else if (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE) {
       paths.path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
         values.vaylat
@@ -105,9 +103,7 @@ export default function ParameterTabsComponent() {
       paths.path_routeline = `routeline/calculate_risk?routename=${encodeURIComponent(
         selectedRouteline
       )}`;
-      paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
-        selectedRouteline
-      )}`;
+      paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(selectedRouteline)}&draft=${encodeURIComponent(values.boat.draft)}`;
     }
     return paths;
   };
@@ -115,7 +111,7 @@ export default function ParameterTabsComponent() {
     const paths = await generatePaths(
       values,
       selectedCalculationType,
-      selectedRouteline
+      selectedRouteline,
     );
 
     // Set spinner
