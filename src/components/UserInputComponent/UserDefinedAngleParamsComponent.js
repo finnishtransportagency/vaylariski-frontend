@@ -4,10 +4,11 @@ import {
   InputLabel,
   TextField,
   Typography,
+  Tooltip,
   Autocomplete,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { FieldArray } from "formik";
+import { FieldArray, useField } from "formik";
 import PropTypes from "prop-types";
 import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import { useContext, useState, useEffect } from "react";
@@ -22,12 +23,17 @@ import BendAngleIcon from "icons/BendAngleIcon";
 import BendAngleIconSelected from "icons/BendAngleIconSelected";
 import SelectedWayareaContext from "contexts/SelectedWayareaContext";
 import apiClient from "http-common";
+import { isSubmitDisabled } from "../../utils/ValidateSubmit";
+import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext";
+import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
-  const { tabValue, tabIndex, formik, ...other } = props;
+  const { name, tabValue, tabIndex, formik, ...other } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [field, meta] = useField(name);
   const newAngle = {
     GDO_GID: "",
     SADE: "",
@@ -36,6 +42,9 @@ export default function UserDefinedAngleParamsComponent(props) {
   };
 
   const { selectedWayarea } = useContext(SelectedWayareaContext);
+  const { selectedCalculationType } = useContext(
+    SelectedCalculationTypeContext
+  );
   const [selectedGDO_GIDs, setSelectedGDO_GIDs] = useState([]);
 
   const [textFieldHasContent, setTextFieldHasContent] = useState([]);
@@ -103,6 +112,7 @@ export default function UserDefinedAngleParamsComponent(props) {
       return updatedTextFieldHasContent;
     });
   };
+
   return (
     <div
       role="TabPanelComponent"
@@ -149,28 +159,44 @@ export default function UserDefinedAngleParamsComponent(props) {
                               <InputLabel style={{ fontSize: 14 }}>
                                 GDO_GID
                               </InputLabel>
-                              <Autocomplete
-                                fullWidth
-                                id={`navline_angle_params.${index}.GDO_GID`}
-                                options={allGDOGIDs}
-                                getOptionLabel={(option) =>
-                                  option.toString() ?? ""
+                              <Tooltip
+                                placement="right"
+                                arrow
+                                title={
+                                  !formik?.values?.navline_angle_params[index]
+                                    .GDO_GID && "GDO_GID vaaditaan"
+                                  // : meta.error
                                 }
-                                value={selectedGDO_GIDs[index] || null}
-                                onChange={(ev, newValue) =>
-                                  handleMenuItemClick(ev, newValue, index)
-                                }
-                                size="small"
-                                renderInput={(params) => (
-                                  <TextField
-                                    required
-                                    style={{
-                                      width: 220,
-                                    }}
-                                    {...params}
-                                  />
-                                )}
-                              />
+                                id="angle-params-tooltip"
+                              >
+                                <Autocomplete
+                                  fullWidth
+                                  id={`navline_angle_params.${index}.GDO_GID`}
+                                  options={allGDOGIDs}
+                                  getOptionLabel={(option) =>
+                                    option.toString() ?? ""
+                                  }
+                                  value={selectedGDO_GIDs[index] || null}
+                                  onChange={(ev, newValue) =>
+                                    handleMenuItemClick(ev, newValue, index)
+                                  }
+                                  size="small"
+                                  renderInput={(params) => (
+                                    <TextField
+                                      required
+                                      style={{
+                                        width: 220,
+                                      }}
+                                      error={
+                                        !formik?.values?.navline_angle_params[
+                                          index
+                                        ].GDO_GID
+                                      }
+                                      {...params}
+                                    />
+                                  )}
+                                />
+                              </Tooltip>
                             </Grid>
 
                             <Grid>
@@ -284,26 +310,41 @@ export default function UserDefinedAngleParamsComponent(props) {
                   )}
                 </FieldArray>
               </div>
-              <span>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                  sx={{ minWidth: "1" }}
-                  style={{ marginTop: 3 }}
-                  disabled={
-                    !(formik.isValid && formik.dirty) ||
-                    selectedWayareaWithNoGDOGID
-                  } //formik.dirty is needed to disable on initial load
-                  data-cy-id="submit-button"
-                >
-                  <span style={{ marginRight: "0.2em" }}>Lähetä</span>
-                  {!(formik.isValid && formik.dirty) ||
-                  selectedWayareaWithNoGDOGID ? (
-                    <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
-                  ) : null}
-                </Button>
-              </span>
+              <Tooltip
+                placement="bottom"
+                arrow
+                id="submit-button-tooltip"
+                title={ValidateSubmitTooltip(
+                  formik,
+                  selectedCalculationType,
+                  selectedWayareaWithNoGDOGID
+                )}
+              >
+                <span>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    sx={{ minWidth: "1" }}
+                    style={{ marginTop: 3 }}
+                    disabled={isSubmitDisabled(
+                      formik,
+                      selectedCalculationType,
+                      selectedWayareaWithNoGDOGID
+                    )}
+                    data-cy-id="submit-button"
+                  >
+                    <span style={{ marginRight: "0.2em" }}>Lähetä</span>
+                    {isSubmitDisabled(
+                      formik,
+                      selectedCalculationType,
+                      selectedWayareaWithNoGDOGID
+                    ) ? (
+                      <AiOutlineInfoCircle data-cy-id="submit-disable-icon" />
+                    ) : null}
+                  </Button>
+                </span>
+              </Tooltip>
             </div>
           </Grid>
         </Grid>
@@ -314,6 +355,7 @@ export default function UserDefinedAngleParamsComponent(props) {
 
 UserDefinedAngleParamsComponent.propTypes = {
   formik: PropTypes.object,
+  name: PropTypes.string,
   children: PropTypes.node,
   tabIndex: PropTypes.number.isRequired,
   tabValue: PropTypes.number.isRequired,
