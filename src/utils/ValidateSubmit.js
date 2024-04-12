@@ -28,8 +28,8 @@ const hasEmptyNavLineAngleParams = (formik) => {
     formik.values.navline_angle_params.length > 0
   ) {
     return (
-      formik.values.navline_angle_params.filter((row) => row.GDO_GID === "")
-        .length > 0
+      formik.values.navline_angle_params.filter((row) => !row.GDO_GID).length >
+      0
     );
   }
   return false;

@@ -61,16 +61,14 @@ export default function UserDefinedAngleParamsComponent(props) {
     });
   };
   const handleRemoveRow = (index) => {
-    formik.setFieldValue(`navline_angle_params.${index}.GDO_GID`, null); // Reset the GDO_GID value
-    setSelectedGDO_GIDs((prevSelectedGDO_GIDs) => {
-      const updatedSelectedGDO_GIDs = [...prevSelectedGDO_GIDs];
-      updatedSelectedGDO_GIDs[index] = null;
-      return updatedSelectedGDO_GIDs;
-    });
-    formik.values.navline_angle_params.splice(index, 1); // Remove the row from formik values
-    formik.setFieldValue("navline_angle_params", [
-      ...formik.values.navline_angle_params,
-    ]); // Update formik values
+    const updatedSelectedGDO_GIDs = selectedGDO_GIDs.filter(
+      (_row, i) => i !== index
+    );
+    setSelectedGDO_GIDs(updatedSelectedGDO_GIDs);
+    const updatedNavlineAngleParams = formik.values.navline_angle_params.filter(
+      (_row, i) => i !== index
+    );
+    formik.setFieldValue("navline_angle_params", updatedNavlineAngleParams); // Update formik values
   };
   useEffect(() => {
     if (selectedWayarea) {
@@ -145,7 +143,7 @@ export default function UserDefinedAngleParamsComponent(props) {
                   samalle riville.
                 </Typography>
                 <FieldArray name="navline_angle_params">
-                  {({ remove, push }) => (
+                  {({ push }) => (
                     <div>
                       {formik.values.navline_angle_params.length > 0 &&
                         formik.values.navline_angle_params.map((el, index) => (
@@ -288,7 +286,6 @@ export default function UserDefinedAngleParamsComponent(props) {
                             )}
                             <Button
                               onClick={() => {
-                                remove(index);
                                 handleRemoveRow(index);
                               }}
                               style={{ marginTop: 12 }}
