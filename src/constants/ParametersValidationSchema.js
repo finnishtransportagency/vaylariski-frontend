@@ -11,6 +11,16 @@ const parametersValidationSchema = Yup.object().shape({
     }),
   }),
 
+  navline_angle_params: Yup.array()
+    .optional()
+    .of(
+      Yup.object().shape({
+        GDO_GID: Yup.number().required("GDO GID vaaditaan"),
+        SADE: Yup.string(),
+        BEND_ANGLE: Yup.string(),
+        S_BEND: Yup.string(),
+      })
+    ),
   boat: Yup.object().shape({
     length: Yup.number()
       .moreThan(0, "Pituus ei voi olla negatiivinen")
