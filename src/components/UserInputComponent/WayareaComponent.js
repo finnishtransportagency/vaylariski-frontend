@@ -131,6 +131,9 @@ export default function WayareaComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={wayareaInputString}
+                onBlur={() =>
+                  setWayareaInputString(formatInputString(selectedWayarea))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleWayareaInputStringChange(newInputValue);
