@@ -31,9 +31,7 @@ import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */
 }
 export default function UserDefinedAngleParamsComponent(props) {
-  const { name, tabValue, tabIndex, formik, ...other } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [field, meta] = useField(name);
+  const { tabValue, tabIndex, formik, ...other } = props;
   const newAngle = {
     GDO_GID: "",
     SADE: "",
