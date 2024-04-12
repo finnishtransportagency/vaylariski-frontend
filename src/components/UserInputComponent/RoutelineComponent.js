@@ -126,6 +126,9 @@ export default function RoutelineComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={routelineInputString}
+                onBlur={() =>
+                  setRoutelineInputString(formatInputString(selectedRouteline))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleRoutelineInputStringChange(newInputValue);
