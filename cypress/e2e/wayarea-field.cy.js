@@ -98,5 +98,19 @@ describe("Wayarea field works", () => {
         "- Valitulle väylälle ei löydy navigointilinjoja"
       );
     });
+
+    it("Switching tabs doesn't change wayarea value", () => {
+      cy.get("@wayarea-dropdown-button").click();
+      cy.get('ul[id="vaylat-listbox"]')
+        .find("li")
+        .contains("100 - Oulu - Kemi väylä")
+        .click();
+
+      cy.getByDataCyId("user-defined-angle-tab").click();
+      cy.getByDataCyId("parametres-tab").click();
+      cy.get("@wayarea-input")
+        .invoke("val")
+        .should("equal", "100 - Oulu - Kemi väylä");
+    });
   });
 });

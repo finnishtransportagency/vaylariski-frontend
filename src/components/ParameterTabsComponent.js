@@ -198,11 +198,13 @@ export default function ParameterTabsComponent() {
             label="Parametrit"
             {...a11yProps(0)}
             className={`main-tab ${value === 0 ? "main-tab-active" : ""}`}
+            data-cy-id={"parametres-tab"}
           />
           <Tab
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
             className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
+            data-cy-id={"user-defined-angle-tab"}
           />
           <Tab
             label="Parametrikokoelmat"
