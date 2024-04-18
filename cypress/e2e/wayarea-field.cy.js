@@ -72,12 +72,12 @@ describe("Wayarea field works", () => {
       cy.get("@wayarea-dropdown-button").click();
       cy.get('ul[id="vaylat-listbox"]')
         .find("li")
-        .contains("7010 - Akonniemen väylät")
+        .contains("5920 - Maringinlahden väylä")
         .click();
 
       //Check notification
       cy.contains(
-        "Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä 7010"
+        "Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä 5920"
       );
 
       //Check GDO GID field
