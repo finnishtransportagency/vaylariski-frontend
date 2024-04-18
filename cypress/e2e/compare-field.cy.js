@@ -27,6 +27,7 @@ describe("Compare field works", () => {
   it("Has correct initial values in both dropdowns", () => {
     cy.get("@wayarea-dropdown-button").click();
     cy.contains("7010 - Akonniemen väylät");
+    cy.get("@wayarea-dropdown-button").click();
 
     cy.get("@routeline-dropdown-button").click();
     cy.contains("FIEMA-FISKV (15.3m Inbound)");
