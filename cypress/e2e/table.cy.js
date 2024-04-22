@@ -25,48 +25,48 @@ describe("Table works", () => {
   });
 
   describe("Table works", () => {
-    // it("Populating table works with initial columns", () => {
-    //   cy.get("@wayarea-dropdown-button").click();
-    //   cy.get('ul[id="vaylat-listbox"]')
-    //     .find("li")
-    //     .contains("100 - Oulu - Kemi väylä")
-    //     .click();
-    //   cy.get("@submit-button").click();
-    //   cy.wait("@getIntermediatePoints").then((interception) => {
-    //     cy.get('div[class*="riv-table"]').should("exist");
-    //     cy.get('div[role*="row"]').should("exist");
-    //     // Has cells
-    //     cy.get('div[role*="gridcell"').should("exist");
-    //     // Has initial columns
-    //     cy.contains("span", "Indeksi").should("exist");
-    //     cy.contains("span", "GDO_GID").should("exist");
-    //     cy.contains("span", "VAYLAT").should("exist");
-    //     cy.contains("span", "RIV summa").should("exist");
-    //   });
-    // });
+    it("Populating table works with initial columns", () => {
+      cy.get("@wayarea-dropdown-button").click();
+      cy.get('ul[id="vaylat-listbox"]')
+        .find("li")
+        .contains("100 - Oulu - Kemi väylä")
+        .click();
+      cy.get("@submit-button").click();
+      cy.wait("@getIntermediatePoints").then((interception) => {
+        cy.get('div[class*="riv-table"]').should("exist");
+        cy.get('div[role*="row"]').should("exist");
+        // Has cells
+        cy.get('div[role*="gridcell"').should("exist");
+        // Has initial columns
+        cy.contains("span", "Indeksi").should("exist");
+        cy.contains("span", "GDO_GID").should("exist");
+        cy.contains("span", "VAYLAT").should("exist");
+        cy.contains("span", "RIV summa").should("exist");
+      });
+    });
 
-    // it("Select columns works", () => {
-    //   cy.get("@wayarea-dropdown-button").click();
-    //   cy.get('ul[id="vaylat-listbox"]')
-    //     .find("li")
-    //     .contains("100 - Oulu - Kemi väylä")
-    //     .click();
-    //   cy.get("@submit-button").click();
-    //   cy.wait("@getIntermediatePoints").then((interception) => {
-    //     cy.contains("button", "Valitse sarakkeet").should("exist").click();
-    //     cy.contains("label", "RIV mutka").should("exist").click();
-    //     cy.get("body").click("topRight");
-    //     // Has previously set columns
-    //     cy.contains("span", "Indeksi").should("exist");
-    //     cy.contains("span", "GDO_GID").should("exist");
-    //     cy.contains("span", "VAYLAT").should("exist");
-    //     cy.contains("span", "RIV summa").should("exist");
-    //     // Has newly added column
-    //     cy.contains("span", "RIV mutka").should("exist");
-    //   });
-    // });
+    it("Select columns works", () => {
+      cy.get("@wayarea-dropdown-button").click();
+      cy.get('ul[id="vaylat-listbox"]')
+        .find("li")
+        .contains("100 - Oulu - Kemi väylä")
+        .click();
+      cy.get("@submit-button").click();
+      cy.wait("@getIntermediatePoints").then((interception) => {
+        cy.contains("button", "Valitse sarakkeet").should("exist").click();
+        cy.contains("label", "RIV mutka").should("exist").click();
+        cy.get("body").click("topRight");
+        // Has previously set columns
+        cy.contains("span", "Indeksi").should("exist");
+        cy.contains("span", "GDO_GID").should("exist");
+        cy.contains("span", "VAYLAT").should("exist");
+        cy.contains("span", "RIV summa").should("exist");
+        // Has newly added column
+        cy.contains("span", "RIV mutka").should("exist");
+      });
+    });
 
-    it("Select table filter", () => {
+    it("Selecting table filter", () => {
       cy.get("@wayarea-dropdown-button").click();
       cy.get('ul[id="vaylat-listbox"]')
         .find("li")
