@@ -122,6 +122,7 @@ export default function BoatMenuComponent(props) {
               renderInput={(params) => (
                 <TextField style={{ backgroundColor: "white" }} {...params} />
               )}
+              data-cy-id="boat-input"
             />
           </Form.Group>
         </Grid>
@@ -132,18 +133,21 @@ export default function BoatMenuComponent(props) {
           formikName={"boat.length"}
           label={"Pituus (m)"}
           step={0.1}
+          dataCyId="boat-length-input"
         />
         <CustomNumber
           formik={formik}
           formikName={"boat.beam"}
           label={"Leveys (m)"}
           step={0.1}
+          dataCyId="boat-beam-input"
         />
         <CustomNumber
           formik={formik}
           formikName={"boat.draft"}
           label={"Syväys (m)"}
           step={0.1}
+          dataCyId="boat-draft-input"
         />
       </Grid>
       <Grid paddingBottom={2}>
