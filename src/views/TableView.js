@@ -106,6 +106,7 @@ function TableView(props, { direction }) {
     .map((column) => ({
       ...column,
       header: column.name,
+      width: 340,
     }));
 
   // Handle so that all of the columns are selected

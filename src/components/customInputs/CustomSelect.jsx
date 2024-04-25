@@ -1,4 +1,5 @@
 import { Grid, Select, InputLabel, MenuItem } from "@mui/material";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 /**
  *
@@ -34,6 +35,7 @@ export default function CustomSelect({
         style={{ fontSize: 14 }}
         fullWidth
         onChange={(e) => {
+          setOneLastUsedParameter(formik.values, formikName, e.target.value);
           formik.setFieldValue(formikName, e.target.value);
         }}
       >

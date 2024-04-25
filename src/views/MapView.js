@@ -234,8 +234,8 @@ function GeoJSONMarkers() {
     geojsonFeatGroup.addTo(map);
   }, [RIVResults, RIVTrafficLight]);
 
-  // Helper function to render a tooltip to the map for the selectedRowIndex
-  const toggleMapTooltipAndPanToPoint = () => {
+  // Helper function to render a tooltip to the map for the selectedRowIndex, as well as adding a highlight to the point
+  const pointSelectedFromTableOrDiagram = () => {
     let chosenLayer;
     // TODO: Optimise this, and check how this can be implemented
     // without having to use ts-ignore
@@ -259,6 +259,24 @@ function GeoJSONMarkers() {
       chosenLayer.openPopup();
       // @ts-ignore
       map.panTo(chosenLayer._latlng);
+
+      // Remove the highlight circle marker from the map, and add it to the newly selected layer
+      highlightFeatureGroup.clearLayers();
+
+      const highlight = L.circleMarker(
+        chosenLayer.getLatLng(),
+        highlighMapPoint
+      );
+
+      highlightFeatureGroup.addLayer(highlight);
+
+      // Add the highlight feature group to the map
+      highlightFeatureGroup.addTo(map);
+
+      // Original cirle markers to front so the bind popup works in re-clicking
+      if (map.hasLayer(geojsonFeatGroup)) {
+        geojsonFeatGroup.bringToFront();
+      }
     }
   };
 
@@ -267,10 +285,10 @@ function GeoJSONMarkers() {
   useEffect(() => {
     if (tableRowClicked) {
       setTableRowClicked(false);
-      toggleMapTooltipAndPanToPoint();
+      pointSelectedFromTableOrDiagram();
     } else if (diagramPointClicked) {
       setDiagramPointClicked(false);
-      toggleMapTooltipAndPanToPoint();
+      pointSelectedFromTableOrDiagram();
     }
   }, [selectedRowIndex]);
 

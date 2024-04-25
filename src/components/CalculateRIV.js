@@ -28,11 +28,16 @@ import AllGDOGIDSContext from "../contexts/AllGDOGIDSContext";
 import "allotment/dist/style.css";
 import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
+import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
+import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);
   const [previousRIVResults, setPreviousRIVResults] = useState([]);
-  const [userInput, setUserInput] = useState(userInputDefault);
+  const [userInput, setUserInput] = useState(
+    JSON.parse(JSON.stringify(userInputDefault))
+  );
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [selectedWayarea, setSelectedWayarea] = useState(null);
   const [selectedRouteline, setSelectedRouteline] = useState(null);
@@ -61,6 +66,9 @@ function CalculateRIV() {
   const [mapPointClicked, setMapPointClicked] = useState(false);
   const [tableRowClicked, setTableRowClicked] = useState(false);
   const [diagramPointClicked, setDiagramPointClicked] = useState(false);
+  const [selectedWayareaLoaded, setSelectedWayareaLoaded] = useState(0);
+  const [selectedRoutelineLoaded, setSelectedRoutelineLoaded] = useState(false);
+  const [selectedBoatLoaded, setSelectedBoatLoaded] = useState(false);
 
   const mapRef = useRef();
 
@@ -97,95 +105,121 @@ function CalculateRIV() {
                         <AllGDOGIDSContext.Provider
                           value={{ allGDOGIDs, setAllGDOGIDs }}
                         >
-                          <SelectedWayareaChangedContext.Provider
+                          <SelectedWayareaLoadedContext.Provider
                             value={{
-                              selectedWayareaChanged,
-                              setSelectedWayareaChanged,
+                              selectedWayareaLoaded,
+                              setSelectedWayareaLoaded,
                             }}
                           >
-                            <SelectedRoutelineChangedContext.Provider
+                            <SelectedRoutelineLoadedContext.Provider
                               value={{
-                                selectedRoutelineChanged,
-                                setSelectedRoutelineChanged,
+                                selectedRoutelineLoaded,
+                                setSelectedRoutelineLoaded,
                               }}
                             >
-                              <SelectedWayareaWithNoGDOGIDContext.Provider
+                              <SelectedWayareaChangedContext.Provider
                                 value={{
-                                  selectedWayareaWithNoGDOGID,
-                                  setSelectedWayareaWithNoGDOGID,
+                                  selectedWayareaChanged,
+                                  setSelectedWayareaChanged,
                                 }}
                               >
-                                <CalculationIntervalContext.Provider
+                                <SelectedRoutelineChangedContext.Provider
                                   value={{
-                                    calculationInterval,
-                                    setCalculationInterval,
+                                    selectedRoutelineChanged,
+                                    setSelectedRoutelineChanged,
                                   }}
                                 >
-                                  <GDOGIDListContext.Provider
+                                  <SelectedBoatLoadedContext.Provider
                                     value={{
-                                      selectedGDOGIDString,
-                                      setSelectedGDOGIDString,
+                                      selectedBoatLoaded,
+                                      setSelectedBoatLoaded,
                                     }}
                                   >
-                                    <SelectedBoatContext.Provider
-                                      value={{ selectedBoat, setSelectedBoat }}
+                                    <SelectedWayareaWithNoGDOGIDContext.Provider
+                                      value={{
+                                        selectedWayareaWithNoGDOGID,
+                                        setSelectedWayareaWithNoGDOGID,
+                                      }}
                                     >
-                                      <SelectedIndexContext.Provider
+                                      <CalculationIntervalContext.Provider
                                         value={{
-                                          selectedRowIndex,
-                                          setSelectedRowIndex,
+                                          calculationInterval,
+                                          setCalculationInterval,
                                         }}
                                       >
-                                        <MapPointClickedContext.Provider
+                                        <GDOGIDListContext.Provider
                                           value={{
-                                            mapPointClicked,
-                                            setMapPointClicked,
+                                            selectedGDOGIDString,
+                                            setSelectedGDOGIDString,
                                           }}
                                         >
-                                          <TableRowClickedContext.Provider
+                                          <SelectedBoatContext.Provider
                                             value={{
-                                              tableRowClicked,
-                                              setTableRowClicked,
+                                              selectedBoat,
+                                              setSelectedBoat,
                                             }}
                                           >
-                                            <DiagramPointClickedContext.Provider
+                                            <SelectedIndexContext.Provider
                                               value={{
-                                                diagramPointClicked,
-                                                setDiagramPointClicked,
+                                                selectedRowIndex,
+                                                setSelectedRowIndex,
                                               }}
                                             >
-                                              <NotificationComponent />
-                                              <LoadingSpinner />
-                                              <div>
-                                                <Allotment
-                                                  onChange={() => {
-                                                    mapRef.current.invalidateMapSize();
+                                              <MapPointClickedContext.Provider
+                                                value={{
+                                                  mapPointClicked,
+                                                  setMapPointClicked,
+                                                }}
+                                              >
+                                                <TableRowClickedContext.Provider
+                                                  value={{
+                                                    tableRowClicked,
+                                                    setTableRowClicked,
                                                   }}
-                                                  className="main-wrapper"
                                                 >
-                                                  <div className="parameter-and-riv-wrapper">
+                                                  <DiagramPointClickedContext.Provider
+                                                    value={{
+                                                      diagramPointClicked,
+                                                      setDiagramPointClicked,
+                                                    }}
+                                                  >
+                                                    <NotificationComponent />
+                                                    <LoadingSpinner />
                                                     <div>
-                                                      <ParameterTabsComponent />
+                                                      <Allotment
+                                                        onChange={() => {
+                                                          mapRef.current.invalidateMapSize();
+                                                        }}
+                                                        className="main-wrapper"
+                                                      >
+                                                        <div className="parameter-and-riv-wrapper">
+                                                          <div>
+                                                            <ParameterTabsComponent />
+                                                          </div>
+                                                          <div className="riv-wrapper">
+                                                            <RIVResultsTabsComponent />
+                                                          </div>
+                                                        </div>
+                                                        <div className="map-wrapper">
+                                                          <MapView
+                                                            ref={mapRef}
+                                                          />
+                                                        </div>
+                                                      </Allotment>
                                                     </div>
-                                                    <div className="riv-wrapper">
-                                                      <RIVResultsTabsComponent />
-                                                    </div>
-                                                  </div>
-                                                  <div className="map-wrapper">
-                                                    <MapView ref={mapRef} />
-                                                  </div>
-                                                </Allotment>
-                                              </div>
-                                            </DiagramPointClickedContext.Provider>
-                                          </TableRowClickedContext.Provider>
-                                        </MapPointClickedContext.Provider>
-                                      </SelectedIndexContext.Provider>
-                                    </SelectedBoatContext.Provider>
-                                  </GDOGIDListContext.Provider>
-                                </CalculationIntervalContext.Provider>
-                              </SelectedWayareaWithNoGDOGIDContext.Provider>
-                            </SelectedRoutelineChangedContext.Provider>
-                          </SelectedWayareaChangedContext.Provider>
+                                                  </DiagramPointClickedContext.Provider>
+                                                </TableRowClickedContext.Provider>
+                                              </MapPointClickedContext.Provider>
+                                            </SelectedIndexContext.Provider>
+                                          </SelectedBoatContext.Provider>
+                                        </GDOGIDListContext.Provider>
+                                      </CalculationIntervalContext.Provider>
+                                    </SelectedWayareaWithNoGDOGIDContext.Provider>
+                                  </SelectedBoatLoadedContext.Provider>
+                                </SelectedRoutelineChangedContext.Provider>
+                              </SelectedWayareaChangedContext.Provider>
+                            </SelectedRoutelineLoadedContext.Provider>
+                          </SelectedWayareaLoadedContext.Provider>
                         </AllGDOGIDSContext.Provider>
                       </PreviousRIVResultsContext.Provider>
                     </SelectedRoutelineContext.Provider>

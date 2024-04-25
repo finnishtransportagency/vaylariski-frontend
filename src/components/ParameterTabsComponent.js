@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -16,6 +16,16 @@ import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import parametersValidationSchema from "constants/ParametersValidationSchema";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { calculationTypeEnums } from "constants/enums";
+import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent";
+import {
+  getLastUsedParameters,
+  setAllLastUsedParameters,
+} from "utils/browserStorageHelpers";
+import userInputDefault from "constants/UserInputDefault";
+import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
+import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
+import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
+import { sortRIVpointsByRadius } from "../utils/sorting";
 
 function a11yProps(index) {
   return {
@@ -27,10 +37,29 @@ function a11yProps(index) {
 export default function ParameterTabsComponent() {
   const [value, setValue] = useState(0);
   const { setSpinnerVisible } = useContext(SpinnerVisibilityContext);
-  const { userInput } = useContext(UserInputContext);
+  const { userInput, setUserInput } = useContext(UserInputContext);
   const { setRIVResults } = useContext(RIVResultContext);
   const { setNotificationStatus } = useContext(NotificationContext);
   const { selectedRouteline } = useContext(SelectedRoutelineContext);
+  const { setSelectedWayareaLoaded } = useContext(SelectedWayareaLoadedContext);
+  const { setSelectedRoutelineLoaded } = useContext(
+    SelectedRoutelineLoadedContext
+  );
+  const { setSelectedBoatLoaded } = useContext(SelectedBoatLoadedContext);
+
+  useEffect(() => {
+    const lastUsedParameters = getLastUsedParameters();
+    if (lastUsedParameters) {
+      if (window.confirm("Ladataanko viimeiseksi käytetyt parametrit?")) {
+        setUserInput(lastUsedParameters);
+        setSelectedWayareaLoaded(1);
+        setSelectedRoutelineLoaded(true);
+        setSelectedBoatLoaded(true);
+      } else {
+        setAllLastUsedParameters(JSON.parse(JSON.stringify(userInputDefault)));
+      }
+    }
+  }, []);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -59,7 +88,7 @@ export default function ParameterTabsComponent() {
       )}`;
       paths.path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
         selectedRouteline
-      )}`;
+      )}&draft=${encodeURIComponent(values.boat.draft)}`;
     } else if (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE) {
       paths.path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
         values.vaylat
@@ -79,7 +108,7 @@ export default function ParameterTabsComponent() {
       )}`;
       paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
         selectedRouteline
-      )}`;
+      )}&draft=${encodeURIComponent(values.boat.draft)}`;
     }
     return paths;
   };
@@ -128,7 +157,8 @@ export default function ParameterTabsComponent() {
           apiClient.post(paths.path, values),
           apiClient.get(paths.path_wayarea),
         ]);
-        setRIVResults(response.data);
+        // Arranges points in order, which adds curves to the top of the map
+        setRIVResults(sortRIVpointsByRadius(response.data));
         setWayareaPolygons(response_wayarea.data);
       }
     } catch (err) {
@@ -176,10 +206,16 @@ export default function ParameterTabsComponent() {
             {...a11yProps(1)}
             className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
           />
+          <Tab
+            label="Parametrikokoelmat"
+            {...a11yProps(2)}
+            className={`main-tab ${value === 2 ? "main-tab-active" : ""}`}
+          />
         </Tabs>
         {/* <Tab label="Lisää uusi mitoitusalus kantaan" {...a11yProps(2)} /> */}
       </Box>
       <Formik
+        enableReinitialize={true} //Default is false. Control whether Formik should reset the form if initialValues changes (using deep equality).
         onSubmit={(values) => {
           fetchRiskValue(values);
         }}
@@ -192,8 +228,14 @@ export default function ParameterTabsComponent() {
               <div className="main-tab-content">
                 <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
                 <UserDefinedAngleParamsComponent
+                  name="navline_angle_params"
                   tabValue={value}
                   tabIndex={1}
+                  formik={formik}
+                />
+                <DefaultParametersComponent
+                  tabValue={value}
+                  tabIndex={2}
                   formik={formik}
                 />
               </div>

@@ -17,8 +17,22 @@ const isSubmitDisabled = (
       (formik.values.routename == "" ||
         formik.values.vaylat == null ||
         formik.values.vaylat == "" ||
-        selectedWayareaWithNoGDOGID))
+        selectedWayareaWithNoGDOGID)) ||
+    hasEmptyNavLineAngleParams(formik)
   );
 };
 
-export { isSubmitDisabled };
+const hasEmptyNavLineAngleParams = (formik) => {
+  if (
+    formik?.values?.navline_angle_params &&
+    formik.values.navline_angle_params.length > 0
+  ) {
+    return (
+      formik.values.navline_angle_params.filter((row) => !row.GDO_GID).length >
+      0
+    );
+  }
+  return false;
+};
+
+export { isSubmitDisabled, hasEmptyNavLineAngleParams };

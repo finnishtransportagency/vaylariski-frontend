@@ -1,4 +1,5 @@
 import { InputLabel, Tooltip, TextField, Grid } from "@mui/material";
+import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
 
 /**
  *
@@ -59,10 +60,12 @@ export default function CustomNumber({
             type={disabled ? "text" : "number"}
             value={value}
             onChange={(e) => {
-              formik.setFieldValue(
+              setOneLastUsedParameter(
+                formik.values,
                 formikName,
-                !isNaN(e.target.value) ? Number(e.target.value) : ""
+                e.target.value
               );
+              formik.setFieldValue(formikName, e.target.value);
             }}
           />
         </span>
