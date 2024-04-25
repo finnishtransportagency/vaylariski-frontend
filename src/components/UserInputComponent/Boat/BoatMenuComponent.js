@@ -43,6 +43,18 @@ export default function BoatMenuComponent(props) {
     apiClient
       .get(path)
       .then((response) => {
+        //Sorted in alphabetical order
+        response.data.sort((a, b) => {
+          const boatNameA = a.VAY_NIMISU.toLowerCase();
+          const boatNameB = b.VAY_NIMISU.toLowerCase();
+          if (boatNameA > boatNameB) {
+            return 1;
+          }
+          if (boatNameB > boatNameA) {
+            return -1;
+          }
+          return 0;
+        });
         setDefaultBoats(response.data);
       })
       .catch((err) => {

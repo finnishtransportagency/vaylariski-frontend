@@ -25,6 +25,7 @@ import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
 import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
+import { sortRIVpointsByRadius } from "../utils/sorting";
 
 function a11yProps(index) {
   return {
@@ -156,7 +157,8 @@ export default function ParameterTabsComponent() {
           apiClient.post(paths.path, values),
           apiClient.get(paths.path_wayarea),
         ]);
-        setRIVResults(response.data);
+        // Arranges points in order, which adds curves to the top of the map
+        setRIVResults(sortRIVpointsByRadius(response.data));
         setWayareaPolygons(response_wayarea.data);
       }
     } catch (err) {
