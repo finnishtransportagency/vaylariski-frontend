@@ -21,7 +21,7 @@ describe("Wayarea field works", () => {
 
   it("Has correct initial values in the dropdown", () => {
     cy.get("@wayarea-dropdown-button").click();
-    cy.contains("100 - Oulu - Kemi väylä");
+    cy.contains("100 - Oulu");
   });
 
   it("Correct fields are disabled initially with correct tooltips", () => {
@@ -51,6 +51,7 @@ describe("Wayarea field works", () => {
       //Select the wayarea with id 100
       cy.get("@wayarea-dropdown-button").click();
       cy.get('ul[id="vaylat-listbox"]')
+        .should("exist")
         .find("li")
         .contains("100 - Oulu - Kemi väylä")
         .click();

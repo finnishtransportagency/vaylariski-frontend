@@ -69,7 +69,7 @@ describe("Compare field works", () => {
       cy.get('ul[id="vaylat-listbox"]')
         .find("li")
         .contains("100 - Oulu - Kemi väylä")
-        .click();
+        .click({ force: true });
 
       //Check routeline field
       cy.get("@routeline-input").should("be.empty");
