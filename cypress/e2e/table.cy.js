@@ -11,11 +11,6 @@ describe("Table works", () => {
     cy.get('input[id="vaylat"]').as("wayarea-input");
     cy.getByDataCyId("vaylat.id").find("button").as("wayarea-dropdown-button");
 
-    cy.get('input[id="navline.starting_gdo_gid"]').as("gid-input");
-    cy.getByDataCyId("navline.starting_gdo_gid.id")
-      .find("button")
-      .as("gid-dropdown-button");
-
     cy.getByDataCyId("submit-button").as("submit-button");
 
     cy.intercept(
@@ -38,6 +33,7 @@ describe("Table works", () => {
         // Has cells
         cy.get('div[role*="gridcell"').should("exist");
         // Has initial columns
+        cy.get('div[class*="riv-table"]').should("exist").scrollTo("right");
         cy.contains("span", "Indeksi").should("exist");
         cy.contains("span", "GDO_GID").should("exist");
         cy.contains("span", "VAYLAT").should("exist");
@@ -57,6 +53,7 @@ describe("Table works", () => {
         cy.contains("label", "RIV mutka").should("exist").click();
         cy.get("body").click("topRight");
         // Has previously set columns
+        cy.get('div[class*="riv-table"]').should("exist").scrollTo("right");
         cy.contains("span", "Indeksi").should("exist");
         cy.contains("span", "GDO_GID").should("exist");
         cy.contains("span", "VAYLAT").should("exist");
