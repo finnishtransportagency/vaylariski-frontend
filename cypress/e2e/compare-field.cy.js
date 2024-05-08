@@ -26,7 +26,8 @@ describe("Compare field works", () => {
 
   it("Has correct initial values in both dropdowns", () => {
     cy.get("@wayarea-dropdown-button").click();
-    cy.contains("7010 - Akonniemen väylät");
+    cy.contains("100 - Oulu - Kemi väylä");
+    cy.get("@wayarea-dropdown-button").click();
 
     cy.get("@routeline-dropdown-button").click();
     cy.contains("FIEMA-FISKV (15.3m Inbound)");
@@ -68,7 +69,7 @@ describe("Compare field works", () => {
       cy.get('ul[id="vaylat-listbox"]')
         .find("li")
         .contains("100 - Oulu - Kemi väylä")
-        .click();
+        .click({ force: true });
 
       //Check routeline field
       cy.get("@routeline-input").should("be.empty");

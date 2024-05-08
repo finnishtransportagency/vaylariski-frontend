@@ -21,7 +21,7 @@ describe("Wayarea field works", () => {
 
   it("Has correct initial values in the dropdown", () => {
     cy.get("@wayarea-dropdown-button").click();
-    cy.contains("7010 - Akonniemen väylät");
+    cy.contains("100 - Oulu");
   });
 
   it("Correct fields are disabled initially with correct tooltips", () => {
@@ -51,6 +51,7 @@ describe("Wayarea field works", () => {
       //Select the wayarea with id 100
       cy.get("@wayarea-dropdown-button").click();
       cy.get('ul[id="vaylat-listbox"]')
+        .should("exist")
         .find("li")
         .contains("100 - Oulu - Kemi väylä")
         .click();
@@ -67,25 +68,12 @@ describe("Wayarea field works", () => {
       cy.get("@submit-button").should("be.enabled");
     });
 
-    it("Selecting wayarea with no GDO_GID keeps GDO_GID-input and submit button disabled and has correct tooltips", () => {
-      //Select the wayarea with id 7010
+    it("Do not show wayareas with no GDO_GID", () => {
+      //Select the wayarea with id 5920
       cy.get("@wayarea-dropdown-button").click();
       cy.get('ul[id="vaylat-listbox"]')
         .find("li")
-        .contains("7010 - Akonniemen väylät")
-        .click();
-
-      //Check notification
-      cy.contains(
-        "Navigointilinjan tunnusta ei löytynyt valitulle väylälle id:llä 7010"
-      );
-
-      //Check GDO GID field
-      cy.get("@gid-input").should("be.disabled");
-      cy.get("@gid-input").trigger("mouseover", { force: true });
-      cy.get("#gdo-gid-tooltip").contains(
-        "Valitulle väylälle ei löydy tunnuksia"
-      );
+        .should("not.contain", "5920 - Maringinlahden väylä");
 
       //Check submit button
       cy.get("@submit-button").scrollIntoView();
@@ -94,9 +82,21 @@ describe("Wayarea field works", () => {
       cy.get("#submit-button-tooltip").contains(
         "Korjaa seuraavat asiat lähettääksesi arvot:"
       );
-      cy.get("#submit-button-tooltip").contains(
-        "- Valitulle väylälle ei löydy navigointilinjoja"
-      );
+      cy.get("#submit-button-tooltip").contains("- Valitse navigointilinja");
+    });
+
+    it("Switching tabs doesn't change wayarea value", () => {
+      cy.get("@wayarea-dropdown-button").click();
+      cy.get('ul[id="vaylat-listbox"]')
+        .find("li")
+        .contains("100 - Oulu - Kemi väylä")
+        .click();
+
+      cy.getByDataCyId("user-defined-angle-tab").click();
+      cy.getByDataCyId("parametres-tab").click();
+      cy.get("@wayarea-input")
+        .invoke("val")
+        .should("equal", "100 - Oulu - Kemi väylä");
     });
   });
 });
