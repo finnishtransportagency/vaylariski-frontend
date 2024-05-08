@@ -101,6 +101,9 @@ export const layerBindPopupString = (feature) =>
   "S-mutka [m]: " +
   JSON.stringify(feature.properties.bend_S_length) +
   "\n" +
+  "U-mutka [m]: " +
+  JSON.stringify(feature.properties.bend_U_length) +
+  "\n" +
   "Mutkan suuntakulma [°]: " +
   JSON.stringify(feature.properties.bend_angle) +
   "\n" +
