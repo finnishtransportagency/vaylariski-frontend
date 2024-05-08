@@ -13,6 +13,7 @@ import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
  *  value?: number | string
  *  disabled?: boolean
  *  size?: "medium" | "small" | "tiny"
+ *  dataCyId?: string,
  *  }} props
  * @returns {JSX.Element}
  */
@@ -26,7 +27,9 @@ export default function CustomNumber({
   value = formikName.split(".").reduce((a, b) => a[b], formik.values),
   disabled = false,
   size = "small",
+  dataCyId,
 }) {
+  console.log(dataCyId);
   return (
     <Grid item xs={xs}>
       {label ? (
@@ -67,6 +70,7 @@ export default function CustomNumber({
               );
               formik.setFieldValue(formikName, e.target.value);
             }}
+            data-cy-id={dataCyId}
           />
         </span>
       </Tooltip>

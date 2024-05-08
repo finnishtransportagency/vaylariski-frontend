@@ -49,4 +49,18 @@ describe("Route field works", () => {
     cy.get("@submit-button").scrollIntoView();
     cy.get("@submit-button").should("be.enabled");
   });
+
+  it("Switching tabs doesn't change routeline value", () => {
+    cy.get("@routeline-dropdown-button").click();
+    cy.get('ul[id="routename-listbox"]')
+      .find("li")
+      .contains("FIORR-FIKHA (via Ruotsinsalmi)")
+      .click();
+
+    cy.getByDataCyId("user-defined-angle-tab").click();
+    cy.getByDataCyId("parametres-tab").click();
+    cy.get("@routeline-input")
+      .invoke("val")
+      .should("equal", "FIORR-FIKHA (via Ruotsinsalmi)");
+  });
 });

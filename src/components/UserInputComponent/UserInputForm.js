@@ -86,6 +86,7 @@ function UserInputForm(props) {
               className={`inner-tab ${
                 innerTabValue === 1 ? "inner-tab-active" : ""
               }`}
+              data-cy-id="boat-tab"
             />
             <Tab
               label="Olosuhteet ja vaikuttavat tekijät"
