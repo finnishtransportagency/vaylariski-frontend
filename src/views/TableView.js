@@ -156,6 +156,12 @@ function TableView(props, { direction }) {
           resultRowsEnums.BEND_S_LENGTH
         );
         break;
+      case resultRowsEnums.BEND_U_LENGTH:
+        sortedRows = sortTableStringOfNumbersWithInf(
+          sortedRows,
+          resultRowsEnums.BEND_U_LENGTH
+        );
+        break;
       case resultRowsEnums.BEND_RADIUS:
         sortedRows = sortTableStringOfNumbersWithInf(
           sortedRows,

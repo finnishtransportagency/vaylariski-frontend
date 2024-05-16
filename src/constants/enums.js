@@ -35,6 +35,7 @@ export const resultRowsEnums = {
   W_WIND: "W_wind",
   AIDS_TO_NAVIGATION_CATEGORY: "aids_to_navigation_category",
   BEND_S_LENGTH: "bend_S_length",
+  BEND_U_LENGTH: "bend_U_length",
   BEND_ANGLE: "bend_angle",
   BEND_RADIUS: "bend_radius",
   BOTTOM_SURFACE_CATEGORY: "bottom_surface_category",

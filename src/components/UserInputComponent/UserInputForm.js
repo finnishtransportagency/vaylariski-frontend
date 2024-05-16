@@ -21,6 +21,7 @@ import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { isSubmitDisabled } from "utils/ValidateSubmit";
 import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
+import SorUBendComponent from './SorUBendComponent';
 
 function a11yProps(index) {
   return {
@@ -99,6 +100,13 @@ function UserInputForm(props) {
               {...a11yProps(3)}
               className={`inner-tab ${
                 innerTabValue === 3 ? "inner-tab-active" : ""
+              }`}
+            />
+            <Tab
+              label="S- ja U-mutkien kertoimet"
+              {...a11yProps(4)}
+              className={`inner-tab ${
+                innerTabValue === 4 ? "inner-tab-active" : ""
               }`}
             />
           </Tabs>
@@ -210,6 +218,33 @@ function UserInputForm(props) {
                     paddingLeft={2}
                   >
                     <PFBendComponent formik={formik} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
+            {innerTabValue === 4 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <SorUBendComponent formik={formik} type={"S"} />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <SorUBendComponent formik={formik} type={"U"} />
                   </Grid>
                 </Grid>
               </Grid>

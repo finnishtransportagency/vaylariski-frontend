@@ -182,6 +182,12 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
+    key: resultRowsEnums.BEND_U_LENGTH,
+    name: "U-mutka [m]",
+    resizable: true,
+    sortable: true,
+  },
+  {
     key: resultRowsEnums.BEND_ANGLE,
     name: "Mutkan suuntakulma [°]",
     resizable: true,
