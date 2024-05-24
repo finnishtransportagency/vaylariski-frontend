@@ -80,7 +80,7 @@ const userInputDefault = {
   },
   navline_angle_params: [],
 
-  PF_bend_parameters: {
+  pf_bend_parameters: {
     bend_ratio_lim_1: 0.6,
     bend_ratio_lim_2: 1.0,
     bend_ratio_lim_3: 1.6,
@@ -107,14 +107,14 @@ const userInputDefault = {
   routename: "",
   vaylat: null,
 
-  S_bend_multipliers: {
+  s_bend_multipliers: {
     S_bend_multiplier_1: 0,
     S_bend_multiplier_2: 1,
     S_bend_multiplier_3: 2,
     S_bend_multiplier_4: 3,
     S_bend_multiplier_5: 4,
   },
-  U_bend_multipliers: {
+  u_bend_multipliers: {
     U_bend_multiplier_1: 0,
     U_bend_multiplier_2: 1,
     U_bend_multiplier_3: 2,

@@ -33,7 +33,7 @@ const parametersValidationSchema = Yup.object().shape({
       .required("Syväys vaaditaan"),
   }),
 
-  PF_bend_parameters: Yup.object().shape({
+  pf_bend_parameters: Yup.object().shape({
     bend_ratio_lim_1: Yup.number()
       .min(0, "bend_ration_lim_1 ei voi olla negatiivinen")
       .max(
@@ -244,7 +244,7 @@ const parametersValidationSchema = Yup.object().shape({
       .min(0, "strong_wind_slow_vessel ei voi olla negatiivinen")
       .required("strong_wind_slow_vessel vaaditaan"),
   }),
-  S_bend_multipliers: Yup.object({
+  s_bend_multipliers: Yup.object({
     S_bend_multiplier_1: Yup.number()
       .min(0, "S_bend_multiplier_1 ei voi olla negatiivinen")
       .max(
@@ -283,7 +283,7 @@ const parametersValidationSchema = Yup.object().shape({
       "S_bend_multiplier_5 ei voi olla pienempi kun S_bend_multiplier_4"
     ),
   }),
-  U_bend_multipliers: Yup.object({
+  u_bend_multipliers: Yup.object({
     U_bend_multiplier_1: Yup.number()
       .min(0, "U_bend_multiplier_1 ei voi olla negatiivinen")
       .max(
