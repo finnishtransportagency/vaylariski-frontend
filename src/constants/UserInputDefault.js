@@ -108,18 +108,18 @@ const userInputDefault = {
   vaylat: null,
 
   s_bend_multipliers: {
-    S_bend_multiplier_1: 0,
-    S_bend_multiplier_2: 1,
-    S_bend_multiplier_3: 2,
-    S_bend_multiplier_4: 3,
-    S_bend_multiplier_5: 4,
+    s_bend_multiplier_1: 0,
+    s_bend_multiplier_2: 1,
+    s_bend_multiplier_3: 2,
+    s_bend_multiplier_4: 3,
+    s_bend_multiplier_5: 4,
   },
   u_bend_multipliers: {
-    U_bend_multiplier_1: 0,
-    U_bend_multiplier_2: 1,
-    U_bend_multiplier_3: 2,
-    U_bend_multiplier_4: 3,
-    U_bend_multiplier_5: 4,
+    u_bend_multiplier_1: 0,
+    u_bend_multiplier_2: 1,
+    u_bend_multiplier_3: 2,
+    u_bend_multiplier_4: 3,
+    u_bend_multiplier_5: 4,
   },
 };
 
