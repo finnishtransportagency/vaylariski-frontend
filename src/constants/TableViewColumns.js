@@ -46,6 +46,12 @@ export const TableViewColumns = [
     sortable: true,
   },
   {
+    key: resultRowsEnums.RIV_3_U_BEND,
+    name: "RIV U-mutka",
+    resizable: true,
+    sortable: true,
+  },
+  {
     key: resultRowsEnums.RIV_4_TRAFFIC_COMPLEXITY,
     name: "RIV liikenne",
     resizable: true,
@@ -79,6 +85,12 @@ export const TableViewColumns = [
   {
     key: resultRowsEnums.PF_3_S_BEND,
     name: "S-mutkan toistuvuus",
+    resizable: true,
+    sortable: true,
+  },
+  {
+    key: resultRowsEnums.PF_3_U_BEND,
+    name: "U-mutkan toistuvuus",
     resizable: true,
     sortable: true,
   },
