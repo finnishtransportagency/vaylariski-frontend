@@ -31,6 +31,9 @@ export const layerBindPopupString = (feature) =>
   "RIV S-mutka: " +
   JSON.stringify(feature.properties.RIV_3_s_bend) +
   "\n" +
+  "RIV U-mutka: " +
+  JSON.stringify(feature.properties.RIV_3_u_bend) +
+  "\n" +
   "RIV liikenne: " +
   JSON.stringify(feature.properties.RIV_4_traffic_complexity) +
   "\n" +
@@ -49,6 +52,9 @@ export const layerBindPopupString = (feature) =>
   "\n" +
   "S-mutkan toistuvuus: " +
   JSON.stringify(feature.properties.PF_3_s_bend) +
+  "\n" +
+  "U-mutkan toistuvuus: " +
+  JSON.stringify(feature.properties.PF_3_u_bend) +
   "\n" +
   "Liikenteen toistuvuus: " +
   JSON.stringify(feature.properties.PF_4_traffic_complexity) +
@@ -100,6 +106,9 @@ export const layerBindPopupString = (feature) =>
   "\n" +
   "S-mutka [m]: " +
   JSON.stringify(feature.properties.bend_S_length) +
+  "\n" +
+  "U-mutka [m]: " +
+  JSON.stringify(feature.properties.bend_U_length) +
   "\n" +
   "Mutkan suuntakulma [°]: " +
   JSON.stringify(feature.properties.bend_angle) +

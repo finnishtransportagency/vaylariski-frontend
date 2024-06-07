@@ -106,6 +106,7 @@ function TableView(props, { direction }) {
     .map((column) => ({
       ...column,
       header: column.name,
+      width: 340,
     }));
 
   // Handle so that all of the columns are selected
@@ -153,6 +154,12 @@ function TableView(props, { direction }) {
         sortedRows = sortTableStringOfNumbersWithInf(
           sortedRows,
           resultRowsEnums.BEND_S_LENGTH
+        );
+        break;
+      case resultRowsEnums.BEND_U_LENGTH:
+        sortedRows = sortTableStringOfNumbersWithInf(
+          sortedRows,
+          resultRowsEnums.BEND_U_LENGTH
         );
         break;
       case resultRowsEnums.BEND_RADIUS:

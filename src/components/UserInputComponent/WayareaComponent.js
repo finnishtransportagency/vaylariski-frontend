@@ -70,6 +70,18 @@ export default function WayareaComponent(props) {
     apiClient
       .get(path)
       .then((response) => {
+        //Sorted in alphabetical order
+        response.data.sort((a, b) => {
+          const wayareaNameA = a.NIMIFI.toLowerCase();
+          const wayareaNameB = b.NIMIFI.toLowerCase();
+          if (wayareaNameA > wayareaNameB) {
+            return 1;
+          }
+          if (wayareaNameB > wayareaNameA) {
+            return -1;
+          }
+          return 0;
+        });
         setAllWayareas(response.data);
         loadWayarea(response.data);
       })
@@ -131,6 +143,9 @@ export default function WayareaComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={wayareaInputString}
+                onBlur={() =>
+                  setWayareaInputString(formatInputString(selectedWayarea))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleWayareaInputStringChange(newInputValue);

@@ -33,31 +33,29 @@ export default function BoatMenuComponent(props) {
     SelectedBoatLoadedContext
   );
 
-  const loadBoat = (data) => {
-    if (selectedBoatLoaded) {
-      const sameBoat = (b) => {
-        return (
-          b.PITUUS === formik.values.boat.length &&
-          b.LEVEYS === formik.values.boat.beam &&
-          b.SYVAYS === formik.values.boat.draft
-        );
-      };
-      const v = data.find((b) => sameBoat(b));
-      setBoatInputString(formatInputString(v));
-      setChosenBoatFormikValue(v);
-      setSelectedBoat(v);
-      // done
-      setSelectedBoatLoaded(false);
-    }
-  };
-
   useEffect(() => {
+    if (selectedBoatLoaded) {
+      setBoatInputString(""); // we only save length beam and draft
+      setSelectedBoat(null); // we only save length beam and draft
+      setSelectedBoatLoaded(false); // done
+    }
     const path = "get_all_default_ships";
     apiClient
       .get(path)
       .then((response) => {
+        //Sorted in alphabetical order
+        response.data.sort((a, b) => {
+          const boatNameA = a.VAY_NIMISU.toLowerCase();
+          const boatNameB = b.VAY_NIMISU.toLowerCase();
+          if (boatNameA > boatNameB) {
+            return 1;
+          }
+          if (boatNameB > boatNameA) {
+            return -1;
+          }
+          return 0;
+        });
         setDefaultBoats(response.data);
-        loadBoat(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -136,6 +134,7 @@ export default function BoatMenuComponent(props) {
               renderInput={(params) => (
                 <TextField style={{ backgroundColor: "white" }} {...params} />
               )}
+              data-cy-id="boat-input"
             />
           </Form.Group>
         </Grid>
@@ -146,18 +145,21 @@ export default function BoatMenuComponent(props) {
           formikName={"boat.length"}
           label={"Pituus (m)"}
           step={0.1}
+          dataCyId="boat-length-input"
         />
         <CustomNumber
           formik={formik}
           formikName={"boat.beam"}
           label={"Leveys (m)"}
           step={0.1}
+          dataCyId="boat-beam-input"
         />
         <CustomNumber
           formik={formik}
           formikName={"boat.draft"}
           label={"Syväys (m)"}
           step={0.1}
+          dataCyId="boat-draft-input"
         />
       </Grid>
       <Grid paddingBottom={2}>

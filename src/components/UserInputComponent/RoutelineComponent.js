@@ -67,6 +67,18 @@ export default function RoutelineComponent(props) {
     apiClient
       .get(path)
       .then((response) => {
+        //Sorted in alphabetical order
+        response.data.sort((a, b) => {
+          const routelineA = a.toLowerCase();
+          const routelineB = b.toLowerCase();
+          if (routelineA > routelineB) {
+            return 1;
+          }
+          if (routelineB > routelineA) {
+            return -1;
+          }
+          return 0;
+        });
         setAllRouteline(response.data);
         loadRoute(response.data);
       })
@@ -126,6 +138,9 @@ export default function RoutelineComponent(props) {
                 }
                 onChange={(ev, newValue) => handleMenuItemClick(ev, newValue)}
                 inputValue={routelineInputString}
+                onBlur={() =>
+                  setRoutelineInputString(formatInputString(selectedRouteline))
+                }
                 onInputChange={(ev, newInputValue, reason) => {
                   if (reason === "input")
                     handleRoutelineInputStringChange(newInputValue);

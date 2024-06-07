@@ -20,7 +20,8 @@ import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
 import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { isSubmitDisabled } from "utils/ValidateSubmit";
-import { calculationTypeEnums } from "constants/enums";
+import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
+import SorUBendComponent from './SorUBendComponent';
 
 function a11yProps(index) {
   return {
@@ -44,62 +45,7 @@ function UserInputForm(props) {
   const submitButtonClicked = () => {
     setPreviousRIVResults(RIVResults);
   };
-  const validateSubmitTooltip = (
-    formik,
-    selectedCalculationType,
-    selectedWayareaWithNoGDOGID
-  ) => {
-    return selectedCalculationType == "" ||
-      (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
-        (formik.values.vaylat == null ||
-          formik.values.vaylat == "" ||
-          selectedWayareaWithNoGDOGID)) ||
-      (selectedCalculationType == calculationTypeEnums.ROUTELINE &&
-        formik.values.routename == "") ||
-      (selectedCalculationType == calculationTypeEnums.COMPARE &&
-        (formik.values.routename == "" ||
-          formik.values.vaylat == null ||
-          formik.values.vaylat == "" ||
-          selectedWayareaWithNoGDOGID)) ? (
-      <label style={{ fontSize: 14 }}>
-        <span data-cy-id="submit-button-tooltip-span">
-          Korjaa seuraavat asiat lähettääksesi arvot:
-          <br />
-          {/* When calculation type is not selected */}
-          {selectedCalculationType == "" && <>- Laskentatapa täytyy valita</>}
-          {/* When calculation type is routeline and routeline is not selected*/}
-          {selectedCalculationType == calculationTypeEnums.ROUTELINE &&
-            formik.values.routename == "" && <>- Valitse reitti</>}
-          {/* When calculation type is navigationline and navigationline is no selected  */}
-          {selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
-            (formik.values.vaylat == null || formik.values.vaylat == "") && (
-              <>- Valitse navigointilinja</>
-            )}
-          {/* When calculationtype is navigationline and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
-          {selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE &&
-            formik.values.vaylat !== null &&
-            formik.values.vaylat !== "" &&
-            selectedWayareaWithNoGDOGID && (
-              <>- Valitulle väylälle ei löydy navigointilinjoja</>
-            )}
-          {/* When calculation type is compare and either route name or routeline is not selected */}
-          {selectedCalculationType == calculationTypeEnums.COMPARE &&
-            (formik.values.routename == "" ||
-              formik.values.vaylat == null ||
-              formik.values.vaylat == "") && (
-              <>- Valitse navigointilinja ja reitti</>
-            )}
-          {/* When calculationtype is compare and navigationline is selected BUT there is no GDOGIDS for that navigation line */}
-          {selectedCalculationType == calculationTypeEnums.COMPARE &&
-            formik.values.vaylat !== null &&
-            formik.values.vaylat !== "" &&
-            selectedWayareaWithNoGDOGID && (
-              <>- Valitulle väylälle ei löydy navigointilinjoja</>
-            )}
-        </span>
-      </label>
-    ) : null;
-  };
+
   return (
     <div
       role="TabPanelComponent"
@@ -140,6 +86,7 @@ function UserInputForm(props) {
               className={`inner-tab ${
                 innerTabValue === 1 ? "inner-tab-active" : ""
               }`}
+              data-cy-id="boat-tab"
             />
             <Tab
               label="Olosuhteet ja vaikuttavat tekijät"
@@ -153,6 +100,13 @@ function UserInputForm(props) {
               {...a11yProps(3)}
               className={`inner-tab ${
                 innerTabValue === 3 ? "inner-tab-active" : ""
+              }`}
+            />
+            <Tab
+              label="S- ja U-mutkien kertoimet"
+              {...a11yProps(4)}
+              className={`inner-tab ${
+                innerTabValue === 4 ? "inner-tab-active" : ""
               }`}
             />
           </Tabs>
@@ -268,13 +222,40 @@ function UserInputForm(props) {
                 </Grid>
               </Grid>
             )}
+            {innerTabValue === 4 && (
+              <Grid item xs={12} className="user-input-grid-inner">
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <SorUBendComponent formik={formik} type={"S"} />
+                  </Grid>
+                </Grid>
+                <Divider orientation="vertical" flexItem />
+                <Grid xs={6} item>
+                  <Grid
+                    container
+                    spacing={1}
+                    paddingBottom={2}
+                    paddingRight={1}
+                    paddingLeft={2}
+                  >
+                    <SorUBendComponent formik={formik} type={"U"} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Tooltip
               placement="bottom"
               arrow
               id="submit-button-tooltip"
-              title={validateSubmitTooltip(
+              title={ValidateSubmitTooltip(
                 formik,
                 selectedCalculationType,
                 selectedWayareaWithNoGDOGID

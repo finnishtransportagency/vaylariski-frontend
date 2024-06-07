@@ -7,3 +7,16 @@ export const sortTableStringOfNumbersWithInf = (sortedRows, columnKey) => {
     return a1 - b1;
   });
 };
+
+export const sortRIVpointsByRadius = (RIVResult) => {
+  RIVResult?.features.sort((a, b) => {
+    if (a.properties.bend_radius && !b.properties.bend_radius) {
+      return 1;
+    } else if (!a.properties.bend_radius && b.properties.bend_radius) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+  return RIVResult;
+};

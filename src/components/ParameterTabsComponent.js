@@ -25,6 +25,7 @@ import userInputDefault from "constants/UserInputDefault";
 import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
 import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
 import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
+import { sortRIVpointsByRadius } from "../utils/sorting";
 
 function a11yProps(index) {
   return {
@@ -87,7 +88,7 @@ export default function ParameterTabsComponent() {
       )}`;
       paths.path_wayarea = `routeline/wayarea_polygons?routename=${encodeURIComponent(
         selectedRouteline
-      )}`;
+      )}&draft=${encodeURIComponent(values.boat.draft)}`;
     } else if (selectedCalculationType == calculationTypeEnums.NAVIGATIONLINE) {
       paths.path = `fairway/calculate_risk?vaylat=${encodeURIComponent(
         values.vaylat
@@ -107,7 +108,7 @@ export default function ParameterTabsComponent() {
       )}`;
       paths.path_wayarea_routeline = `routeline/wayarea_polygons?routename=${encodeURIComponent(
         selectedRouteline
-      )}`;
+      )}&draft=${encodeURIComponent(values.boat.draft)}`;
     }
     return paths;
   };
@@ -156,7 +157,8 @@ export default function ParameterTabsComponent() {
           apiClient.post(paths.path, values),
           apiClient.get(paths.path_wayarea),
         ]);
-        setRIVResults(response.data);
+        // Arranges points in order, which adds curves to the top of the map
+        setRIVResults(sortRIVpointsByRadius(response.data));
         setWayareaPolygons(response_wayarea.data);
       }
     } catch (err) {
@@ -198,11 +200,13 @@ export default function ParameterTabsComponent() {
             label="Parametrit"
             {...a11yProps(0)}
             className={`main-tab ${value === 0 ? "main-tab-active" : ""}`}
+            data-cy-id={"parametres-tab"}
           />
           <Tab
             label="Navigointilinjojen valinnaiset parametrit"
             {...a11yProps(1)}
             className={`main-tab ${value === 1 ? "main-tab-active" : ""}`}
+            data-cy-id={"user-defined-angle-tab"}
           />
           <Tab
             label="Parametrikokoelmat"
@@ -226,6 +230,7 @@ export default function ParameterTabsComponent() {
               <div className="main-tab-content">
                 <UserInputForm tabValue={value} tabIndex={0} formik={formik} />
                 <UserDefinedAngleParamsComponent
+                  name="navline_angle_params"
                   tabValue={value}
                   tabIndex={1}
                   formik={formik}
