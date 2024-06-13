@@ -232,7 +232,7 @@ function UserInputForm(props) {
                     paddingRight={1}
                     paddingLeft={2}
                   >
-                    <SorUBendComponent formik={formik} type={"S"} />
+                    <SorUBendComponent formik={formik} type={"s"} />
                   </Grid>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
@@ -244,7 +244,7 @@ function UserInputForm(props) {
                     paddingRight={1}
                     paddingLeft={2}
                   >
-                    <SorUBendComponent formik={formik} type={"U"} />
+                    <SorUBendComponent formik={formik} type={"u"} />
                   </Grid>
                 </Grid>
               </Grid>
