@@ -15,7 +15,6 @@ describe("Wayarea field works", () => {
     cy.getByDataCyId("navline.starting_gdo_gid.id")
       .find("button")
       .as("gid-dropdown-button");
-
     cy.getByDataCyId("submit-button").as("submit-button");
   });
 

@@ -21,7 +21,7 @@ import SelectCalculationType from "./SelectCalculationType";
 import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
 import { isSubmitDisabled } from "utils/ValidateSubmit";
 import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
-import SorUBendComponent from './SorUBendComponent';
+import SorUBendComponent from "./SorUBendComponent";
 
 function a11yProps(index) {
   return {
