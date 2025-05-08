@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import RoutelineComponent from "./RoutelineComponent";
-import WayareaComponent from "./WayareaComponent";
-import GDOGIDMenuComponent from "./GDOGIDMenuComponent";
-import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-import FairwayWidth from "./FairwayWidth";
-import CalculationIntervalComponent from "./CalculationIntervalComponent";
-import { calculationTypeEnums } from "constants/enums";
-
 import { InputLabel, Grid, Select, MenuItem, Typography } from "@mui/material";
+
+import CalculationIntervalComponent from "./CalculationIntervalComponent.js";
+import FairwayWidth from "./FairwayWidth.js";
+import GDOGIDMenuComponent from "./GDOGIDMenuComponent.js";
+import RoutelineComponent from "./RoutelineComponent.js";
+import WayareaComponent from "./WayareaComponent.js";
+import { calculationTypeEnums } from "../../constants/enums.js";
+import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext.js";
 
 const SelectCalculationType = (props) => {
   const { formik } = props;

@@ -6,16 +6,16 @@ import {
   Grid,
   InputLabel,
 } from "@mui/material";
-
 import { useContext, useEffect, useState } from "react";
-import apiClient from "http-common";
-import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
-import Form from "react-bootstrap/Form";
-import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
-import SelectedRoutelineChangedContext from "../../contexts/SelectedRoutelineChangedContext";
-import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import { Form } from "react-bootstrap";
+
+import apiClient from "../../http-common.js";
+import NotificationContext from "../../contexts/NotificationContext.js";
+import SelectedRoutelineContext from "../../contexts/SelectedRoutelineContext.js";
+import SelectedRoutelineChangedContext from "../../contexts/SelectedRoutelineChangedContext.js";
+import SelectedRoutelineLoadedContext from "../../contexts/SelectedRoutelineLoadedContext.js";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 export default function RoutelineComponent(props) {
   const formatInputString = (routeline) => (routeline ? `${routeline}` : "");

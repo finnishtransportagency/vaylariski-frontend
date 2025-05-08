@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../customInputs/CustomNumber.jsx";
 
 export default function WeightFactorsComponent(props) {
   const { formik } = props;

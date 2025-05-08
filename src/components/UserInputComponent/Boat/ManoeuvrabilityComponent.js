@@ -1,4 +1,4 @@
-import CustomSelect from "components/customInputs/CustomSelect";
+import CustomSelect from "../../customInputs/CustomSelect.jsx";
 
 export default function ManoeuvrabilityComponent(props) {
   const { formik } = props;

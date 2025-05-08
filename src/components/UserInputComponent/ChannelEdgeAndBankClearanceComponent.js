@@ -9,8 +9,8 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
 
-import { table, simpleInput } from "utils/bankClearanceWFHelpers";
-import CustomRadio from "components/customInputs/CustomRadio";
+import { table, simpleInput } from "../../utils/bankClearanceWFHelpers.js";
+import CustomRadio from "../customInputs/CustomRadio.jsx";
 
 export default function ChannelEdgeAndBankClearanceComponent(props) {
   const { formik } = props;

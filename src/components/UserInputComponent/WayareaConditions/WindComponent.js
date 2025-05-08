@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
-import CustomRadio from "components/customInputs/CustomRadio";
 
-import { table, simpleInput } from "utils/WindHelpers";
+import CustomRadio from "../../customInputs/CustomRadio.jsx";
+import { table, simpleInput } from "../../../utils/WindHelpers.js";
 
 export default function WindComponent(props) {
   const { formik } = props;

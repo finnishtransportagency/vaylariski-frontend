@@ -1,7 +1,8 @@
 import { Typography, Grid, Tooltip, IconButton } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../components/customInputs/CustomNumber.jsx";
 
 const limText = (n, symbol) => {
   let whitespaceFront = false;

@@ -9,18 +9,19 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useContext, useEffect, useState } from "react";
-import apiClient from "http-common";
-import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
-import Form from "react-bootstrap/Form";
-import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import SelectedGDOGIDContext from "contexts/SelectedGDOGIDContext";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
-import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
-import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
-import AllGDOGIDSContext from "../../contexts/AllGDOGIDSContext";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
-import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
+import { Form } from "react-bootstrap";
+
+import apiClient from "../../http-common.js";
+import NotificationContext from "../../contexts/NotificationContext.js";
+import SelectedWayareaContext from "../../contexts/SelectedWayareaContext.js";
+import SelectedGDOGIDContext from "../../contexts/SelectedGDOGIDContext.js";
+import SpinnerVisibilityContext from "../../contexts/SpinnerVisibilityContext.js";
+import SelectedWayareaWithNoGDOGIDContext from "../../contexts/SelectedWayareaWithNoGDOGIDContext.js";
+import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext.js";
+import AllGDOGIDSContext from "../../contexts/AllGDOGIDSContext.js";
+import SelectedWayareaLoadedContext from "../../contexts/SelectedWayareaLoadedContext.js";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 export default function GDOGIDMenuComponent(props) {
   const { name, formik } = props;

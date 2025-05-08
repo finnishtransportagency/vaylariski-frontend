@@ -10,22 +10,25 @@ import {
 import { Stack } from "@mui/system";
 import { FieldArray, useField } from "formik";
 import PropTypes from "prop-types";
-import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
 import { useContext, useState, useEffect } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import SBendIcon from "icons/SBendIcon";
-import SBendIconSelected from "icons/SBendIconSelected";
-import BendRadiusIcon from "icons/BendRadiusIcon";
-import BendRadiusIconSelected from "icons/BendRadiusIconSelected";
-import BendAngleIcon from "icons/BendAngleIcon";
-import BendAngleIconSelected from "icons/BendAngleIconSelected";
-import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import apiClient from "http-common";
-import { isSubmitDisabled } from "../../utils/ValidateSubmit";
-import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext";
-import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
+
+import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip.js";
+import apiClient from "../../http-common.js";
+import BendAngleIcon from "../../icons/BendAngleIcon.js";
+import BendAngleIconSelected from "../../icons/BendAngleIconSelected.js";
+import BendRadiusIcon from "../../icons/BendRadiusIcon.js";
+import BendRadiusIconSelected from "../../icons/BendRadiusIconSelected.js";
+import SBendIcon from "../../icons/SBendIcon.js";
+import SBendIconSelected from "../../icons/SBendIconSelected.js";
+import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext.js";
+import SelectedWayareaContext from "../../contexts/SelectedWayareaContext.js";
+import SelectedWayareaWithNoGDOGIDContext from "../../contexts/SelectedWayareaWithNoGDOGIDContext.js";
+import { isSubmitDisabled } from "../../utils/ValidateSubmit.js";
+
+
 
 {
   /* Käyttäjän voi halutessaan ylikirjottaa kannassa lasketut SADE, BEND_ANGLE, S_BEND arvot antamilleen navigointilinjoille (GDO_GID) */

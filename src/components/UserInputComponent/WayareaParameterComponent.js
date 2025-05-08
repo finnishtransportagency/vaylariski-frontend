@@ -1,6 +1,7 @@
 import { Grid, Typography } from "@mui/material";
-import CustomMultipleSelect from "components/customInputs/CustomMultipleSelect";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomMultipleSelect from "../customInputs/CustomMultipleSelect.jsx";
+import CustomNumber from "../customInputs/CustomNumber.jsx";
 
 export default function WayareaParameterComponent(props) {
   const { formik } = props;

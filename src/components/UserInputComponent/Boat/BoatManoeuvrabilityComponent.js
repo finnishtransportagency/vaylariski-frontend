@@ -1,7 +1,7 @@
 import { Typography, Grid } from "@mui/material";
 
-import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent";
-import TurningRadiusComponent from "./TurningRadiusComponent";
+import ManoeuvrabilityComponent from "./ManoeuvrabilityComponent.js";
+import TurningRadiusComponent from "./TurningRadiusComponent.js";
 
 export default function BoatManoeuvrabilityComponent(props) {
   const { formik } = props;

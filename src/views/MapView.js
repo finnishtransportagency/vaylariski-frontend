@@ -7,24 +7,22 @@ import {
   useImperativeHandle,
 } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-
-import RIVResultContext from "../contexts/RIVResult";
-import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext";
-import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent";
-import SelectedIndexContext from "contexts/SelectedIndexContext";
-
-import WayareaPolygonContext from "contexts/WayareaPolygonContext";
 import L from "leaflet";
-import MapPointClickedContext from "contexts/MapPointClickedContext";
-import TableRowClickedContext from "contexts/TableRowClickedContext";
-import { layerBindPopupString } from "utils/layerBindPopupString";
-import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
-import { calculationTypeEnums, cssColorCodes } from "constants/enums";
-import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
-import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-
 import ReactDOMServer from "react-dom/server";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
+
+import { calculationTypeEnums, cssColorCodes } from "../constants/enums.js";
+import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent.js";
+import DiagramPointClickedContext from "../contexts/DiagramPointClickedContext.js";
+import MapPointClickedContext from "../contexts/MapPointClickedContext.js";
+import PreviousRIVResultsContext from "../contexts/PreviousRIVResultsContext.js";
+import RIVResultContext from "../contexts/RIVResult.js";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext.js";
+import SelectedCalculationTypeContext from "../contexts/SelectedCalculationTypeContext.js";
+import SelectedIndexContext from "../contexts/SelectedIndexContext.js";
+import TableRowClickedContext from "../contexts/TableRowClickedContext.js";
+import WayareaPolygonContext from "../contexts/WayareaPolygonContext.js";
+import { layerBindPopupString } from "../utils/layerBindPopupString.js";
 
 const geojsonMarkerOptionsGreen = {
   radius: 4,

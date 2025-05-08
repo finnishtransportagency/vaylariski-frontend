@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import CustomRadio from "components/customInputs/CustomRadio";
+
+import CustomRadio from "../../customInputs/CustomRadio.jsx";
 
 export default function BoatSpeedComponent(props) {
   const { formik } = props;

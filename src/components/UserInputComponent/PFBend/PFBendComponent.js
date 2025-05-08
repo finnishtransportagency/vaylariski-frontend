@@ -2,8 +2,9 @@ import { Typography, Grid, IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import PFBend1Component from "./PFBend1Component";
-import PFBend2Component from "./PFBend2Component";
+
+import PFBend1Component from "./PFBend1Component.js";
+import PFBend2Component from "./PFBend2Component.js";
 
 export default function PFBendComponent(props) {
   const { formik } = props;

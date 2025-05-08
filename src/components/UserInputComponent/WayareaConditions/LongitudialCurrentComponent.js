@@ -1,4 +1,4 @@
-import CustomRadio from "components/customInputs/CustomRadio";
+import CustomRadio from "../../customInputs/CustomRadio.jsx";
 
 export default function LongitudialCurrentComponent(props) {
   const { formik } = props;

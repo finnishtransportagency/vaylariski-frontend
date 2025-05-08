@@ -3,7 +3,7 @@ ARG PROXY_URL
 ARG REACT_APP_BASE_REST_URL
 
 # build environment
-FROM node:16.18.1-alpine as builder
+FROM node:16.18.1-alpine AS builder
 
 # Used by react on build time
 ARG PROXY_URL

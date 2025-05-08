@@ -7,7 +7,8 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../customInputs/CustomNumber.jsx";
 
 export default function WayareaDepthWFComponent(props) {
   const { formik } = props;

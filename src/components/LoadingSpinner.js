@@ -1,6 +1,7 @@
 import { Backdrop, CircularProgress } from "@mui/material";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
 import { useContext } from "react";
+
+import SpinnerVisibilityContext from "../contexts/SpinnerVisibilityContext.js";
 
 export default function LoadingSpinner() {
   const { spinnerVisible } = useContext(SpinnerVisibilityContext);

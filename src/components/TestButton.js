@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import apiClient from "../http-common";
+import apiClient from "../http-common.js";
 
 function TestButton() {
   const [response, setResponse] = useState({});

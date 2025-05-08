@@ -1,7 +1,8 @@
+import { useContext } from "react";
 import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import NotificationContext from "contexts/NotificationContext";
-import { useContext } from "react";
+
+import NotificationContext from "../contexts/NotificationContext.js";
 
 export default function NotificationComponent() {
   const { notificationStatus, setNotificationStatus } =

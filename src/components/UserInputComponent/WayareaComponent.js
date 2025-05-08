@@ -7,14 +7,15 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import apiClient from "http-common";
-import NotificationContext from "contexts/NotificationContext";
 import { useField } from "formik";
-import Form from "react-bootstrap/Form";
-import SelectedWayareaContext from "contexts/SelectedWayareaContext";
-import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
-import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
+import { Form } from "react-bootstrap";
+
+import apiClient from "../../http-common.js";
+import NotificationContext from "../../contexts/NotificationContext.js";
+import SelectedWayareaChangedContext from "../../contexts/SelectedWayareaChangedContext.js";
+import SelectedWayareaContext from "../../contexts/SelectedWayareaContext.js";
+import SelectedWayareaLoadedContext from "../../contexts/SelectedWayareaLoadedContext.js";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 export default function WayareaComponent(props) {
   const formatInputString = (wayarea) =>

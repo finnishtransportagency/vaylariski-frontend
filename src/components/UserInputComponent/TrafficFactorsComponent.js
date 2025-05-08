@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import CustomMultipleSelect from "components/customInputs/CustomMultipleSelect";
+
+import CustomMultipleSelect from "../customInputs/CustomMultipleSelect.jsx";
 
 export default function TrafficFactorsComponent(props) {
   const { formik } = props;

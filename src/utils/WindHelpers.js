@@ -1,5 +1,6 @@
 import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../components/customInputs/CustomNumber.jsx";
 
 const formikValueCategory = "wind_wf";
 const boatSpeedOptions = ["fast", "moderate", "slow"];

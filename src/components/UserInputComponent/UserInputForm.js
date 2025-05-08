@@ -1,27 +1,28 @@
 import { useContext, useState } from "react";
 import { Button, Divider, Grid, Tooltip } from "@mui/material";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import BoatMenuComponent from "./Boat/BoatMenuComponent";
-import BoatManoeuvrabilityComponent from "./Boat/BoatManoeuvrabilityComponent";
-import PropTypes from "prop-types";
-import SelectedWayareaWithNoGDOGIDContext from "contexts/SelectedWayareaWithNoGDOGIDContext";
-import BoatSpeedComponent from "./Boat/BoatSpeedComponent";
-import PFBendComponent from "./PFBend/PFBendComponent";
-import WayareaParameterComponent from "./WayareaParameterComponent";
-import WayareaDepthWFComponent from "./WayareaDepthWFComponent";
-import WayareaConditionsComponent from "./WayareaConditions/WayareaConditionsComponent";
-import WeightFactorsComponent from "./WeightFactorsComponent";
-import TrafficFactorsComponent from "./TrafficFactorsComponent";
-import ChannelEdgeAndBankClearanceComponent from "./ChannelEdgeAndBankClearanceComponent";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import RIVResultContext from "contexts/RIVResult";
-import PreviousRIVResultsContext from "contexts/PreviousRIVResultsContext";
-import SelectCalculationType from "./SelectCalculationType";
-import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-import { isSubmitDisabled } from "utils/ValidateSubmit";
-import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip";
-import SorUBendComponent from "./SorUBendComponent";
+import PropTypes from "prop-types";
+
+import BoatManoeuvrabilityComponent from "./Boat/BoatManoeuvrabilityComponent.js";
+import BoatMenuComponent from "./Boat/BoatMenuComponent.js";
+import BoatSpeedComponent from "./Boat/BoatSpeedComponent.js";
+import ChannelEdgeAndBankClearanceComponent from "./ChannelEdgeAndBankClearanceComponent.js";
+import PFBendComponent from "./PFBend/PFBendComponent.js";
+import SelectCalculationType from "./SelectCalculationType.js";
+import SorUBendComponent from './SorUBendComponent.js';
+import TrafficFactorsComponent from "./TrafficFactorsComponent.js";
+import WayareaConditionsComponent from "./WayareaConditions/WayareaConditionsComponent.js";
+import WayareaDepthWFComponent from "./WayareaDepthWFComponent.js";
+import WayareaParameterComponent from "./WayareaParameterComponent.js";
+import WeightFactorsComponent from "./WeightFactorsComponent.js";
+import { ValidateSubmitTooltip } from "./ValidateSubmitTooltip.js";
+import PreviousRIVResultsContext from "../../contexts/PreviousRIVResultsContext.js";
+import RIVResultContext from "../../contexts/RIVResult.js";
+import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext.js";
+import SelectedWayareaWithNoGDOGIDContext from "../../contexts/SelectedWayareaWithNoGDOGIDContext.js";
+import { isSubmitDisabled } from "../../utils/ValidateSubmit.js";
 
 function a11yProps(index) {
   return {

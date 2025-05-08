@@ -2,7 +2,8 @@ import { Typography, Grid, IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../customInputs/CustomNumber.jsx";
 
 /**
  * @param {{

@@ -1,5 +1,5 @@
-import { calculationTypeEnums } from "../../constants/enums";
-import { hasEmptyNavLineAngleParams } from "../../utils/ValidateSubmit";
+import { calculationTypeEnums } from "../../constants/enums.js";
+import { hasEmptyNavLineAngleParams } from "../../utils/ValidateSubmit.js";
 
 export const ValidateSubmitTooltip = (
   formik,

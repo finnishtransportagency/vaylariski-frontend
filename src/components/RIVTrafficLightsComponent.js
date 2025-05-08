@@ -12,12 +12,13 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import NotificationContext from "contexts/NotificationContext";
-import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useState } from "react";
 import { useContext } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { cssColorCodes } from "constants/enums";
+
+import { cssColorCodes } from "../constants/enums.js";
+import NotificationContext from "../contexts/NotificationContext.js";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext.js";
 
 export default function RIVTrafficLightsComponent() {
   const { RIVTrafficLight, setRIVTraffiLight } = useContext(

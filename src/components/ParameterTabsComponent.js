@@ -2,30 +2,29 @@ import { useContext, useState, useEffect } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import UserInputForm from "./UserInputComponent/UserInputForm";
-import SelectedRoutelineContext from "contexts/SelectedRoutelineContext";
-import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent";
-import SpinnerVisibilityContext from "contexts/SpinnerVisibilityContext";
-import RIVResultContext from "contexts/RIVResult";
-import NotificationContext from "contexts/NotificationContext";
-import UserInputContext from "contexts/UserInput";
-import apiClient from "http-common";
 import { Formik } from "formik";
 import { Form as FForm } from "formik";
-import WayareaPolygonContext from "contexts/WayareaPolygonContext";
-import parametersValidationSchema from "constants/ParametersValidationSchema";
-import SelectedCalculationTypeContext from "contexts/SelectedCalculationTypeContext";
-import { calculationTypeEnums } from "constants/enums";
-import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent";
-import {
-  getLastUsedParameters,
-  setAllLastUsedParameters,
-} from "utils/browserStorageHelpers";
-import userInputDefault from "constants/UserInputDefault";
-import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
-import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
-import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
-import { sortRIVpointsByRadius } from "../utils/sorting";
+
+
+import apiClient from "../http-common.js";
+import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent.js";
+import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent.js";
+import UserInputForm from "./UserInputComponent/UserInputForm.js";
+import SelectedRoutelineContext from "../contexts/SelectedRoutelineContext.js";
+import NotificationContext from "../contexts/NotificationContext.js";
+import RIVResultContext from "../contexts/RIVResult.js";
+import SelectedBoatLoadedContext from "../contexts/SelectedBoatLoadedContext.js";
+import SelectedCalculationTypeContext from "../contexts/SelectedCalculationTypeContext.js";
+import SelectedRoutelineLoadedContext from "../contexts/SelectedRoutelineLoadedContext.js";
+import SelectedWayareaLoadedContext from "../contexts/SelectedWayareaLoadedContext.js";
+import SpinnerVisibilityContext from "../contexts/SpinnerVisibilityContext.js";
+import UserInputContext from "../contexts/UserInput.js";
+import WayareaPolygonContext from "../contexts/WayareaPolygonContext.js";
+import parametersValidationSchema from "../constants/ParametersValidationSchema.js";
+import userInputDefault from "../constants/UserInputDefault.js";
+import { calculationTypeEnums } from "../constants/enums.js";
+import { getLastUsedParameters, setAllLastUsedParameters } from "../utils/browserStorageHelpers.js";
+import { sortRIVpointsByRadius } from "../utils/sorting.js";
 
 function a11yProps(index) {
   return {

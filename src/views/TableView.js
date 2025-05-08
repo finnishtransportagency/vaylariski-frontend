@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from "react";
-import DataGrid from "react-data-grid";
+import * as DataGrid from "react-data-grid";
 import { Formik, Form, ErrorMessage } from "formik";
 import "react-data-grid/lib/styles.css";
 import {
@@ -23,21 +23,22 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { CSVLink } from "react-csv";
-import RIVResultContext from "../contexts/RIVResult";
-import NotificationContext from "contexts/NotificationContext";
-import SelectedIndexContext from "contexts/SelectedIndexContext";
-import {
-  TableViewColumns as columns,
-  defaultTableViewColumns as defaultColumns,
-} from "constants/TableViewColumns";
-import MapPointClickedContext from "contexts/MapPointClickedContext";
-import TableRowClickedContext from "contexts/TableRowClickedContext";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DownloadIcon from "@mui/icons-material/Download";
-import { sortTableStringOfNumbersWithInf } from "utils/sorting";
-import { resultRowsEnums } from "constants/enums";
+import { CSVLink } from "react-csv";
+
+import {
+  TableViewColumns as columns,
+  defaultTableViewColumns as defaultColumns,
+} from "../constants/TableViewColumns.js";
+import { resultRowsEnums } from "../constants/enums.js";
+import MapPointClickedContext from "../contexts/MapPointClickedContext.js";
+import NotificationContext from "../contexts/NotificationContext.js";
+import RIVResultContext from "../contexts/RIVResult.js";
+import SelectedIndexContext from "../contexts/SelectedIndexContext.js";
+import TableRowClickedContext from "../contexts/TableRowClickedContext.js";
+import { sortTableStringOfNumbersWithInf } from "../utils/sorting.js";
 
 const style = {
   position: "absolute",

@@ -1,5 +1,3 @@
-import RIVResultContext from "contexts/RIVResult";
-import RIVTrafficLightContext from "contexts/RIVTrafficLightContext";
 import { useContext, useState, useEffect, useRef } from "react";
 import {
   LineChart,
@@ -11,9 +9,12 @@ import {
   ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
-import SelectedIndexContext from "contexts/SelectedIndexContext";
-import DiagramPointClickedContext from "contexts/DiagramPointClickedContext";
-import MapPointClickedContext from "contexts/MapPointClickedContext";
+
+import DiagramPointClickedContext from "../contexts/DiagramPointClickedContext.js";
+import MapPointClickedContext from "../contexts/MapPointClickedContext.js";
+import RIVResultContext from "../contexts/RIVResult.js";
+import RIVTrafficLightContext from "../contexts/RIVTrafficLightContext.js";
+import SelectedIndexContext from "../contexts/SelectedIndexContext.js";
 
 const CustomTooltipRender = (props) => {
   const { active, payload } = props;

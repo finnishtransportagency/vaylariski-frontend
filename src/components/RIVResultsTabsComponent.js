@@ -2,8 +2,9 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import DisplayRIVResultsDiagramView from "views/DisplayRIVResultsDiagramView";
-import TableView from "views/TableView";
+
+import DisplayRIVResultsDiagramView from "../views/DisplayRIVResultsDiagramView.js";
+import TableView from "../views/TableView.js";
 
 function a11yProps(index) {
   return {

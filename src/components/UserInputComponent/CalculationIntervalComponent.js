@@ -7,11 +7,11 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import CalculationIntervalContext from "../../contexts/CalculationIntervalContext";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+
+import CalculationIntervalContext from "../../contexts/CalculationIntervalContext.js";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 export default function CalculationIntervalComponent(props) {
   const { formik } = props;

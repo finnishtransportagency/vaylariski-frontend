@@ -1,8 +1,9 @@
 import { Grid, Typography } from "@mui/material";
-import WindComponent from "./WindComponent";
-import CrossCurrentCmponent from "./CrossCurrentCmponent";
-import LongitudialCurrentComponent from "./LongitudialCurrentComponent";
-import WaveHeightComponent from "./WaveHeightComponent";
+
+import WindComponent from "./WindComponent.js";
+import CrossCurrentCmponent from "./CrossCurrentCmponent.js";
+import LongitudialCurrentComponent from "./LongitudialCurrentComponent.js";
+import WaveHeightComponent from "./WaveHeightComponent.js";
 
 export default function WayareaConditionsComponent(props) {
   const { formik } = props;

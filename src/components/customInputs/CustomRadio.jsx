@@ -7,8 +7,8 @@ import {
   FormLabel,
   Tooltip,
 } from "@mui/material";
-import ConditionalWrapper from "components/ConditionalWrapper";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import ConditionalWrapper from "../ConditionalWrapper.js";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 /**
  *

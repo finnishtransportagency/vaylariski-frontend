@@ -14,18 +14,19 @@ import {
   TableRow,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import UserInputContext from "contexts/UserInput";
 import { useContext, useState, useEffect } from "react";
-import userInputDefault from "constants/UserInputDefault";
 import { getDiff } from "recursive-diff";
+
+import userInputDefault from "../../constants/UserInputDefault.js";
+import UserInputContext from "../../contexts/UserInput.js";
+import SelectedWayareaLoadedContext from "../../contexts/SelectedWayareaLoadedContext.js";
+import SelectedRoutelineLoadedContext from "../../contexts/SelectedRoutelineLoadedContext.js";
+import SelectedBoatLoadedContext from "../../contexts/SelectedBoatLoadedContext.js";
 import {
   setAllLastUsedParameters,
   saveParameterTemplate,
   getParameterTemplates,
-} from "utils/browserStorageHelpers";
-import SelectedWayareaLoadedContext from "contexts/SelectedWayareaLoadedContext";
-import SelectedRoutelineLoadedContext from "contexts/SelectedRoutelineLoadedContext";
-import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
+} from "../../utils/browserStorageHelpers.js";
 
 export default function DefaultParametersComponent(props) {
   const { tabValue, tabIndex, formik, ...other } = props;

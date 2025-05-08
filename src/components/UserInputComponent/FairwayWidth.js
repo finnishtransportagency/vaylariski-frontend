@@ -1,7 +1,8 @@
 import { Grid, Typography } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 export default function FairwayWidth(props) {
   const { formik } = props;

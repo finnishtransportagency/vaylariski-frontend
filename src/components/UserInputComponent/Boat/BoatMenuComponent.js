@@ -6,14 +6,16 @@ import {
   Switch,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import apiClient from "http-common";
-import NotificationContext from "contexts/NotificationContext";
-import Form from "react-bootstrap/Form";
-import SelectedBoatContext from "contexts/SelectedBoatContext";
-import userInputDefault from "constants/UserInputDefault";
-import CustomNumber from "components/customInputs/CustomNumber";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
-import SelectedBoatLoadedContext from "contexts/SelectedBoatLoadedContext";
+import { Form } from "react-bootstrap";
+
+import apiClient from "../../../http-common.js";
+import userInputDefault from "../../../constants/UserInputDefault.js";
+import NotificationContext from "../../../contexts/NotificationContext.js";
+import SelectedBoatContext from "../../../contexts/SelectedBoatContext.js";
+import SelectedBoatLoadedContext from "../../../contexts/SelectedBoatLoadedContext.js";
+import CustomNumber from "../../customInputs/CustomNumber.jsx";
+import { setOneLastUsedParameter } from "../../../utils/browserStorageHelpers.js";
+
 
 export default function BoatMenuComponent(props) {
   const formatInputString = (boat) =>

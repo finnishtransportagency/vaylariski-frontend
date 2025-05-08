@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
-import CustomNumber from "components/customInputs/CustomNumber";
+
+import CustomNumber from "../components/customInputs/CustomNumber.jsx";
 
 const formikValueCategory = "bank_clearance_wf";
 const formikValuePrefix = "edge_category";
