@@ -7,9 +7,9 @@ import { Form as FForm } from "formik";
 
 
 import apiClient from "../http-common.js";
-import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent.js";
-import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent.js";
-import UserInputForm from "./UserInputComponent/UserInputForm.js";
+import DefaultParametersComponent from "./UserInputComponent/DefaultParametersComponent.jsx";
+import UserDefinedAngleParamsComponent from "./UserInputComponent/UserDefinedAngleParamsComponent.jsx";
+import UserInputForm from "./UserInputComponent/UserInputForm.jsx";
 import SelectedRoutelineContext from "../contexts/SelectedRoutelineContext.js";
 import NotificationContext from "../contexts/NotificationContext.js";
 import RIVResultContext from "../contexts/RIVResult.js";

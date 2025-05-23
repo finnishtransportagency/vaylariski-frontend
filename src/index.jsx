@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
+import  { createRoot } from "react-dom/client";
 
-import App from "./App.js";
+import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 
 import "leaflet/dist/leaflet.css";
@@ -11,10 +11,10 @@ import "./styles/tooltip.css";
 import "./styles/tab.css";
 import "./styles/mapView.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -22,7 +22,7 @@ root.render(
       crossOrigin="anonymous"
     />
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

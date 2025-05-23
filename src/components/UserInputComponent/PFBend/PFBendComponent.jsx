@@ -3,8 +3,8 @@ import { useState } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
-import PFBend1Component from "./PFBend1Component.js";
-import PFBend2Component from "./PFBend2Component.js";
+import PFBend1Component from "./PFBend1Component.jsx";
+import PFBend2Component from "./PFBend2Component.jsx";
 
 export default function PFBendComponent(props) {
   const { formik } = props;

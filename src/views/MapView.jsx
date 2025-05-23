@@ -7,12 +7,12 @@ import {
   useImperativeHandle,
 } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
-import ReactDOMServer from "react-dom/server";
+import { divIcon, FeatureGroup, circleMarker, marker, GeoJSON } from "leaflet";
+import { renderToString} from "react-dom/server";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 
 import { calculationTypeEnums, cssColorCodes } from "../constants/enums.js";
-import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent.js";
+import RIVTrafficLightsComponent from "../components/RIVTrafficLightsComponent.jsx";
 import DiagramPointClickedContext from "../contexts/DiagramPointClickedContext.js";
 import MapPointClickedContext from "../contexts/MapPointClickedContext.js";
 import PreviousRIVResultsContext from "../contexts/PreviousRIVResultsContext.js";
@@ -69,9 +69,9 @@ const highlighMapPoint = {
 };
 
 // When comparing routeline and navigationline the cross sign is used instead of circle
-const crossIconRed = L.divIcon({
+const crossIconRed = divIcon({
   className: "material-icon",
-  html: ReactDOMServer.renderToString(
+  html: renderToString(
     <div>
       <CloseSharpIcon
         style={{ color: cssColorCodes.RED_100, fontSize: "0.75rem" }}
@@ -81,9 +81,9 @@ const crossIconRed = L.divIcon({
   iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default (approx)
 });
 
-const crossIconYellow = L.divIcon({
+const crossIconYellow = divIcon({
   className: "material-icon",
-  html: ReactDOMServer.renderToString(
+  html: renderToString(
     <div>
       <CloseSharpIcon
         style={{ color: cssColorCodes.YELLOW_100, fontSize: "0.75rem" }}
@@ -93,9 +93,9 @@ const crossIconYellow = L.divIcon({
   iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
 });
 
-const crossIconGreen = L.divIcon({
+const crossIconGreen = divIcon({
   className: "material-icon",
-  html: ReactDOMServer.renderToString(
+  html: renderToString(
     <div>
       <CloseSharpIcon
         style={{ color: cssColorCodes.GREEN_100, fontSize: "0.75rem" }}
@@ -105,9 +105,9 @@ const crossIconGreen = L.divIcon({
   iconAnchor: [6.5, 9], // This is the spot where the circle markers are anchored by default
 });
 
-const crossIconGray = L.divIcon({
+const crossIconGray = divIcon({
   className: "material-icon",
-  html: ReactDOMServer.renderToString(
+  html: renderToString(
     <div>
       <CloseSharpIcon style={{ color: "#83888a", fontSize: "0.75rem" }} />
     </div>
@@ -120,12 +120,12 @@ function GeoJSONMarkers() {
   const { RIVResults } = useContext(RIVResultContext);
   const { RIVTrafficLight } = useContext(RIVTrafficLightContext);
   const [geojsonFeatGroup, setGeojsonFeatGroup] = useState(
-    new L.FeatureGroup()
+    new FeatureGroup()
   );
   const [geojsonFeatGroupWay, setGeojsonFeatGroupWay] = useState(
-    new L.FeatureGroup()
+    new FeatureGroup()
   );
-  const [highlightFeatureGroup] = useState(new L.FeatureGroup());
+  const [highlightFeatureGroup] = useState(new FeatureGroup());
   const { wayareaPolygons } = useContext(WayareaPolygonContext);
   const { selectedRowIndex, setSelectedRowIndex } =
     useContext(SelectedIndexContext);
@@ -151,7 +151,7 @@ function GeoJSONMarkers() {
         highlightFeatureGroup.clearLayers();
 
         // Add a new circle marker to the highlight feature group
-        const highlight = L.circleMarker(layer.getLatLng(), highlighMapPoint);
+        const highlight = circleMarker(layer.getLatLng(), highlighMapPoint);
         highlightFeatureGroup.addLayer(highlight);
 
         // Add the highlight feature group to the map
@@ -177,44 +177,44 @@ function GeoJSONMarkers() {
         feature.properties.W_channel == null ||
         feature.properties.W_channel_depth == null
       ) {
-        return L.marker(latlng, { icon: crossIconGray });
+        return marker(latlng, { icon: crossIconGray });
       }
       if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-        return L.marker(latlng, { icon: crossIconGreen });
+        return marker(latlng, { icon: crossIconGreen });
       }
       if (
         feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
         feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
       ) {
-        return L.marker(latlng, { icon: crossIconYellow });
+        return marker(latlng, { icon: crossIconYellow });
       }
-      return L.marker(latlng, { icon: crossIconRed });
+      return marker(latlng, { icon: crossIconRed });
     } else {
       if (
         feature.properties.W_channel == null ||
         feature.properties.W_channel_depth == null
       ) {
-        return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+        return circleMarker(latlng, geojsonMarkerOptionsGray);
       }
       if (feature.properties.RISK_INDEX_SUM < RIVTrafficLight.green) {
-        return L.circleMarker(latlng, geojsonMarkerOptionsGreen);
+        return circleMarker(latlng, geojsonMarkerOptionsGreen);
       }
       if (
         feature.properties.RISK_INDEX_SUM >= RIVTrafficLight.green &&
         feature.properties.RISK_INDEX_SUM < RIVTrafficLight.yellow
       ) {
-        return L.circleMarker(latlng, geojsonMarkerOptionsYellow);
+        return circleMarker(latlng, geojsonMarkerOptionsYellow);
       }
-      return L.circleMarker(latlng, geojsonMarkerOptionsRed);
+      return circleMarker(latlng, geojsonMarkerOptionsRed);
     }
   }
 
   useEffect(() => {
     setGeojsonFeatGroupWay(geojsonFeatGroupWay.clearLayers());
     setGeojsonFeatGroupWay(highlightFeatureGroup.clearLayers());
-    const w_layers = new L.GeoJSON(wayareaPolygons, {
+    const w_layers = new GeoJSON(wayareaPolygons, {
       pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptionsGray);
+        return circleMarker(latlng, geojsonMarkerOptionsGray);
       },
     });
     setGeojsonFeatGroupWay(w_layers.addTo(geojsonFeatGroupWay));
@@ -223,7 +223,7 @@ function GeoJSONMarkers() {
 
   useEffect(() => {
     setGeojsonFeatGroup(geojsonFeatGroup.clearLayers());
-    const layers = new L.GeoJSON(RIVResults, {
+    const layers = new GeoJSON(RIVResults, {
       onEachFeature: onEachFeature,
       pointToLayer: pointToLayer,
     });
@@ -261,7 +261,7 @@ function GeoJSONMarkers() {
       // Remove the highlight circle marker from the map, and add it to the newly selected layer
       highlightFeatureGroup.clearLayers();
 
-      const highlight = L.circleMarker(
+      const highlight = circleMarker(
         chosenLayer.getLatLng(),
         highlighMapPoint
       );

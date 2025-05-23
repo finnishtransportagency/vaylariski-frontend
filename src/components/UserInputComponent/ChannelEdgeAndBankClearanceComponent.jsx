@@ -9,13 +9,14 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useState } from "react";
 
-import CustomRadio from "../../customInputs/CustomRadio.jsx";
-import { table, simpleInput } from "../../../utils/WindHelpers.js";
+import { table, simpleInput } from "../../utils/bankClearanceWFHelpers.jsx";
+import CustomRadio from "../customInputs/CustomRadio.jsx";
 
-export default function WindComponent(props) {
+export default function ChannelEdgeAndBankClearanceComponent(props) {
   const { formik } = props;
-  const [showOld, setShowOld] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showOld, setShowOld] = useState(false);
+
   const handleTooltipClose = () => {
     setOpen(false);
   };
@@ -24,45 +25,43 @@ export default function WindComponent(props) {
   };
   const tooltipTitle = (
     <label style={{ fontSize: 14 }}>
-      Riskiarvon laskentaan valitaan tuulen nopeusluokka. Alla on esitetty myös
-      tuulen kertoimet, joihin vaikuttaa tuulen nopeusluokka sekä aluksen
-      nopeusluokka. Kerroin ja aluksen leveys kerrotaan laskennassa. Laskennassa
-      voi käyttää oletusarvoja tai määrittää uudet kertoimet. Klikkaamalla Näytä
-      kaikki voi tarkastella ja muokata kertoimia eri tuulen ja aluksen
-      nopeusluokka yhdistelmille.
+      Riskiarvon laskentaan valitaan väylän reunan tyyppi. Alla määritetään myös
+      reunan kerroin, johon vaikuttaa reunan tyyppi sekä aluksen nopeusluokka.
+      Kerroin ja aluksen leveys kerrotaan laskennassa ja ne määrittävät reunan
+      vaikuttavuuden. Klikkaamalla Näytä kaikki voi tarkastella ja muokata
+      kertoimia eri nopeusluokka ja reunan tyyppi yhdistelmille.
     </label>
   );
+
   const RadioButtonPropsArr = [
     {
-      value: "mild",
-      label: "Heikko",
-      labelHelperText: "< 7 m/s",
+      value: "gentle_slope",
+      label: "Loiva kaltevuus",
     },
     {
-      value: "moderate",
-      label: "Keskiverto",
-      labelHelperText: "7 -17 m/s",
+      value: "sloping_edges",
+      label: "Viistot reunat",
     },
     {
-      value: "strong",
-      label: "Voimakas",
-      labelHelperText: "> 17 m/s",
+      value: "steep_and_hard",
+      label: "Jyrkkä ja kova",
     },
   ];
 
   return (
-    <Grid item container spacing={1} paddingBottom={1}>
+    <Grid container spacing={1} paddingBottom={2}>
       <Grid item xs={12}>
         <Typography
+          component="span"
           style={{
             fontSize: 16,
+            fontWeight: 550,
             verticalAlign: "middle",
           }}
           color="textSecondary"
           gutterBottom
-          component="span"
         >
-          Tuulen nopeusluokka
+          Väylän reuna ja reunan kerroin
           <ClickAwayListener onClickAway={handleTooltipClose}>
             <Tooltip
               arrow
@@ -86,9 +85,8 @@ export default function WindComponent(props) {
       </Grid>
       <CustomRadio
         formik={formik}
-        formikName={
-          "navline.calculation_params.operating_conditions.wind_speed"
-        }
+        formikName={"navline.calculation_params.channel_edge"}
+        formLabelText="Reunan tyyppi"
         defaultValue={RadioButtonPropsArr[1].value}
         buttonPropsArr={RadioButtonPropsArr}
       />

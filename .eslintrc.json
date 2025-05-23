@@ -10,13 +10,14 @@
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {"jsx": true}
   },
   "plugins": ["react", "cypress"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "linebreak-style": "off",
+    "linebreak-style": "warn",
     "no-unused-vars": "warn",
     "quotes": "off"
   }

@@ -2,10 +2,10 @@ import { useState, useRef } from "react";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
 
-import LoadingSpinner from "./LoadingSpinner.js";
-import NotificationComponent from "./NotificationComponent.js";
-import ParameterTabsComponent from "./ParameterTabsComponent.js";
-import RIVResultsTabsComponent from "./RIVResultsTabsComponent.js";
+import LoadingSpinner from "./LoadingSpinner.jsx";
+import NotificationComponent from "./NotificationComponent.jsx";
+import ParameterTabsComponent from "./ParameterTabsComponent.jsx";
+import RIVResultsTabsComponent from "./RIVResultsTabsComponent.jsx";
 import userInputDefault from "../constants/UserInputDefault.js";
 import AllGDOGIDSContext from "../contexts/AllGDOGIDSContext.js";
 import CalculationIntervalContext from "../contexts/CalculationIntervalContext.js";
@@ -31,7 +31,7 @@ import SpinnerVisibilityContext from "../contexts/SpinnerVisibilityContext.js";
 import TableRowClickedContext from "../contexts/TableRowClickedContext.js";
 import UserInputContext from "../contexts/UserInput.js";
 import WayareaPolygonContext from "../contexts/WayareaPolygonContext.js";
-import MapView from "../views/MapView.js";
+import MapView from "../views/MapView.jsx";
 
 function CalculateRIV() {
   const [RIVResults, setRIVResults] = useState([]);

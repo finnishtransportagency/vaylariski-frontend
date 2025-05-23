@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { InputLabel, Grid, Select, MenuItem, Typography } from "@mui/material";
 
-import CalculationIntervalComponent from "./CalculationIntervalComponent.js";
-import FairwayWidth from "./FairwayWidth.js";
-import GDOGIDMenuComponent from "./GDOGIDMenuComponent.js";
-import RoutelineComponent from "./RoutelineComponent.js";
-import WayareaComponent from "./WayareaComponent.js";
+import CalculationIntervalComponent from "./CalculationIntervalComponent.jsx";
+import FairwayWidth from "./FairwayWidth.jsx";
+import GDOGIDMenuComponent from "./GDOGIDMenuComponent.jsx";
+import RoutelineComponent from "./RoutelineComponent.jsx";
+import WayareaComponent from "./WayareaComponent.jsx";
 import { calculationTypeEnums } from "../../constants/enums.js";
 import SelectedCalculationTypeContext from "../../contexts/SelectedCalculationTypeContext.js";
 

@@ -3,8 +3,8 @@ import { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import DisplayRIVResultsDiagramView from "../views/DisplayRIVResultsDiagramView.js";
-import TableView from "../views/TableView.js";
+import DisplayRIVResultsDiagramView from "../views/DisplayRIVResultsDiagramView.jsx";
+import TableView from "../views/TableView.jsx";
 
 function a11yProps(index) {
   return {

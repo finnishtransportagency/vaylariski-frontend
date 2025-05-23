@@ -1,8 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 
 import { cssColorCodes } from "./constants/enums.js";
-import CalculateRIV from "./components/CalculateRIV.js";
-import { Header } from "./components/Header.js";
+import CalculateRIV from "./components/CalculateRIV.jsx";
+import { Header } from "./components/Header.jsx";
 
 const theme = createTheme({
   palette: {

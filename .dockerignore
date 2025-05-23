@@ -1,4 +1,7 @@
 node_modules
 npm-debug.log
 build
+dist
+cypress
+cypress-config.js
 .env
