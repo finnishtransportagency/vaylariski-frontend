@@ -5,12 +5,11 @@ import {
   useCallback,
   useMemo,
   useRef,
-} from "react";
-import DataGrid from "react-data-grid";
-import { Formik, Form, ErrorMessage } from "formik";
-import "react-data-grid/lib/styles.css";
+} from 'react';
+import DataGrid from 'react-data-grid';
+import { Formik, Form, ErrorMessage } from 'formik';
+import 'react-data-grid/lib/styles.css';
 import {
-  Box,
   Modal,
   Button,
   Select,
@@ -22,37 +21,38 @@ import {
   ListItem,
   ListItemText,
   Divider,
-} from "@mui/material";
-import ViewWeekIcon from "@mui/icons-material/ViewWeek";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import DownloadIcon from "@mui/icons-material/Download";
-import { CSVLink } from "react-csv";
+} from '@mui/material';
+import ViewWeekIcon from '@mui/icons-material/ViewWeek';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import DownloadIcon from '@mui/icons-material/Download';
+import { CSVLink } from 'react-csv';
 
 import {
   TableViewColumns as columns,
   defaultTableViewColumns as defaultColumns,
-} from "../constants/TableViewColumns.js";
-import { resultRowsEnums } from "../constants/enums.js";
-import MapPointClickedContext from "../contexts/MapPointClickedContext.js";
-import NotificationContext from "../contexts/NotificationContext.js";
-import RIVResultContext from "../contexts/RIVResult.js";
-import SelectedIndexContext from "../contexts/SelectedIndexContext.js";
-import TableRowClickedContext from "../contexts/TableRowClickedContext.js";
-import { sortTableStringOfNumbersWithInf } from "../utils/sorting.js";
+} from '../constants/TableViewColumns.js';
+import { resultRowsEnums } from '../constants/enums.js';
+import MapPointClickedContext from '../contexts/MapPointClickedContext.js';
+import NotificationContext from '../contexts/NotificationContext.js';
+import RIVResultContext from '../contexts/RIVResult.js';
+import SelectedIndexContext from '../contexts/SelectedIndexContext.js';
+import TableRowClickedContext from '../contexts/TableRowClickedContext.js';
+import { sortTableStringOfNumbersWithInf } from '../utils/sorting.js';
+import { Box } from '@mui/system';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  height: "80%",
-  bgcolor: "background.paper",
+  height: '80%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   pt: 2,
   px: 4,
   pb: 3,
-  overflow: "scroll",
+  overflow: 'scroll',
 };
 
 function TableView(props, { direction }) {
@@ -135,8 +135,8 @@ function TableView(props, { direction }) {
     });
     if (rowResults[0].draft_is_greater_than_depth) {
       setNotificationStatus({
-        severity: "warning",
-        message: "Laivan syväys on suurempi kuin väylän syvyys!",
+        severity: 'warning',
+        message: 'Laivan syväys on suurempi kuin väylän syvyys!',
         visible: true,
       });
     }
@@ -173,7 +173,7 @@ function TableView(props, { direction }) {
         sortedRows = sortedRows.sort((a, b) => a[columnKey] - b[columnKey]);
         break;
     }
-    return direction === "DESC" ? sortedRows.reverse() : sortedRows;
+    return direction === 'DESC' ? sortedRows.reverse() : sortedRows;
   }, [displayRowResults, sortColumns]);
 
   // Open form where filters can be added
@@ -211,11 +211,11 @@ function TableView(props, { direction }) {
       const { filterConstant, filterOperator, filterValue } = filter;
       const rowValue = row[filterConstant];
       switch (filterOperator) {
-        case "≤":
+        case '≤':
           return rowValue <= filterValue;
-        case "≥":
+        case '≥':
           return rowValue >= filterValue;
-        case "=":
+        case '=':
           return rowValue == filterValue;
         default:
           return true;
@@ -237,13 +237,13 @@ function TableView(props, { direction }) {
   // Formatting dataset before exporting
   const csvData = data.map((row) => {
     return Object.values(row).map((value) => {
-      if (typeof value === "number") {
+      if (typeof value === 'number') {
         // changing points to commas for excel
-        return value.toString().replace(/\./g, ",");
+        return value.toString().replace(/\./g, ',');
       }
       if (value === null) {
         // empty cells to nan because of excel
-        return (value = "nan");
+        return (value = 'nan');
       }
       return value;
     });
@@ -256,7 +256,7 @@ function TableView(props, { direction }) {
       const idx = filteredRows.findIndex(
         (row) => row.point_index === selectedRowIndex
       );
-      gridRef.current.scrollToRow(idx);
+      gridRef.current.scrollToCell(0, idx);
       setMapPointClicked(false);
     }
   }, [selectedRowIndex]);
@@ -275,9 +275,9 @@ function TableView(props, { direction }) {
         <Button variant="contained" sx={{ mb: 1, mt: 1, ml: 1 }}>
           <CSVLink
             data={csvData}
-            filename={"vaylakohtainen_riski.csv"}
-            separator={";"}
-            style={{ color: "white" }}
+            filename={'vaylakohtainen_riski.csv'}
+            separator={';'}
+            style={{ color: 'white' }}
           >
             <DownloadIcon />
             Lataa CSV
@@ -336,9 +336,9 @@ function TableView(props, { direction }) {
         {showForm && (
           <Formik
             initialValues={{
-              filterConstant: "",
-              filterOperator: "≤",
-              filterValue: "",
+              filterConstant: '',
+              filterOperator: '≤',
+              filterValue: '',
             }}
             onSubmit={handleFilterSubmit}
           >
@@ -351,7 +351,7 @@ function TableView(props, { direction }) {
                 >
                   <InputLabel
                     id="filterConstant"
-                    style={{ backgroundColor: "white" }}
+                    style={{ backgroundColor: 'white' }}
                   >
                     Valitse parametri
                   </InputLabel>
@@ -429,15 +429,17 @@ function TableView(props, { direction }) {
                 <List
                   sx={{
                     maxWidth: 500,
-                    bgcolor: "background.paper",
+                    bgcolor: 'background.paper',
                   }}
                 >
                   <ListItem>
                     <ListItemText
-                      primary=<span>
-                        {filter.filterConstant} {filter.filterOperator}{" "}
-                        {filter.filterValue}
-                      </span>
+                      primary={
+                        <span>
+                          {filter.filterConstant} {filter.filterOperator}{' '}
+                          {filter.filterValue}
+                        </span>
+                      }
                     />
                     <Button
                       variant="contained"
@@ -463,7 +465,7 @@ function TableView(props, { direction }) {
         direction={direction}
         onCellClick={(cell) => handleCellClick(cell)}
         rowClass={(row) =>
-          row.point_index == selectedRowIndex ? "selected-row-bg-color" : ""
+          row.point_index == selectedRowIndex ? 'selected-row-bg-color' : ''
         }
       />
     </div>
