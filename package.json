@@ -36,7 +36,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "vite --port 3000",
+    "start": "vite --port 3000 --host",
     "build": "cross-env tsc && vite build",
     "build-e2e": "cross-env CI=false tsc && vite build",
     "test": "vitest",
