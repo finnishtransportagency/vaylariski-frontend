@@ -16,8 +16,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ES2022",
-    "traceResolution": true,
+    "traceResolution": false,
     "types": ["vite/client"]
   },
-  "include": ["./src/**/*", "./public/**/*"],
+  "include": ["./src/**/*", "./public/**/*"]
 }
