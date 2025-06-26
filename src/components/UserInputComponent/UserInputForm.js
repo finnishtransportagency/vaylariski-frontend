@@ -76,38 +76,33 @@ function UserInputForm(props) {
             <Tab
               label="Väylä"
               {...a11yProps(0)}
-              className={`inner-tab ${
-                innerTabValue === 0 ? "inner-tab-active" : ""
-              }`}
+              className={`inner-tab ${innerTabValue === 0 ? "inner-tab-active" : ""
+                }`}
             />
             <Tab
               label="Alus"
               {...a11yProps(1)}
-              className={`inner-tab ${
-                innerTabValue === 1 ? "inner-tab-active" : ""
-              }`}
+              className={`inner-tab ${innerTabValue === 1 ? "inner-tab-active" : ""
+                }`}
               data-cy-id="boat-tab"
             />
             <Tab
               label="Olosuhteet ja vaikuttavat tekijät"
               {...a11yProps(2)}
-              className={`inner-tab ${
-                innerTabValue === 2 ? "inner-tab-active" : ""
-              }`}
+              className={`inner-tab ${innerTabValue === 2 ? "inner-tab-active" : ""
+                }`}
             />
             <Tab
               label="Kertoimet ja raja-arvot"
               {...a11yProps(3)}
-              className={`inner-tab ${
-                innerTabValue === 3 ? "inner-tab-active" : ""
-              }`}
+              className={`inner-tab ${innerTabValue === 3 ? "inner-tab-active" : ""
+                }`}
             />
             <Tab
               label="S- ja U-mutkien kertoimet"
               {...a11yProps(4)}
-              className={`inner-tab ${
-                innerTabValue === 4 ? "inner-tab-active" : ""
-              }`}
+              className={`inner-tab ${innerTabValue === 4 ? "inner-tab-active" : ""
+                }`}
             />
           </Tabs>
           <Grid container spacing={1} className="user-input-grid">
@@ -232,7 +227,7 @@ function UserInputForm(props) {
                     paddingRight={1}
                     paddingLeft={2}
                   >
-                    <SorUBendComponent formik={formik} type={"S"} />
+                    <SorUBendComponent formik={formik} type={"s"} />
                   </Grid>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
@@ -244,7 +239,7 @@ function UserInputForm(props) {
                     paddingRight={1}
                     paddingLeft={2}
                   >
-                    <SorUBendComponent formik={formik} type={"U"} />
+                    <SorUBendComponent formik={formik} type={"u"} />
                   </Grid>
                 </Grid>
               </Grid>

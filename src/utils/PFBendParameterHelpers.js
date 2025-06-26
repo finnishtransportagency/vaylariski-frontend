@@ -45,7 +45,7 @@ function row(n, formik, isBend1) {
     <Grid container item alignItems="flex-end" spacing={1} key={n}>
       <CustomNumber
         formik={formik}
-        formikName={`PF_bend_parameters.PF_bend_${bend}_${n}`}
+        formikName={`pf_bend_parameters.PF_bend_${bend}_${n}`}
         xs={3}
         step={0.1}
       />
@@ -53,7 +53,7 @@ function row(n, formik, isBend1) {
       {n > 1 ? (
         <CustomNumber
           formik={formik}
-          formikName={`PF_bend_parameters.bend_${lim}_lim_${n - 1}`}
+          formikName={`pf_bend_parameters.bend_${lim}_lim_${n - 1}`}
           xs={3}
           step={0.1}
         />
@@ -66,7 +66,7 @@ function row(n, formik, isBend1) {
       {n < 5 ? (
         <CustomNumber
           formik={formik}
-          formikName={`PF_bend_parameters.bend_${lim}_lim_${n}`}
+          formikName={`pf_bend_parameters.bend_${lim}_lim_${n}`}
           xs={3}
           step={0.1}
         />

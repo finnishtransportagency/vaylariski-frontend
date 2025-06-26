@@ -33,7 +33,7 @@ const parametersValidationSchema = Yup.object().shape({
       .required("Syväys vaaditaan"),
   }),
 
-  PF_bend_parameters: Yup.object().shape({
+  pf_bend_parameters: Yup.object().shape({
     bend_ratio_lim_1: Yup.number()
       .min(0, "bend_ration_lim_1 ei voi olla negatiivinen")
       .max(
@@ -244,82 +244,82 @@ const parametersValidationSchema = Yup.object().shape({
       .min(0, "strong_wind_slow_vessel ei voi olla negatiivinen")
       .required("strong_wind_slow_vessel vaaditaan"),
   }),
-  S_bend_multipliers: Yup.object({
-    S_bend_multiplier_1: Yup.number()
-      .min(0, "S_bend_multiplier_1 ei voi olla negatiivinen")
+  s_bend_multipliers: Yup.object({
+    s_bend_multiplier_1: Yup.number()
+      .min(0, "s_bend_multiplier_1 ei voi olla negatiivinen")
       .max(
-        Yup.ref("S_bend_multiplier_2"),
-        "S_bend_multiplier_1 ei voi olla isompi kun S_bend_multiplier_2"
+        Yup.ref("s_bend_multiplier_2"),
+        "s_bend_multiplier_1 ei voi olla isompi kun s_bend_multiplier_2"
       ),
-    S_bend_multiplier_2: Yup.number()
+    s_bend_multiplier_2: Yup.number()
       .min(
-        Yup.ref("S_bend_multiplier_1"),
-        "S_bend_multiplier_2 ei voi olla pienempi kun S_bend_multiplier_1"
+        Yup.ref("s_bend_multiplier_1"),
+        "s_bend_multiplier_2 ei voi olla pienempi kun s_bend_multiplier_1"
       )
       .max(
-        Yup.ref("S_bend_multiplier_2"),
-        "S_bend_multiplier_2 ei voi olla isompi kun S_bend_multiplier_3"
+        Yup.ref("s_bend_multiplier_2"),
+        "s_bend_multiplier_2 ei voi olla isompi kun s_bend_multiplier_3"
       ),
-    S_bend_multiplier_3: Yup.number()
+    s_bend_multiplier_3: Yup.number()
       .min(
-        Yup.ref("S_bend_multiplier_2"),
-        "S_bend_multiplier_3 ei voi olla pienempi kun S_bend_multiplier_2"
+        Yup.ref("s_bend_multiplier_2"),
+        "s_bend_multiplier_3 ei voi olla pienempi kun s_bend_multiplier_2"
       )
       .max(
-        Yup.ref("S_bend_multiplier_4"),
-        "S_bend_multiplier_3 ei voi olla isompi kun S_bend_multiplier_4"
+        Yup.ref("s_bend_multiplier_4"),
+        "s_bend_multiplier_3 ei voi olla isompi kun s_bend_multiplier_4"
       ),
-    S_bend_multiplier_4: Yup.number()
+    s_bend_multiplier_4: Yup.number()
       .min(
-        Yup.ref("S_bend_multiplier_3"),
-        "S_bend_multiplier_4 ei voi olla pienempi kun S_bend_multiplier_3"
+        Yup.ref("s_bend_multiplier_3"),
+        "s_bend_multiplier_4 ei voi olla pienempi kun s_bend_multiplier_3"
       )
       .max(
-        Yup.ref("S_bend_multiplier_5"),
-        "S_bend_multiplier_4 ei voi olla isompi kun S_bend_multiplier_5"
+        Yup.ref("s_bend_multiplier_5"),
+        "s_bend_multiplier_4 ei voi olla isompi kun s_bend_multiplier_5"
       ),
-    S_bend_multiplier_5: Yup.number().min(
-      Yup.ref("S_bend_multiplier_4"),
-      "S_bend_multiplier_5 ei voi olla pienempi kun S_bend_multiplier_4"
+    s_bend_multiplier_5: Yup.number().min(
+      Yup.ref("s_bend_multiplier_4"),
+      "s_bend_multiplier_5 ei voi olla pienempi kun s_bend_multiplier_4"
     ),
   }),
-  U_bend_multipliers: Yup.object({
-    U_bend_multiplier_1: Yup.number()
-      .min(0, "U_bend_multiplier_1 ei voi olla negatiivinen")
+  u_bend_multipliers: Yup.object({
+    u_bend_multiplier_1: Yup.number()
+      .min(0, "u_bend_multiplier_1 ei voi olla negatiivinen")
       .max(
-        Yup.ref("U_bend_multiplier_2"),
-        "U_bend_multiplier_1 ei voi olla isompi kun U_bend_multiplier_2"
+        Yup.ref("u_bend_multiplier_2"),
+        "u_bend_multiplier_1 ei voi olla isompi kun u_bend_multiplier_2"
       ),
-    U_bend_multiplier_2: Yup.number()
+    u_bend_multiplier_2: Yup.number()
       .min(
-        Yup.ref("U_bend_multiplier_1"),
-        "U_bend_multiplier_2 ei voi olla pienempi kun U_bend_multiplier_1"
+        Yup.ref("u_bend_multiplier_1"),
+        "u_bend_multiplier_2 ei voi olla pienempi kun u_bend_multiplier_1"
       )
       .max(
-        Yup.ref("U_bend_multiplier_2"),
-        "U_bend_multiplier_2 ei voi olla isompi kun U_bend_multiplier_3"
+        Yup.ref("u_bend_multiplier_2"),
+        "u_bend_multiplier_2 ei voi olla isompi kun u_bend_multiplier_3"
       ),
-    U_bend_multiplier_3: Yup.number()
+    u_bend_multiplier_3: Yup.number()
       .min(
-        Yup.ref("U_bend_multiplier_2"),
-        "U_bend_multiplier_3 ei voi olla pienempi kun U_bend_multiplier_2"
+        Yup.ref("u_bend_multiplier_2"),
+        "u_bend_multiplier_3 ei voi olla pienempi kun u_bend_multiplier_2"
       )
       .max(
-        Yup.ref("U_bend_multiplier_4"),
-        "U_bend_multiplier_3 ei voi olla isompi kun U_bend_multiplier_4"
+        Yup.ref("u_bend_multiplier_4"),
+        "u_bend_multiplier_3 ei voi olla isompi kun u_bend_multiplier_4"
       ),
-    U_bend_multiplier_4: Yup.number()
+    u_bend_multiplier_4: Yup.number()
       .min(
-        Yup.ref("U_bend_multiplier_3"),
-        "U_bend_multiplier_4 ei voi olla pienempi kun U_bend_multiplier_3"
+        Yup.ref("u_bend_multiplier_3"),
+        "u_bend_multiplier_4 ei voi olla pienempi kun u_bend_multiplier_3"
       )
       .max(
-        Yup.ref("U_bend_multiplier_5"),
-        "U_bend_multiplier_4 ei voi olla isompi kun U_bend_multiplier_5"
+        Yup.ref("u_bend_multiplier_5"),
+        "u_bend_multiplier_4 ei voi olla isompi kun u_bend_multiplier_5"
       ),
-    U_bend_multiplier_5: Yup.number().min(
-      Yup.ref("U_bend_multiplier_4"),
-      "U_bend_multiplier_5 ei voi olla pienempi kun U_bend_multiplier_4"
+    u_bend_multiplier_5: Yup.number().min(
+      Yup.ref("u_bend_multiplier_4"),
+      "u_bend_multiplier_5 ei voi olla pienempi kun u_bend_multiplier_4"
     ),
   }),
 });
