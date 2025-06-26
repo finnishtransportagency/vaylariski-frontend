@@ -39,18 +39,12 @@ jobs:
       - name: Checkout frontend
         uses: actions/checkout@v4
 
-      - name: Build and run frontend with docker and conduct a healthcheck
-        run: |
-          DOCKER_BUILDKIT=0 docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
-          docker run -p 3000:3000 --network=vaylariski_default vaylariski-frontend:latest
-          timeout 60s sh -c 'until docker ps | grep frontend | grep -q healthy; do echo "Waiting for frontend container to be healthy..."; sleep 2; done'
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build:
+          build: DOCKER_BUILDKIT=0 docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
           record: false
-          start:
+          start: docker run -p 3000:3000 --network=vaylariski_default vaylariski-frontend:latest
           wait-on: 'http://localhost:3000'
           browser: chrome
         env:
