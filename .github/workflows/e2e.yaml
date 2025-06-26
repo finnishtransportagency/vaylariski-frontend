@@ -44,13 +44,6 @@ jobs:
         run: |
           DOCKER_BUILDKIT=0 docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
 
-      - name: Debug containers
-        run: |
-          echo $COMPOSE_PROJECT_NAME
-          docker container ls -a
-          docker image ls
-          docker network ls
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
