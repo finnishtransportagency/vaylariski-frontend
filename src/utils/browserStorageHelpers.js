@@ -1,5 +1,6 @@
-import userInputDefault from "constants/UserInputDefault";
 import { getDiff } from "recursive-diff";
+
+import userInputDefault from "../constants/UserInputDefault.js";
 
 const lastUsedParametersKey = "lastUsedParameters";
 const savedParametersKey = "savedParameters";

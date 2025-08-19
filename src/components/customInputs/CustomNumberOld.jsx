@@ -1,8 +1,7 @@
-import React from "react";
 import { useField } from "formik";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Form } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 export const CustomNumberOld = ({ label, name, readOnly }) => {
   const [field, meta] = useField(name);

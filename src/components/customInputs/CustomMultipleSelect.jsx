@@ -1,4 +1,5 @@
-import CustomSelect from "./CustomSelect";
+import CustomSelect from "./CustomSelect.jsx";
+
 /**
  *
  * @param {{
