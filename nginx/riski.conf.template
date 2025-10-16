@@ -13,6 +13,8 @@ http {
     location / {
       root /var/www;
       index index.html;
+      autoindex off;
+      try_files $uri $uri/ index.html;
     }
 
     resolver !NAMESERVER!;

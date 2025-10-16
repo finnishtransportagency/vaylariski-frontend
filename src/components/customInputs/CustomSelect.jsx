@@ -1,5 +1,5 @@
 import { Grid, Select, InputLabel, MenuItem } from "@mui/material";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 /**
  *

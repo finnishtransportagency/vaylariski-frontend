@@ -1,7 +1,7 @@
 import { useField } from "formik";
-import Row from "react-bootstrap/Row";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
+import { Row }from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Col }from "react-bootstrap";
 
 export const CustomText = ({ label, name, readOnly }) => {
   const [field, meta] = useField(name);

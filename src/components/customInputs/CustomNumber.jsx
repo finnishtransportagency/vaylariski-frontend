@@ -1,5 +1,6 @@
 import { InputLabel, Tooltip, TextField, Grid } from "@mui/material";
-import { setOneLastUsedParameter } from "utils/browserStorageHelpers";
+
+import { setOneLastUsedParameter } from "../../utils/browserStorageHelpers.js";
 
 /**
  *
