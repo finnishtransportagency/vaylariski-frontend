@@ -1,4 +1,4 @@
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container } from 'react-bootstrap';
 
 export const Header = () => (
   <header>
@@ -7,7 +7,7 @@ export const Header = () => (
         <Col>
           <p className="App-logo">
             <img
-              style={{ height: "1.5em" }}
+              style={{ height: '1.5em' }}
               src="/vaylariski_logo_no_text.png"
               alt="logo"
             />
@@ -15,7 +15,7 @@ export const Header = () => (
           </p>
         </Col>
         <Col className="version-col">
-          <h5>Versio 3.0.0</h5>
+          <h5>Versio 4.0.0</h5>
         </Col>
       </Row>
     </Container>
