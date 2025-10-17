@@ -3,7 +3,7 @@ ARG PROXY_URL
 ARG REACT_APP_BASE_REST_URL
 
 # build environment
-FROM node:24.0.2-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Used by react on build time
 ARG PROXY_URL
@@ -36,7 +36,7 @@ RUN sed -i 's|!REACT_APP_BASE_REST_URL!|'${REACT_APP_BASE_REST_URL}'|' /app/ngin
 RUN sed -i 's|!PROXY_URL!|'${PROXY_URL}'|' /app/nginx/nginx.conf
 
 # production environment
-FROM nginx:1.28.0-alpine
+FROM nginx:1.29-alpine
 
 RUN ["apk", "upgrade", "--no-cache"]
 
