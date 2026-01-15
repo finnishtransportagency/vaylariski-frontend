@@ -6,7 +6,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import DataGrid from 'react-data-grid';
+import { DataGrid } from 'react-data-grid';
 import { Formik, Form, ErrorMessage } from 'formik';
 import 'react-data-grid/lib/styles.css';
 import {
