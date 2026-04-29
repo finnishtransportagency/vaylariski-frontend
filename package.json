@@ -1,6 +1,6 @@
 {
   "name": "vaylariski-frontend",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -13,7 +13,7 @@
     "@testing-library/react": "^16.3.1",
     "@vitejs/plugin-react": "^5.1.2",
     "allotment": "^1.20.5",
-    "axios": "^1.13.2",
+    "axios": "^1.15.0",
     "cross-env": "^10.1.0",
     "formik": "^2.4.9",
     "globals": "^17.0.0",
