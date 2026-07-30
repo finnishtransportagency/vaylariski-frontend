@@ -36,7 +36,7 @@ RUN sed -i 's|!REACT_APP_BASE_REST_URL!|'${REACT_APP_BASE_REST_URL}'|' /app/ngin
 RUN sed -i 's|!PROXY_URL!|'${PROXY_URL}'|' /app/nginx/nginx.conf
 
 # production environment
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 
 RUN ["apk", "upgrade", "--no-cache"]
 
