@@ -1,6 +1,6 @@
 {
   "name": "vaylariski-frontend",
-  "version": "4.1.1",
+  "version": "4.1.3",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -10,10 +10,10 @@
     "@mui/material": "^7.3.7",
     "@mui/system": "^7.3.7",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.1",
+    "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^5.1.2",
     "allotment": "^1.20.5",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "cross-env": "^10.1.0",
     "formik": "^2.4.9",
     "globals": "^17.0.0",
@@ -21,16 +21,16 @@
     "leaflet": "^1.9.4",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "react-bootstrap": "^2.10.10",
     "react-csv": "^2.2.2",
     "react-data-grid": "7.0.0-beta.47",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-leaflet": "^4.2.1",
     "recharts": "^3.6.0",
     "recursive-diff": "^1.0.9",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1",
+    "vite": "^7.3.2",
     "web-vitals": "^5.1.0",
     "yup": "^1.7.1"
   },
@@ -58,16 +58,22 @@
     ]
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
-    "@types/react": "^18.3.1",
-    "cypress": "^15.9.0",
+    "@types/react": "^18.3.27",
+    "cypress": "^15.15.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-cypress": "^5.2.1",
     "eslint-plugin-react": "^7.37.5",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.3",
     "source-map-explorer": "^2.5.3"
+  },
+  "overrides": {
+    "systeminformation": ">=5.31.6",
+    "postcss": ">=8.5.10",
+    "minimatch": ">=10.2.6",
+    "meow": ">=14.1.0"
   },
   "homepage": "."
 }
