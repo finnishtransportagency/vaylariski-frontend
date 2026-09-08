@@ -1,38 +1,38 @@
-import { TextField, Grid, Tooltip, InputLabel } from "@mui/material";
+import { TextField, Grid, Tooltip, InputLabel } from '@mui/material';
 
-import CustomNumber from "../components/customInputs/CustomNumber.jsx";
+import CustomNumber from '../components/CustomNumber/CustomNumber.jsx';
 
-const formikValueCategory = "wind_wf";
-const boatSpeedOptions = ["fast", "moderate", "slow"];
-const windOptions = ["mild", "moderate", "strong"];
+const formikValueCategory = 'wind_wf';
+const boatSpeedOptions = ['fast', 'moderate', 'slow'];
+const windOptions = ['mild', 'moderate', 'strong'];
 
 const getFinnishBoatSpeedText = (boatSpeed) => {
-  let result = "";
+  let result = '';
   switch (boatSpeed) {
     case boatSpeedOptions[0]:
-      result = "nopea";
+      result = 'nopea';
       break;
     case boatSpeedOptions[1]:
-      result = "keskiverto";
+      result = 'keskiverto';
       break;
     case boatSpeedOptions[2]:
-      result = "hidas";
+      result = 'hidas';
       break;
   }
   return result;
 };
 
 const getFinnishEdgeText = (wind) => {
-  let result = "";
+  let result = '';
   switch (wind) {
     case windOptions[0]:
-      result = "Heikko tuuli";
+      result = 'Heikko tuuli';
       break;
     case windOptions[1]:
-      result = "Keskiverto tuuli";
+      result = 'Keskiverto tuuli';
       break;
     case windOptions[2]:
-      result = "Voimakas tuuli";
+      result = 'Voimakas tuuli';
       break;
   }
   return result;
@@ -50,7 +50,7 @@ const label = (id, boatSpeed, edge) => {
   );
 };
 
-const input = (id, formik, helperText = "") => {
+const input = (id, formik, helperText = '') => {
   return (
     <>
       <Tooltip
@@ -65,7 +65,7 @@ const input = (id, formik, helperText = "") => {
             InputProps={{ sx: { height: 30 } }}
             fullWidth
             inputProps={{
-              step: "0.01",
+              step: '0.01',
             }}
             helperText={helperText}
             FormHelperTextProps={{
@@ -137,7 +137,7 @@ export const simpleInput = (formik) => {
     <CustomNumber
       formik={formik}
       formikName={`${formikValueCategory}.${id}`}
-      label={"Tuulen kerroin"}
+      label={'Tuulen kerroin'}
       helperText={`Valittu aluksen nopeusluokka: ${getFinnishBoatSpeedText(
         boatSpeed
       )}`}

@@ -1,8 +1,8 @@
-import { Typography, Grid, Tooltip, IconButton } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { Typography, Grid, Tooltip, IconButton } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
-import CustomNumber from "../components/customInputs/CustomNumber.jsx";
+import CustomNumber from '../components/CustomNumber/CustomNumber.jsx';
 
 const limText = (n, symbol) => {
   let whitespaceFront = false;
@@ -14,23 +14,23 @@ const limText = (n, symbol) => {
   }
   return (
     <Grid item container>
-      <Grid item sx={{ width: "33.3%" }}>
+      <Grid item sx={{ width: '33.3%' }}>
         {whitespaceFront ? null : (
-          <Typography style={{ fontSize: 15, textAlign: "center" }}>
-            {"≤"}
+          <Typography style={{ fontSize: 15, textAlign: 'center' }}>
+            {'≤'}
           </Typography>
         )}
       </Grid>
-      <Grid item sx={{ width: "33.3%" }}>
-        <Typography style={{ fontSize: 15, textAlign: "center" }}>
+      <Grid item sx={{ width: '33.3%' }}>
+        <Typography style={{ fontSize: 15, textAlign: 'center' }}>
           {symbol}
         </Typography>
       </Grid>
 
-      <Grid item sx={{ width: "33.3%" }}>
+      <Grid item sx={{ width: '33.3%' }}>
         {whitespaceEnd ? null : (
-          <Typography style={{ fontSize: 15, textAlign: "center" }}>
-            {"<"}
+          <Typography style={{ fontSize: 15, textAlign: 'center' }}>
+            {'<'}
           </Typography>
         )}
       </Grid>
@@ -39,9 +39,9 @@ const limText = (n, symbol) => {
 };
 
 function row(n, formik, isBend1) {
-  const symbol = isBend1 ? "BSI" : "α";
-  const bend = isBend1 ? "radius" : "angle";
-  const lim = isBend1 ? "ratio" : "angle";
+  const symbol = isBend1 ? 'BSI' : 'α';
+  const bend = isBend1 ? 'radius' : 'angle';
+  const lim = isBend1 ? 'ratio' : 'angle';
   return (
     <Grid container item alignItems="flex-end" spacing={1} key={n}>
       <CustomNumber
@@ -61,7 +61,7 @@ function row(n, formik, isBend1) {
       ) : (
         <Grid item xs={3} />
       )}
-      <Grid item xs={3} paddingBottom={0.5} paddingLeft={"0 !important"}>
+      <Grid item xs={3} paddingBottom={0.5} paddingLeft={'0 !important'}>
         {limText(n, symbol)}
       </Grid>
       {n < 5 ? (
