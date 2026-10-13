@@ -12,12 +12,14 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "module": "Node16",
     "moduleResolution": "node16",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "outDir": "./dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ES2022",
     "traceResolution": false,
-    "types": ["vite/client"]
+    "types": ["vite/client", "node"]
   },
   "include": ["./src/**/*", "./public/**/*"]
 }

@@ -1,0 +1,16 @@
+.tabs {
+  background-color: var(--color-tab);
+}
+
+.tab {
+  font-size: 1rem !important;
+  text-transform: none !important;
+}
+
+.mainTabActive {
+  background-color: var(--color-container) !important;
+}
+
+.tabActive {
+  background-color: var(--color-background-white) !important;
+}

@@ -1,34 +1,5 @@
-.main-tabs,
-.riv-tabs,
-.inner-tabs {
-  background-color: var(--color-tab);
-}
-
-.main-tab,
-.riv-tab,
-.inner-tab {
-  font-size: 1rem !important;
-  text-transform: none !important;
-}
-
-.main-tab-active {
-  background-color: var(--color-container) !important;
-}
-
-.riv-tab-active,
-.inner-tab-active {
-  background-color: var(--color-background-white) !important;
-}
-
 .main-tab-formik {
   flex: 1;
-}
-
-.main-tab-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .main-tab-container {
@@ -42,15 +13,6 @@
 .main-tab-content {
   height: 100%;
   background-color: var(--color-background-white);
-}
-
-.riv-tabs-box {
-  background-color: var(--color-container);
-  padding: 1rem;
-  padding-top: 0;
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .riv-tab-container {

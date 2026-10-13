@@ -1,0 +1,11 @@
+.map {
+  background-color: var(--color-light-blue-50);
+  height: 90%;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.trafficLight {
+  height: 10%;
+  background-color: var(--color-background-white);
+}

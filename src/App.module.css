@@ -1,0 +1,22 @@
+.AppHeader {
+  background-color: var(--color-header);
+  font-size: calc(10px + 2vmin);
+  padding: 0.5vh;
+  height: 5.5vh;
+  width: 100%;
+}
+
+.AppContent {
+  height: 94vh;
+  width: 100%;
+}
+
+.App {
+  text-align: left;
+  background-color: var(--color-background-white);
+}
+
+.AppLogo {
+  pointer-events: none;
+  margin: auto;
+}

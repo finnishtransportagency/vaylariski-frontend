@@ -1,0 +1,3 @@
+.selectedRowBgColor {
+  background-color: var(--rdg-row-selected-background-color);
+}
