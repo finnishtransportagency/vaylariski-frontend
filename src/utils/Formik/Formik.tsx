@@ -8,8 +8,8 @@ import { RiskParameters } from '../../types/RiskParameters.ts';
 import { useRisk } from '../../contexts/NewRiskContext.tsx';
 import { useWayarea } from '../../contexts/NewWayareaContext.tsx';
 import { useChannel } from '../../contexts/NewChannelContext.tsx';
-import useBackend from '../../services/Backend/useBackend.ts';
-import { useUserInput } from '../../contexts/UserInputContext.tsx';
+import { useRiskSettings } from '../../contexts/RiskSettingsContext.tsx';
+import userInputDefault from '../../constants/UserInputDefault.ts';
 
 function isSubmitDisabled(
   formik: object,
@@ -40,9 +40,8 @@ type Props = {
 };
 
 export function CustomFormik({ children }: Props) {
-  const { userInput } = useUserInput();
+  const {} = useRiskSettings();
   const { selected: selectedWayarea } = useWayarea();
-  const { fetchNavigationlineRisk, fetchNavigationlineChannel } = useBackend();
   const { setRIVResult: setRIVResults } = useRisk();
   const { setChannelArea: setWayareaPolygon } = useChannel();
 
@@ -55,15 +54,15 @@ export function CustomFormik({ children }: Props) {
       enableReinitialize={true} //Default is false. Control whether Formik should reset the form if initialValues changes (using deep equality).
       onSubmit={(values: RiskParameters) => {
         if (selectedWayarea) {
-          fetchNavigationlineChannel(selectedWayarea.VAYLAT).then(
-            setWayareaPolygon
-          );
-          fetchNavigationlineRisk(selectedWayarea.VAYLAT, values).then(
-            setRIVResults
-          );
+          // fetchNavigationlineChannel(selectedWayarea.VAYLAT).then(
+          //   setWayareaPolygon
+          // );
+          // fetchNavigationlineRisk(selectedWayarea.VAYLAT, values).then(
+          //   setRIVResults
+          // );
         }
       }}
-      initialValues={userInput}
+      initialValues={userInputDefault}
       validationSchema={parametersValidationSchema}
     >
       {(formik) => (

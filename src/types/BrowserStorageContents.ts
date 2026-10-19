@@ -4,14 +4,6 @@ export type BrowserStorageContents = {
 
   readonly calculation_interval: number;
   readonly use_new_width_calculation: boolean;
-  readonly starting_gdo_gid?: string;
-
-  readonly navline_angle_params: {
-    readonly GDO_GID: number;
-    readonly SADE: string;
-    readonly BEND_ANGLE: string;
-    readonly S_BEND: string;
-  }[];
 
   // Boat
   readonly boat_length: number;
@@ -27,24 +19,12 @@ export type BrowserStorageContents = {
   readonly longitudinal_current_speed: 'negligible' | 'moderate' | 'strong';
   readonly wave_height: 'low' | 'moderate' | 'high';
   readonly traffic_volume:
-    | 'negligible'
-    | 'low'
-    | 'moderate'
-    | 'heavy'
-    | 'very_heavy';
+    'negligible' | 'low' | 'moderate' | 'heavy' | 'very_heavy';
   readonly traffic_complexity:
-    | 'negligible'
-    | 'low'
-    | 'moderate'
-    | 'high'
-    | 'very_high';
+    'negligible' | 'low' | 'moderate' | 'high' | 'very_high';
   readonly visibility: number;
   readonly light_pollution:
-    | 'negligible'
-    | 'low'
-    | 'moderate'
-    | 'heavy'
-    | 'very_heavy';
+    'negligible' | 'low' | 'moderate' | 'heavy' | 'very_heavy';
   readonly aids_to_navigation: 'moderate' | 'good' | 'excellent';
 
   // Channel
@@ -52,9 +32,6 @@ export type BrowserStorageContents = {
   readonly number_of_lanes: 1 | 2;
   readonly bottom_surface: 'smooth_and_soft' | 'rough_and_hard';
   readonly channel_edge: 'gentle_slope' | 'sloping_edges' | 'steep_and_hard';
-  readonly bend_radius?: string;
-  readonly bend_angle: number;
-  readonly distance_between_bends?: string;
 
   // Weight factors
 

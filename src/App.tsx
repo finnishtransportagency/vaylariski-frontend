@@ -5,7 +5,7 @@ import { CSSColorCode } from './types/CSSColorCode.ts';
 import Main from './views/Main.tsx';
 import { NotificationProvider } from './contexts/NotificationContext.tsx';
 import { SpinnerProvider } from './contexts/SpinnerContext.tsx';
-import { UserInputProvider } from './contexts/UserInputContext.tsx';
+import { RiskSettingProvider } from './contexts/RiskSettingsContext.tsx';
 import { ChannelProvider } from './contexts/NewChannelContext.tsx';
 import { DefaultShipProvider } from './contexts/NewBoatContext.tsx';
 import { WayareaProvider } from './contexts/NewWayareaContext.tsx';
@@ -71,7 +71,7 @@ function App() {
         </header>
         <div className={styles.AppContent}>
           <RiskProvider>
-            <UserInputProvider>
+            <RiskSettingProvider>
               <SpinnerProvider>
                 <NotificationProvider>
                   <ChannelProvider>
@@ -85,7 +85,7 @@ function App() {
                   </ChannelProvider>
                 </NotificationProvider>
               </SpinnerProvider>
-            </UserInputProvider>
+            </RiskSettingProvider>
           </RiskProvider>
         </div>
       </div>

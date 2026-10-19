@@ -1,78 +1,80 @@
 import { Grid } from '@mui/material';
 
 import CustomSelect from '../../../../components/CustomSelect/CustomSelect.tsx';
-import { useUserInput } from '../../../../contexts/UserInputContext.tsx';
+import { useRiskSettings } from '../../../../contexts/RiskSettingsContext.tsx';
+import {
+  CrossCurrent,
+  LongitudinalCurrent,
+  WaveHeight,
+  WindSpeed,
+} from '../../../../types/EnvironmentSettings.ts';
+import { ChannelType } from '../../../../types/ChannelSettings.ts';
 
 export default function EnvironmentTab() {
-  const { userInput } = useUserInput();
+  const { channel, environment } = useRiskSettings();
 
   return (
     <Grid container spacing={1}>
       <Grid size={12}>
-        <CustomSelect
+        <CustomSelect<WindSpeed>
           id="wind-speed"
           label="Tuulen nopeusluokka"
-          value={
-            userInput.navline.calculation_params.operating_conditions.wind_speed
-          }
+          value={environment.wind_speed}
           onChange={() => {}}
           options={[
             {
-              value: 'mild',
+              value: WindSpeed.MILD,
               label: 'Heikko (< 7 m/s)',
             },
             {
-              value: 'moderate',
+              value: WindSpeed.MODERATE,
               label: 'Keskiverto (7 -17 m/s)',
             },
             {
-              value: 'strong',
+              value: WindSpeed.STRONG,
               label: 'Voimakas (> 17 m/s)',
             },
           ]}
         />
       </Grid>
       <Grid size={12}>
-        <CustomSelect
+        <CustomSelect<CrossCurrent>
           id="cross-current"
           label="Poikkivirtaus [solmu]"
-          value={
-            userInput.navline.calculation_params.operating_conditions
-              .cross_current_speed
-          }
+          value={environment.cross_current}
           onChange={() => {}}
           options={
             // Sisäkanavalla ei voi olla voimakasta poikkivirtausta
-            userInput.navline.calculation_params.type === 'inner'
+            channel.type === ChannelType.INNER
               ? [
                   {
-                    value: 'negligible',
+                    value: CrossCurrent.NEGLIGIBLE,
                     label: 'Olematon (0 ≤ v < 0.2 solmua)',
                   },
                   {
-                    value: 'low',
+                    value: CrossCurrent.LOW,
                     label: 'Heikko (0.2 ≤ v < 0.5 solmua)',
                   },
                   {
-                    value: 'moderate',
+                    value: CrossCurrent.MODERATE,
                     label: 'Keskiverto (0.5 ≤ v < 1.5 solmua)',
                   },
                 ]
               : [
                   {
-                    value: 'negligible',
+                    value: CrossCurrent.NEGLIGIBLE,
                     label: 'Olematon (0 ≤ v < 0.2 solmua)',
                   },
                   {
-                    value: 'low',
+                    value: CrossCurrent.LOW,
                     label: 'Heikko (0.2 ≤ v < 0.5 solmua)',
                   },
                   {
-                    value: 'moderate',
+                    value: CrossCurrent.MODERATE,
                     label: 'Keskiverto (0.5 ≤ v < 1.5 solmua)',
                   },
                   {
-                    value: 'strong',
+                    value: CrossCurrent.STRONG,
                     label: 'Voimakas (1.5 ≤ v < 2 solmua)',
                   },
                 ]
@@ -80,50 +82,44 @@ export default function EnvironmentTab() {
         />
       </Grid>
       <Grid size={12}>
-        <CustomSelect
+        <CustomSelect<LongitudinalCurrent>
           id="longitudinal-current"
           label="Pitkittäisvirtaus [solmu]"
-          value={
-            userInput.navline.calculation_params.operating_conditions
-              .longitudinal_current_speed
-          }
+          value={environment.longitudinal_current}
           onChange={() => {}}
           options={[
             {
-              value: 'negligible',
+              value: LongitudinalCurrent.NEGLIGIBLE,
               label: 'Olematon (0 ≤ v < 0.2 solmua)',
             },
             {
-              value: 'moderate',
+              value: LongitudinalCurrent.MODERATE,
               label: 'Keskiverto (0.2 ≤ v < 0.5 solmua)',
             },
             {
-              value: 'strong',
+              value: LongitudinalCurrent.STRONG,
               label: 'Voimakas (v ≥ 3 solmua)',
             },
           ]}
         />
       </Grid>
       <Grid size={12}>
-        <CustomSelect
+        <CustomSelect<WaveHeight>
           id="wave-height"
           label="Aallon korkeus [m]"
-          value={
-            userInput.navline.calculation_params.operating_conditions
-              .wave_height
-          }
+          value={environment.wave_height}
           onChange={() => {}}
           options={[
             {
-              value: 'low',
+              value: WaveHeight.LOW,
               label: 'Matala (0 ≤ h < 1 metriä)',
             },
             {
-              value: 'moderate',
+              value: WaveHeight.MODERATE,
               label: 'Keskiverto (1 ≤ h < 3 metriä)',
             },
             {
-              value: 'high',
+              value: WaveHeight.HIGH,
               label: 'Korkea (h > 3 metriä)',
             },
           ]}

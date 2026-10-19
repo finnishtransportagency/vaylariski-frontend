@@ -14,7 +14,7 @@ export default function useOverrideTab() {
     BEND_ANGLE: '',
   };
 
-  const { fetchGdoGidsForVaylat } = useBackend();
+  const {} = useBackend();
   const { selected: selectedWayarea } = useWayarea();
   const [selectedGDO_GIDs, setSelectedGDO_GIDs] = useState<number[]>([]);
 

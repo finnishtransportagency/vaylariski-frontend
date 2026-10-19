@@ -8,12 +8,30 @@ import CustomAutoComplete from '../../../../components/CustomAutoComplete/Custom
 import CustomNumber from '../../../../components/CustomNumber/CustomNumber.tsx';
 import CustomSelect from '../../../../components/CustomSelect/CustomSelect.tsx';
 import { CustomSwitch } from '../../../../components/CustomSwitch/CustomSwitch.tsx';
-import { useUserInput } from '../../../../contexts/UserInputContext.tsx';
+import { useRiskSettings } from '../../../../contexts/RiskSettingsContext.tsx';
 import { CustomText } from '../../../../components/CustomText/CustomText.tsx';
+import { CalculationInterval } from '../../../../types/CalculationInterval.ts';
+import {
+  ChannelAids,
+  ChannelBottom,
+  ChannelEdge,
+  ChannelLanes,
+  ChannelLightPollution,
+  ChannelTrafficComplexity,
+  ChannelTrafficVolume,
+  ChannelType,
+} from '../../../../types/ChannelSettings.ts';
 
 export default function ChannelTab() {
-  const { wayareaNames, selected, selectWayareaName } = useWayarea();
-  const { userInput } = useUserInput();
+  const { wayareaNames } = useWayarea();
+  const {
+    calculationInterval,
+    useChannelMinimumWidth,
+    channel,
+    setChannelSettings,
+    setUseChannelMinimumWidth,
+    setCalculationInterval,
+  } = useRiskSettings();
 
   return (
     <Grid container spacing={1}>
@@ -25,36 +43,37 @@ export default function ChannelTab() {
           id="vayla"
           title="Väylä"
           options={wayareaNames}
-          selected={selected}
+          selected={channel.selected_channel}
           getLabel={wayareaNameToString}
-          setSelected={selectWayareaName}
-          toolTip={selected ? '' : 'Väylä tarvitaan laskentaan'}
+          setSelected={(item) =>
+            setChannelSettings({ ...channel, selected_channel: item })
+          }
+          toolTip={channel.selected_channel ? '' : 'Väylä tarvitaan laskentaan'}
         />
       </Grid>
       <Grid size={6} sx={{ padding: 1 }}>
-        <CustomSelect
+        <CustomSelect<CalculationInterval>
           id="calculation_interval"
           label="Laskentapisteiden väli"
-          value={userInput.calculation_interval}
-          onChange={() => {}}
-          options={[
-            10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 750, 1000,
-          ].map((interval: number) => ({
-            label: `${interval} m`,
-            value: interval,
-          }))}
+          value={calculationInterval}
+          onChange={(interval) => {
+            if (!interval) return;
+            setCalculationInterval(interval);
+          }}
+          options={Object.values(CalculationInterval)
+            .filter((value) => typeof value === 'number')
+            .map((interval: number) => ({
+              label: `${interval} m`,
+              value: interval,
+            }))}
         />
       </Grid>
       <Grid size={12} sx={{ padding: 1 }}>
         <CustomSwitch
           id="use-min-width"
           label="Rajaa väylän leveys sen lähimpään reunaan"
-          checked={
-            userInput.navline.calculation_params.use_new_width_calculation
-          }
-          onChange={(checked: boolean) => {
-            console.error(`TODO: Checked: ${checked}`);
-          }}
+          checked={useChannelMinimumWidth}
+          onChange={setUseChannelMinimumWidth}
         />
       </Grid>
       <Grid size={12}>
@@ -64,98 +83,104 @@ export default function ChannelTab() {
         <CustomText label="Väylän rakenne" style="big" textAlign="center" />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelLanes>
           id="channel-lanes"
           label={'Kaistat'}
-          value={userInput.navline.calculation_params.number_of_lanes}
-          onChange={() => {}}
+          value={channel.number_of_lanes}
+          onChange={(selected) => {
+            if (!selected) return;
+            setChannelSettings({
+              ...channel,
+              number_of_lanes: selected as number,
+            });
+          }}
           options={[
             {
-              value: 2,
+              value: ChannelLanes.TWO_WAY,
               label: 'Kaksisuuntainen väylä',
             },
             {
-              value: 1,
+              value: ChannelLanes.ONE_WAY,
               label: 'Yksisuuntainen väylä',
             },
           ]}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelType>
           id="channel-type"
           label="Tyyppi"
-          value={userInput.navline.calculation_params.type}
+          value={channel.type}
           onChange={() => {}}
           options={[
             {
-              value: 'inner',
+              value: ChannelType.INNER,
               label: 'Väylän sisäosa',
             },
             {
-              value: 'outer',
+              value: ChannelType.OUTER,
               label: 'Väylän ulko-osa',
             },
           ]}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelBottom>
           id="channel-bottom"
           label="Pohja"
-          value={userInput.navline.calculation_params.bottom_surface}
+          value={channel.bottom_surface}
           onChange={() => {}}
           options={[
             {
-              value: 'smooth_and_soft',
+              value: ChannelBottom.SMOOTH,
               label: 'Sileä ja pehmeä',
             },
             {
-              value: 'rough_and_hard',
+              value: ChannelBottom.ROUGH,
               label: 'Epätasainen ja kova',
             },
           ]}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelEdge>
           id="channel-edge"
           label="Reunan tyyppi"
-          value={userInput.navline.calculation_params.channel_edge}
+          value={channel.channel_edge}
           onChange={() => {}}
           options={[
             {
-              value: 'gentle_slope',
+              value: ChannelEdge.GENTLE,
               label: 'Loiva kaltevuus',
             },
             {
-              value: 'sloping_edges',
+              value: ChannelEdge.SLOPING,
               label: 'Viistot reunat',
             },
             {
-              value: 'steep_and_hard',
+              value: ChannelEdge.STEEP,
               label: 'Jyrkkä ja kova',
             },
           ]}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelAids>
           id="navigation-aids"
           label="Turvalaitteet (ATN)"
-          value={userInput.navline.calculation_params.aids_to_navigation}
+          value={channel.aids_to_navigation}
           onChange={() => {}}
           options={[
             {
-              value: 'excellent',
+              value: ChannelAids.EXCELLENT,
               label: 'Erinomainen',
             },
             {
-              value: 'good',
+              value: ChannelAids.GOOD,
               label: 'Hyvä',
             },
             {
-              value: 'moderate',
+              value: ChannelAids.MODERATE,
               label: 'Keskiverto',
             },
           ]}
@@ -171,35 +196,42 @@ export default function ChannelTab() {
         <CustomNumber
           id="navline-visibility"
           label="Näkyvyys (m)"
-          value={userInput.navline.calculation_params.other.visibility}
+          value={channel.visibility}
+          setValue={(visibility) => {
+            if (!visibility) return;
+            setChannelSettings({
+              ...channel,
+              visibility,
+            });
+          }}
           step={0.1}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelLightPollution>
           id="light-pollution"
           label="Taustavalon voimakkuus"
-          value={userInput.navline.calculation_params.other.light_pollution}
+          value={channel.light_pollution}
           onChange={() => {}}
           options={[
             {
-              value: 'negligible',
+              value: ChannelLightPollution.NEGLIGIBLE,
               label: 'Olematon',
             },
             {
-              value: 'low',
+              value: ChannelLightPollution.LOW,
               label: 'Heikko',
             },
             {
-              value: 'moderate',
+              value: ChannelLightPollution.MODERATE,
               label: 'Keskiverto',
             },
             {
-              value: 'heavy',
+              value: ChannelLightPollution.HEAVY,
               label: 'Voimakas',
             },
             {
-              value: 'very_heavy',
+              value: ChannelLightPollution.VERY_HEAVY,
               label: 'Todella voimakas',
             },
           ]}
@@ -212,60 +244,60 @@ export default function ChannelTab() {
         <CustomText label="Väylän liikenne" style="big" textAlign="center" />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelTrafficVolume>
           id="traffic-volume"
           label="Liikenteen määrä"
-          value={userInput.navline.calculation_params.other.traffic_volume}
+          value={channel.traffic_volume}
           onChange={() => {}}
           options={[
             {
-              value: 'negligible',
+              value: ChannelTrafficVolume.NEGLIGIBLE,
               label: 'Olematon',
             },
             {
-              value: 'low',
+              value: ChannelTrafficVolume.LOW,
               label: 'Matala',
             },
             {
-              value: 'moderate',
+              value: ChannelTrafficVolume.MODERATE,
               label: 'Keskiverto',
             },
             {
-              value: 'heavy',
+              value: ChannelTrafficVolume.HEAVY,
               label: 'Runsas',
             },
             {
-              value: 'very_heavy',
+              value: ChannelTrafficVolume.VERY_HEAVY,
               label: 'Todella runsas',
             },
           ]}
         />
       </Grid>
       <Grid size={6}>
-        <CustomSelect
+        <CustomSelect<ChannelTrafficComplexity>
           id="traffic-complexity"
           label="Liikenteen monimutkaisuus"
-          value={userInput.navline.calculation_params.other.traffic_complexity}
+          value={channel.traffic_complexity}
           onChange={() => {}}
           options={[
             {
-              value: 'negligible',
+              value: ChannelTrafficComplexity.NEGLIGIBLE,
               label: 'Olematon',
             },
             {
-              value: 'low',
+              value: ChannelTrafficComplexity.LOW,
               label: 'Matala',
             },
             {
-              value: 'moderate',
+              value: ChannelTrafficComplexity.MODERATE,
               label: 'Keskiverto',
             },
             {
-              value: 'high',
+              value: ChannelTrafficComplexity.HIGH,
               label: 'Monimutkainen',
             },
             {
-              value: 'very_high',
+              value: ChannelTrafficComplexity.VERY_HIGH,
               label: 'Erittäin monimutkainen',
             },
           ]}

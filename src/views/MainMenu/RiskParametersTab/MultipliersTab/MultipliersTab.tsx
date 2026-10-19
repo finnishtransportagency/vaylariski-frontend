@@ -1,16 +1,127 @@
 import { Grid } from '@mui/material';
-import { useUserInput } from '../../../../contexts/UserInputContext.tsx';
+import { useRiskSettings } from '../../../../contexts/RiskSettingsContext.tsx';
 import CustomNumber from '../../../../components/CustomNumber/CustomNumber.tsx';
 
 import { Divider } from '@mui/material';
 import { CustomText } from '../../../../components/CustomText/CustomText.tsx';
 import { CustomTooltip } from '../../../../components/CustomTooltip/CustomTooltip.tsx';
 import { CustomRangeMultiplier } from '../../../../components/CustomPrefix/CustomPrefix.tsx';
+import { ChannelEdge, ChannelType } from '../../../../types/ChannelSettings.ts';
+import { BoatSpeed } from '../../../../types/BoatSettings.ts';
+import { WindSpeed } from '../../../../types/EnvironmentSettings.ts';
+import { ReactNode } from 'react';
 
 export default function MultipliersTab() {
-  const { userInput } = useUserInput();
+  const { channel, environment, boat, multipliers } = useRiskSettings();
 
-  const boatDraft = userInput.boat.draft;
+  let shipSpeedLabel;
+  switch (boat.speed) {
+    case BoatSpeed.SLOW:
+      shipSpeedLabel = 'Hidas alus';
+      break;
+    case BoatSpeed.MODERATE:
+      shipSpeedLabel = 'Keskinopea alus';
+      break;
+    case BoatSpeed.FAST:
+      shipSpeedLabel = 'Nopea alus';
+      break;
+  }
+
+  let channelEdgeLabel;
+  switch (channel.channel_edge) {
+    case ChannelEdge.GENTLE:
+      channelEdgeLabel = `${shipSpeedLabel}, loivat väylän reunat`;
+      break;
+    case ChannelEdge.SLOPING:
+      channelEdgeLabel = `${shipSpeedLabel}, viistot väylän reunat`;
+      break;
+    case ChannelEdge.STEEP:
+      channelEdgeLabel = `${shipSpeedLabel}, jyrkät väylän reunat`;
+      break;
+  }
+
+  let windSpeedLabel;
+  switch (environment.wind_speed) {
+    case WindSpeed.MILD:
+      windSpeedLabel = `${shipSpeedLabel}, heikko tuuli`;
+      break;
+    case WindSpeed.MODERATE:
+      windSpeedLabel = `${shipSpeedLabel}, keskiverto tuuli`;
+      break;
+    case WindSpeed.STRONG:
+      windSpeedLabel = `${shipSpeedLabel}, voimakas tuuli`;
+      break;
+  }
+
+  let channelDepthHeader: string;
+  let channelDepthDeepLabel: ReactNode;
+  let channelDepthMediumLabel: ReactNode;
+  let channelDepthShallowLabel: ReactNode;
+  switch (channel.type) {
+    case ChannelType.INNER:
+      channelDepthHeader = 'Väylän sisäosan kertoimet';
+      channelDepthDeepLabel = (
+        <>
+          {'väylän syvyys ≥ '}
+          {1.5 * boat.draft} metriä
+          {/* <CustomVariable variable="S" subscript="V" />
+              {' ≥ 1.5 × '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      channelDepthMediumLabel = (
+        <>
+          {' '}
+          {'väylän syvyys < '}
+          {1.5 * boat.draft} metriä
+          {/* 1.15 × <CustomVariable variable="S" subscript="L" /> ≤{' '}
+              <CustomVariable variable="S" subscript="V" /> {'<'} 1.5 ×{' '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      channelDepthShallowLabel = (
+        <>
+          {' '}
+          {'väylän syvyys < '}
+          {1.15 * boat.draft} metriä
+          {/* <CustomVariable variable="S" subscript="V" /> {'<'} 1.15 ×{' '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      break;
+    case ChannelType.OUTER:
+      channelDepthHeader = 'Väylän ulko-osan kertoimet';
+      channelDepthDeepLabel = (
+        <>
+          {' '}
+          {'väylän syvyys ≥ '}
+          {1.5 * boat.draft} metriä
+          {/* <CustomVariable variable="S" subscript="V" />
+              {' ≥ 1.5 × '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      channelDepthMediumLabel = (
+        <>
+          {' '}
+          {'väylän syvyys < '}
+          {1.5 * boat.draft} metriä
+          {/* 1.25 × <CustomVariable variable="S" subscript="L" /> ≤{' '}
+              <CustomVariable variable="S" subscript="V" /> {'<'} 1.5 ×{' '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      channelDepthShallowLabel = (
+        <>
+          {' '}
+          {'väylän syvyys < '}
+          {1.25 * boat.draft} metriä
+          {/* <CustomVariable variable="S" subscript="V" /> {'<'} 1.25 ×{' '}
+              <CustomVariable variable="S" subscript="L" /> */}
+        </>
+      );
+      break;
+  }
 
   return (
     <Grid container size={10}>
@@ -29,7 +140,7 @@ export default function MultipliersTab() {
           id={'weight-channel'}
           label={'Väylä'}
           step={1}
-          value={userInput.weightfactors.WF_channel}
+          value={multipliers.weight_factors.channel}
         />
       </Grid>
       <Grid size={4}>
@@ -37,7 +148,7 @@ export default function MultipliersTab() {
           id="weight-visibility"
           label={'Heikentynyt näkyvyys'}
           step={1}
-          value={userInput.weightfactors.WF_reduced_visibility}
+          value={multipliers.weight_factors.reduced_visibility}
         />
       </Grid>
       <Grid size={4}>
@@ -45,7 +156,7 @@ export default function MultipliersTab() {
           id="weight-light-pollution"
           label={'Taustavalon voimakkuus'}
           step={1}
-          value={userInput.weightfactors.WF_light_pollution}
+          value={multipliers.weight_factors.light_pollution}
         />
       </Grid>
       <Grid size={4}>
@@ -53,7 +164,7 @@ export default function MultipliersTab() {
           id={'weight-bend'}
           label={'Mutka'}
           step={1}
-          value={userInput.weightfactors.WF_bend}
+          value={multipliers.weight_factors.bend}
         />
       </Grid>
       <Grid size={4}>
@@ -61,7 +172,7 @@ export default function MultipliersTab() {
           id={'weight-s-bend'}
           label={'S-mutka'}
           step={1}
-          value={userInput.weightfactors.WF_s_bend}
+          value={multipliers.weight_factors.s_bend}
         />
       </Grid>
       <Grid size={4}>
@@ -69,7 +180,7 @@ export default function MultipliersTab() {
           id="weight-u-bend"
           label={'U-mutka'}
           step={1}
-          value={userInput.weightfactors.WF_u_bend}
+          value={multipliers.weight_factors.u_bend}
         />
       </Grid>
       <Grid size={4}>
@@ -77,135 +188,57 @@ export default function MultipliersTab() {
           id="weight-traffic-complexity"
           label={'Liikenteen monimutkaisuus'}
           step={1}
-          value={userInput.weightfactors.WF_traffic_complexity}
+          value={multipliers.weight_factors.traffic_complexity}
         />
       </Grid>
       <Grid size={12}>
         <Divider orientation="horizontal" />
       </Grid>
-      {userInput.navline.calculation_params.type === 'inner' && (
-        <>
-          <Grid size={10}>
-            <CustomText
-              label="Väylän sisäosan kertoimet"
-              style="big"
-              textAlign="center"
-            />
-          </Grid>
-          <Grid size={2}>
-            <CustomTooltip>
-              Aluksen kölin läheisyys kanavan pohjaan vaikuttaa aluksen
-              ohjailtavuuteen veden pohjavaikutuksen kautta.
-              <br />
-              Alla olevilla kertoimilla määritetään kuinka paljon merkitystä
-              sille annetaan.
-              <br />
-              Laivan syväys {boatDraft} metriä on otettu huomioon alla olevissa
-              raja-arvoissa.
-              {/* <br />
+
+      <Grid size={10}>
+        <CustomText label={channelDepthHeader} style="big" textAlign="center" />
+      </Grid>
+      <Grid size={2}>
+        <CustomTooltip>
+          Aluksen kölin läheisyys kanavan pohjaan vaikuttaa aluksen
+          ohjailtavuuteen veden pohjavaikutuksen kautta.
+          <br />
+          Alla olevilla kertoimilla määritetään kuinka paljon merkitystä sille
+          annetaan.
+          <br />
+          Laivan syväys {boat.draft} metriä on otettu huomioon alla olevissa
+          raja-arvoissa.
+          {/* <br />
               <CustomVariable variable="S" subscript="V" /> = väylän syvyys,{' '}
               <CustomVariable variable="S" subscript="L" /> = laivan syväys ={' '}
               {boatDraft} metriä */}
-            </CustomTooltip>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-deep-inner"
-              value={userInput.channel_depth_wf.deep_inner_channel}
-            >
-              {'väylän syvyys ≥ '}
-              {1.5 * boatDraft} metriä
-              {/* <CustomVariable variable="S" subscript="V" />
-              {' ≥ 1.5 × '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-medium-inner"
-              value={userInput.channel_depth_wf.medium_deep_inner_channel}
-            >
-              {'väylän syvyys < '}
-              {1.5 * boatDraft} metriä
-              {/* 1.15 × <CustomVariable variable="S" subscript="L" /> ≤{' '}
-              <CustomVariable variable="S" subscript="V" /> {'<'} 1.5 ×{' '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-shallow-inner"
-              value={userInput.channel_depth_wf.shallow_inner_channel}
-            >
-              {'väylän syvyys < '}
-              {1.15 * boatDraft} metriä
-              {/* <CustomVariable variable="S" subscript="V" /> {'<'} 1.15 ×{' '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-        </>
-      )}
-      {userInput.navline.calculation_params.type === 'outer' && (
-        <>
-          <Grid size={10}>
-            <CustomText
-              label="Väylän ulko-osan kertoimet"
-              style="big"
-              textAlign="center"
-            />
-          </Grid>
-          <Grid size={2}>
-            <CustomTooltip>
-              Aluksen kölin läheisyys kanavan pohjaan vaikuttaa aluksen
-              ohjailtavuuteen veden pohjavaikutuksen kautta.
-              <br />
-              Alla olevilla kertoimilla määritetään kuinka paljon merkitystä
-              sille annetaan.
-              <br />
-              Laivan syväys {boatDraft} metriä on otettu huomioon alla olevissa
-              raja-arvoissa.
-              {/* <CustomVariable variable="S" subscript="V" /> = väylän syvyys,{' '}
-              <CustomVariable variable="S" subscript="L" /> = laivan syväys ={' '}
-              {boatDraft} metriä */}
-            </CustomTooltip>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-deep-outer"
-              value={userInput.channel_depth_wf.deep_outer_channel}
-            >
-              {'väylän syvyys ≥ '}
-              {1.5 * boatDraft} metriä
-              {/* <CustomVariable variable="S" subscript="V" />
-              {' ≥ 1.5 × '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-medium-outer"
-              value={userInput.channel_depth_wf.medium_deep_outer_channel}
-            >
-              {'väylän syvyys < '}
-              {1.5 * boatDraft} metriä
-              {/* 1.25 × <CustomVariable variable="S" subscript="L" /> ≤{' '}
-              <CustomVariable variable="S" subscript="V" /> {'<'} 1.5 ×{' '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-          <Grid size={12}>
-            <CustomRangeMultiplier
-              id="wf-channel-depth-shallow-outer"
-              value={userInput.channel_depth_wf.shallow_outer_channel}
-            >
-              {'väylän syvyys < '}
-              {1.25 * boatDraft} metriä
-              {/* <CustomVariable variable="S" subscript="V" /> {'<'} 1.25 ×{' '}
-              <CustomVariable variable="S" subscript="L" /> */}
-            </CustomRangeMultiplier>
-          </Grid>
-        </>
-      )}
+        </CustomTooltip>
+      </Grid>
+      <Grid size={12}>
+        <CustomRangeMultiplier
+          id={`channel-depth-deep-${channel.type}`}
+          value={multipliers.channel_depth[channel.type].deep}
+        >
+          {channelDepthDeepLabel}
+        </CustomRangeMultiplier>
+      </Grid>
+      <Grid size={12}>
+        <CustomRangeMultiplier
+          id={`channel-depth-medium-${channel.type}`}
+          value={multipliers.channel_depth[channel.type].medium}
+        >
+          {channelDepthMediumLabel}
+        </CustomRangeMultiplier>
+      </Grid>
+      <Grid size={12}>
+        <CustomRangeMultiplier
+          id={`channel-depth-shallow-${channel.type}`}
+          value={multipliers.channel_depth[channel.type].shallow}
+        >
+          {channelDepthShallowLabel}
+        </CustomRangeMultiplier>
+      </Grid>
+
       <Grid size={10}>
         <CustomText
           style="big"
@@ -223,106 +256,13 @@ export default function MultipliersTab() {
           Alla oleva kerroin määrittää kuinka paljon merkitystä sille annetaan.
         </CustomTooltip>
       </Grid>
-
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'gentle_slope' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_gentle_fast`}
-              label={`Nopea alus, loivat väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_gentle_fast}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'sloping_edges' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_sloping_fast`}
-              label={`Nopea alus, viistot väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_sloping_fast}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'steep_and_hard' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_steep_fast`}
-              label={`Nopea alus, jyrkät väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_steep_fast}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'gentle_slope' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_gentle_moderate`}
-              label={`Keskinopea alus, loivat väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_gentle_moderate}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'sloping_edges' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_sloping_moderate`}
-              label={`Keskinopea alus, viistot väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_sloping_moderate}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'steep_and_hard' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_steep_moderate`}
-              label={`Keskinopea alus, jyrkät väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_steep_moderate}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'gentle_slope' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_gentle_slow`}
-              label={`Hidas alus, loiva väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_gentle_slow}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'sloping_edges' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_sloping_slow`}
-              label={`Hidas alus, viistot väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_sloping_slow}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.channel_edge ===
-          'steep_and_hard' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`edge_category_steep_slow`}
-              label={`Hidas alus, jyrkät väylän reunat`}
-              value={userInput.bank_clearance_wf.edge_category_steep_slow}
-            />
-          </Grid>
-        )}
+      <Grid size={12}>
+        <CustomNumber
+          id={`edge_${boat.speed}_${channel.channel_edge}`}
+          label={channelEdgeLabel}
+          value={multipliers.channel_edge[boat.speed][channel.channel_edge]}
+        />
+      </Grid>
       <Grid size={12}>
         <Divider orientation="horizontal" />
       </Grid>
@@ -343,106 +283,13 @@ export default function MultipliersTab() {
           Alla oleva kerroin määrittää kuinka paljon merkitystä sille annetaan.
         </CustomTooltip>
       </Grid>
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'mild' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`mild_wind_fast_vessel`}
-              label={`Nopea alus, heikko tuuli`}
-              value={userInput.wind_wf.mild_wind_fast_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'moderate' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`moderate_wind_fast_vessel`}
-              label={`Nopea alus, keskiverto tuuli`}
-              value={userInput.wind_wf.moderate_wind_fast_vessel}
-            />
-          </Grid>
-        )}
-
-      {userInput.boat.speed === 'fast' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'strong' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`strong_wind_fast_vessel`}
-              label={`Nopea alus, voimakas tuuli`}
-              value={userInput.wind_wf.strong_wind_fast_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'mild' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`mild_wind_moderate_vessel`}
-              label={`Keskinopea alus, heikko tuuli`}
-              value={userInput.wind_wf.mild_wind_moderate_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'moderate' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`moderate_wind_moderate_vessel`}
-              label={`Keskinopea alus, keskiverto tuuli`}
-              value={userInput.wind_wf.moderate_wind_moderate_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'moderate' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'strong' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`strong_wind_moderate_vessel`}
-              label={`Keskinopea alus, voimakas tuuli`}
-              value={userInput.wind_wf.strong_wind_moderate_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'mild' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`mild_wind_slow_vessel`}
-              label={`Hidas alus, heikko tuuli`}
-              value={userInput.wind_wf.mild_wind_slow_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'moderate' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`moderate_wind_slow_vessel`}
-              label={`Hidas alus, keskiverto tuuli`}
-              value={userInput.wind_wf.moderate_wind_slow_vessel}
-            />
-          </Grid>
-        )}
-      {userInput.boat.speed === 'slow' &&
-        userInput.navline.calculation_params.operating_conditions.wind_speed ===
-          'strong' && (
-          <Grid size={12}>
-            <CustomNumber
-              id={`strong_wind_slow_vessel`}
-              label={`Hidas alus, voimakas tuuli`}
-              value={userInput.wind_wf.strong_wind_slow_vessel}
-            />
-          </Grid>
-        )}
+      <Grid size={12}>
+        <CustomNumber
+          id={`wind_${boat.speed}_${environment.wind_speed}`}
+          label={windSpeedLabel}
+          value={multipliers.wind_speed[boat.speed][environment.wind_speed]}
+        />
+      </Grid>
     </Grid>
   );
 }

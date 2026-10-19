@@ -1,18 +1,18 @@
 import { Divider, Grid } from '@mui/material';
 import { CustomText } from '../../../../components/CustomText/CustomText.tsx';
 import { CustomRangeMultiplier } from '../../../../components/CustomPrefix/CustomPrefix.tsx';
-import { useUserInput } from '../../../../contexts/UserInputContext.tsx';
+import { useRiskSettings } from '../../../../contexts/RiskSettingsContext.tsx';
 import { CustomRangeSelect } from '../../../../components/CustomRangeSelect/CustomRangeSelect.tsx';
 import { CustomTooltip } from '../../../../components/CustomTooltip/CustomTooltip.tsx';
 import { CustomVariable } from '../../../../components/CustomVariable/CustomVariable.tsx';
 import { ReactNode } from 'react';
 
 export default function BendTab() {
-  const { userInput } = useUserInput();
+  const { boat, bend } = useRiskSettings();
 
   // TODO: The input should be R_b limits directly, not some indirect BMI
-  const boatLength = userInput.boat.length;
-  const boatTurningRadiusCoefficient = userInput.boat.C_turning_radius;
+  const boatLength = boat.length;
+  const boatTurningRadiusCoefficient = boat.turning_radius_coefficient;
   const boatTurningRadius = boatLength * boatTurningRadiusCoefficient;
   const BSI_unit: ReactNode = (
     <>
@@ -93,39 +93,39 @@ export default function BendTab() {
       <Grid size={12}>
         <CustomRangeSelect
           unit={BSI_unit}
-          value={userInput.PF_bend_parameters.PF_bend_radius_1}
-          upperLimit={userInput.PF_bend_parameters.bend_ratio_lim_1}
+          value={bend.bend_radius[1]}
+          upperLimit={bend.bend_radius_limits[1]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit={BSI_unit}
-          lowerLimit={userInput.PF_bend_parameters.bend_ratio_lim_1}
-          value={userInput.PF_bend_parameters.PF_bend_radius_2}
-          upperLimit={userInput.PF_bend_parameters.bend_ratio_lim_2}
+          lowerLimit={bend.bend_radius_limits[1]}
+          value={bend.bend_radius[2]}
+          upperLimit={bend.bend_radius_limits[2]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit={BSI_unit}
-          lowerLimit={userInput.PF_bend_parameters.bend_ratio_lim_2}
-          value={userInput.PF_bend_parameters.PF_bend_radius_3}
-          upperLimit={userInput.PF_bend_parameters.bend_ratio_lim_3}
+          lowerLimit={bend.bend_radius_limits[2]}
+          value={bend.bend_radius[3]}
+          upperLimit={bend.bend_radius_limits[3]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit={BSI_unit}
-          lowerLimit={userInput.PF_bend_parameters.bend_ratio_lim_3}
-          value={userInput.PF_bend_parameters.PF_bend_radius_4}
-          upperLimit={userInput.PF_bend_parameters.bend_ratio_lim_4}
+          lowerLimit={bend.bend_radius_limits[3]}
+          value={bend.bend_radius[4]}
+          upperLimit={bend.bend_radius_limits[4]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit={BSI_unit}
-          lowerLimit={userInput.PF_bend_parameters.bend_ratio_lim_4}
-          value={userInput.PF_bend_parameters.PF_bend_radius_5}
+          lowerLimit={bend.bend_radius_limits[4]}
+          value={bend.bend_radius[5]}
         />
       </Grid>
       <Grid size={12}>
@@ -156,39 +156,39 @@ export default function BendTab() {
       <Grid size={12}>
         <CustomRangeSelect
           unit="α"
-          value={userInput.PF_bend_parameters.PF_bend_angle_1}
-          upperLimit={userInput.PF_bend_parameters.bend_angle_lim_1}
+          value={bend.bend_angle[1]}
+          upperLimit={bend.bend_angle_limits[1]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit="α"
-          lowerLimit={userInput.PF_bend_parameters.bend_angle_lim_1}
-          value={userInput.PF_bend_parameters.PF_bend_angle_2}
-          upperLimit={userInput.PF_bend_parameters.bend_angle_lim_2}
+          lowerLimit={bend.bend_angle_limits[1]}
+          value={bend.bend_angle[2]}
+          upperLimit={bend.bend_angle_limits[2]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit="α"
-          lowerLimit={userInput.PF_bend_parameters.bend_angle_lim_2}
-          value={userInput.PF_bend_parameters.PF_bend_angle_3}
-          upperLimit={userInput.PF_bend_parameters.bend_angle_lim_3}
+          lowerLimit={bend.bend_angle_limits[2]}
+          value={bend.bend_angle[3]}
+          upperLimit={bend.bend_angle_limits[3]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit="α"
-          lowerLimit={userInput.PF_bend_parameters.bend_angle_lim_3}
-          value={userInput.PF_bend_parameters.PF_bend_angle_4}
-          upperLimit={userInput.PF_bend_parameters.bend_angle_lim_4}
+          lowerLimit={bend.bend_angle_limits[3]}
+          value={bend.bend_angle[4]}
+          upperLimit={bend.bend_angle_limits[4]}
         />
       </Grid>
       <Grid size={12}>
         <CustomRangeSelect
           unit="α"
-          lowerLimit={userInput.PF_bend_parameters.bend_angle_lim_4}
-          value={userInput.PF_bend_parameters.PF_bend_angle_5}
+          lowerLimit={bend.bend_angle_limits[4]}
+          value={bend.bend_angle[5]}
         />
       </Grid>
       <Grid size={12}>
@@ -214,50 +214,35 @@ export default function BendTab() {
         </CustomTooltip>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-sbend-1"
-          value={userInput.S_bend_multipliers.S_bend_multiplier_1}
-        >
+        <CustomRangeMultiplier id="multipliers-sbend-1" value={bend.S_bend[1]}>
           {'S-mutkan pituus ≥ '}
           {6 * boatLength}
           {' metriä'}
         </CustomRangeMultiplier>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-sbend-2"
-          value={userInput.S_bend_multipliers.S_bend_multiplier_2}
-        >
+        <CustomRangeMultiplier id="multipliers-sbend-2" value={bend.S_bend[2]}>
           {'S-mutkan pituus < '}
           {6 * boatLength}
           {' metriä'}
         </CustomRangeMultiplier>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-sbend-3"
-          value={userInput.S_bend_multipliers.S_bend_multiplier_3}
-        >
+        <CustomRangeMultiplier id="multipliers-sbend-3" value={bend.S_bend[3]}>
           {'S-mutkan pituus < '}
           {5 * boatLength}
           {' metriä'}
         </CustomRangeMultiplier>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-sbend-4"
-          value={userInput.S_bend_multipliers.S_bend_multiplier_4}
-        >
+        <CustomRangeMultiplier id="multipliers-sbend-4" value={bend.S_bend[4]}>
           {'S-mutkan pituus < '}
           {4 * boatLength}
           {' metriä'}
         </CustomRangeMultiplier>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-sbend-5"
-          value={userInput.S_bend_multipliers.S_bend_multiplier_5}
-        >
+        <CustomRangeMultiplier id="multipliers-sbend-5" value={bend.S_bend[5]}>
           {'S-mutkan pituus < '}
           {3 * boatLength}
           {' metriä'}
@@ -286,10 +271,7 @@ export default function BendTab() {
         </CustomTooltip>
       </Grid>
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-ubend-1"
-          value={userInput.U_bend_multipliers.U_bend_multiplier_1}
-        >
+        <CustomRangeMultiplier id="multipliers-ubend-1" value={bend.U_bend[1]}>
           {'U-mutkan pituus ≥ '}
           {5 * boatLength}
           {' metriä'}
@@ -297,10 +279,7 @@ export default function BendTab() {
       </Grid>
 
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-ubend-2"
-          value={userInput.U_bend_multipliers.U_bend_multiplier_2}
-        >
+        <CustomRangeMultiplier id="multipliers-ubend-2" value={bend.U_bend[2]}>
           {'U-mutkan pituus < '}
           {5 * boatLength}
           {' metriä'}
@@ -308,10 +287,7 @@ export default function BendTab() {
       </Grid>
 
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-ubend-3"
-          value={userInput.U_bend_multipliers.U_bend_multiplier_3}
-        >
+        <CustomRangeMultiplier id="multipliers-ubend-3" value={bend.U_bend[3]}>
           {'U-mutkan pituus < '}
           {4 * boatLength}
           {' metriä'}
@@ -319,10 +295,7 @@ export default function BendTab() {
       </Grid>
 
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-ubend-4"
-          value={userInput.U_bend_multipliers.U_bend_multiplier_4}
-        >
+        <CustomRangeMultiplier id="multipliers-ubend-4" value={bend.U_bend[4]}>
           {'U-mutkan pituus < '}
           {3 * boatLength}
           {' metriä'}
@@ -330,10 +303,7 @@ export default function BendTab() {
       </Grid>
 
       <Grid size={12}>
-        <CustomRangeMultiplier
-          id="multipliers-ubend-5"
-          value={userInput.U_bend_multipliers.U_bend_multiplier_5}
-        >
+        <CustomRangeMultiplier id="multipliers-ubend-5" value={bend.U_bend[5]}>
           {'U-mutkan pituus < '}
           {2 * boatLength}
           {' metriä'}
