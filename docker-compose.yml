@@ -1,0 +1,52 @@
+# Docker compose to start a frontend development environment
+name: vaylariski-dev
+version: '3.5'
+
+networks:
+  network:
+    name: network
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: '127.0.0.1'
+
+# We use the snowflake database for development, so VPN is required
+services:
+  # Test environment assumes backend is in adjacent folder named "vaylariski"
+  #  and uses its local environment variables
+  backend:
+    container_name: backend
+    restart: always
+    volumes:
+      - ../vaylariski/requirements.txt:/code/requirements.txt:ro
+      - ../vaylariski/app:/code/app:ro
+    build:
+      context: ../vaylariski
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8000:8080'
+    env_file:
+      - ../vaylariski/app/env/.local.env
+    networks:
+      - network
+
+  frontend:
+    container_name: frontend
+    develop:
+      watch:
+        - action: rebuild
+          path: ./src
+
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - PROXY_URL=http://backend:8080
+        - REACT_APP_BASE_REST_URL=vaylariski/rest
+    networks:
+      - network
+    ports:
+      - '3000:3000'
+    depends_on:
+      backend:
+        condition: service_started

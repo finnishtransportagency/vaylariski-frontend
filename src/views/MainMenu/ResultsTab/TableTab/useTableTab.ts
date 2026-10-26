@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRisk } from '../../../../contexts/NewRiskContext.tsx';
 import { useUserSelection } from '../../../../contexts/NewUserSelectionContext.tsx';
-import { useNotification } from '../../../../contexts/NotificationContext.tsx';
 import { RivResultProperty } from '../../../../types/RivResultProperty.ts';
 import { DataRow, Filter } from './TableTab.tsx';
 import { SelectedColumn } from '../../../../components/CustomSelectionBox/CustomSelectionBox.tsx';
@@ -9,15 +8,8 @@ import { RowData } from '../../../../components/CustomTable/CustomTable.tsx';
 import { RivResultProperties } from '../../../../types/RivResultProperties.ts';
 
 export function useTableTab() {
-  const { RIVResult } = useRisk();
-  const {
-    mapPointClicked,
-    setMapPointClicked,
-    selectedRowId,
-    setSelectedRowId,
-    setTableRowClicked,
-  } = useUserSelection();
-  const { setNotificationStatus } = useNotification();
+  const { results } = useRisk();
+  const { selectedRiskPointIndex, selectRiskPointIndex } = useUserSelection();
 
   const [filters, setFilters] = useState<Filter[]>(
     updateFilterLabels(
@@ -29,7 +21,11 @@ export function useTableTab() {
       }))
     )
   );
-  const [allRows, setAllRows] = useState<DataRow[]>([]);
+  const allRows: DataRow[] = results.map((el) => ({
+    ...el,
+    id: el.point_index,
+  }));
+
   const [rows, setRows] = useState<DataRow[]>([]);
 
   // Visible rows and columns based on selected visibleColumn
@@ -89,48 +85,19 @@ export function useTableTab() {
   }
 
   function handleTableClick(row: RowData<RivResultProperties>) {
-    setTableRowClicked(true);
-    setSelectedRowId(row.id);
+    selectRiskPointIndex(row.id);
   }
 
   useEffect(() => {
-    if (mapPointClicked) {
-      setMapPointClicked(false);
-    }
-  }, [selectedRowId]);
-
-  useEffect(() => {
-    if (!RIVResult) {
-      setAllRows([]);
-      return;
-    }
-    const rowResults: DataRow[] = RIVResult.features.map((el) => ({
-      ...el.properties,
-      id: `${el.properties.point_index}`,
-    }));
-
-    if (rowResults[0].draft_is_greater_than_depth) {
-      setNotificationStatus({
-        severity: 'warning',
-        message: 'Laivan syväys on suurempi kuin väylän syvyys!',
-        visible: true,
-      });
-      setAllRows([]);
-    } else {
-      setAllRows(rowResults);
-    }
-  }, [RIVResult]);
-
-  useEffect(() => {
     setRows(applyFilters(allRows, filters));
-  }, [allRows, filters]);
+  }, [filters]);
 
   return {
     rows,
     handleTableClick,
     columns,
     filters,
-    selectedRowId,
+    selectedRowId: selectedRiskPointIndex,
     onSelectionChange,
     updateFilters,
     applyFilters,

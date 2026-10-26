@@ -10,7 +10,7 @@ import { Direction } from '@mui/system';
 import styles from './CustomTable.module.css';
 
 export type RowData<T> = {
-  readonly id: string;
+  readonly id: number;
 } & T;
 
 type Props<T> = {
@@ -19,7 +19,7 @@ type Props<T> = {
   readonly columns: Column<RowData<T>>[];
   readonly rows: RowData<T>[];
   readonly onClick: (row: RowData<T>) => void;
-  readonly selectedRowId?: string;
+  readonly selectedRowId?: number;
 };
 
 function sortRows<T>(

@@ -1,0 +1,14 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  flex-grow: 1;
+  margin: 0.5 0.5px;
+}
+
+.headerSpan {
+  padding: 1px;
+}

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -14,28 +13,10 @@ import TooltipRender from './TooltipRender.tsx';
 import useDiagramTab from './useDiagramTab.ts';
 
 export default function DiagramTab() {
-  const {
-    RIVTrafficLight,
-    RIVResults,
-    selectedRowIndex,
-    maxDataValue,
-    displayRowResults,
-    diagramRef,
-    handleOnClick,
-    updateRIVResults,
-    updatePointClicked,
-  } = useDiagramTab();
+  const { diagramRef, results, maxDataValue, RIVTrafficLight, handleOnClick } =
+    useDiagramTab();
 
-  useEffect(() => {
-    updateRIVResults();
-  }, [RIVResults]);
-
-  // Runs when a point in the map has been clicked, renders the corresponding
-  // tooltip in the diagram
-  useEffect(() => {
-    updatePointClicked();
-  }, [selectedRowIndex]);
-
+  // TODO: Use recharts with typescript support!
   return (
     <div className="riv-tab-container">
       <div className="riv-tab-content">
@@ -47,7 +28,7 @@ export default function DiagramTab() {
         >
           <ResponsiveContainer width="100%" height="95%">
             <LineChart
-              data={displayRowResults}
+              data={results}
               height={400}
               margin={{
                 bottom: 40,

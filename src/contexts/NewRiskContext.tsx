@@ -2,6 +2,7 @@ import { RivResult } from '../types/RivResult.ts';
 import { RiskContextData } from '../types/RiskContextData.ts';
 import { RIVTrafficLight } from '../types/RIVTrafficLight.ts';
 import { createContext, ReactNode, useContext, useState } from 'react';
+import { RivResultProperties } from '../types/RivResultProperties.ts';
 
 const RiskGetContext = createContext<RiskContextData>({
   rivTrafficLight: { green: 10, yellow: 30, red: 80 },
@@ -44,20 +45,15 @@ function useRisk() {
     });
   }
 
-  function setPreviousRIVResult(result?: RivResult) {
-    setState({
-      ...state,
-      previousRIVResult: result,
-    });
-  }
+  const results: RivResultProperties[] =
+    state.RIVResult?.features.map((el) => el.properties) ?? [];
 
   return {
+    results,
     RIVResult: state.RIVResult,
     RIVTrafficLight: state.rivTrafficLight,
-    previousRIVResult: state.previousRIVResult,
     setRIVResult,
     setRIVTrafficLight,
-    setPreviousRIVResult,
   };
 }
 

@@ -348,19 +348,36 @@ export default function useBackend() {
     const channel = await fetchNavigationlineChannel(selected.VAYLAT);
     const risk = await fetchNavigationlineRisk(selected.VAYLAT, parameters);
     setSpinnerVisibility(false);
-    if (!!channel && !!risk) {
-      setNotificationStatus({
-        severity: 'success',
-        message: `Väylän ${wayareaNameToString(selected)} riski on laskettu`,
-        visible: true,
-      });
-      setChannelArea(channel);
-      setRIVResult(risk);
-    } else {
+
+    if (!channel || !risk) {
       // Error message(s) should've already been shown
       setChannelArea(undefined);
       setRIVResult(undefined);
+      return;
     }
+
+    const boatHitsChannelBottom = !!risk.features.find(
+      (f) => f.properties.draft_is_greater_than_depth
+    );
+
+    if (boatHitsChannelBottom) {
+      setNotificationStatus({
+        severity: 'warning',
+        message: 'Laivan syväys on suurempi kuin väylän syvyys!',
+        visible: true,
+      });
+      setChannelArea(undefined);
+      setRIVResult(undefined);
+      return;
+    }
+
+    setNotificationStatus({
+      severity: 'success',
+      message: `Väylän ${wayareaNameToString(selected)} riski on laskettu`,
+      visible: true,
+    });
+    setChannelArea(channel);
+    setRIVResult(risk);
   }
 
   return {

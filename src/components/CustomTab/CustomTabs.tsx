@@ -18,14 +18,17 @@ export default function CustomTabs({ tabs, style }: Props) {
     return <></>;
   }
 
+  let contentClass: string;
   let activeTabClass: string;
   switch (style) {
     case 'main':
       activeTabClass = styles.mainTabActive;
+      contentClass = styles.mainTabContent;
       break;
     case 'inner':
     case 'riv':
       activeTabClass = styles.tabActive;
+      contentClass = styles.tabContent;
       break;
     default:
       return <></>;
@@ -58,7 +61,7 @@ export default function CustomTabs({ tabs, style }: Props) {
           />
         ))}
       </Tabs>
-      {tabs[currentTab].content}
+      <div className={contentClass}>{tabs[currentTab].content}</div>
     </>
   );
 }

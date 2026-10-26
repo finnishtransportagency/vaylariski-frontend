@@ -1,12 +1,13 @@
 .contentWrapper {
-  height: 93vh;
+  height: 94vh;
   width: 100%;
-  padding-bottom: 1vh;
   background-color: var(--color-light-blue-30);
 }
 
 .mapWrapper {
   height: 94vh;
   width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
   background-color: var(--color-light-blue-30);
 }
