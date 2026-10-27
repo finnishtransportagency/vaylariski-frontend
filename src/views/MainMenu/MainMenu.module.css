@@ -2,3 +2,26 @@
   width: 100%;
   height: 93vh;
 }
+
+.tabArea {
+  height: 85vh;
+}
+
+.submitArea {
+  background-color: var(--color-light-blue-30);
+  height: 8vh;
+  padding-top: 1vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.submitButton {
+  background-color: var(--color-header) !important;
+  color: var(--color-dark-blue-100) !important;
+  font-size: medium !important;
+  font-weight: 600 !important;
+  height: 7vh;
+  width: 100%;
+  margin: 0 !important;
+}

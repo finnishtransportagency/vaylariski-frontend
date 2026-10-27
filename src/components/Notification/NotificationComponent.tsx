@@ -12,11 +12,16 @@ export default function NotificationComponent() {
     setNotificationStatus({ ...notificationStatus, visible: false });
   }
 
+  const isImportant =
+    notificationStatus.severity === 'error' ||
+    notificationStatus.severity === 'warning';
+
   return (
     <>
       <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={notificationStatus.visible}
-        autoHideDuration={60000}
+        autoHideDuration={isImportant ? 60000 : 4000}
         onClose={handleClose}
       >
         <MuiAlert

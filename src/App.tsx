@@ -14,6 +14,7 @@ import { UserSelectionProvider } from './contexts/NewUserSelectionContext.tsx';
 import styles from './App.module.css';
 import packageJson from '../package.json';
 import { CustomText } from './components/CustomText/CustomText.tsx';
+import { CustomTabProvider } from './contexts/CustomTabContext.tsx';
 
 const theme = createTheme({
   palette: {
@@ -78,7 +79,9 @@ function App() {
                     <WayareaProvider>
                       <DefaultShipProvider>
                         <UserSelectionProvider>
-                          <Main />
+                          <CustomTabProvider>
+                            <Main />
+                          </CustomTabProvider>
                         </UserSelectionProvider>
                       </DefaultShipProvider>
                     </WayareaProvider>

@@ -17,6 +17,8 @@ import { BoatSpeed } from '../../types/BoatSettings.ts';
 import { ChannelEdge, ChannelType } from '../../types/ChannelSettings.ts';
 import { WindSpeed } from '../../types/EnvironmentSettings.ts';
 import { useNotification } from '../../contexts/NotificationContext.tsx';
+import { useCustomTab } from '../../contexts/CustomTabContext.tsx';
+import { useUserSelection } from '../../contexts/NewUserSelectionContext.tsx';
 
 /**
  * Convert UI internal variables to the format required by back end
@@ -183,6 +185,8 @@ export default function useBackend() {
   const { setChannelArea } = useChannel();
   const { setRIVResult } = useRisk();
   const { setNotificationStatus } = useNotification();
+  const { setMainTab } = useCustomTab();
+  const { selectRiskPointIndex } = useUserSelection();
 
   async function fetchAllDefaultShips(): Promise<DefaultShip[]> {
     const boats: DefaultShip[] =
@@ -378,6 +382,12 @@ export default function useBackend() {
     });
     setChannelArea(channel);
     setRIVResult(risk);
+    // Open results tab if we calculated the risks
+    // For now the tab should just be known to be this from the main menu component
+    // It is left this ugly for now to save development time
+    setMainTab(2);
+    // Also clear the selected risk point
+    selectRiskPointIndex(undefined);
   }
 
   return {

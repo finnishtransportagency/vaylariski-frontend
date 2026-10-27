@@ -1,60 +1,69 @@
 import 'react-data-grid/lib/styles.css';
 import { useEffect, useRef, useState } from 'react';
 import {
+  CellMouseArgs,
+  CellMouseEvent,
   DataGrid,
   DataGridHandle,
   SortColumn,
-  type Column,
 } from 'react-data-grid';
-import { Direction } from '@mui/system';
 import styles from './CustomTable.module.css';
+import useCustomTable, { CustomSortColumn } from './useCustomTable.ts';
+import { CustomText } from '../CustomText/CustomText.tsx';
+
+export type ColumnData<V> = {
+  readonly key: V;
+  readonly name: string;
+};
 
 export type RowData<T> = {
   readonly id: number;
 } & T;
 
-type Props<T> = {
+export type GetFunction<T, V> = (
+  columnKey: V,
+  row: RowData<T>
+) => string | boolean | number;
+
+type Props<T, V> = {
   readonly className: string;
-  readonly direction?: Direction;
-  readonly columns: Column<RowData<T>>[];
+  readonly columns: ColumnData<V>[];
   readonly rows: RowData<T>[];
   readonly onClick: (row: RowData<T>) => void;
   readonly selectedRowId?: number;
+  readonly getValue: GetFunction<T, V>;
 };
 
-function sortRows<T>(
-  rows: RowData<T>[],
-  sortByColumns: SortColumn[]
-): RowData<T>[] {
-  if (sortByColumns.length < 1) {
-    return rows;
-  }
-  // Sort only by the first column
-  const { columnKey, direction } = sortByColumns[0];
-
-  // TODO: Add proper sorting
-
-  console.error(`Cannot currently sort rows by ${columnKey} and ${direction}`);
-  return rows;
-}
-
-export function CustomTable<T>({
+export function CustomTable<T, V extends string>({
   className,
-  direction,
   columns,
   rows,
   onClick,
   selectedRowId,
-}: Props<T>) {
+  getValue,
+}: Props<T, V>) {
+  if (rows.length < 1) {
+    return (
+      <CustomText
+        label="Ei tuloksia"
+        textAlign="center"
+        verticalAlign="middle"
+        style="big"
+      />
+    );
+  }
+
+  const { sortRows } = useCustomTable();
+
   const gridRef = useRef<DataGridHandle>(null);
-  const [sortByColumns, setSortByColumns] = useState<SortColumn[]>([]);
+  const [sortColumn, setSortColumn] = useState<CustomSortColumn<V>>();
   const [sortedRows, setSortedRows] = useState<RowData<T>[]>(
-    sortRows<T>(rows, sortByColumns)
+    sortRows(getValue, rows, sortColumn)
   );
 
   useEffect(() => {
-    setSortedRows(sortRows<T>(rows, sortByColumns));
-  }, [sortByColumns]);
+    setSortedRows(sortRows(getValue, rows, sortColumn));
+  }, [sortColumn]);
 
   // Scroll to selected table row
   if (gridRef.current && selectedRowId) {
@@ -68,15 +77,26 @@ export function CustomTable<T>({
       ref={gridRef}
       columns={columns}
       rows={sortedRows}
-      sortColumns={sortByColumns}
-      onSortColumnsChange={(newColumns: SortColumn[]) =>
-        setSortByColumns(newColumns.slice(-1))
+      sortColumns={sortColumn ? [sortColumn] : []}
+      onSortColumnsChange={(newSortColumns: SortColumn[]) => {
+        if (newSortColumns.length < 1) {
+          setSortColumn(undefined);
+        } else {
+          // Disables multi-column sorting
+          const { columnKey, direction } = newSortColumns.slice(-1)[0];
+          setSortColumn({ columnKey: columnKey as V, direction });
+        }
+      }}
+      onCellClick={(args: CellMouseArgs<RowData<T>>, _: CellMouseEvent) =>
+        onClick(args.row)
       }
-      direction={direction}
-      // onCellClick={(cell: DataGridProps<RowData<T>>) => onClick(cell.rows)}
-      rowClass={(row: any) =>
+      rowClass={(row: NoInfer<RowData<T>>) =>
         row.id == selectedRowId ? styles.selectedRowBgColor : ''
       }
+      defaultColumnOptions={{
+        resizable: true,
+        sortable: true,
+      }}
     />
   );
 }
