@@ -42,6 +42,7 @@ export function CustomCsvButton<T, V>({
   getValue,
 }: Props<T, V>) {
   // NOTE: CSVLink is unable to properly add the headers to the data, despite claiming support for it, so we need to do it all manually
+  const disabled = rows.length < 1 || columns.length < 1;
   const data: string[][] = [];
   data.push(columns.map((col) => col.name));
   rows.forEach((row) => {
@@ -49,7 +50,11 @@ export function CustomCsvButton<T, V>({
   });
 
   return (
-    <Button variant="contained" sx={{ mb: 1, mt: 1, ml: 1 }}>
+    <Button
+      variant="contained"
+      disabled={disabled}
+      sx={{ mb: 1, mt: 1, ml: 1 }}
+    >
       <CSVLink
         data={data}
         filename={getFileNameWithDate(fileName)}
