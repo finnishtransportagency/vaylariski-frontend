@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ColumnData,
   CustomTable,
@@ -8,10 +8,8 @@ import {
 import { Grid } from '@mui/material';
 import styles from './CustomFilteredTable.module.css';
 import { CustomCsvButton } from '../CustomButton/CustomCsvButton.tsx';
-import { useCSV } from '../../services/CSV/useCSV.ts';
 import CustomColumnSelectionModal from './CustomColumnSelectionModal.tsx';
 import CustomRowFilterModal, { NumberFilter } from './CustomRowFilterModal.tsx';
-import { useNotification } from '../../contexts/NotificationContext.tsx';
 
 export type FilteredColumnData<V> = ColumnData<V> & {
   readonly isDefault: boolean;
@@ -49,11 +47,6 @@ export default function CustomFilteredTable<T, V extends string>({
   const [showRows, setShowRows] = useState<ShownRow<T>[]>(
     rows.map((row) => ({ ...row, show: true }))
   );
-  const { csvData, selectCsvData } = useCSV<T>();
-
-  useEffect(() => {
-    selectCsvData(rows);
-  }, [rows]);
 
   const filters: NumberFilter<V>[] = columns
     .filter((col) => col.isFiltered)
@@ -63,10 +56,12 @@ export default function CustomFilteredTable<T, V extends string>({
     <Grid container size={12} className={className}>
       <Grid container size={12} className={styles.headerElement}>
         <Grid size={4}>
-          <CustomCsvButton
-            label="Lataa CSV"
-            fileName="vaylakohtainen_riski.csv"
-            data={csvData}
+          {/* Note: Downloads only the data visible on the table */}
+          <CustomCsvButton<T, V>
+            fileName="vaylakohtainen_riski"
+            columns={showColumns.filter((col) => col.show)}
+            rows={showRows.filter((row) => row.show)}
+            getValue={getValue}
           />
         </Grid>
         <Grid size={4}>
