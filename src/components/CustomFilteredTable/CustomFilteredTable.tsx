@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ColumnData,
   CustomTable,
@@ -7,16 +7,22 @@ import {
 } from '../CustomTable/CustomTable.tsx';
 import { Grid } from '@mui/material';
 import styles from './CustomFilteredTable.module.css';
+import { CustomCsvButton } from '../CustomButton/CustomCsvButton.tsx';
+import { useCSV } from '../../services/CSV/useCSV.ts';
+import CustomColumnSelectionModal from './CustomColumnSelectionModal.tsx';
+import CustomRowFilterModal, { NumberFilter } from './CustomRowFilterModal.tsx';
+import { useNotification } from '../../contexts/NotificationContext.tsx';
 
 export type FilteredColumnData<V> = ColumnData<V> & {
   readonly isDefault: boolean;
+  readonly isFiltered: boolean;
 };
 
-type ShownColumn<V> = ColumnData<V> & {
+export type ShownColumn<V> = ColumnData<V> & {
   readonly show: boolean;
 };
 
-type ShownRow<T> = RowData<T> & {
+export type ShownRow<T> = RowData<T> & {
   readonly show: boolean;
 };
 
@@ -43,10 +49,49 @@ export default function CustomFilteredTable<T, V extends string>({
   const [showRows, setShowRows] = useState<ShownRow<T>[]>(
     rows.map((row) => ({ ...row, show: true }))
   );
+  const { csvData, selectCsvData } = useCSV<T>();
+
+  useEffect(() => {
+    selectCsvData(rows);
+  }, [rows]);
+
+  const filters: NumberFilter<V>[] = columns
+    .filter((col) => col.isFiltered)
+    .map((col) => ({ name: col.name, key: col.key }));
+
   return (
     <Grid container size={12} className={className}>
-      <Grid size={12} className={styles.headerElement}>
-        Otsikko
+      <Grid container size={12} className={styles.headerElement}>
+        <Grid size={4}>
+          <CustomCsvButton
+            label="Lataa CSV"
+            fileName="vaylakohtainen_riski.csv"
+            data={csvData}
+          />
+        </Grid>
+        <Grid size={4}>
+          <CustomColumnSelectionModal
+            label="Valitse sarakkeet"
+            columns={showColumns}
+            toggleColumn={(key, show) => {
+              setShowColumns(
+                showColumns.map((col) => {
+                  if (col.key === key) return { ...col, show };
+                  return col;
+                })
+              );
+            }}
+          />
+        </Grid>
+        <Grid size={4}>
+          <CustomRowFilterModal<T, V>
+            label="Suodata rivejä"
+            filters={filters}
+            rows={showRows}
+            setRows={setShowRows}
+            getValue={getValue}
+          />
+        </Grid>
       </Grid>
       <Grid size={12} className={styles.tableElement}>
         <CustomTable<T, V>

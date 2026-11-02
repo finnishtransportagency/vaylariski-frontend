@@ -1,15 +1,16 @@
 import { ReactNode } from 'react';
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { Button } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import { IconButton } from '@mui/material';
 
 export type Props = {
-  readonly icon: 'filter' | 'week';
-  readonly label: string;
+  readonly icon: 'filter' | 'week' | 'clear';
   readonly onClick: () => void;
+  readonly color?: 'success' | 'error';
 };
 
-export function CustomIconButton({ icon, label, onClick }: Props) {
+export function CustomIconButton({ icon, onClick, color }: Props) {
   let IconComponent: ReactNode;
   switch (icon) {
     case 'filter':
@@ -17,14 +18,17 @@ export function CustomIconButton({ icon, label, onClick }: Props) {
       break;
     case 'week':
       IconComponent = <ViewWeekIcon style={{ marginRight: 3 }} />;
+      break;
+    case 'clear':
+      IconComponent = <ClearIcon />;
+      break;
     default:
       return <></>;
   }
 
   return (
-    <Button variant="contained" sx={{ mb: 1, mt: 1, ml: 1 }} onClick={onClick}>
+    <IconButton color={color} onClick={onClick}>
       {IconComponent}
-      {label}
-    </Button>
+    </IconButton>
   );
 }

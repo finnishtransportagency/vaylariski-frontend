@@ -63,7 +63,7 @@ export function CustomTable<T, V extends string>({
 
   useEffect(() => {
     setSortedRows(sortRows(getValue, rows, sortColumn));
-  }, [sortColumn]);
+  }, [sortColumn, rows, columns]);
 
   // Scroll to selected table row
   if (gridRef.current && selectedRowId) {

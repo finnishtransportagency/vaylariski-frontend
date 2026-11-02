@@ -10,7 +10,7 @@ export type Props = {
 
 export function CustomCsvButton({ label, fileName, data }: Props) {
   return (
-    <Button variant="contained" sx={{ mb: 1, mt: 1, ml: 1 }}>
+    <Button variant="contained" disabled sx={{ mb: 1, mt: 1, ml: 1 }}>
       <CSVLink
         data={data}
         filename={fileName}

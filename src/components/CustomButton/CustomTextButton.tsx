@@ -6,6 +6,7 @@ export type Props = {
   readonly onClick?: () => void;
   readonly disabled?: boolean;
   readonly className?: string;
+  readonly variant?: 'text' | 'contained' | 'outlined';
 };
 
 export function CustomTextButton({
@@ -14,11 +15,12 @@ export function CustomTextButton({
   onClick,
   className,
   disabled = false,
+  variant = 'contained',
 }: Props) {
   return (
     <Button
       className={className}
-      variant="contained"
+      variant={variant}
       sx={{ ml: 1, mt: 1, mb: 1 }}
       type={type}
       disabled={disabled}
