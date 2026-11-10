@@ -1,9 +1,16 @@
-import { BendSettings } from './BendSettings.ts';
-import { BoatSettings } from './BoatSettings.ts';
+import { Change } from '../services/BrowserStorage/Change.ts';
+import { BEND_CHANGES, BendSettings } from './BendSettings.ts';
+import { BOAT_CHANGES, BoatSettings } from './BoatSettings.ts';
 import { CalculationInterval } from './CalculationInterval.ts';
-import { ChannelSettings } from './ChannelSettings.ts';
-import { EnvironmentSettings } from './EnvironmentSettings.ts';
-import { MultiplierSettings } from './MultiplierSettings.ts';
+import { CHANNEL_CHANGES, ChannelSettings } from './ChannelSettings.ts';
+import {
+  ENVIRONMENT_CHANGES,
+  EnvironmentSettings,
+} from './EnvironmentSettings.ts';
+import {
+  MULTIPLIER_CHANGES,
+  MultiplierSettings,
+} from './MultiplierSettings.ts';
 
 export type RiskSettings = {
   boat: BoatSettings;
@@ -14,3 +21,13 @@ export type RiskSettings = {
   useChannelMinimumWidth: boolean;
   calculationInterval: CalculationInterval;
 };
+
+export const RISK_CHANGES: Change[] = [
+  { name: 'Rajaus lähimpään reunaan', value: (s) => s.useChannelMinimumWidth },
+  { name: 'Laskentapisteiden väli', value: (s) => s.calculationInterval },
+  ...BOAT_CHANGES,
+  ...CHANNEL_CHANGES,
+  ...ENVIRONMENT_CHANGES,
+  ...MULTIPLIER_CHANGES,
+  ...BEND_CHANGES,
+];

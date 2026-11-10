@@ -1,3 +1,4 @@
+import { Change } from '../services/BrowserStorage/Change.ts';
 import { WayareaName } from './WayareaName.ts';
 
 export type ChannelSettings = {
@@ -56,3 +57,19 @@ export enum ChannelTrafficComplexity {
   HIGH = 'high',
   VERY_HIGH = 'very_high',
 }
+
+export const CHANNEL_CHANGES: Change[] = [
+  { name: 'Valittu väylä', value: (s) => s.channel.selected_channel?.NIMIFI },
+  { name: 'Väylän kaistat', value: (s) => s.channel.number_of_lanes },
+  { name: 'Väylän tyyppi', value: (s) => s.channel.type },
+  { name: 'Väylän pohja', value: (s) => s.channel.bottom_surface },
+  { name: 'Väylän reuna', value: (s) => s.channel.channel_edge },
+  { name: 'Turvalaitteet (ATN)', value: (s) => s.channel.aids_to_navigation },
+  { name: 'Näkyvyys [m]', value: (s) => s.channel.visibility },
+  { name: 'Taustavalon voimakkuus', value: (s) => s.channel.light_pollution },
+  { name: 'Liikenteen määrä', value: (s) => s.channel.traffic_volume },
+  {
+    name: 'Liikenteen monimutkaisuus',
+    value: (s) => s.channel.traffic_complexity,
+  },
+];

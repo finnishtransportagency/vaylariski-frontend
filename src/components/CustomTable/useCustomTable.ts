@@ -20,8 +20,14 @@ export default function useCustomTable() {
       const leftValue = getValue(columnKey, left);
       const rightValue = getValue(columnKey, right);
       if (leftValue === rightValue) return 0;
-      const leftFirst =
-        typeof leftValue === 'boolean' ? leftValue : leftValue < rightValue;
+      let leftFirst: boolean;
+      if (typeof leftValue === 'boolean') {
+        leftFirst = leftValue;
+      } else if (typeof leftValue === 'number') {
+        leftFirst = Number(leftValue) < Number(rightValue);
+      } else {
+        leftFirst = leftValue < rightValue;
+      }
       return direction === 'ASC' ? (leftFirst ? -1 : 1) : leftFirst ? 1 : -1;
     });
     return rows;

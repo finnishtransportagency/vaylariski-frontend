@@ -1,5 +1,4 @@
 import { createTheme, Grid, ThemeProvider } from '@mui/material';
-import { Row, Col, Container } from 'react-bootstrap';
 
 import { CSSColorCode } from './types/CSSColorCode.ts';
 import Main from './views/Main.tsx';
@@ -13,8 +12,8 @@ import { RiskProvider } from './contexts/NewRiskContext.tsx';
 import { UserSelectionProvider } from './contexts/NewUserSelectionContext.tsx';
 import styles from './App.module.css';
 import packageJson from '../package.json';
-import { CustomText } from './components/CustomText/CustomText.tsx';
 import { CustomTabProvider } from './contexts/CustomTabContext.tsx';
+import { BrowserSettingsProvider } from './contexts/BrowserSettingsContext.tsx';
 
 const theme = createTheme({
   palette: {
@@ -78,11 +77,13 @@ function App() {
                   <ChannelProvider>
                     <WayareaProvider>
                       <DefaultShipProvider>
-                        <UserSelectionProvider>
-                          <CustomTabProvider>
-                            <Main />
-                          </CustomTabProvider>
-                        </UserSelectionProvider>
+                        <BrowserSettingsProvider>
+                          <UserSelectionProvider>
+                            <CustomTabProvider>
+                              <Main />
+                            </CustomTabProvider>
+                          </UserSelectionProvider>
+                        </BrowserSettingsProvider>
                       </DefaultShipProvider>
                     </WayareaProvider>
                   </ChannelProvider>

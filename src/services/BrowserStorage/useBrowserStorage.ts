@@ -1,36 +1,35 @@
-import { useRiskSettings } from '../../contexts/RiskSettingsContext.tsx';
-import { useEffect, useState } from 'react';
-import { useWayarea } from '../../contexts/NewWayareaContext.tsx';
-import { useDefaultShip } from '../../contexts/NewBoatContext.tsx';
+import { BoatSpeed } from '../../types/BoatSettings.ts';
 import {
   BrowserStorageContents,
   isBrowserStorageContents,
 } from '../../types/BrowserStorageContents.ts';
-import { RiskSettings } from '../../types/RiskSettings.ts';
 import { ChannelEdge, ChannelType } from '../../types/ChannelSettings.ts';
-import { BoatSpeed } from '../../types/BoatSettings.ts';
 import { WindSpeed } from '../../types/EnvironmentSettings.ts';
+import { RiskSettings } from '../../types/RiskSettings.ts';
 import { RISK_SETTING_DEFAULTS } from '../../constants/defaults.ts';
+import { useRiskSettings } from '../../contexts/RiskSettingsContext.tsx';
+import { useBrowserSettings } from '../../contexts/BrowserSettingsContext.tsx';
+import { BrowserSettingsContextData } from '../../types/BrowserSettingsContextData.ts';
 
-export type Change = {
-  readonly property: string;
-  readonly oldValue: string;
-  readonly newValue: string;
-};
-
-export type LoadableName = {
-  readonly name: string;
-  readonly date: string;
+export const DEFAULT_BROWSER_SETTINGS: BrowserSettingsContextData = {
+  name: 'Oletusparametrit',
+  date: undefined,
+  inUse: true,
+  settings: RISK_SETTING_DEFAULTS,
 };
 
 function toBrowserStorageContents(
   name: string,
+  inUse: boolean,
+  date: Date,
   settings?: RiskSettings
 ): BrowserStorageContents | undefined {
   if (!settings) return undefined;
   return {
     name: name,
-    date: new Date().toISOString(),
+    date: date.toISOString(),
+    inUse: inUse,
+
     calculation_interval: settings.calculationInterval,
     use_new_width_calculation: settings.useChannelMinimumWidth,
     boat_length: settings.boat.length,
@@ -291,146 +290,122 @@ function toRiskSettings(
   } as RiskSettings;
 }
 
-function getSettingsFromBrowserCache(
-  templateName?: string
-): BrowserStorageContents | undefined {
-  if (!templateName) return undefined;
-  const contentsAsString = window.localStorage.getItem(templateName);
+function keys(): string[] {
+  let keys: string[] = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const found: string | null = localStorage.key(i);
+    if (!found) continue;
+    keys.push(found);
+  }
+  return keys;
+}
+
+function loadFromBrowserStorage(
+  name?: string
+): BrowserSettingsContextData | undefined {
+  if (!name) return undefined;
+  const contentsAsString = window.localStorage.getItem(name);
   if (!contentsAsString) return undefined;
   const contents = JSON.parse(contentsAsString);
-  if (isBrowserStorageContents(contents)) return undefined;
-  return contents;
-}
-
-function saveSettingsToBrowserCache(
-  templateName: string,
-  riskSettings: RiskSettings
-): boolean {
-  const contents = toBrowserStorageContents(templateName, riskSettings);
-  if (!contents) return false;
-  window.localStorage.setItem(templateName, JSON.stringify(contents));
-  return true;
-}
-
-function getTemplateNamesFromBrowserCache(): LoadableName[] {
-  const found: LoadableName[] = [];
-  for (const key in Object.keys(window.localStorage)) {
-    // Skip the reserved name, the rest should be valid templates
-    if (key === 'lastUsedParameters') continue;
-    const contents = getSettingsFromBrowserCache(key);
-    if (!contents) continue;
-    found.push({ name: contents.name, date: contents.date });
+  if (!isBrowserStorageContents(contents)) {
+    return undefined;
   }
-  return found;
-}
-
-function saveLatestTemplateName(templateName?: string) {
-  // it's theoretically possible to name your template as this reserved name
-  // if it happens, for now user should just clear their cache
-  window.localStorage.setItem('lastUsedParameters', templateName ?? '');
-}
-
-function getLatestTemplateName(): string | undefined {
-  return window.localStorage.getItem('lastUsedParameters') ?? undefined;
-}
-
-function isConfirmed(question: string): boolean {
-  return window.confirm(question);
-}
-
-export function useBrowserStorage() {
-  const { riskSettings, setRiskSettings } = useRiskSettings();
-  const { setLoaded: setWayareaLoaded } = useWayarea();
-  const { setLoaded: setBoatLoaded } = useDefaultShip();
-
-  const [loadableNames, setLoadableNames] = useState<LoadableName[]>(
-    getTemplateNamesFromBrowserCache()
-  );
-  const [changes, setChanges] = useState<Change[]>([]);
-  const [saveName, setSaveName] = useState<string>();
-  const [loadName, setLoadName] = useState<string>();
-
-  function updateChanges() {
-    const current: { [key: string]: any } | undefined =
-      toBrowserStorageContents('current', riskSettings);
-    const template: { [key: string]: any } | undefined =
-      getSettingsFromBrowserCache(loadName);
-    if (!current || !template) {
-      setChanges([]);
-      return;
-    }
-
-    const changes: Change[] = [];
-    for (const property in current) {
-      if (!Object.hasOwn(template, property)) continue;
-      const oldValue = current[property] ? `${current[property]}` : '';
-      const newValue =
-        Object.hasOwn(template, property) && template[property]
-          ? `${template[property]}`
-          : '';
-      if (oldValue === newValue) continue;
-      changes.push({ property, oldValue, newValue });
-    }
-    setChanges(changes);
+  const settings = toRiskSettings(contents);
+  if (!settings) {
+    return undefined;
   }
-
-  function handleLoad() {
-    const loadedParameters = toRiskSettings(
-      getSettingsFromBrowserCache(loadName)
-    );
-    if (!loadedParameters) return;
-    saveLatestTemplateName(loadName);
-    setRiskSettings(loadedParameters);
-    setWayareaLoaded(1);
-    setBoatLoaded(true);
-    setLoadName(undefined);
-  }
-
-  function handleSave() {
-    if (!saveName || !riskSettings) {
-      return;
-    }
-    if (!saveSettingsToBrowserCache(saveName, riskSettings)) {
-      return;
-    }
-    setLoadableNames(getTemplateNamesFromBrowserCache());
-    setSaveName(undefined);
-  }
-
-  function askIfParametersAreRestored() {
-    const latestParameters = toRiskSettings(
-      getSettingsFromBrowserCache(getLatestTemplateName())
-    );
-    if (!latestParameters) return;
-
-    if (isConfirmed('Ladataanko viimeiseksi käytetyt parametrit?')) {
-      setRiskSettings(latestParameters);
-      setWayareaLoaded(1);
-      setBoatLoaded(true);
-    } else {
-      saveLatestTemplateName(undefined);
-      setRiskSettings(RISK_SETTING_DEFAULTS);
-    }
-  }
-
-  useEffect(() => {
-    // Make sure defaults are in cache
-    saveSettingsToBrowserCache('Oletusparametrit', RISK_SETTING_DEFAULTS);
-    askIfParametersAreRestored();
-  }, []);
-
-  useEffect(() => {
-    updateChanges();
-  }, [riskSettings, loadName]);
 
   return {
-    loadableNames,
-    saveName,
-    loadName,
-    changes,
-    handleLoad,
-    handleSave,
-    setSaveName,
-    setLoadName,
+    name: contents.name,
+    inUse: contents.inUse,
+    date: new Date(contents.date),
+    settings: settings,
+  };
+}
+
+function loadAllFromBrowserStorage(): BrowserSettingsContextData[] {
+  return keys()
+    .map(loadFromBrowserStorage)
+    .filter((content) => !!content);
+}
+
+function saveAllToBrowserStorage(contents: BrowserSettingsContextData[]) {
+  // Clear old state to make sure we don't keep outdated content
+  window.localStorage.clear();
+  contents.forEach((content) => {
+    const stored = toBrowserStorageContents(
+      content.name,
+      content.inUse,
+      content.date ?? new Date(),
+      content.settings
+    );
+    window.localStorage.setItem(content.name, JSON.stringify(stored));
+  });
+}
+
+export default function useBrowserStorage() {
+  const { riskSettings, setRiskSettings } = useRiskSettings();
+  // Don't store default parameters for no reason as the implementation knows them
+  const { contents, setContents } = useBrowserSettings();
+
+  function restoreSettings(name: string): boolean {
+    if (name === DEFAULT_BROWSER_SETTINGS.name) {
+      setRiskSettings(RISK_SETTING_DEFAULTS);
+      setContents(contents.map((content) => ({ ...content, inUse: false })));
+      return true;
+    }
+    const found = contents.find((content) => content.name === name);
+    if (!found) return false;
+    setRiskSettings(found.settings);
+    setContents(
+      contents.map((content) =>
+        content.name === found.name
+          ? { ...content, inUse: true }
+          : { ...content, inUse: false }
+      )
+    );
+    return true;
+  }
+
+  function saveCurrentSettings(name: string): boolean {
+    if (name === DEFAULT_BROWSER_SETTINGS.name) return false;
+
+    // Remove duplicate setting and make sure no other setting is in use
+    //  because the saved settings are the ones currently in use
+    const newContents = contents
+      .filter((content) => content.name !== name)
+      .map((content) => ({ ...content, inUse: false }));
+    newContents.push({
+      name: name,
+      inUse: true,
+      date: new Date(),
+      settings: riskSettings,
+    });
+    setContents(newContents);
+    return true;
+  }
+
+  function resetSettings() {
+    setContents([]);
+  }
+
+  const current =
+    contents.find((content) => content.inUse) ?? DEFAULT_BROWSER_SETTINGS;
+
+  const options = [DEFAULT_BROWSER_SETTINGS].concat(contents).sort((a, b) => {
+    if (!a.date && !b.date) return 0;
+    if (!a.date) return 1;
+    if (!b.date) return -1;
+    if (a.date.getTime() === b.date.getTime()) return 0;
+    return a.date.getTime() < b.date.getTime() ? 1 : -1;
+  });
+  return {
+    current: current,
+    options: options,
+    saveAllToBrowserStorage,
+    loadAllFromBrowserStorage,
+    restoreSettings,
+    saveCurrentSettings,
+    resetSettings,
   };
 }

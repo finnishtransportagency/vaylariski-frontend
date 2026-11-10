@@ -1,3 +1,5 @@
+import { Change } from '../services/BrowserStorage/Change.ts';
+
 export type BoatSettings = {
   readonly length: number;
   readonly beam: number;
@@ -23,3 +25,17 @@ export enum BoatManeuverabilityCoefficient {
   AVERAGE = 1.5,
   WEAK = 1.8,
 }
+
+export const BOAT_CHANGES: Change[] = [
+  { name: 'Aluksen pituus [m]', value: (s) => s.boat.length },
+  { name: 'Aluksen leveys [m]', value: (s) => s.boat.beam },
+  { name: 'Aluksen syväys [m]', value: (s) => s.boat.draft },
+  {
+    name: 'Aluksen ohjailtavuus parametri',
+    value: (s) => s.boat.maneuverability_coefficient,
+  },
+  {
+    name: 'Aluksen kääntösäde parametri',
+    value: (s) => s.boat.turning_radius_coefficient,
+  },
+];

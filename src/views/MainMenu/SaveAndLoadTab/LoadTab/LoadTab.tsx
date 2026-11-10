@@ -1,64 +1,59 @@
-import { Button, InputLabel, Select, MenuItem, Grid } from '@mui/material';
-import Changes from './Changes.tsx';
-import {
-  LoadableName,
-  useBrowserStorage,
-} from '../../../../services/BrowserStorage/useBrowserStorage.ts';
+import { Grid } from '@mui/material';
+import useBrowserStorage from '../../../../services/BrowserStorage/useBrowserStorage.ts';
+import CustomSelect from '../../../../components/CustomSelect/CustomSelect.tsx';
+import { useState } from 'react';
+import { CustomTextButton } from '../../../../components/CustomButton/CustomTextButton.tsx';
+import { BrowserSettingsContextData } from '../../../../types/BrowserSettingsContextData.ts';
+import StorageChanges from '../../../../services/BrowserStorage/StorageChanges.tsx';
 
 export default function LoadTab() {
-  const { loadableNames, loadName, changes, handleLoad, setLoadName } =
-    useBrowserStorage();
+  const { current, options, restoreSettings } = useBrowserStorage();
+  const [selected, setSelected] = useState<string>(current.name);
+
+  function getLabel(option: BrowserSettingsContextData): string {
+    const dateString: string | undefined = option.date?.toLocaleString(
+      'fi-FI',
+      { timeZone: 'Europe/Helsinki' }
+    );
+    return dateString ? `${option.name} (${dateString})` : option.name;
+  }
 
   return (
     <Grid container size={12} spacing={1}>
       <Grid size={12}>
-        <Grid size={6}>
-          <InputLabel
-            style={{ fontSize: 14 }}
-            id="default-parameter-load-name-label"
-          >
-            Valitse parametrikokoelma
-          </InputLabel>
-        </Grid>
-        <Grid size={6}>
-          <Select
-            labelId="default-parameter-load-name-label"
-            id="default-parameter-load-name"
-            size="small"
-            sx={{ width: '100%', height: 40 }}
-            style={{ fontSize: 14 }}
-            fullWidth
-            value={loadName || ''}
-            defaultValue={''}
-            onChange={(e) => {
-              setLoadName(e.target.value ?? undefined);
-            }}
-          >
-            {loadableNames.map((s: LoadableName) => {
-              return (
-                <MenuItem key={`saves-${s.name}-${s.date}`} value={s.name}>
-                  {`${s.name} (${
-                    new Date(s.date).toLocaleString('fi-FI', {
-                      timeZone: 'Europe/Helsinki',
-                    }) || ''
-                  })`}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </Grid>
+        <CustomSelect<string>
+          id="load-storage"
+          label="Lataa parametrit"
+          options={options.map((option) => ({
+            value: option.name,
+            label: getLabel(option),
+          }))}
+          value={selected}
+          onChange={(value) => {
+            if (!!value) {
+              setSelected(value);
+            }
+          }}
+        />
       </Grid>
       <Grid size={12}>
-        <Button
-          disabled={loadName === ''}
+        <CustomTextButton
+          type="submit"
+          label="Lataa parametrikokoelma"
+          disabled={!selected}
           variant="contained"
-          onClick={handleLoad}
-        >
-          Lataa parametrit
-        </Button>
+          onClick={() => {
+            if (selected) {
+              restoreSettings(selected);
+            }
+          }}
+        />
       </Grid>
+
       <Grid size={12}>
-        <Changes changes={changes} />
+        <StorageChanges
+          collection={options.find((option) => option.name === selected)}
+        />
       </Grid>
     </Grid>
   );

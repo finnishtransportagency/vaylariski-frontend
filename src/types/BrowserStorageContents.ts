@@ -1,6 +1,7 @@
 export type BrowserStorageContents = {
   readonly name: string;
   readonly date: string;
+  readonly inUse: boolean;
 
   readonly calculation_interval: number;
   readonly use_new_width_calculation: boolean;
