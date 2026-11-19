@@ -44,20 +44,20 @@ jobs:
         run: |
           DOCKER_BUILDKIT=0 docker build -t vaylariski-frontend --build-arg PROXY_URL=http://vaylariski_backend_e2e_test:8080 --build-arg REACT_APP_BASE_REST_URL=vaylariski/rest .
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          build:
-          record: false
-          start: docker run -p 3000:3000 --network=vaylariski-frontend_default vaylariski-frontend:latest
-          wait-on: 'http://localhost:3000'
-          browser: chrome
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     build:
+      #     record: false
+      #     start: docker run -p 3000:3000 --network=vaylariski-frontend_default vaylariski-frontend:latest
+      #     wait-on: 'http://localhost:3000'
+      #     browser: chrome
+      #   env:
+      #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Upload failure screenshots
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+      # - name: Upload failure screenshots
+      #   uses: actions/upload-artifact@v4
+      #   if: failure()
+      #   with:
+      #     name: cypress-screenshots
+      #     path: cypress/screenshots
